@@ -1,18 +1,15 @@
-import { Container, inject, injectable } from 'inversify'
+import { inject, injectable } from 'inversify'
 import { Identifier } from '../di/identifiers'
 import { IConnectionDB } from '../infrastructure/port/connection.db.interface'
 import { CustomLogger } from '../utils/custom.logger'
-import { DI } from '../di/di'
 
 @injectable()
 export class BackgroundService {
-    private readonly container: Container
 
     constructor(
         @inject(Identifier.MONGODB_CONNECTION) private _mongodb: IConnectionDB,
         @inject(Identifier.LOGGER) private _logger: CustomLogger
     ) {
-        this.container = DI.getInstance().getContainer()
     }
 
     public async startServices(): Promise<void> {

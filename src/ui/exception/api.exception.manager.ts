@@ -4,8 +4,6 @@ import { ValidationException } from '../../application/domain/exception/validati
 import { ApiException } from './api.exception'
 import { ConflictException } from '../../application/domain/exception/conflict.exception'
 import { RepositoryException } from '../../application/domain/exception/repository.exception'
-import { ChangePasswordException } from '../../application/domain/exception/change.password.exception'
-import { AuthenticationException } from '../../application/domain/exception/authentication.exception'
 
 /**
  * Treats the exception types of the application and converts
@@ -27,10 +25,6 @@ export abstract class ApiExceptionManager {
             return new ApiException(HttpStatus.CONFLICT, err.message, err.description)
         } else if (err instanceof RepositoryException) {
             return new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, err.message, err.description)
-        } else if (err instanceof ChangePasswordException) {
-            return new ApiException(HttpStatus.FORBIDDEN, err.message, err.description, err.link)
-        } else if (err instanceof AuthenticationException) {
-            return new ApiException(HttpStatus.UNAUTHORIZED, err.message, err.description)
         }
         return new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, err.message, err.description)
     }

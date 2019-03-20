@@ -8,7 +8,7 @@ export class Patient extends Entity implements IJSONSerializable, IJSONDeseriali
     private _first_name?: string
     private _last_name?: string
     private _gender?: string
-    private _age?: number
+    private _birth_date?: string
 
     constructor() {
         super()
@@ -46,12 +46,12 @@ export class Patient extends Entity implements IJSONSerializable, IJSONDeseriali
         this._gender = value
     }
 
-    get age(): number | undefined {
-        return this._age
+    get birth_date(): string | undefined {
+        return this._birth_date
     }
 
-    set age(value: number | undefined) {
-        this._age = value
+    set birth_date(value: string | undefined) {
+        this._birth_date = value
     }
 
     public fromJSON(json: any): Patient {
@@ -65,7 +65,7 @@ export class Patient extends Entity implements IJSONSerializable, IJSONDeseriali
         if (json.first_name) this.first_name = json.first_name
         if (json.last_name) this.last_name = json.last_name
         if (json.gender) this.gender = json.gender
-        if (json.age) this.age = json.age
+        if (json.birth_date) this.birth_date = json.birth_date
 
         return this
     }
@@ -77,7 +77,7 @@ export class Patient extends Entity implements IJSONSerializable, IJSONDeseriali
             first_name: this.first_name,
             last_name: this.last_name,
             gender: this.gender,
-            age: this.age
+            birth_date: this.birth_date
         }
     }
 }

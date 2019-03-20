@@ -6,9 +6,6 @@ export class WeeklyFoodRecord implements IJSONSerializable, IJSONDeserializable<
     private _food?: string
     private _seven_days_freq?: string
 
-    constructor() {
-    }
-
     get food(): string | undefined {
         return this._food
     }

@@ -16,7 +16,9 @@ export abstract class Strings {
     public static readonly ERROR_MESSAGE: any = {
         UNEXPECTED: 'An unexpected error has occurred. Please try again later...',
         UUID_NOT_VALID_FORMAT: 'Some ID provided does not have a valid format!',
-        UUID_NOT_VALID_FORMAT_DESC: 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea is expected.'
+        UUID_NOT_VALID_FORMAT_DESC: 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea is expected.',
+        ISO_DATE_NOT_VALID_FORMAT: 'Some date provided does not have a valid format!',
+        ISO_DATE_NOT_VALID_FORMAT_DESC: 'The format expect for date is: yyyy-MM-dd.'
     }
 
     public static readonly ENUM_VALIDATOR: any = {

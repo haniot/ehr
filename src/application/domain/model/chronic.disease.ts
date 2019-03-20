@@ -6,9 +6,6 @@ export class ChronicDisease implements IJSONSerializable, IJSONDeserializable<Ch
     private _type?: string
     private _disease_history?: string
 
-    constructor() {
-    }
-
     get type(): string | undefined {
         return this._type
     }

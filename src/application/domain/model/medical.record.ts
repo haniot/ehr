@@ -1,0 +1,44 @@
+import { ActivityHabitsRecord } from './activity.habits.record'
+import { IJSONSerializable } from '../utils/json.serializable.interface'
+import { IJSONDeserializable } from '../utils/json.deserializable.interface'
+import { ChronicDisease } from './chronic.disease'
+import { JsonUtils } from '../utils/json.utils'
+
+export class MedicalRecord
+    extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<MedicalRecord> {
+
+    private _chronic_diseases?: Array<ChronicDisease>
+
+    constructor() {
+        super()
+    }
+
+    get chronic_diseases(): Array<ChronicDisease> | undefined {
+        return this._chronic_diseases
+    }
+
+    set chronic_diseases(value: Array<ChronicDisease> | undefined) {
+        this._chronic_diseases = value
+    }
+
+    public fromJSON(json: any): MedicalRecord {
+        if (!json) return this
+        if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
+            json = JSON.parse(json)
+        }
+
+        super.fromJSON(json)
+        if (json.chronic_diseases && json.chronic_diseases instanceof Array)
+            this.chronic_diseases =
+                json.chronic_diseases.map(item => new ChronicDisease().fromJSON(item))
+
+        return this
+    }
+
+    public toJSON(): any {
+        return {
+            ...super.toJSON(),
+            ...{ chronic_diseases: this.chronic_diseases }
+        }
+    }
+}

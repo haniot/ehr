@@ -1,0 +1,50 @@
+import { Entity } from './entity'
+import { IJSONSerializable } from '../utils/json.serializable.interface'
+import { IJSONDeserializable } from '../utils/json.deserializable.interface'
+import { JsonUtils } from '../utils/json.utils'
+
+export class ActivityHabitsRecord extends Entity implements IJSONSerializable, IJSONDeserializable<ActivityHabitsRecord> {
+    private _patient_id?: string
+    private _created_at?: string
+
+    constructor() {
+        super()
+    }
+
+    get patient_id(): string | undefined {
+        return this._patient_id
+    }
+
+    set patient_id(value: string | undefined) {
+        this._patient_id = value
+    }
+
+    get created_at(): string | undefined {
+        return this._created_at
+    }
+
+    set created_at(value: string | undefined) {
+        this._created_at = value
+    }
+
+    public fromJSON(json: any): ActivityHabitsRecord {
+        if (!json) return this
+        if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
+            json = JSON.parse(json)
+        }
+
+        if (json.id) super.id = this.id
+        if (json.patient_id) this.patient_id = json.patient_id
+        if (json.created_at) this.created_at = json.created_at
+
+        return this
+    }
+
+    public toJSON(): any {
+        return {
+            id: super.id,
+            patient_id: this.patient_id,
+            created_at: this.created_at
+        }
+    }
+}

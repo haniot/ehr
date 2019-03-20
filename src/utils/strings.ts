@@ -18,4 +18,9 @@ export abstract class Strings {
         UUID_NOT_VALID_FORMAT: 'Some ID provided does not have a valid format!',
         UUID_NOT_VALID_FORMAT_DESC: 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea is expected.'
     }
+
+    public static readonly ENUM_VALIDATOR: any = {
+        NOT_MAPPED: 'Value not mapped!',
+        NOT_MAPPED_DESC: 'The mapped values are: '
+    }
 }

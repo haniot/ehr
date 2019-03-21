@@ -18,7 +18,8 @@ export abstract class Strings {
         UUID_NOT_VALID_FORMAT: 'Some ID provided does not have a valid format!',
         UUID_NOT_VALID_FORMAT_DESC: 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea is expected.',
         ISO_DATE_NOT_VALID_FORMAT: 'Some date provided does not have a valid format!',
-        ISO_DATE_NOT_VALID_FORMAT_DESC: 'The format expect for date is: yyyy-MM-dd.'
+        ISO_DATE_NOT_VALID_FORMAT_DESC: 'The format expect for date is: yyyy-MM-dd.',
+        ISO_DATETIME_NOT_VALID_FORMAT_DESC: 'The format expect for date is: yyyy-MM-ddThh:mm:ss.'
     }
 
     public static readonly ENUM_VALIDATOR: any = {

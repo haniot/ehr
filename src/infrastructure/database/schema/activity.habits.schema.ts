@@ -5,12 +5,15 @@ interface IActivityHabitsModel extends Mongoose.Document {
 
 const activityHabitsSchema = new Mongoose.Schema({
     patient_id: {
-        types: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Patient'
     },
     created_at: {
         type: String,
         required: 'Date of create is required!'
+    },
+    type: {
+        type: String
     }, // SleepHabit
     week_day_sleep: {
         type: String

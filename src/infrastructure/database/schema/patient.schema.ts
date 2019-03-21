@@ -4,7 +4,7 @@ interface IPatientModel extends Mongoose.Document {
 }
 
 const patientSchema = new Mongoose.Schema({
-        pilot_id: {
+        pilotstudy_id: {
             type: Schema.Types.ObjectId,
             required: 'Id of pilot study is required!'
         },
@@ -20,9 +20,9 @@ const patientSchema = new Mongoose.Schema({
             type: String,
             required: 'Gender is required!'
         },
-        age: {
-            type: Number,
-            required: 'Age is required!'
+        birth_date: {
+            type: String,
+            required: 'Birth date is required!'
         }
     },
     {

@@ -3,11 +3,12 @@ import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { WeeklyFoodRecord } from './weekly.food.record'
 import { JsonUtils } from '../utils/json.utils'
+import { ActivityHabitsTypes } from '../utils/activity.habits.types'
 
 export class FeedingHabitsRecord
     extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
 
-    private _weekly_feeding_habits?: Array<WeeklyFoodRecord>
+    private _weekly_feeding_habits?: Array<object>
     private _daily_water_glasses?: string
     private _six_month_breast_feeding?: string
     private _food_allergy_intolerance?: Array<string>
@@ -15,13 +16,14 @@ export class FeedingHabitsRecord
 
     constructor() {
         super()
+        super.type = ActivityHabitsTypes.FEEDING_HABITS_RECORD
     }
 
-    get weekly_feeding_habits(): Array<WeeklyFoodRecord> | undefined {
+    get weekly_feeding_habits(): Array<object> | undefined {
         return this._weekly_feeding_habits
     }
 
-    set weekly_feeding_habits(value: Array<WeeklyFoodRecord> | undefined) {
+    set weekly_feeding_habits(value: Array<object> | undefined) {
         this._weekly_feeding_habits = value
     }
 
@@ -65,15 +67,15 @@ export class FeedingHabitsRecord
 
         super.fromJSON(json)
 
-        if (json.weekly_feeding_habits && json.weekly_feeding_habits instanceof Array)
+        if (json.weekly_feeding_habits !== undefined && json.weekly_feeding_habits instanceof Array)
             this.weekly_feeding_habits =
                 json.weekly_feeding_habits.map(item => new WeeklyFoodRecord().fromJSON(item))
-        if (json.daily_water_glasses) this.daily_water_glasses = json.daily_water_glasses
-        if (json.six_month_breast_feeding) this.six_month_breast_feeding = json.six_month_breast_feeding
-        if (json.food_allergy_intolerance && json.food_allergy_intolerance instanceof Array)
+        if (json.daily_water_glasses !== undefined) this.daily_water_glasses = json.daily_water_glasses
+        if (json.six_month_breast_feeding !== undefined) this.six_month_breast_feeding = json.six_month_breast_feeding
+        if (json.food_allergy_intolerance !== undefined && json.food_allergy_intolerance instanceof Array)
             this.food_allergy_intolerance =
-                json.food_allergy_intolerance.map(item => item instanceof String)
-        if (json.breakfast_daily_frequency) this.breakfast_daily_frequency = json.breakfast_daily_frequency
+                json.food_allergy_intolerance.filter(item => typeof item === 'string')
+        if (json.breakfast_daily_frequency !== undefined) this.breakfast_daily_frequency = json.breakfast_daily_frequency
 
         return this
     }

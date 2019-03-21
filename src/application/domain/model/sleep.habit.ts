@@ -2,6 +2,7 @@ import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { JsonUtils } from '../utils/json.utils'
 import { ActivityHabitsRecord } from './activity.habits.record'
+import { ActivityHabitsTypes } from '../utils/activity.habits.types'
 
 export class SleepHabit extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<SleepHabit> {
 
@@ -10,6 +11,7 @@ export class SleepHabit extends ActivityHabitsRecord implements IJSONSerializabl
 
     constructor() {
         super()
+        super.type = ActivityHabitsTypes.SLEEP_HABIT
     }
 
     get week_day_sleep(): number | undefined {
@@ -35,8 +37,8 @@ export class SleepHabit extends ActivityHabitsRecord implements IJSONSerializabl
         }
 
         super.fromJSON(json)
-        if (json.week_day_sleep) this.week_day_sleep = json.week_day_sleep
-        if (json.week_day_wake_up) this.week_day_wake_up = json.week_day_wake_up
+        if (json.week_day_sleep !== undefined) this.week_day_sleep = json.week_day_sleep
+        if (json.week_day_wake_up  !== undefined) this.week_day_wake_up = json.week_day_wake_up
 
         return this
     }

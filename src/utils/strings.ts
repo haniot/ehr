@@ -25,4 +25,32 @@ export abstract class Strings {
         NOT_MAPPED: 'Value not mapped!',
         NOT_MAPPED_DESC: 'The mapped values are: '
     }
+
+    public static readonly FEEDING_HABITS_RECORD: any = {
+        NOT_FOUND: 'Feeding habits record not found!',
+        NOT_FOUND_DESCRIPTION: 'Feeding habits record not found or already removed.' +
+            ' A new operation for the same resource is not required.'
+    }
+
+    public static readonly MEDICAL_RECORD: any = {
+        NOT_FOUND: 'Medical record not found!',
+        NOT_FOUND_DESCRIPTION: 'Medical record not found or already removed.' +
+            ' A new operation for the same resource is not required.'
+    }
+
+    public static readonly PATIENT: any = {
+        NOT_FOUND: 'Patient not found!',
+        NOT_FOUND_DESCRIPTION: 'Patient not found or already removed.' +
+            ' A new operation for the same resource is not required.'
+    }
+    public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
+        NOT_FOUND: 'Physical activity habits not founded!',
+        NOT_FOUND_DESCRIPTION: 'Physical activity habits not founded or already removed.' +
+            ' A new operation for the same resource is not required.'
+    }
+    public static readonly SLEEP_HABIT: any = {
+        NOT_FOUND: 'Sleep habit not found!',
+        NOT_FOUND_DESCRIPTION: 'Sleep habit not found or already removed.' +
+            ' A new operation for the same resource is not required.'
+    }
 }

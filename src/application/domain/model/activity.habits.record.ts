@@ -6,6 +6,7 @@ import { JsonUtils } from '../utils/json.utils'
 export class ActivityHabitsRecord extends Entity implements IJSONSerializable, IJSONDeserializable<ActivityHabitsRecord> {
     private _patient_id?: string
     private _created_at?: string
+    private _type?: string
 
     constructor() {
         super()
@@ -27,15 +28,24 @@ export class ActivityHabitsRecord extends Entity implements IJSONSerializable, I
         this._created_at = value
     }
 
+    get type(): string | undefined {
+        return this._type
+    }
+
+    set type(value: string | undefined) {
+        this._type = value
+    }
+
     public fromJSON(json: any): ActivityHabitsRecord {
         if (!json) return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)
         }
 
-        if (json.id) super.id = this.id
-        if (json.patient_id) this.patient_id = json.patient_id
-        if (json.created_at) this.created_at = json.created_at
+        if (json.id !== undefined) super.id = this.id
+        if (json.patient_id !== undefined) this.patient_id = json.patient_id
+        if (json.created_at !== undefined) this.created_at = json.created_at
+        if (json.type !== undefined) this.type = json.type
 
         return this
     }
@@ -44,7 +54,8 @@ export class ActivityHabitsRecord extends Entity implements IJSONSerializable, I
         return {
             id: super.id,
             patient_id: this.patient_id,
-            created_at: this.created_at
+            created_at: this.created_at,
+            type: this._type
         }
     }
 }

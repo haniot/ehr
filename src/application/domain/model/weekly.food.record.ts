@@ -28,10 +28,10 @@ export class WeeklyFoodRecord implements IJSONSerializable, IJSONDeserializable<
             json = JSON.parse(json)
         }
 
-        if (json.food) this.food = json.food
-        if (json.seven_days_freq) this.seven_days_freq = json.seven_days_freq
+        if (json.food !== undefined) this.food = json.food
+        if (json.seven_days_freq !== undefined) this.seven_days_freq = json.seven_days_freq
 
-        return this
+        return this.toJSON()
     }
 
     public toJSON(): any {

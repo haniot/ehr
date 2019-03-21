@@ -28,10 +28,10 @@ export class ChronicDisease implements IJSONSerializable, IJSONDeserializable<Ch
             json = JSON.parse(json)
         }
 
-        if (json.type) this.type = json.type
-        if (json.disease_history) this.disease_history = json.disease_history
+        if (json.type !== undefined) this.type = json.type
+        if (json.disease_history !== undefined) this.disease_history = json.disease_history
 
-        return this
+        return this.toJSON()
     }
 
     public toJSON(): any {

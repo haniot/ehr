@@ -2,6 +2,7 @@ import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { ActivityHabitsRecord } from './activity.habits.record'
 import { JsonUtils } from '../utils/json.utils'
+import { ActivityHabitsTypes } from '../utils/activity.habits.types'
 
 export class PhysicalActivityHabits
     extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<PhysicalActivityHabits> {
@@ -11,6 +12,7 @@ export class PhysicalActivityHabits
 
     constructor() {
         super()
+        super.type = ActivityHabitsTypes.PHYSICAL_ACTIVITY_HABITS
     }
 
     get school_activity_freq(): string | undefined {
@@ -37,7 +39,9 @@ export class PhysicalActivityHabits
         super.fromJSON(json)
         if (json.school_activity_freq !== undefined) this.school_activity_freq = json.school_activity_freq
         if (json.weekly_activities !== undefined && json.weekly_activities instanceof Array) {
-            this.weekly_activities = json.weekly_activities.map(item => item instanceof String)
+            this.weekly_activities = json.weekly_activities.filter(item => {
+                if (typeof item === 'string') return item
+            })
         }
         return this
     }

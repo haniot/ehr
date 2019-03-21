@@ -61,11 +61,11 @@ export class Patient extends Entity implements IJSONSerializable, IJSONDeseriali
         }
 
         if (json.id !== undefined) super.id = json.id
-        if (json.pilotstudy_id) this.pilotstudy_id = json.pilotstudy_id
-        if (json.first_name) this.first_name = json.first_name
-        if (json.last_name) this.last_name = json.last_name
-        if (json.gender) this.gender = json.gender
-        if (json.birth_date) this.birth_date = json.birth_date
+        if (json.pilotstudy_id !== undefined) this.pilotstudy_id = json.pilotstudy_id
+        if (json.first_name !== undefined) this.first_name = json.first_name
+        if (json.last_name !== undefined) this.last_name = json.last_name
+        if (json.gender !== undefined) this.gender = json.gender
+        if (json.birth_date !== undefined) this.birth_date = json.birth_date
 
         return this
     }

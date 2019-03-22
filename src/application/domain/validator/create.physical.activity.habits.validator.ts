@@ -11,9 +11,6 @@ export class CreatePhysicalActivityHabitsValidator {
         if (!item.school_activity_freq) fields.push('school_activity_freq')
         else SchoolActivityFrequencyValidator.validate(item.school_activity_freq)
         if (!item.weekly_activities) fields.push('weekly_activities')
-        else item.weekly_activities.forEach((value: any) => {
-            if (!!value.trim()) fields.push(`${value} (cannot be null)`)
-        })
 
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',

@@ -8,10 +8,12 @@ export class CreateMedicalRecordValidator {
         let fields: Array<string> = []
         CreateActivityHabitsRecordValidator.validate(item)
         if (!item.chronic_diseases) fields.push('chronic_diseases')
+        else item.chronic_diseases.forEach(value => {
+            const validChronicDisease = ChronicDiseaseValidator.validate(item.chronic_diseases)
+            fields = [...fields, ...validChronicDisease instanceof Array ? validChronicDisease : []]
+        })
 
-        const validChronicDisease = ChronicDiseaseValidator.validate(item.chronic_diseases)
-        fields = [...fields, ...validChronicDisease instanceof Array ? validChronicDisease : []]
-
+        fields = [...new Set(fields)]
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',
                 ' validation: '.concat(fields.join(', ')).concat(' is required!'))

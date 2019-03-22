@@ -53,8 +53,7 @@ export class ActivityHabitsRecord extends Entity implements IJSONSerializable, I
     public toJSON(): any {
         return {
             id: super.id,
-            patient_id: this.patient_id,
-            created_at: this.created_at,
+            created_at: this.created_at ? new Date(this.created_at).toISOString() : undefined,
             type: this._type
         }
     }

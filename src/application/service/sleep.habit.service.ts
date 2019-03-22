@@ -25,6 +25,7 @@ export class SleepHabitService implements ISleepHabitService {
             CreateSleepHabitValidator.validate(item)
             if (item.patient_id) {
                 const patientExists = await this._patientRepo.checkExists(item.patient_id)
+                console.log(item.patient_id, patientExists)
                 if (!patientExists) {
                     throw new ValidationException(
                         Strings.PATIENT.NOT_FOUND,

@@ -10,7 +10,7 @@ import { ApiException } from '../exception/api.exception'
 import { Strings } from '../../utils/strings'
 import { Query } from '../../infrastructure/repository/query/query'
 
-@controller('/pilotstudies/:pilotstudy_id/patients/:patient_id/sleephabits')
+@controller('/patients/:patient_id/sleephabits')
 export class SleepHabitController {
     constructor(
         @inject(Identifier.SLEEP_HABIT_SERVICE) private readonly _service: ISleepHabitService

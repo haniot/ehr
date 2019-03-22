@@ -10,7 +10,7 @@ import { Strings } from '../../utils/strings'
 import { PhysicalActivityHabits } from '../../application/domain/model/physical.activity.habits'
 import { Query } from '../../infrastructure/repository/query/query'
 
-@controller('/pilotstudies/:pilotstudy_id/patients/:patient_id/physicalactivityhabits')
+@controller('/patients/:patient_id/physicalactivityhabits')
 export class PhysicalActivityHabitsController {
     constructor(
         @inject(Identifier.PHYSICAL_ACTIVITY_HABITS_SERVICE) private readonly _service: IPhysicalActivityHabitsService

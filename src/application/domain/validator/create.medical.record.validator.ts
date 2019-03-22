@@ -8,9 +8,10 @@ export class CreateMedicalRecordValidator {
         let fields: Array<string> = []
         CreateActivityHabitsRecordValidator.validate(item)
         if (!item.chronic_diseases) fields.push('chronic_diseases')
-        else item.chronic_diseases.forEach(value => {
-            const validChronicDisease = ChronicDiseaseValidator.validate(item.chronic_diseases)
-            fields = [...fields, ...validChronicDisease instanceof Array ? validChronicDisease : []]
+        else item.chronic_diseases.forEach((value: any) => {
+            if (!value.type) fields.push('chronic_disease.type')
+            if (!value.disease_history) fields.push('chronic_disease.disease_history')
+            ChronicDiseaseValidator.validate(value)
         })
 
         fields = [...new Set(fields)]

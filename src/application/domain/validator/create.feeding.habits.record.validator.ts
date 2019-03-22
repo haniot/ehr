@@ -12,9 +12,10 @@ export class CreateFeedingHabitsRecordValidator {
 
         CreateActivityHabitsRecordValidator.validate(item)
         if (!item.weekly_feeding_habits) fields.push('weekly_feeding_habits')
-        else item.weekly_feeding_habits.forEach(value => {
-            const validWeeklyFoodRecord = WeeklyFoodRecordValidator.validate(item)
-            fields = [...fields, ...validWeeklyFoodRecord instanceof Array ? validWeeklyFoodRecord : []]
+        else item.weekly_feeding_habits.forEach((value: any) => {
+            if (!value.food) fields.push('weekly_food_record.food')
+            if (!value.seven_days_freq) fields.push('weekly_food_record.seven_days_freq')
+            WeeklyFoodRecordValidator.validate(value)
         })
         if (!item.daily_water_glasses) fields.push('daily_water_glasses')
         if (!item.six_month_breast_feeding) fields.push('six_month_breast_feeding')

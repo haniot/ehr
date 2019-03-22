@@ -13,6 +13,10 @@ export abstract class Strings {
         APP_DESCRIPTION: 'Micro-service for Account.'
     }
 
+    public static readonly PARAMETERS: any = {
+        COULD_NOT_BE_UPDATED: 'This parameter could not be updated!'
+    }
+
     public static readonly ERROR_MESSAGE: any = {
         UNEXPECTED: 'An unexpected error has occurred. Please try again later...',
         UUID_NOT_VALID_FORMAT: 'Some ID provided does not have a valid format!',

@@ -21,6 +21,7 @@ export class MedicalRecordController {
     public async addMedicalRecordFromPacient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const medicalRecord: MedicalRecord = new MedicalRecord().fromJSON(req.body)
+            medicalRecord.patient_id = req.params.patient_id
             const result: MedicalRecord = await this._service.add(medicalRecord)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
@@ -32,7 +33,9 @@ export class MedicalRecordController {
     @httpGet('/')
     public async getAllMedicalRecordsFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: Array<MedicalRecord> = await this._service.getAll(new Query().fromJSON(req.query))
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
+            const result: Array<MedicalRecord> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -43,8 +46,10 @@ export class MedicalRecordController {
     @httpGet('/:medicalrecord_id')
     public async getMedicalRecordFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
             const result: MedicalRecord =
-                await this._service.getById(req.params.medicalrecord_id, new Query().fromJSON(req.query))
+                await this._service.getById(req.params.medicalrecord_id, query)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {

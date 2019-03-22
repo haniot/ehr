@@ -15,7 +15,7 @@ export class PatientService implements IPatientService {
     ) {
     }
 
-    public add(item: Patient): Promise<Patient> {
+    public async add(item: Patient): Promise<Patient> {
         try {
             CreatePatientValidator.validate(item)
         } catch (err) {
@@ -24,16 +24,21 @@ export class PatientService implements IPatientService {
         return this._repo.create(item)
     }
 
-    public getAll(query: IQuery): Promise<Array<Patient>> {
+    public async getAll(query: IQuery): Promise<Array<Patient>> {
         return this._repo.find(query)
     }
 
     public getById(id: string, query: IQuery): Promise<Patient> {
+        try {
+            ObjectIdValidator.validate(id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         query.addFilter({ _id: id })
         return this._repo.findOne(query)
     }
 
-    public remove(id: string): Promise<boolean> {
+    public async remove(id: string): Promise<boolean> {
         try {
             ObjectIdValidator.validate(id)
         } catch (err) {
@@ -42,7 +47,7 @@ export class PatientService implements IPatientService {
         return this._repo.delete(id)
     }
 
-    public update(item: Patient): Promise<Patient> {
+    public async update(item: Patient): Promise<Patient> {
         try {
             UpdatePatientValidator.validate(item)
         } catch (err) {

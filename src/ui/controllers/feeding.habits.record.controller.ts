@@ -21,6 +21,7 @@ export class FeedingHabitsRecordController {
     public async addFeedingHabitsRecordFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const feedingHabitRecord: FeedingHabitsRecord = new FeedingHabitsRecord().fromJSON(req.body)
+            feedingHabitRecord.patient_id = req.params.patient_id
             const result: FeedingHabitsRecord = await this._service.add(feedingHabitRecord)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
@@ -32,7 +33,9 @@ export class FeedingHabitsRecordController {
     @httpGet('/')
     public async getAllFeedingHabitsRecordsFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: Array<FeedingHabitsRecord> = await this._service.getAll(new Query().fromJSON(req.query))
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
+            const result: Array<FeedingHabitsRecord> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -43,8 +46,10 @@ export class FeedingHabitsRecordController {
     @httpGet('/:feedinghabitsrecord_id')
     public async getFeedingHabitsRecordFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
             const result: FeedingHabitsRecord =
-                await this._service.getById(req.params.feedinghabitsrecord_id, new Query().fromJSON(req.query))
+                await this._service.getById(req.params.feedinghabitsrecord_id, query)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {

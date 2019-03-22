@@ -21,6 +21,7 @@ export class PhysicalActivityHabitsController {
     public async addPhysicalActivityHabitFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const physicalActivityHabits: PhysicalActivityHabits = new PhysicalActivityHabits().fromJSON(req.body)
+            physicalActivityHabits.patient_id = req.params.patient_id
             const result: PhysicalActivityHabits = await this._service.add(physicalActivityHabits)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
@@ -32,7 +33,9 @@ export class PhysicalActivityHabitsController {
     @httpGet('/')
     public async getAllPhysicalActivityHabitsFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: Array<PhysicalActivityHabits> = await this._service.getAll(new Query().fromJSON(req.query))
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
+            const result: Array<PhysicalActivityHabits> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -43,8 +46,10 @@ export class PhysicalActivityHabitsController {
     @httpGet('/:physicalactivityhabits_id')
     public async getPhysicalActivityHabitsFromPacient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
             const result: PhysicalActivityHabits =
-                await this._service.getById(req.params.physicalactivityhabits_id, new Query().fromJSON(req.query))
+                await this._service.getById(req.params.physicalactivityhabits_id, query)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {

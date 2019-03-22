@@ -6,6 +6,7 @@ import { inject, injectable } from 'inversify'
 import { Identifier } from '../../di/identifiers'
 import { IEntityMapper } from '../port/entity.mapper.interface'
 import { ILogger } from '../../utils/custom.logger'
+import { Query } from './query/query'
 
 @injectable()
 export class PatientRepository extends BaseRepository<Patient, PatientEntity> implements IPatientRepository {
@@ -15,5 +16,13 @@ export class PatientRepository extends BaseRepository<Patient, PatientEntity> im
         @inject(Identifier.LOGGER) readonly _logger: ILogger
     ) {
         super(_repoModel, _mapper, _logger)
+    }
+
+    public checkExists(id: string): Promise<boolean> {
+        return new Promise<boolean>(async (resolve, reject) => {
+            const result = await this.findOne(new Query().fromJSON({ _id: id }))
+            if (result) return resolve(true)
+            return resolve(false)
+        })
     }
 }

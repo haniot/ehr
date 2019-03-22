@@ -21,6 +21,7 @@ export class SleepHabitController {
     public async addSleepHabitFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const sleepHabit: SleepHabit = new SleepHabit().fromJSON(req.body)
+            sleepHabit.patient_id = req.params.patient_id
             const result: SleepHabit = await this._service.add(sleepHabit)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
@@ -32,7 +33,9 @@ export class SleepHabitController {
     @httpGet('/')
     public async getAllSleepHabitsFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: Array<SleepHabit> = await this._service.getAll(new Query().fromJSON(req.query))
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
+            const result: Array<SleepHabit> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -43,8 +46,10 @@ export class SleepHabitController {
     @httpGet('/:sleephabit_id')
     public async getSleepDataFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
             const result: SleepHabit =
-                await this._service.getById(req.params.sleephabit_id, new Query().fromJSON(req.query))
+                await this._service.getById(req.params.sleephabit_id, query)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {

@@ -8,34 +8,52 @@ import { ActivityHabitsTypes } from '../domain/utils/activity.habits.types'
 import { CreateSleepHabitValidator } from '../domain/validator/create.sleep.habit.validator'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
 import { UpdateSleepHabitValidator } from '../domain/validator/update.sleep.habit.validator'
+import { IPatientRepository } from '../port/patient.repository.interface'
+import { ValidationException } from '../domain/exception/validation.exception'
+import { Strings } from '../../utils/strings'
 
 @injectable()
 export class SleepHabitService implements ISleepHabitService {
     constructor(
-        @inject(Identifier.SLEEP_HABIT_REPOSITORY) private readonly _repo: ISleepHabitRepository
+        @inject(Identifier.SLEEP_HABIT_REPOSITORY) private readonly _repo: ISleepHabitRepository,
+        @inject(Identifier.PATIENT_REPOSITORY) private readonly _patientRepo: IPatientRepository
     ) {
     }
 
-    public add(item: SleepHabit): Promise<SleepHabit> {
+    public async add(item: SleepHabit): Promise<SleepHabit> {
         try {
             CreateSleepHabitValidator.validate(item)
+            if (item.patient_id) {
+                const patientExists = await this._patientRepo.checkExists(item.patient_id)
+                if (!patientExists) {
+                    throw new ValidationException(
+                        Strings.PATIENT.NOT_FOUND,
+                        Strings.PATIENT.NOT_FOUND_DESCRIPTION
+                    )
+                }
+            }
         } catch (err) {
             return Promise.reject(err)
         }
         return this._repo.create(item)
     }
 
-    public getAll(query: IQuery): Promise<Array<SleepHabit>> {
+    public async getAll(query: IQuery): Promise<Array<SleepHabit>> {
         query.addFilter({ type: ActivityHabitsTypes.SLEEP_HABIT })
         return this._repo.find(query)
     }
 
-    public getById(id: string, query: IQuery): Promise<SleepHabit> {
+    public async getById(id: string, query: IQuery): Promise<SleepHabit> {
+        try {
+            ObjectIdValidator.validate(id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         query.addFilter({ _id: id, type: ActivityHabitsTypes.SLEEP_HABIT })
         return this._repo.findOne(query)
     }
 
-    public remove(id: string): Promise<boolean> {
+    public async remove(id: string): Promise<boolean> {
         try {
             ObjectIdValidator.validate(id)
         } catch (err) {
@@ -44,7 +62,7 @@ export class SleepHabitService implements ISleepHabitService {
         return this._repo.delete(id)
     }
 
-    public update(item: SleepHabit): Promise<SleepHabit> {
+    public async update(item: SleepHabit): Promise<SleepHabit> {
         try {
             UpdateSleepHabitValidator.validate(item)
         } catch (err) {

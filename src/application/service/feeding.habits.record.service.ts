@@ -8,34 +8,52 @@ import { ActivityHabitsTypes } from '../domain/utils/activity.habits.types'
 import { CreateFeedingHabitsRecordValidator } from '../domain/validator/create.feeding.habits.record.validator'
 import { UpdateFeedingHabitsRecordValidator } from '../domain/validator/update.feeding.habits.record.validator'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
+import { IPatientRepository } from '../port/patient.repository.interface'
+import { ValidationException } from '../domain/exception/validation.exception'
+import { Strings } from '../../utils/strings'
 
 @injectable()
 export class FeedingHabitsRecordService implements IFeedingHabitsRecordService {
     constructor(
-        @inject(Identifier.FEEDING_HABITS_RECORD_REPOSITORY) private readonly _repo: IFeedingHabitsRecordRepository
+        @inject(Identifier.FEEDING_HABITS_RECORD_REPOSITORY) private readonly _repo: IFeedingHabitsRecordRepository,
+        @inject(Identifier.PATIENT_REPOSITORY) private readonly _patientRepo: IPatientRepository
     ) {
     }
 
-    public add(item: FeedingHabitsRecord): Promise<FeedingHabitsRecord> {
+    public async add(item: FeedingHabitsRecord): Promise<FeedingHabitsRecord> {
         try {
             CreateFeedingHabitsRecordValidator.validate(item)
+            if (item.patient_id) {
+                const patientExists = await this._patientRepo.checkExists(item.patient_id)
+                if (!patientExists) {
+                    throw new ValidationException(
+                        Strings.PATIENT.NOT_FOUND,
+                        Strings.PATIENT.NOT_FOUND_DESCRIPTION
+                    )
+                }
+            }
         } catch (err) {
             return Promise.reject(err)
         }
         return this._repo.create(item)
     }
 
-    public getAll(query: IQuery): Promise<Array<FeedingHabitsRecord>> {
+    public async getAll(query: IQuery): Promise<Array<FeedingHabitsRecord>> {
         query.addFilter({ type: ActivityHabitsTypes.FEEDING_HABITS_RECORD })
         return this._repo.find(query)
     }
 
-    public getById(id: string, query: IQuery): Promise<FeedingHabitsRecord> {
+    public async getById(id: string, query: IQuery): Promise<FeedingHabitsRecord> {
+        try {
+            ObjectIdValidator.validate(id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         query.addFilter({ _id: id, type: ActivityHabitsTypes.FEEDING_HABITS_RECORD })
         return this._repo.findOne(query)
     }
 
-    public remove(id: string): Promise<boolean> {
+    public async remove(id: string): Promise<boolean> {
         try {
             ObjectIdValidator.validate(id)
         } catch (err) {
@@ -44,7 +62,7 @@ export class FeedingHabitsRecordService implements IFeedingHabitsRecordService {
         return this._repo.delete(id)
     }
 
-    public update(item: FeedingHabitsRecord): Promise<FeedingHabitsRecord> {
+    public async update(item: FeedingHabitsRecord): Promise<FeedingHabitsRecord> {
         try {
             UpdateFeedingHabitsRecordValidator.validate(item)
         } catch (err) {

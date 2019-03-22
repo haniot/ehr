@@ -4,6 +4,9 @@ import { IQuery } from '../port/query.interface'
 import { Patient } from '../domain/model/patient'
 import { Identifier } from '../../di/identifiers'
 import { IPatientRepository } from '../port/patient.repository.interface'
+import { CreatePatientValidator } from '../domain/validator/create.patient.validator'
+import { ObjectIdValidator } from '../domain/validator/object.id.validator'
+import { UpdatePatientValidator } from '../domain/validator/update.patient.validator'
 
 @injectable()
 export class PatientService implements IPatientService {
@@ -13,6 +16,11 @@ export class PatientService implements IPatientService {
     }
 
     public add(item: Patient): Promise<Patient> {
+        try {
+            CreatePatientValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.create(item)
     }
 
@@ -26,10 +34,20 @@ export class PatientService implements IPatientService {
     }
 
     public remove(id: string): Promise<boolean> {
+        try {
+            ObjectIdValidator.validate(id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.delete(id)
     }
 
     public update(item: Patient): Promise<Patient> {
+        try {
+            UpdatePatientValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.update(item)
     }
 }

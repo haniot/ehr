@@ -5,6 +5,9 @@ import { MedicalRecord } from '../domain/model/medical.record'
 import { Identifier } from '../../di/identifiers'
 import { IMedicalRecordRepository } from '../port/medical.record.repository.interface'
 import { ActivityHabitsTypes } from '../domain/utils/activity.habits.types'
+import { CreateMedicalRecordValidator } from '../domain/validator/create.medical.record.validator'
+import { ObjectIdValidator } from '../domain/validator/object.id.validator'
+import { UpdateMedicalRecordValidator } from '../domain/validator/update.medical.record.validator'
 
 @injectable()
 export class MedicalRecordService implements IMedicalRecordService {
@@ -14,6 +17,11 @@ export class MedicalRecordService implements IMedicalRecordService {
     }
 
     public add(item: MedicalRecord): Promise<MedicalRecord> {
+        try {
+            CreateMedicalRecordValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.create(item)
     }
 
@@ -29,10 +37,20 @@ export class MedicalRecordService implements IMedicalRecordService {
     }
 
     public remove(id: string): Promise<boolean> {
+        try {
+            ObjectIdValidator.validate(id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.delete(id)
     }
 
     public update(item: MedicalRecord): Promise<MedicalRecord> {
+        try {
+            UpdateMedicalRecordValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.update(item)
     }
 }

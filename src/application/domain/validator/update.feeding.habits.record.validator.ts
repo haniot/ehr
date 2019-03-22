@@ -5,10 +5,12 @@ import { BreastFeedingValidator } from './breast.feeding.validator'
 import { FoodAllergyIntoleranceValidator } from './food.allergy.intolerance.validator'
 import { DailyFeedingFrequencyValidator } from './daily.feeding.frequency.validator'
 import { UpdateActivityHabitsRecordValidator } from './update.activity.habits.record.validator'
+import { ObjectIdValidator } from './object.id.validator'
 
 export class UpdateFeedingHabitsRecordValidator {
     public static validate(item: FeedingHabitsRecord): void | ValidationException {
         UpdateActivityHabitsRecordValidator.validate(item)
+        if (item.id) ObjectIdValidator.validate(item.id)
         if (item.weekly_feeding_habits) item.weekly_feeding_habits.forEach(value => {
             WeeklyFoodRecordValidator.validate(value)
         })

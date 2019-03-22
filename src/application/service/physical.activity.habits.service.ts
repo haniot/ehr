@@ -5,6 +5,9 @@ import { PhysicalActivityHabits } from '../domain/model/physical.activity.habits
 import { Identifier } from '../../di/identifiers'
 import { IPhysicalActivityHabitsRepository } from '../port/physical.activity.habits.repository.interface'
 import { ActivityHabitsTypes } from '../domain/utils/activity.habits.types'
+import { CreatePhysicalActivityHabitsValidator } from '../domain/validator/create.physical.activity.habits.validator'
+import { ObjectIdValidator } from '../domain/validator/object.id.validator'
+import { UpdatePhysicalActivityHabitsValidator } from '../domain/validator/update.physical.activity.habits.validator'
 
 @injectable()
 export class PhysicalActivityHabitsService implements IPhysicalActivityHabitsService {
@@ -14,6 +17,11 @@ export class PhysicalActivityHabitsService implements IPhysicalActivityHabitsSer
     }
 
     public add(item: PhysicalActivityHabits): Promise<PhysicalActivityHabits> {
+        try {
+            CreatePhysicalActivityHabitsValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.create(item)
     }
 
@@ -28,10 +36,20 @@ export class PhysicalActivityHabitsService implements IPhysicalActivityHabitsSer
     }
 
     public remove(id: string): Promise<boolean> {
+        try {
+            ObjectIdValidator.validate(id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.delete(id)
     }
 
     public update(item: PhysicalActivityHabits): Promise<PhysicalActivityHabits> {
+        try {
+            UpdatePhysicalActivityHabitsValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.update(item)
     }
 }

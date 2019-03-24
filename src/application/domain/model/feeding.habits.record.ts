@@ -8,7 +8,7 @@ import { ActivityHabitsTypes } from '../utils/activity.habits.types'
 export class FeedingHabitsRecord
     extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
 
-    private _weekly_feeding_habits?: Array<object>
+    private _weekly_feeding_habits?: Array<WeeklyFoodRecord>
     private _daily_water_glasses?: string
     private _six_month_breast_feeding?: string
     private _food_allergy_intolerance?: Array<string>
@@ -19,11 +19,11 @@ export class FeedingHabitsRecord
         super.type = ActivityHabitsTypes.FEEDING_HABITS_RECORD
     }
 
-    get weekly_feeding_habits(): Array<object> | undefined {
+    get weekly_feeding_habits(): Array<WeeklyFoodRecord> | undefined {
         return this._weekly_feeding_habits
     }
 
-    set weekly_feeding_habits(value: Array<object> | undefined) {
+    set weekly_feeding_habits(value: Array<WeeklyFoodRecord> | undefined) {
         this._weekly_feeding_habits = value
     }
 

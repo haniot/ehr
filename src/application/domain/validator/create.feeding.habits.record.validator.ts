@@ -5,6 +5,7 @@ import { WeeklyFoodRecordValidator } from './weekly.food.record.validator'
 import { BreastFeedingValidator } from './breast.feeding.validator'
 import { FoodAllergyIntoleranceValidator } from './food.allergy.intolerance.validator'
 import { DailyFeedingFrequencyValidator } from './daily.feeding.frequency.validator'
+import { OneDayFeedingAmountValidator } from './one.day.feeding.amount.validator'
 
 export class CreateFeedingHabitsRecordValidator {
     public static validate(item: FeedingHabitsRecord): void | ValidationException {
@@ -18,6 +19,7 @@ export class CreateFeedingHabitsRecordValidator {
             WeeklyFoodRecordValidator.validate(value)
         })
         if (!item.daily_water_glasses) fields.push('daily_water_glasses')
+        else OneDayFeedingAmountValidator.validate(item.daily_water_glasses)
         if (!item.six_month_breast_feeding) fields.push('six_month_breast_feeding')
         else BreastFeedingValidator.validate(item.six_month_breast_feeding)
         if (!item.food_allergy_intolerance) fields.push('food_allergy_intolerance')

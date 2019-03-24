@@ -32,7 +32,9 @@ export class PatientController {
     @httpGet('/')
     public async getAllPatients(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: Array<Patient> = await this._service.getAll(new Query().fromJSON(req.query))
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ pilotstudy_id: req.params.pilotstudy_id })
+            const result: Array<Patient> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -43,8 +45,10 @@ export class PatientController {
     @httpGet('/:patient_id')
     public async getPatientById(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ pilotstudy_id: req.params.pilotstudy_id })
             const result: Patient =
-                await this._service.getById(req.params.patient_id, new Query().fromJSON(req.query))
+                await this._service.getById(req.params.patient_id, query)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {

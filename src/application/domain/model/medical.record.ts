@@ -8,18 +8,18 @@ import { ActivityHabitsTypes } from '../utils/activity.habits.types'
 export class MedicalRecord
     extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<MedicalRecord> {
 
-    private _chronic_diseases?: Array<object>
+    private _chronic_diseases?: Array<ChronicDisease>
 
     constructor() {
         super()
         super.type = ActivityHabitsTypes.MEDICAL_RECORD
     }
 
-    get chronic_diseases(): Array<object> | undefined {
+    get chronic_diseases(): Array<ChronicDisease> | undefined {
         return this._chronic_diseases
     }
 
-    set chronic_diseases(value: Array<object> | undefined) {
+    set chronic_diseases(value: Array<ChronicDisease> | undefined) {
         this._chronic_diseases = value
     }
 

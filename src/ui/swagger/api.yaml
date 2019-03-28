@@ -2201,7 +2201,7 @@ components:
           example: Aaron 
         gender: 
           type: string
-          description: GenderType of patient.
+          description: GenderTypes of patient.
           enum: ['male', 'female']
         age:
           type: number

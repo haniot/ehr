@@ -1,4 +1,4 @@
-export enum DailyFeedingFrequency {
+export enum DailyFeedingFrequencyTypes {
     NEVER = 'never',
     SOMETIMES = 'sometimes',
     ALMOST_EVERYDAY = 'almost_everyday',

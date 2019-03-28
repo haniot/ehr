@@ -2,7 +2,7 @@ import { Patient } from '../model/patient'
 import { ValidationException } from '../exception/validation.exception'
 import { ObjectIdValidator } from './object.id.validator'
 import { ISODateFormatValidator } from './iso.date.format.validator'
-import { GenderValidator } from './gender.validator'
+import { GenderTypesValidator } from './gender.types.validator'
 
 export class CreatePatientValidator {
     public static validate(item: Patient): void | ValidationException {
@@ -12,7 +12,7 @@ export class CreatePatientValidator {
         if (!item.first_name) fields.push('first_name')
         if (!item.last_name) fields.push('last_name')
         if (!item.gender) fields.push('gender')
-        else GenderValidator.validate(item.gender)
+        else GenderTypesValidator.validate(item.gender)
         if (!item.birth_date) fields.push('birth_date')
         else ISODateFormatValidator.validate(item.birth_date)
 

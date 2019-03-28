@@ -1,4 +1,4 @@
-export enum SevenDaysFeedingFrequency {
+export enum SevenDaysFeedingFrequencyTypes {
     NEVER = 'never',
     NO_DAY = 'no_day',
     ONE_TWO_DAYS = 'one_two_days',

@@ -1,4 +1,4 @@
-export enum FoodAllergyIntolerance {
+export enum FoodAllergyIntoleranceTypes {
     GLUTEN = 'gluten',
     APVL = 'apvl',
     LACTOSE = 'lactose',

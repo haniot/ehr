@@ -21,6 +21,7 @@ export class PatientController {
     public async addPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const patient: Patient = new Patient().fromJSON(req.body)
+            patient.pilotstudy_id = req.params.pilotstudy_id
             const result: Patient = await this._service.add(patient)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {

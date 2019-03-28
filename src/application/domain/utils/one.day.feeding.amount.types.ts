@@ -1,4 +1,4 @@
-export enum OneDayFeedingAmount {
+export enum OneDayFeedingAmountTypes {
     NONE = 'none',
     ONE_TWO = 'one_two',
     THREE_FOUR = 'three_four',

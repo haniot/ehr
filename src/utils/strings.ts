@@ -27,7 +27,7 @@ export abstract class Strings {
     }
 
     public static readonly ENUM_VALIDATOR: any = {
-        NOT_MAPPED: 'Value not mapped!',
+        NOT_MAPPED: 'Value not mapped for ',
         NOT_MAPPED_DESC: 'The mapped values are: '
     }
 

@@ -14,9 +14,9 @@ export class CreateFeedingHabitsRecordValidator {
         CreateActivityHabitsRecordValidator.validate(item)
         if (!item.weekly_feeding_habits) fields.push('weekly_feeding_habits')
         else item.weekly_feeding_habits.forEach((value: any) => {
-            if (!value.food) fields.push('weekly_food_record.food')
-            if (!value.seven_days_freq) fields.push('weekly_food_record.seven_days_freq')
-            WeeklyFoodRecordValidator.validate(value)
+            if (!value.food) fields.push('weekly_feeding_habits.food')
+            if (!value.seven_days_freq) fields.push('weekly_feeding_habits.seven_days_freq')
+            else WeeklyFoodRecordValidator.validate(value.seven_days_freq)
         })
         if (!item.daily_water_glasses) fields.push('daily_water_glasses')
         else OneDayFeedingAmountTypesValidator.validate(item.daily_water_glasses)

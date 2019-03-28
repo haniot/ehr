@@ -10,7 +10,7 @@ describe('Validators: BreastFeedingTypesValidator', () => {
     })
 
     context('when there are validation errors', () => {
-        it('should thrown an error for invalid value', () => {
+        it('should throw an error for invalid value', () => {
             try {
                 BreastFeedingTypesValidator.validate('anything')
             } catch (err) {

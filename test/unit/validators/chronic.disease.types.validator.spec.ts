@@ -12,7 +12,7 @@ describe('Validators: ChronicDiseaseValidator', () => {
     })
 
     context('when there are validation errors', () => {
-        it('should thrown an error for invalid type', () => {
+        it('should throw an error for invalid type', () => {
             chronic.type = 'anything'
             try {
                 ChronicDiseaseValidator.validate(chronic)
@@ -25,7 +25,7 @@ describe('Validators: ChronicDiseaseValidator', () => {
             }
         })
 
-        it('should thrown an error for invalid disease_history', () => {
+        it('should throw an error for invalid disease_history', () => {
             chronic.type = ChronicDiseaseTypes.BLOOD_FAT
             chronic.disease_history = 'anything'
             try {

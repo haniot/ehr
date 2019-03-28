@@ -1,0 +1,22 @@
+import { inject, injectable } from 'inversify'
+import { BaseRepository } from './base/base.repository'
+import { MedicalRecord } from '../../application/domain/model/medical.record'
+import { MedicalRecordEntity } from '../entity/medical.record.entity'
+import { IMedicalRecordRepository } from '../../application/port/medical.record.repository.interface'
+import { Identifier } from '../../di/identifiers'
+import { IEntityMapper } from '../port/entity.mapper.interface'
+import { ILogger } from '../../utils/custom.logger'
+
+@injectable()
+export class MedicalRecordRepository
+    extends BaseRepository<MedicalRecord, MedicalRecordEntity> implements IMedicalRecordRepository {
+
+    constructor(
+        @inject(Identifier.ACTIVITY_HABITS_REPO_MODEL) readonly _repoModel: any,
+        @inject(Identifier.MEDICAL_RECORD_ENTITY_MAPPER)
+        readonly _entityMapper: IEntityMapper<MedicalRecord, MedicalRecordEntity>,
+        @inject(Identifier.LOGGER) readonly _logger: ILogger
+    ) {
+        super(_repoModel, _entityMapper, _logger)
+    }
+}

@@ -14,7 +14,7 @@ export class CreatePhysicalActivityHabitsValidator {
 
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',
-                ' validation: '.concat(fields.join(', ')).concat(' is required!'))
+                'Physical Activity Habits validation: '.concat(fields.join(', ')).concat(' is required!'))
         }
     }
 }

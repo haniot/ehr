@@ -19,6 +19,7 @@ describe('Validators: ChronicDiseaseValidator', () => {
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
+                assert.propertyVal(err, 'message', Strings.ENUM_VALIDATOR.NOT_MAPPED.concat('type: anything'))
                 assert.propertyVal(err, 'description', Strings.ENUM_VALIDATOR.NOT_MAPPED_DESC
                     .concat(Object.values(ChronicDiseaseTypes).join(', ').concat('.')))
             }
@@ -32,6 +33,7 @@ describe('Validators: ChronicDiseaseValidator', () => {
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
+                assert.propertyVal(err, 'message', Strings.ENUM_VALIDATOR.NOT_MAPPED.concat('disease_history: anything'))
                 assert.propertyVal(err, 'description', Strings.ENUM_VALIDATOR.NOT_MAPPED_DESC
                     .concat(Object.values(DiseaseHistoryTypes).join(', ').concat('.')))
             }

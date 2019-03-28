@@ -8,10 +8,18 @@ import { OneDayFeedingAmountTypes } from '../../src/application/domain/utils/one
 import { BreastFeedingTypes } from '../../src/application/domain/utils/breast.feeding.types'
 import { FoodAllergyIntoleranceTypes } from '../../src/application/domain/utils/food.allergy.intolerance.types'
 import { SchoolActivityFrequencyTypes } from '../../src/application/domain/utils/school.activity.frequency.types'
+import { GenderTypes } from '../../src/application/domain/utils/gender.types'
 
 export abstract class DefaultEntityMock {
 
-    public static readonly PATIENT: any = {}
+    public static readonly PATIENT: any = {
+        id: `${new ObjectID()}`,
+        pilotstudy_id: `${new ObjectID()}`,
+        first_name: 'Elvis',
+        last_name: 'Aaron',
+        gender: GenderTypes.MALE,
+        birth_date: '1935-01-08'
+    }
 
     public static readonly ACTIVITY_HABITS_RECORD: any = {
         id: `${new ObjectID()}`,
@@ -56,7 +64,12 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly SLEEP_HABIT: any = {
-
+        id: `${new ObjectID()}`,
+        patient_id: `${new ObjectID()}`,
+        created_at: '2018-01-03T00:01:04.000Z',
+        type: ActivityHabitsTypes.SLEEP_HABIT,
+        week_day_sleep: 22,
+        week_day_wake_up: 6
     }
 
     public static readonly CHRONIC_DISEASE: any = {

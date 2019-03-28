@@ -16,6 +16,7 @@ describe('Validators: BreastFeedingTypesValidator', () => {
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
+                assert.propertyVal(err, 'message', Strings.ENUM_VALIDATOR.NOT_MAPPED.concat('six_month_breast_feeding: anything'))
                 assert.propertyVal(err, 'description', Strings.ENUM_VALIDATOR.NOT_MAPPED_DESC
                     .concat(Object.values(BreastFeedingTypes).join(', ').concat('.')))
             }

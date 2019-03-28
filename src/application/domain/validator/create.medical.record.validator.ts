@@ -17,7 +17,7 @@ export class CreateMedicalRecordValidator {
         fields = [...new Set(fields)]
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',
-                ' validation: '.concat(fields.join(', ')).concat(' is required!'))
+                'Medical Record validation: '.concat(fields.join(', ')).concat(' is required!'))
         }
     }
 }

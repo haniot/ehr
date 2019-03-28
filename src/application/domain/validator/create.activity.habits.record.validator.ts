@@ -6,11 +6,11 @@ export class CreateActivityHabitsRecordValidator {
         const fields: Array<string> = []
 
         if (!item.patient_id) fields.push('patient_id')
-        ObjectIdValidator.validate(item.patient_id)
+        else ObjectIdValidator.validate(item.patient_id)
 
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',
-                ' validation: '.concat(fields.join(', ')).concat(' is required!'))
+                'Activity Habits Record validation: '.concat(fields.join(', ')).concat(' is required!'))
         }
     }
 }

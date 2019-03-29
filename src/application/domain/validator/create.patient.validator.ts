@@ -1,7 +1,7 @@
 import { Patient } from '../model/patient'
 import { ValidationException } from '../exception/validation.exception'
 import { ObjectIdValidator } from './object.id.validator'
-import { ISODateFormatValidator } from './iso.date.format.validator'
+import { DateValidator } from './date.validator'
 import { GenderTypesValidator } from './gender.types.validator'
 
 export class CreatePatientValidator {
@@ -14,7 +14,7 @@ export class CreatePatientValidator {
         if (!item.gender) fields.push('gender')
         else GenderTypesValidator.validate(item.gender)
         if (!item.birth_date) fields.push('birth_date')
-        else ISODateFormatValidator.validate(item.birth_date)
+        else DateValidator.validate(item.birth_date)
 
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',

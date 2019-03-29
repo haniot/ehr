@@ -3,6 +3,7 @@ import { DefaultEntityMock } from '../../mocks/default.entity.mock'
 import { CreateFeedingHabitsRecordValidator } from '../../../src/application/domain/validator/create.feeding.habits.record.validator'
 import { assert } from 'chai'
 import { WeeklyFoodRecord } from '../../../src/application/domain/model/weekly.food.record'
+import { Strings } from '../../../src/utils/strings'
 
 describe('Validators: CreateFeedingHabitsRecordValidator', () => {
     let activity: FeedingHabitsRecord = new FeedingHabitsRecord().fromJSON(DefaultEntityMock.FEEDING_HABITS_RECORD)
@@ -13,6 +14,32 @@ describe('Validators: CreateFeedingHabitsRecordValidator', () => {
     })
 
     context('when there are validation errors', () => {
+        it('should throw an error for does not pass patient_id', () => {
+            try {
+                activity.patient_id = undefined
+                CreateFeedingHabitsRecordValidator.validate(activity)
+            } catch (err) {
+                assert.property(err, 'message')
+                assert.property(err, 'description')
+                assert.propertyVal(err, 'message', 'Required fields were not provided...')
+                assert.propertyVal(err, 'description', 'Activity Habits Record validation: patient_id is required!')
+            }
+        })
+
+        it('should throw an error for does pass invalid patient_id', () => {
+            try {
+                activity.patient_id = '123'
+                CreateFeedingHabitsRecordValidator.validate(activity)
+            } catch (err) {
+                assert.property(err, 'message')
+                assert.property(err, 'description')
+                assert.propertyVal(err, 'message', Strings.ERROR_MESSAGE.UUID_NOT_VALID_FORMAT)
+                assert.propertyVal(err, 'description', Strings.ERROR_MESSAGE.UUID_NOT_VALID_FORMAT_DESC)
+            } finally {
+                activity.patient_id = DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id
+            }
+        })
+
         it('should throw an error for does not pass weekly_feeding_habits', () => {
             activity.weekly_feeding_habits = undefined
             try {
@@ -179,8 +206,6 @@ describe('Validators: CreateFeedingHabitsRecordValidator', () => {
                 assert.propertyVal(err, 'message', 'Value not mapped for breakfast_daily_frequency: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: never, sometimes, almost_everyday, ' +
                     'everyday, undefined.')
-            } finally {
-                activity.breakfast_daily_frequency = DefaultEntityMock.FEEDING_HABITS_RECORD.breakfast_daily_frequency
             }
         })
     })

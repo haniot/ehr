@@ -15,7 +15,7 @@ describe('Validators: CreateActivityHabitsRecordValidator', () => {
     context('when there are validation errors', () => {
         const activity = DefaultEntityMock.ACTIVITY_HABITS_RECORD
 
-        it('should throw an error for does not pass id', () => {
+        it('should throw an error for does not pass patient_id', () => {
             try {
                 activity.patient_id = undefined
                 CreateActivityHabitsRecordValidator.validate(activity)
@@ -27,7 +27,7 @@ describe('Validators: CreateActivityHabitsRecordValidator', () => {
             }
         })
 
-        it('should throw an error for does not pass id', () => {
+        it('should throw an error for does pass invalid patient_id', () => {
             try {
                 activity.patient_id = '123'
                 CreateActivityHabitsRecordValidator.validate(activity)

@@ -10,8 +10,8 @@ export class CreateMedicalRecordValidator {
         if (!item.chronic_diseases) fields.push('chronic_diseases')
         else item.chronic_diseases.forEach((value: any) => {
             if (!value.type) fields.push('chronic_disease.type')
-            if (!value.disease_history) fields.push('chronic_disease.disease_history')
-            ChronicDiseaseValidator.validate(value)
+            else if (!value.disease_history) fields.push('chronic_disease.disease_history')
+            else ChronicDiseaseValidator.validate(value)
         })
 
         fields = [...new Set(fields)]

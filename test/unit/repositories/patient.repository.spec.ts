@@ -401,4 +401,56 @@ describe('Repositories: PatientRepository', () => {
             })
         })
     })
+
+    describe('checkExists()', () => {
+        context('when the patient exists', () => {
+            it('should return true', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOne')
+                    .withArgs({ _id: patient.id })
+                    .resolves(patient)
+
+                return repo.checkExists(patient.id!)
+                    .then(result => {
+                        assert.isBoolean(result)
+                        assert.isTrue(result)
+                    })
+            })
+        })
+
+        context('when the patient is not found', () => {
+            it('should return false', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOne')
+                    .withArgs({ _id: patient.id })
+                    .resolves(undefined)
+
+                return repo.checkExists(patient.id!)
+                    .then(result => {
+                        assert.isBoolean(result)
+                        assert.isFalse(result)
+                    })
+            })
+        })
+
+        context('when a database error occurs', () => {
+            it('should reject a error', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOne')
+                    .withArgs({ _id: patient.id })
+                    .rejects({ message: 'An internal error has occurred in the database!' })
+
+                return repo.checkExists(patient.id!)
+                    .catch(err => {
+                        assert.property(err, 'name')
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.property(err, 'message')
+                        assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
+                    })
+            })
+        })
+    })
 })

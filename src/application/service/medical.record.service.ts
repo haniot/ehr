@@ -39,14 +39,19 @@ export class MedicalRecordService implements IMedicalRecordService {
     }
 
     public async getAll(query: IQuery): Promise<Array<MedicalRecord>> {
+        try {
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         query.addFilter({ type: ActivityHabitsTypes.MEDICAL_RECORD })
-
         return this._repo.find(query)
     }
 
     public async getById(id: string, query: IQuery): Promise<MedicalRecord> {
         try {
             ObjectIdValidator.validate(id)
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
         } catch (err) {
             return Promise.reject(err)
         }
@@ -54,21 +59,28 @@ export class MedicalRecordService implements IMedicalRecordService {
         return this._repo.findOne(query)
     }
 
-    public async remove(id: string): Promise<boolean> {
+    public async removeMedicalRecord(patientId: string, medicalId: string): Promise<boolean> {
         try {
-            ObjectIdValidator.validate(id)
+            ObjectIdValidator.validate(patientId)
+            ObjectIdValidator.validate(medicalId)
         } catch (err) {
             return Promise.reject(err)
         }
-        return this._repo.delete(id)
+        return this._repo.delete(medicalId)
     }
 
     public async update(item: MedicalRecord): Promise<MedicalRecord> {
         try {
+            ObjectIdValidator.validate(item.patient_id!)
+            item.patient_id = undefined
             UpdateMedicalRecordValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)
         }
         return this._repo.update(item)
+    }
+
+    public async remove(id: string): Promise<boolean> {
+        throw Error('Not implemented yet!')
     }
 }

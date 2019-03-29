@@ -63,6 +63,7 @@ export class SleepHabitController {
         try {
             const sleepHabit: SleepHabit = new SleepHabit().fromJSON(req.body)
             sleepHabit.id = req.params.sleephabit_id
+            sleepHabit.patient_id = req.params.patient_id
             const result: SleepHabit = await this._service.update(sleepHabit)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
@@ -75,8 +76,7 @@ export class SleepHabitController {
     @httpDelete('/:sleephabit_id')
     public async deleteSleepHabitFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: boolean = await this._service.remove(req.params.sleephabit_id)
-            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
+            await this._service.removeSleepHabit(req.params.patient_id, req.params.sleephabit_id)
             return res.status(HttpStatus.NO_CONTENT).send()
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)

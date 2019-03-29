@@ -39,6 +39,11 @@ export class FeedingHabitsRecordService implements IFeedingHabitsRecordService {
     }
 
     public async getAll(query: IQuery): Promise<Array<FeedingHabitsRecord>> {
+        try {
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         query.addFilter({ type: ActivityHabitsTypes.FEEDING_HABITS_RECORD })
         return this._repo.find(query)
     }
@@ -46,6 +51,7 @@ export class FeedingHabitsRecordService implements IFeedingHabitsRecordService {
     public async getById(id: string, query: IQuery): Promise<FeedingHabitsRecord> {
         try {
             ObjectIdValidator.validate(id)
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
         } catch (err) {
             return Promise.reject(err)
         }
@@ -53,21 +59,28 @@ export class FeedingHabitsRecordService implements IFeedingHabitsRecordService {
         return this._repo.findOne(query)
     }
 
-    public async remove(id: string): Promise<boolean> {
+    public async removeFeedingHabitsRecord(patientId, feedingId: string): Promise<boolean> {
         try {
-            ObjectIdValidator.validate(id)
+            ObjectIdValidator.validate(patientId)
+            ObjectIdValidator.validate(feedingId)
         } catch (err) {
             return Promise.reject(err)
         }
-        return this._repo.delete(id)
+        return this._repo.delete(feedingId)
     }
 
     public async update(item: FeedingHabitsRecord): Promise<FeedingHabitsRecord> {
         try {
+            ObjectIdValidator.validate(item.patient_id!)
+            item.patient_id = undefined
             UpdateFeedingHabitsRecordValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)
         }
         return this._repo.update(item)
+    }
+
+    public async remove(id: string): Promise<boolean> {
+        throw Error('Not implemented yet!')
     }
 }

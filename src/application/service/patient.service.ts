@@ -46,14 +46,14 @@ export class PatientService implements IPatientService {
         return this._repo.findOne(query)
     }
 
-    public async removePatient(pilostudy_id: string, patient_id: string): Promise<boolean> {
+    public async removePatient(pilotId: string, patientId: string): Promise<boolean> {
         try {
-            ObjectIdValidator.validate(pilostudy_id)
-            ObjectIdValidator.validate(patient_id)
+            ObjectIdValidator.validate(pilotId)
+            ObjectIdValidator.validate(patientId)
         } catch (err) {
             return Promise.reject(err)
         }
-        return this._repo.delete(patient_id)
+        return this._repo.delete(patientId)
     }
 
     public async update(item: Patient): Promise<Patient> {

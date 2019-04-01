@@ -1,5 +1,5 @@
 import { Patient } from '../../../src/application/domain/model/patient'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { assert } from 'chai'
 import { CreatePatientValidator } from '../../../src/application/domain/validator/create.patient.validator'
 

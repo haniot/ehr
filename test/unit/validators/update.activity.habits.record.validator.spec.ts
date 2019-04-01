@@ -1,5 +1,5 @@
 import { ActivityHabitsRecord } from '../../../src/application/domain/model/activity.habits.record'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { UpdateActivityHabitsRecordValidator } from '../../../src/application/domain/validator/update.activity.habits.record.validator'
 import { assert } from 'chai'
 import { Strings } from '../../../src/utils/strings'

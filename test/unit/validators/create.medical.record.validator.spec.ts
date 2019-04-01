@@ -1,6 +1,6 @@
 import { CreateMedicalRecordValidator } from '../../../src/application/domain/validator/create.medical.record.validator'
 import { MedicalRecord } from '../../../src/application/domain/model/medical.record'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { assert } from 'chai'
 import { Strings } from '../../../src/utils/strings'
 import { ChronicDisease } from '../../../src/application/domain/model/chronic.disease'

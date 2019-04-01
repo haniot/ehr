@@ -1,7 +1,7 @@
 import { assert } from 'chai'
 import { CreateSleepHabitValidator } from '../../../src/application/domain/validator/create.sleep.habit.validator'
 import { SleepHabit } from '../../../src/application/domain/model/sleep.habit'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { Strings } from '../../../src/utils/strings'
 
 describe('Validators: CreateSleepHabitValidator', () => {

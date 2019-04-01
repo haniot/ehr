@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { CreateActivityHabitsRecordValidator }
     from '../../../src/application/domain/validator/create.activity.habits.record.validator'
 import { Strings } from '../../../src/utils/strings'

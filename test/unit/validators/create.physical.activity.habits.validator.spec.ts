@@ -1,5 +1,5 @@
 import { PhysicalActivityHabits } from '../../../src/application/domain/model/physical.activity.habits'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { CreatePhysicalActivityHabitsValidator } from '../../../src/application/domain/validator/create.physical.activity.habits.validator'
 import { assert } from 'chai'
 import { Strings } from '../../../src/utils/strings'

@@ -1,4 +1,4 @@
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { assert } from 'chai'
 import { Strings } from '../../../src/utils/strings'
 import { PhysicalActivityHabits } from '../../../src/application/domain/model/physical.activity.habits'

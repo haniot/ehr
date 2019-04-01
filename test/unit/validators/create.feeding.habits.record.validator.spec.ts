@@ -1,5 +1,5 @@
 import { FeedingHabitsRecord } from '../../../src/application/domain/model/feeding.habits.record'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { CreateFeedingHabitsRecordValidator } from '../../../src/application/domain/validator/create.feeding.habits.record.validator'
 import { assert } from 'chai'
 import { WeeklyFoodRecord } from '../../../src/application/domain/model/weekly.food.record'

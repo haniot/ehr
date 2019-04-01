@@ -1,5 +1,4 @@
 import { Patient } from '../../../src/application/domain/model/patient'
-import { DefaultEntityMock } from '../../mocks/default.entity.mock'
 import { App } from '../../../src/app'
 import { Identifier } from '../../../src/di/identifiers'
 import { DI } from '../../../src/di/di'
@@ -8,6 +7,7 @@ import { Container } from 'inversify'
 import { PatientRepoModel } from '../../../src/infrastructure/database/schema/patient.schema'
 import { expect } from 'chai'
 import { ObjectID } from 'bson'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 
 const container: Container = DI.getInstance().getContainer()
 const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)

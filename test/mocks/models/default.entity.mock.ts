@@ -1,4 +1,3 @@
-import { ObjectID } from 'bson'
 import { ChronicDiseaseTypes } from '../../../src/application/domain/utils/chronic.disease.types'
 import { DiseaseHistoryTypes } from '../../../src/application/domain/utils/disease.history.types'
 import { ActivityHabitsTypes } from '../../../src/application/domain/utils/activity.habits.types'
@@ -14,7 +13,7 @@ export abstract class DefaultEntityMock {
 
     public static readonly PATIENT: any = {
         id: '5ca23b9af04e7c28223cb590',
-        pilotstudy_id: `${new ObjectID()}`,
+        pilotstudy_id: '5ca3a865d07f8cce8b1c6372',
         first_name: 'Elvis',
         last_name: 'Aaron',
         gender: GenderTypes.MALE,
@@ -32,13 +31,13 @@ export abstract class DefaultEntityMock {
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
         type: ActivityHabitsTypes.FEEDING_HABITS_RECORD,
-        weekly_feeding_habits: Array<object>({
+        weekly_feeding_habits: [{
             food: 'bread',
             seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
-        }),
+        }],
         daily_water_glasses: OneDayFeedingAmountTypes.FIVE_MORE,
         six_month_breast_feeding: BreastFeedingTypes.COMPLEMENTARY,
-        food_allergy_intolerance: Array<string>(FoodAllergyIntoleranceTypes.EGG, FoodAllergyIntoleranceTypes.OTHER),
+        food_allergy_intolerance: [FoodAllergyIntoleranceTypes.EGG, FoodAllergyIntoleranceTypes.OTHER],
         breakfast_daily_frequency: DailyFeedingFrequencyTypes.ALMOST_EVERYDAY
 
     }
@@ -48,10 +47,10 @@ export abstract class DefaultEntityMock {
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
         type: ActivityHabitsTypes.MEDICAL_RECORD,
-        chronic_diseases: Array<object>({
+        chronic_diseases: [{
             type: ChronicDiseaseTypes.BLOOD_FAT,
             disease_history: DiseaseHistoryTypes.YES
-        })
+        }]
     }
 
     public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
@@ -60,7 +59,7 @@ export abstract class DefaultEntityMock {
         created_at: '2018-01-03T00:01:04.000Z',
         type: ActivityHabitsTypes.PHYSICAL_ACTIVITY_HABITS,
         school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
-        weekly_activities: Array<string>('run', 'swin')
+        weekly_activities: ['run', 'swin']
     }
 
     public static readonly SLEEP_HABIT: any = {

@@ -25,7 +25,10 @@
     "label-position": true,
     "max-line-length": [
       true,
-      130
+      {
+        "limit": 130,
+        "ignore-pattern": "^import |^export {(.*?)}"
+      }
     ],
     "member-access": true,
     "member-ordering": [

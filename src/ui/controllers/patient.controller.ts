@@ -21,6 +21,7 @@ export class PatientController {
     public async addPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const patient: Patient = new Patient().fromJSON(req.body)
+            patient.pilotstudy_id = req.params.pilotstudy_id
             const result: Patient = await this._service.add(patient)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
@@ -62,6 +63,7 @@ export class PatientController {
         try {
             const patient: Patient = new Patient().fromJSON(req.body)
             patient.id = req.params.patient_id
+            patient.pilotstudy_id = req.params.pilotstudy_id
             const result: Patient = await this._service.update(patient)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
@@ -74,8 +76,7 @@ export class PatientController {
     @httpDelete('/:patient_id')
     public async deletePatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: boolean = await this._service.remove(req.params.patient_id)
-            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
+            await this._service.removePatient(req.params.pilotstudy_id, req.params.patient_id)
             return res.status(HttpStatus.NO_CONTENT).send()
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)

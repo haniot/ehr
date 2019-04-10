@@ -1,22 +1,22 @@
 import { ValidationException } from '../exception/validation.exception'
 import { Strings } from '../../../utils/strings'
-import { ChronicDiseaseType } from '../utils/chronic.disease.type'
-import { DiseaseHistory } from '../utils/disease.history'
+import { ChronicDiseaseTypes } from '../utils/chronic.disease.types'
+import { DiseaseHistoryTypes } from '../utils/disease.history.types'
 
 export class ChronicDiseaseValidator {
     public static validate(value: any): void | ValidationException {
-        if (!Object.values(ChronicDiseaseType).includes(value.type)) {
+        if (!Object.values(ChronicDiseaseTypes).includes(value.type)) {
             throw new ValidationException(
-                'ChronicDisease: '.concat(Strings.ENUM_VALIDATOR.NOT_MAPPED),
+                Strings.ENUM_VALIDATOR.NOT_MAPPED.concat(`type: ${value.type}`),
                 Strings.ENUM_VALIDATOR.NOT_MAPPED_DESC
-                    .concat(Object.values(ChronicDiseaseType).join(', ').concat('.')))
+                    .concat(Object.values(ChronicDiseaseTypes).join(', ').concat('.')))
         }
 
-        if (!Object.values(DiseaseHistory).includes(value.disease_history)) {
+        if (!Object.values(DiseaseHistoryTypes).includes(value.disease_history)) {
             throw new ValidationException(
-                'DiseaseHistory: '.concat(Strings.ENUM_VALIDATOR.NOT_MAPPED),
+                Strings.ENUM_VALIDATOR.NOT_MAPPED.concat(`disease_history: ${value.disease_history}`),
                 Strings.ENUM_VALIDATOR.NOT_MAPPED_DESC
-                    .concat(Object.values(DiseaseHistory).join(', ').concat('.')))
+                    .concat(Object.values(DiseaseHistoryTypes).join(', ').concat('.')))
         }
     }
 }

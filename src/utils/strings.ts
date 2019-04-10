@@ -21,41 +21,40 @@ export abstract class Strings {
         UNEXPECTED: 'An unexpected error has occurred. Please try again later...',
         UUID_NOT_VALID_FORMAT: 'Some ID provided does not have a valid format!',
         UUID_NOT_VALID_FORMAT_DESC: 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea is expected.',
-        ISO_DATE_NOT_VALID_FORMAT: 'Some date provided does not have a valid format!',
-        ISO_DATE_NOT_VALID_FORMAT_DESC: 'The format expect for date is: yyyy-MM-dd.',
-        ISO_DATETIME_NOT_VALID_FORMAT_DESC: 'The format expect for date is: yyyy-MM-ddThh:mm:ss.'
+        DATE_NOT_VALID_FORMAT_DESC: 'Date must be in the format: yyyy-MM-dd',
+        DATETIME_NOT_VALID_FORMAT_DESC: 'Date must be in the format: yyyy-MM-dd\'T\'HH:mm:ssZ'
     }
 
     public static readonly ENUM_VALIDATOR: any = {
-        NOT_MAPPED: 'Value not mapped!',
+        NOT_MAPPED: 'Value not mapped for ',
         NOT_MAPPED_DESC: 'The mapped values are: '
     }
 
     public static readonly FEEDING_HABITS_RECORD: any = {
         NOT_FOUND: 'Feeding habits record not found!',
         NOT_FOUND_DESCRIPTION: 'Feeding habits record not found or already removed.' +
-            ' A new operation for the same resource is not required.'
+            ' A new operation for the same resource is required.'
     }
 
     public static readonly MEDICAL_RECORD: any = {
         NOT_FOUND: 'Medical record not found!',
         NOT_FOUND_DESCRIPTION: 'Medical record not found or already removed.' +
-            ' A new operation for the same resource is not required.'
+            ' A new operation for the same resource is required.'
     }
 
     public static readonly PATIENT: any = {
         NOT_FOUND: 'Patient not found!',
         NOT_FOUND_DESCRIPTION: 'Patient not found or already removed.' +
-            ' A new operation for the same resource is not required.'
+            ' A new operation for the same resource is required.'
     }
     public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
         NOT_FOUND: 'Physical activity habits not founded!',
         NOT_FOUND_DESCRIPTION: 'Physical activity habits not founded or already removed.' +
-            ' A new operation for the same resource is not required.'
+            ' A new operation for the same resource is required.'
     }
     public static readonly SLEEP_HABIT: any = {
         NOT_FOUND: 'Sleep habit not found!',
         NOT_FOUND_DESCRIPTION: 'Sleep habit not found or already removed.' +
-            ' A new operation for the same resource is not required.'
+            ' A new operation for the same resource is required.'
     }
 }

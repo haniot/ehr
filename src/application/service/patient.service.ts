@@ -25,11 +25,19 @@ export class PatientService implements IPatientService {
     }
 
     public async getAll(query: IQuery): Promise<Array<Patient>> {
+        try {
+            const pilotstudy_id = query.toJSON().filters.pilotstudy_id
+            ObjectIdValidator.validate(pilotstudy_id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.find(query)
     }
 
     public getById(id: string, query: IQuery): Promise<Patient> {
         try {
+            const pilotstudy_id = query.toJSON().filters.pilotstudy_id
+            ObjectIdValidator.validate(pilotstudy_id)
             ObjectIdValidator.validate(id)
         } catch (err) {
             return Promise.reject(err)
@@ -38,21 +46,28 @@ export class PatientService implements IPatientService {
         return this._repo.findOne(query)
     }
 
-    public async remove(id: string): Promise<boolean> {
+    public async removePatient(pilotId: string, patientId: string): Promise<boolean> {
         try {
-            ObjectIdValidator.validate(id)
+            ObjectIdValidator.validate(pilotId)
+            ObjectIdValidator.validate(patientId)
         } catch (err) {
             return Promise.reject(err)
         }
-        return this._repo.delete(id)
+        return this._repo.delete(patientId)
     }
 
     public async update(item: Patient): Promise<Patient> {
         try {
+            ObjectIdValidator.validate(item.pilotstudy_id!)
+            item.pilotstudy_id = undefined
             UpdatePatientValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)
         }
         return this._repo.update(item)
+    }
+
+    public async remove(id: string): Promise<boolean> {
+        throw new Error('Not implemented yet.')
     }
 }

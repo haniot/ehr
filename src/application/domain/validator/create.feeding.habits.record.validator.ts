@@ -2,10 +2,10 @@ import { FeedingHabitsRecord } from '../model/feeding.habits.record'
 import { ValidationException } from '../exception/validation.exception'
 import { CreateActivityHabitsRecordValidator } from './create.activity.habits.record.validator'
 import { WeeklyFoodRecordValidator } from './weekly.food.record.validator'
-import { BreastFeedingValidator } from './breast.feeding.validator'
-import { FoodAllergyIntoleranceValidator } from './food.allergy.intolerance.validator'
-import { DailyFeedingFrequencyValidator } from './daily.feeding.frequency.validator'
-import { OneDayFeedingAmountValidator } from './one.day.feeding.amount.validator'
+import { BreastFeedingTypesValidator } from './breast.feeding.types.validator'
+import { FoodAllergyIntoleranceTypesValidator } from './food.allergy.intolerance.types.validator'
+import { DailyFeedingFrequencyTypesValidator } from './daily.feeding.frequency.types.validator'
+import { OneDayFeedingAmountTypesValidator } from './one.day.feeding.amount.types.validator'
 
 export class CreateFeedingHabitsRecordValidator {
     public static validate(item: FeedingHabitsRecord): void | ValidationException {
@@ -14,20 +14,20 @@ export class CreateFeedingHabitsRecordValidator {
         CreateActivityHabitsRecordValidator.validate(item)
         if (!item.weekly_feeding_habits) fields.push('weekly_feeding_habits')
         else item.weekly_feeding_habits.forEach((value: any) => {
-            if (!value.food) fields.push('weekly_food_record.food')
-            if (!value.seven_days_freq) fields.push('weekly_food_record.seven_days_freq')
-            WeeklyFoodRecordValidator.validate(value)
+            if (!value.food) fields.push('weekly_feeding_habits.food')
+            if (!value.seven_days_freq) fields.push('weekly_feeding_habits.seven_days_freq')
+            else WeeklyFoodRecordValidator.validate(value.seven_days_freq)
         })
         if (!item.daily_water_glasses) fields.push('daily_water_glasses')
-        else OneDayFeedingAmountValidator.validate(item.daily_water_glasses)
+        else OneDayFeedingAmountTypesValidator.validate(item.daily_water_glasses)
         if (!item.six_month_breast_feeding) fields.push('six_month_breast_feeding')
-        else BreastFeedingValidator.validate(item.six_month_breast_feeding)
+        else BreastFeedingTypesValidator.validate(item.six_month_breast_feeding)
         if (!item.food_allergy_intolerance) fields.push('food_allergy_intolerance')
         else item.food_allergy_intolerance.forEach(value => {
-            FoodAllergyIntoleranceValidator.validate(value)
+            FoodAllergyIntoleranceTypesValidator.validate(value)
         })
         if (!item.breakfast_daily_frequency) fields.push('breakfast_daily_frequency')
-        else DailyFeedingFrequencyValidator.validate(item.breakfast_daily_frequency)
+        else DailyFeedingFrequencyTypesValidator.validate(item.breakfast_daily_frequency)
 
         fields = [...new Set(fields)]
         if (fields.length > 0) {

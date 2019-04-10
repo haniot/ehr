@@ -12,7 +12,7 @@ export class CreateSleepHabitValidator {
 
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',
-                ' validation: '.concat(fields.join(', ')).concat(' is required!'))
+                'Sleep Habit validation: '.concat(fields.join(', ')).concat(' is required!'))
         }
     }
 }

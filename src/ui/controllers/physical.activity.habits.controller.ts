@@ -63,6 +63,7 @@ export class PhysicalActivityHabitsController {
         try {
             const physicalActivityHabits: PhysicalActivityHabits = new PhysicalActivityHabits().fromJSON(req.body)
             physicalActivityHabits.id = req.params.physicalactivityhabits_id
+            physicalActivityHabits.patient_id = req.params.patient_id
             const result: PhysicalActivityHabits = await this._service.update(physicalActivityHabits)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
@@ -75,8 +76,7 @@ export class PhysicalActivityHabitsController {
     @httpDelete('/:physicalactivityhabits_id')
     public async deletePhysicalActivityHabitsFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: boolean = await this._service.remove(req.params.physicalactivityhabits_id)
-            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
+            await this._service.removePhysicalActivityHabits(req.params.patient_id, req.params.physicalactivityhabits_id)
             return res.status(HttpStatus.NO_CONTENT).send()
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)

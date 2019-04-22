@@ -3,7 +3,6 @@ import { DI } from '../../../src/di/di'
 import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
 import { Identifier } from '../../../src/di/identifiers'
 import { App } from '../../../src/app'
-import { ActivityHabitsRepoModel } from '../../../src/infrastructure/database/schema/activity.habits.schema'
 import { Patient } from '../../../src/application/domain/model/patient'
 import { IPatientRepository } from '../../../src/application/port/patient.repository.interface'
 import { PatientRepoModel } from '../../../src/infrastructure/database/schema/patient.schema'
@@ -11,6 +10,7 @@ import { FeedingHabitsRecord } from '../../../src/application/domain/model/feedi
 import { expect } from 'chai'
 import { ObjectID } from 'bson'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { FeedingHabitsRecordRepoModel } from '../../../src/infrastructure/database/schema/feeding.habits.record.schema'
 
 const container: Container = DI.getInstance().getContainer()
 const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
@@ -364,11 +364,11 @@ describe('Routes: FeedingHabitsRecord', () => {
 })
 
 async function deleteAllActivities(doc) {
-    return ActivityHabitsRepoModel.deleteMany({})
+    return FeedingHabitsRecordRepoModel.deleteMany({})
 }
 
 async function createActivity(doc) {
-    return ActivityHabitsRepoModel.create(doc)
+    return FeedingHabitsRecordRepoModel.create(doc)
 }
 
 async function deleteAllPatients(doc) {

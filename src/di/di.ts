@@ -25,7 +25,6 @@ import { SleepHabit } from '../application/domain/model/sleep.habit'
 import { SleepHabitEntity } from '../infrastructure/entity/sleep.habit.entity'
 import { SleepHabitEntityMapper } from '../infrastructure/entity/mapper/sleep.habit.entity.mapper'
 import { PatientRepoModel } from '../infrastructure/database/schema/patient.schema'
-import { ActivityHabitsRepoModel } from '../infrastructure/database/schema/activity.habits.schema'
 import { IFeedingHabitsRecordRepository } from '../application/port/feeding.habits.record.repository.interface'
 import { FeedingHabitsRecordRepository } from '../infrastructure/repository/feeding.habits.record.repository'
 import { IMedicalRecordRepository } from '../application/port/medical.record.repository.interface'
@@ -52,6 +51,13 @@ import { MedicalRecordController } from '../ui/controllers/medical.record.contro
 import { SleepHabitController } from '../ui/controllers/sleep.habit.controller'
 import { PhysicalActivityHabitsController } from '../ui/controllers/physical.activity.habits.controller'
 import { PatientController } from '../ui/controllers/patient.controller'
+import { PhysicalActivityHabitsRepoModel } from '../infrastructure/database/schema/physical.activity.habits.schema'
+import { FamilyCohesionRecordRepoModel } from '../infrastructure/database/schema/family.cohesion.record.schema'
+import { FeedingHabitsRecordRepoModel } from '../infrastructure/database/schema/feeding.habits.record.schema'
+import { MedicalRecordRepoModel } from '../infrastructure/database/schema/medical.record.schema'
+import { OralHealthRecordRepoModel } from '../infrastructure/database/schema/oral.health.record.schema'
+import { SleepHabitRepoModel } from '../infrastructure/database/schema/sleep.habit.schema'
+import { SociodemographicRecordRepoModel } from '../infrastructure/database/schema/sociodemographic.record.schema'
 
 export class DI {
     private static instance: DI
@@ -135,7 +141,13 @@ export class DI {
             .to(SleepHabitRepository).inSingletonScope()
 
         // Models
-        this.container.bind(Identifier.ACTIVITY_HABITS_REPO_MODEL).toConstantValue(ActivityHabitsRepoModel)
+        this.container.bind(Identifier.FAMILY_COHESION_RECORD_REPO_MODEL).toConstantValue(FamilyCohesionRecordRepoModel)
+        this.container.bind(Identifier.FEEDING_HABITS_RECORD_REPO_MODEL).toConstantValue(FeedingHabitsRecordRepoModel)
+        this.container.bind(Identifier.MEDICAL_RECORD_REPO_MODEL).toConstantValue(MedicalRecordRepoModel)
+        this.container.bind(Identifier.ORAL_HEALTH_RECORD_REPO_MODEL).toConstantValue(OralHealthRecordRepoModel)
+        this.container.bind(Identifier.PHYSICAL_ACTIVITY_HABITS_REPO_MODEL).toConstantValue(PhysicalActivityHabitsRepoModel)
+        this.container.bind(Identifier.SLEEP_HABIT_REPO_MODEL).toConstantValue(SleepHabitRepoModel)
+        this.container.bind(Identifier.SOCIODEMOGRAPHIC_RECORD_REPO_MODEL).toConstantValue(SociodemographicRecordRepoModel)
         this.container.bind(Identifier.PATIENT_REPO_MODEL).toConstantValue(PatientRepoModel)
 
         // Mappers

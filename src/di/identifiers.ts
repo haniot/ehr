@@ -29,7 +29,13 @@ export abstract class Identifier {
     public static readonly SLEEP_HABIT_REPOSITORY: any = Symbol.for('SleepHabitRepository')
 
     // Models
-    public static readonly ACTIVITY_HABITS_REPO_MODEL: any = Symbol.for('ActivityHabitsRepoModel')
+    public static readonly FAMILY_COHESION_RECORD_REPO_MODEL: any = Symbol.for('FamilyCohesionRecordRepoModel')
+    public static readonly FEEDING_HABITS_RECORD_REPO_MODEL: any = Symbol.for('FeedingHabitsRecordRepoModel')
+    public static readonly MEDICAL_RECORD_REPO_MODEL: any = Symbol.for('MedicalRecordRepoModel')
+    public static readonly ORAL_HEALTH_RECORD_REPO_MODEL: any = Symbol.for('OralHealthRecordRepoModel')
+    public static readonly PHYSICAL_ACTIVITY_HABITS_REPO_MODEL: any = Symbol.for('PhysicalActivityHabitsRepoModel')
+    public static readonly SLEEP_HABIT_REPO_MODEL: any = Symbol.for('SleepHabitRepoModel')
+    public static readonly SOCIODEMOGRAPHIC_RECORD_REPO_MODEL: any = Symbol.for('SociodemographicRecordRepoModel')
     public static readonly PATIENT_REPO_MODEL: any = Symbol.for('PatientRepoModel')
 
     // Mappers

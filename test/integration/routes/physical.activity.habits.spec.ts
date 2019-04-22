@@ -3,7 +3,6 @@ import { DI } from '../../../src/di/di'
 import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
 import { Identifier } from '../../../src/di/identifiers'
 import { App } from '../../../src/app'
-import { ActivityHabitsRepoModel } from '../../../src/infrastructure/database/schema/activity.habits.schema'
 import { Patient } from '../../../src/application/domain/model/patient'
 import { IPatientRepository } from '../../../src/application/port/patient.repository.interface'
 import { PatientRepoModel } from '../../../src/infrastructure/database/schema/patient.schema'
@@ -11,6 +10,7 @@ import { expect } from 'chai'
 import { PhysicalActivityHabits } from '../../../src/application/domain/model/physical.activity.habits'
 import { ObjectID } from 'bson'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { PhysicalActivityHabitsRepoModel } from '../../../src/infrastructure/database/schema/physical.activity.habits.schema'
 
 const container: Container = DI.getInstance().getContainer()
 const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
@@ -320,11 +320,11 @@ describe('Routes: PhysicalActivityHabits', () => {
 })
 
 async function deleteAllActivities(doc) {
-    return ActivityHabitsRepoModel.deleteMany({})
+    return PhysicalActivityHabitsRepoModel.deleteMany({})
 }
 
 async function createActivity(doc) {
-    return ActivityHabitsRepoModel.create(doc)
+    return PhysicalActivityHabitsRepoModel.create(doc)
 }
 
 async function deleteAllPatients(doc) {

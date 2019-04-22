@@ -3,7 +3,6 @@ import { DI } from '../../../src/di/di'
 import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
 import { Identifier } from '../../../src/di/identifiers'
 import { App } from '../../../src/app'
-import { ActivityHabitsRepoModel } from '../../../src/infrastructure/database/schema/activity.habits.schema'
 import { Patient } from '../../../src/application/domain/model/patient'
 import { IPatientRepository } from '../../../src/application/port/patient.repository.interface'
 import { PatientRepoModel } from '../../../src/infrastructure/database/schema/patient.schema'
@@ -11,6 +10,7 @@ import { expect } from 'chai'
 import { MedicalRecord } from '../../../src/application/domain/model/medical.record'
 import { ObjectID } from 'bson'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { MedicalRecordRepoModel } from '../../../src/infrastructure/database/schema/medical.record.schema'
 
 const container: Container = DI.getInstance().getContainer()
 const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
@@ -407,11 +407,11 @@ describe('Routes: MedicalRecord', () => {
 })
 
 async function deleteAllActivities(doc) {
-    return ActivityHabitsRepoModel.deleteMany({})
+    return MedicalRecordRepoModel.deleteMany({})
 }
 
 async function createActivity(doc) {
-    return ActivityHabitsRepoModel.create(doc)
+    return MedicalRecordRepoModel.create(doc)
 }
 
 async function deleteAllPatients(doc) {

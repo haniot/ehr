@@ -21,12 +21,10 @@ const oralHealthRecordSchema = new Mongoose.Schema({
         },
         teeth_lesions: [{
             tooth_type: {
-                type: String,
-                required: 'Type of tooth is required!'
+                type: String
             },
             lesion_type: {
-                type: String,
-                required: 'Type of lesion in tooth is required!'
+                type: String
             }
         }]
     },

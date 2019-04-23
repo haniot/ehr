@@ -5,38 +5,82 @@ import { inject, injectable } from 'inversify'
 import { Identifier } from '../../di/identifiers'
 import { IFamilyCohesionRecordRepository } from '../port/family.cohesion.record.repository.interface'
 import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
+import { CreateFamilyCohesionRecordValidator } from '../domain/validator/create.family.cohesion.record.validator'
+import { ValidationException } from '../domain/exception/validation.exception'
+import { Strings } from '../../utils/strings'
+import { IPatientRepository } from '../port/patient.repository.interface'
+import { ObjectIdValidator } from '../domain/validator/object.id.validator'
+import { UpdateFamilyCohesionRecordValidator } from '../domain/validator/update.family.cohesion.record.validator'
 
 @injectable()
 export class FamilyCohesionRecordService implements IFamilyCohesionRecordService {
     constructor(
-        @inject(Identifier.FAMILY_COHESION_RECORD_REPOSITORY) private readonly _repo: IFamilyCohesionRecordRepository
+        @inject(Identifier.FAMILY_COHESION_RECORD_REPOSITORY) private readonly _repo: IFamilyCohesionRecordRepository,
+        @inject(Identifier.PATIENT_REPOSITORY) private readonly _patientRepo: IPatientRepository
     ) {
     }
 
-    public add(item: FamilyCohesionRecord): Promise<FamilyCohesionRecord> {
+    public async add(item: FamilyCohesionRecord): Promise<FamilyCohesionRecord> {
+        try {
+            CreateFamilyCohesionRecordValidator.validate(item)
+            if (item.patient_id) {
+                const patientExists = await this._patientRepo.checkExists(item.patient_id)
+                if (!patientExists) {
+                    throw new ValidationException(
+                        Strings.PATIENT.NOT_FOUND,
+                        Strings.PATIENT.NOT_FOUND_DESCRIPTION
+                    )
+                }
+            }
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.create(item)
     }
 
-    public getAll(query: IQuery): Promise<Array<FamilyCohesionRecord>> {
+    public async getAll(query: IQuery): Promise<Array<FamilyCohesionRecord>> {
+        try {
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         query.addFilter({ type: QuestionnaireTypes.FAMILY_COHESION_RECORD })
         return this._repo.find(query)
     }
 
-    public getById(id: string, query: IQuery): Promise<FamilyCohesionRecord> {
+    public async getById(id: string, query: IQuery): Promise<FamilyCohesionRecord> {
+        try {
+            ObjectIdValidator.validate(id)
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         query.addFilter({ _id: id, type: QuestionnaireTypes.FAMILY_COHESION_RECORD })
         return this._repo.findOne(query)
     }
 
-    public update(item: FamilyCohesionRecord): Promise<FamilyCohesionRecord> {
+    public async update(item: FamilyCohesionRecord): Promise<FamilyCohesionRecord> {
+        try {
+            ObjectIdValidator.validate(item.patient_id!)
+            item.patient_id = undefined
+            UpdateFamilyCohesionRecordValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.update(item)
     }
 
-    public removeFamilyCohesionRecord(patientId, familyCohesionId: string): Promise<boolean> {
+    public async removeFamilyCohesionRecord(patientId, familyCohesionId: string): Promise<boolean> {
+        try {
+            ObjectIdValidator.validate(patientId)
+            ObjectIdValidator.validate(familyCohesionId)
+        } catch (err) {
+            return Promise.reject(err)
+        }
         return this._repo.delete(familyCohesionId)
     }
 
     public remove(id: string): Promise<boolean> {
         throw Error('Not implemented yet!')
     }
-
 }

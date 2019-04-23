@@ -4,7 +4,7 @@ import { IQuery } from '../port/query.interface'
 import { PhysicalActivityHabits } from '../domain/model/physical.activity.habits'
 import { Identifier } from '../../di/identifiers'
 import { IPhysicalActivityHabitsRepository } from '../port/physical.activity.habits.repository.interface'
-import { ActivityHabitsTypes } from '../domain/utils/activity.habits.types'
+import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
 import { CreatePhysicalActivityHabitsValidator } from '../domain/validator/create.physical.activity.habits.validator'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
 import { UpdatePhysicalActivityHabitsValidator } from '../domain/validator/update.physical.activity.habits.validator'
@@ -45,7 +45,7 @@ export class PhysicalActivityHabitsService implements IPhysicalActivityHabitsSer
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ type: ActivityHabitsTypes.PHYSICAL_ACTIVITY_HABITS })
+        query.addFilter({ type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS })
         return this._repo.find(query)
     }
 
@@ -56,7 +56,7 @@ export class PhysicalActivityHabitsService implements IPhysicalActivityHabitsSer
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ _id: id, type: ActivityHabitsTypes.PHYSICAL_ACTIVITY_HABITS })
+        query.addFilter({ _id: id, type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS })
         return this._repo.findOne(query)
     }
 

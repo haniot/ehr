@@ -1,7 +1,7 @@
 import { ValidationException } from '../exception/validation.exception'
 import { ObjectIdValidator } from './object.id.validator'
 
-export class CreateActivityHabitsRecordValidator {
+export class CreateQuestionnaireRecordValidator {
     public static validate(item: any): void | ValidationException {
         const fields: Array<string> = []
 

@@ -1,6 +1,6 @@
 import { ChronicDiseaseTypes } from '../../../src/application/domain/utils/chronic.disease.types'
 import { DiseaseHistoryTypes } from '../../../src/application/domain/utils/disease.history.types'
-import { ActivityHabitsTypes } from '../../../src/application/domain/utils/activity.habits.types'
+import { QuestionnaireTypes } from '../../../src/application/domain/utils/questionnaire.types'
 import { SevenDaysFeedingFrequencyTypes } from '../../../src/application/domain/utils/seven.days.feeding.frequency.types'
 import { DailyFeedingFrequencyTypes } from '../../../src/application/domain/utils/daily.feeding.frequency.types'
 import { OneDayFeedingAmountTypes } from '../../../src/application/domain/utils/one.day.feeding.amount.types'
@@ -30,7 +30,7 @@ export abstract class DefaultEntityMock {
         id: '5ca23b9a4c0ed58781c8ee3f',
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
-        type: ActivityHabitsTypes.FEEDING_HABITS_RECORD,
+        type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
         weekly_feeding_habits: [{
             food: 'bread',
             seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
@@ -46,7 +46,7 @@ export abstract class DefaultEntityMock {
         id: '5ca23b9ac442321a589285b0',
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
-        type: ActivityHabitsTypes.MEDICAL_RECORD,
+        type: QuestionnaireTypes.MEDICAL_RECORD,
         chronic_diseases: [{
             type: ChronicDiseaseTypes.BLOOD_FAT,
             disease_history: DiseaseHistoryTypes.YES
@@ -57,7 +57,7 @@ export abstract class DefaultEntityMock {
         id: '5ca23b9adcd6cc4649189c4a',
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
-        type: ActivityHabitsTypes.PHYSICAL_ACTIVITY_HABITS,
+        type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS,
         school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
         weekly_activities: ['run', 'swin']
     }
@@ -66,7 +66,7 @@ export abstract class DefaultEntityMock {
         id: '5ca23b9ac6c20c399e333f46',
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
-        type: ActivityHabitsTypes.SLEEP_HABIT,
+        type: QuestionnaireTypes.SLEEP_HABIT,
         week_day_sleep: 22,
         week_day_wake_up: 6
     }

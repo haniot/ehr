@@ -3,7 +3,7 @@ import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { JsonUtils } from '../utils/json.utils'
 
-export class ActivityHabitsRecord extends Entity implements IJSONSerializable, IJSONDeserializable<ActivityHabitsRecord> {
+export class QuestionnaireRecord extends Entity implements IJSONSerializable, IJSONDeserializable<QuestionnaireRecord> {
     private _patient_id?: string
     private _created_at?: string
     private _type?: string
@@ -36,7 +36,7 @@ export class ActivityHabitsRecord extends Entity implements IJSONSerializable, I
         this._type = value
     }
 
-    public fromJSON(json: any): ActivityHabitsRecord {
+    public fromJSON(json: any): QuestionnaireRecord {
         if (!json) return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)

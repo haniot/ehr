@@ -4,13 +4,13 @@ import { WeeklyFoodRecordValidator } from './weekly.food.record.validator'
 import { BreastFeedingTypesValidator } from './breast.feeding.types.validator'
 import { FoodAllergyIntoleranceTypesValidator } from './food.allergy.intolerance.types.validator'
 import { DailyFeedingFrequencyTypesValidator } from './daily.feeding.frequency.types.validator'
-import { UpdateActivityHabitsRecordValidator } from './update.activity.habits.record.validator'
+import { UpdateQuestionnaireRecordValidator } from './update.questionnaire.record.validator'
 import { ObjectIdValidator } from './object.id.validator'
 import { OneDayFeedingAmountTypesValidator } from './one.day.feeding.amount.types.validator'
 
 export class UpdateFeedingHabitsRecordValidator {
     public static validate(item: FeedingHabitsRecord): void | ValidationException {
-        UpdateActivityHabitsRecordValidator.validate(item)
+        UpdateQuestionnaireRecordValidator.validate(item)
         if (item.id) ObjectIdValidator.validate(item.id)
         if (item.weekly_feeding_habits) item.weekly_feeding_habits.forEach(value => {
             if (value.seven_days_freq) WeeklyFoodRecordValidator.validate(value.seven_days_freq)

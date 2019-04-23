@@ -1,12 +1,12 @@
-import { ActivityHabitsRecord } from './activity.habits.record'
+import { QuestionnaireRecord } from './questionnaire.record'
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { WeeklyFoodRecord } from './weekly.food.record'
 import { JsonUtils } from '../utils/json.utils'
-import { ActivityHabitsTypes } from '../utils/activity.habits.types'
+import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
 export class FeedingHabitsRecord
-    extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
+    extends QuestionnaireRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
 
     private _weekly_feeding_habits?: Array<WeeklyFoodRecord>
     private _daily_water_glasses?: string
@@ -16,7 +16,7 @@ export class FeedingHabitsRecord
 
     constructor() {
         super()
-        super.type = ActivityHabitsTypes.FEEDING_HABITS_RECORD
+        super.type = QuestionnaireTypes.FEEDING_HABITS_RECORD
     }
 
     get weekly_feeding_habits(): Array<WeeklyFoodRecord> | undefined {

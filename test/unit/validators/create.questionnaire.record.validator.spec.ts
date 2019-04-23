@@ -1,14 +1,14 @@
 import { assert } from 'chai'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
-import { CreateActivityHabitsRecordValidator }
-    from '../../../src/application/domain/validator/create.activity.habits.record.validator'
+import { CreateQuestionnaireRecordValidator }
+    from '../../../src/application/domain/validator/create.questionnaire.record.validator'
 import { Strings } from '../../../src/utils/strings'
 
-describe('Validators: CreateActivityHabitsRecordValidator', () => {
+describe('Validators: CreateQuestionnaireRecordValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const activity = DefaultEntityMock.ACTIVITY_HABITS_RECORD
-        const result = CreateActivityHabitsRecordValidator.validate(activity)
+        const result = CreateQuestionnaireRecordValidator.validate(activity)
         assert.equal(result, undefined)
     })
 
@@ -18,7 +18,7 @@ describe('Validators: CreateActivityHabitsRecordValidator', () => {
         it('should throw an error for does not pass patient_id', () => {
             try {
                 activity.patient_id = undefined
-                CreateActivityHabitsRecordValidator.validate(activity)
+                CreateQuestionnaireRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
@@ -30,7 +30,7 @@ describe('Validators: CreateActivityHabitsRecordValidator', () => {
         it('should throw an error for does pass invalid patient_id', () => {
             try {
                 activity.patient_id = '123'
-                CreateActivityHabitsRecordValidator.validate(activity)
+                CreateQuestionnaireRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')

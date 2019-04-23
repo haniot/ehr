@@ -1,5 +1,5 @@
-import { ActivityHabitsRecordEntity } from './activity.habits.record.entity'
+import { QuestionnaireRecordEntity } from './questionnaire.record.entity'
 
-export class MedicalRecordEntity extends ActivityHabitsRecordEntity {
+export class MedicalRecordEntity extends QuestionnaireRecordEntity {
     public chronic_diseases ?: Array<any>
 }

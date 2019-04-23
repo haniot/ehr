@@ -4,7 +4,7 @@ import { SleepHabit } from '../domain/model/sleep.habit'
 import { IQuery } from '../port/query.interface'
 import { Identifier } from '../../di/identifiers'
 import { ISleepHabitRepository } from '../port/sleep.habit.repository.interface'
-import { ActivityHabitsTypes } from '../domain/utils/activity.habits.types'
+import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
 import { CreateSleepHabitValidator } from '../domain/validator/create.sleep.habit.validator'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
 import { UpdateSleepHabitValidator } from '../domain/validator/update.sleep.habit.validator'
@@ -44,7 +44,7 @@ export class SleepHabitService implements ISleepHabitService {
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ type: ActivityHabitsTypes.SLEEP_HABIT })
+        query.addFilter({ type: QuestionnaireTypes.SLEEP_HABIT })
         return this._repo.find(query)
     }
 
@@ -55,7 +55,7 @@ export class SleepHabitService implements ISleepHabitService {
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ _id: id, type: ActivityHabitsTypes.SLEEP_HABIT })
+        query.addFilter({ _id: id, type: QuestionnaireTypes.SLEEP_HABIT })
         return this._repo.findOne(query)
     }
 

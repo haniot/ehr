@@ -57,4 +57,19 @@ export abstract class Strings {
         NOT_FOUND_DESCRIPTION: 'Sleep habit not found or already removed.' +
             ' A new operation for the same resource is required.'
     }
+    public static readonly FAMILY_COHESION_RECORD: any = {
+        NOT_FOUND: 'Family cohesion record it not found!',
+        NOT_FOUND_DESCRIPTION: 'Family cohesion record not found or already removed.' +
+            ' A new operation for the same resource is required.'
+    }
+    public static readonly ORAL_HEALTH_RECORD: any = {
+        NOT_FOUND: 'Oral health record not found!',
+        NOT_FOUND_DESCRIPTION: 'Oral health record not found or already removed.' +
+            ' A new operation for the same resource is required.'
+    }
+    public static readonly SOCIODEMOGRAPHIC_RECORD: any = {
+        NOT_FOUND: 'Sociodemographic record not found!',
+        NOT_FOUND_DESCRIPTION: 'Sociodemographic record not found or already removed.' +
+            ' A new operation for the same resource is required.'
+    }
 }

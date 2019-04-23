@@ -209,7 +209,7 @@ describe('Routes: SleepHabit', () => {
     describe('DELETE` /patients/:patient_id/sleephabits/:sleephabit_id', () => {
         context('when delete a sleep habit', () => {
             it('should return status code 204 and no content', async () => {
-                const result = await createActivity(DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS)
+                const result = await createActivity(DefaultEntityMock.SLEEP_HABIT)
                 return request
                     .delete(`/patients/${patient.id}/sleephabits/${result.id}`)
                     .send(activity.toJSON())

@@ -3,5 +3,5 @@ export enum FamilyCohesionFrequencyTypes {
     RARELY = 'rarely',
     SOMETIMES = 'sometimes',
     OFTEN = 'often',
-    ALMOST_EVERYDAY = 'almost_everyday'
+    ALMOST_ALWAYS = 'almost_always'
 }

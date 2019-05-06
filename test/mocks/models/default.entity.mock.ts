@@ -80,4 +80,13 @@ export abstract class DefaultEntityMock {
         food: 'bread',
         seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
     }
+    public static readonly SOCIODEMOGRAPHIC_RECORD: any = {
+        id: '5ca23b9adcd6cc4649189c4c',
+        patient_id: '5ca23b9af04e7c28223cb590',
+        created_at: '2018-01-03T00:01:04.000Z',
+        type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
+        color_race: 'red',
+        mother_schoolarity: 'mother_schoolarity',
+        people_in_home: 2
+    }
 }

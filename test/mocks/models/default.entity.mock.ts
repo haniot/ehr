@@ -85,8 +85,24 @@ export abstract class DefaultEntityMock {
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
-        color_race: 'red',
-        mother_schoolarity: 'mother_schoolarity',
-        people_in_home: 2
+        color_race: 'white',
+        mother_schoolarity: 'unlettered',
+        people_in_home: 4
+    }
+    public static readonly FAMILY_COHESION_RECORD: any = {
+        id: '5ca23b9adcd6cc4649189c3b',
+        patient_id: '5ca23b9af04e7c28223cb590',
+        created_at: '2018-01-03T00:01:04.000Z',
+        family_mutual_aid_freq: 'almost_never',
+        friendship_approval_freq: 'almost_never',
+        family_only_task_freq: 'almost_never',
+        family_only_preference_freq: 'almost_never',
+        free_time_together_freq: 'almost_never',
+        family_proximity_perception_freq: 'almost_never',
+        all_family_tasks_freq: 'almost_never',
+        family_tasks_opportunity_freq: 'almost_never',
+        family_decision_support_freq: 'almost_never',
+        family_union_relevance_freq: 'almost_never',
+        family_cohesion_result: 45
     }
 }

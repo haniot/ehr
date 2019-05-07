@@ -80,7 +80,7 @@ export class SociodemographicRecordService implements ISociodemographicRecordSer
         return this._repo.delete(socioId)
     }
 
-    public remove(id: string): Promise<boolean> {
+    public async remove(id: string): Promise<boolean> {
         throw Error('Not implemented yet!')
     }
 }

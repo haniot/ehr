@@ -70,9 +70,9 @@ describe('Mappers: SociodemographicRecord', () => {
             it('should call the modelToModelEntity() method', () => {
                 const result = mapper.transform(model)
                 assert.property(result, 'patient_id')
-                assert.propertyVal(result, 'patient_id', DefaultEntityMock.SLEEP_HABIT.patient_id)
+                assert.propertyVal(result, 'patient_id', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', DefaultEntityMock.SLEEP_HABIT.created_at)
+                assert.propertyVal(result, 'created_at', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.created_at)
                 assert.property(result, 'color_race')
                 assert.propertyVal(result, 'color_race', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
                 assert.property(result, 'mother_schoolarity')

@@ -42,11 +42,6 @@ export abstract class Strings {
             ' A new operation for the same resource is required.'
     }
 
-    public static readonly PATIENT: any = {
-        NOT_FOUND: 'Patient not found!',
-        NOT_FOUND_DESCRIPTION: 'Patient not found or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
     public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
         NOT_FOUND: 'Physical activity habits not founded!',
         NOT_FOUND_DESCRIPTION: 'Physical activity habits not founded or already removed.' +

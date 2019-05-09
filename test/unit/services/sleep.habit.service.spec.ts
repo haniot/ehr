@@ -1,8 +1,5 @@
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
-import { PatientRepositoryMock } from '../../mocks/repositories/patient.repository.mock'
 import { assert } from 'chai'
-import { ObjectID } from 'bson'
-import { Strings } from '../../../src/utils/strings'
 import { Query } from '../../../src/infrastructure/repository/query/query'
 import { SleepHabit } from '../../../src/application/domain/model/sleep.habit'
 import { ISleepHabitService } from '../../../src/application/port/sleep.habit.service.interface'
@@ -12,9 +9,7 @@ import { SleepHabitRepositoryMock } from '../../mocks/repositories/sleep.habit.r
 describe('Services: SleepHabitService', () => {
     const activity: SleepHabit = new SleepHabit().fromJSON(DefaultEntityMock.SLEEP_HABIT)
     activity.id = DefaultEntityMock.SLEEP_HABIT.id
-    const service: ISleepHabitService = new SleepHabitService(
-        new SleepHabitRepositoryMock(), new PatientRepositoryMock()
-    )
+    const service: ISleepHabitService = new SleepHabitService(new SleepHabitRepositoryMock())
 
     describe('add()', () => {
         context('when save a new sleep habit', () => {
@@ -47,21 +42,6 @@ describe('Services: SleepHabitService', () => {
                         assert.propertyVal(err, 'message', 'Required fields were not provided...')
                         assert.propertyVal(err, 'description', 'Sleep Habit validation: week_day_sleep, week_day_wake_up is' +
                             ' required!')
-                    })
-            })
-        })
-
-        context('when the patient_id is not founded', () => {
-            it('should reject a validation error', () => {
-                activity.patient_id = `${new ObjectID()}`
-                return service
-                    .add(activity)
-                    .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
-                        assert.propertyVal(err, 'message', Strings.PATIENT.NOT_FOUND)
-                        assert.propertyVal(err, 'description', Strings.PATIENT.NOT_FOUND_DESCRIPTION)
-                        activity.patient_id = DefaultEntityMock.MEDICAL_RECORD.patient_id
                     })
             })
         })

@@ -5,33 +5,19 @@ import { inject, injectable } from 'inversify'
 import { Identifier } from '../../di/identifiers'
 import { IOralHealthRecordRepository } from '../port/oral.health.record.repository.interface'
 import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
-import { ValidationException } from '../domain/exception/validation.exception'
-import { Strings } from '../../utils/strings'
 import { CreateOralHealthRecordValidator } from '../domain/validator/create.oral.health.record.validator'
-import { IPatientRepository } from '../port/patient.repository.interface'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
 import { UpdateOralHealthRecordValidator } from '../domain/validator/update.oral.health.record.validator'
 
 @injectable()
 export class OralHealthRecordService implements IOralHealthRecordService {
     constructor(
-        @inject(Identifier.ORAL_HEALTH_RECORD_REPOSITORY) private readonly _repo: IOralHealthRecordRepository,
-        @inject(Identifier.PATIENT_REPOSITORY) private readonly _patientRepo: IPatientRepository
-    ) {
+        @inject(Identifier.ORAL_HEALTH_RECORD_REPOSITORY) private readonly _repo: IOralHealthRecordRepository) {
     }
 
     public async add(item: OralHealthRecord): Promise<OralHealthRecord> {
         try {
             CreateOralHealthRecordValidator.validate(item)
-            if (item.patient_id) {
-                const patientExists = await this._patientRepo.checkExists(item.patient_id)
-                if (!patientExists) {
-                    throw new ValidationException(
-                        Strings.PATIENT.NOT_FOUND,
-                        Strings.PATIENT.NOT_FOUND_DESCRIPTION
-                    )
-                }
-            }
         } catch (err) {
             return Promise.reject(err)
         }

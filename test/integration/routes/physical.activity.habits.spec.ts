@@ -3,9 +3,6 @@ import { DI } from '../../../src/di/di'
 import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
 import { Identifier } from '../../../src/di/identifiers'
 import { App } from '../../../src/app'
-import { Patient } from '../../../src/application/domain/model/patient'
-import { IPatientRepository } from '../../../src/application/port/patient.repository.interface'
-import { PatientRepoModel } from '../../../src/infrastructure/database/schema/patient.schema'
 import { expect } from 'chai'
 import { PhysicalActivityHabits } from '../../../src/application/domain/model/physical.activity.habits'
 import { ObjectID } from 'bson'
@@ -15,21 +12,15 @@ import { PhysicalActivityHabitsRepoModel } from '../../../src/infrastructure/dat
 const container: Container = DI.getInstance().getContainer()
 const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
 const app: App = container.get(Identifier.APP)
-const patientRepo: IPatientRepository = container.get(Identifier.PATIENT_REPOSITORY)
 const request = require('supertest')(app.getExpress())
 
 describe('Routes: PhysicalActivityHabits', () => {
     const activity: PhysicalActivityHabits = new PhysicalActivityHabits().fromJSON(DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS)
-    const patient: Patient = new Patient().fromJSON(DefaultEntityMock.PATIENT)
 
     before(async () => {
             try {
                 await dbConnection.tryConnect(0, 500)
                 await deleteAllActivities({})
-                await deleteAllPatients({})
-                const result = await patientRepo.create(new Patient().fromJSON(DefaultEntityMock.PATIENT))
-                patient.id = result.id
-                activity.patient_id = patient.id
             } catch (err) {
                 throw new Error('Failure on Patient test: ' + err.message)
             }
@@ -39,7 +30,6 @@ describe('Routes: PhysicalActivityHabits', () => {
     after(async () => {
         try {
             await deleteAllActivities({})
-            await deleteAllPatients({})
             await dbConnection.dispose()
         } catch (err) {
             throw new Error('Failure on Patient test: ' + err.message)
@@ -50,7 +40,7 @@ describe('Routes: PhysicalActivityHabits', () => {
         context('when save a new physical activity habits', () => {
             it('should return status code 200 and the saved physical activity habits', () => {
                 return request
-                    .post(`/patients/${patient.id}/physicalactivityhabits`)
+                    .post(`/patients/${activity.patient_id}/physicalactivityhabits`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(201)
@@ -85,7 +75,7 @@ describe('Routes: PhysicalActivityHabits', () => {
         context('when get a unique physical activity habits', () => {
             it('should return status code 200 and a physical activity habits', () => {
                 return request
-                    .get(`/patients/${patient.id}/physicalactivityhabits/${activity.id}`)
+                    .get(`/patients/${activity.patient_id}/physicalactivityhabits/${activity.id}`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
@@ -113,7 +103,7 @@ describe('Routes: PhysicalActivityHabits', () => {
 
             it('should return status code 400 and message from invalid physicalactivityhabits_id', () => {
                 return request
-                    .get(`/patients/${patient.id}/physicalactivityhabits/123`)
+                    .get(`/patients/${activity.patient_id}/physicalactivityhabits/123`)
                     .set('Content-Type', 'application/json')
                     .expect(400)
                     .then(res => {
@@ -149,7 +139,8 @@ describe('Routes: PhysicalActivityHabits', () => {
                 activity.patient_id = undefined
                 activity.created_at = undefined
                 return request
-                    .patch(`/patients/${patient.id}/physicalactivityhabits/${activity.id}`)
+                    .patch
+                    (`/patients/${DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id}/physicalactivityhabits/${activity.id}`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(200)
@@ -177,7 +168,7 @@ describe('Routes: PhysicalActivityHabits', () => {
 
             it('should return status code 400 and message from invalid physicalactivityhabits_id', () => {
                 return request
-                    .patch(`/patients/${patient.id}/physicalactivityhabits/123`)
+                    .patch(`/patients/${activity.patient_id}/physicalactivityhabits/123`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -204,8 +195,8 @@ describe('Routes: PhysicalActivityHabits', () => {
                         expect(res.body.message).to.eql('Physical activity habits not founded!')
                         expect(res.body.description).to.eql('Physical activity habits not founded or already removed. A new' +
                             ' operation for the same resource is required.')
-                        activity.patient_id = patient.id
-                        activity.created_at = DefaultEntityMock.FEEDING_HABITS_RECORD.created_at
+                        activity.patient_id = DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id
+                        activity.created_at = DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at
                     })
             })
         })
@@ -216,7 +207,7 @@ describe('Routes: PhysicalActivityHabits', () => {
             it('should return status code 204 and no content', async () => {
                 const result = await createActivity(DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS)
                 return request
-                    .delete(`/patients/${patient.id}/physicalactivityhabits/${result.id}`)
+                    .delete(`/patients/${activity.patient_id}/physicalactivityhabits/${result.id}`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(204)
@@ -243,7 +234,7 @@ describe('Routes: PhysicalActivityHabits', () => {
 
             it('should return status code 400 and message from invalid physicalactivityhabits_id', () => {
                 return request
-                    .delete(`/patients/${patient.id}/physicalactivityhabits/123`)
+                    .delete(`/patients/${activity.patient_id}/physicalactivityhabits/123`)
                     .set('Content-Type', 'application/json')
                     .expect(400)
                     .then(res => {
@@ -274,7 +265,7 @@ describe('Routes: PhysicalActivityHabits', () => {
         context('when get all physical activity habits', () => {
             it('should return status code 200 and a list of physical activity habits', () => {
                 return request
-                    .get(`/patients/${patient.id}/physicalactivityhabits`)
+                    .get(`/patients/${activity.patient_id}/physicalactivityhabits`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
@@ -307,7 +298,7 @@ describe('Routes: PhysicalActivityHabits', () => {
             it('should return status code 200 and a empty list', async () => {
                 await deleteAllActivities({}).then()
                 return request
-                    .get(`/patients/${patient.id}/physicalactivityhabits`)
+                    .get(`/patients/${activity.patient_id}/physicalactivityhabits`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
@@ -325,8 +316,4 @@ async function deleteAllActivities(doc) {
 
 async function createActivity(doc) {
     return PhysicalActivityHabitsRepoModel.create(doc)
-}
-
-async function deleteAllPatients(doc) {
-    return await PatientRepoModel.deleteMany(doc)
 }

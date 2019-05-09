@@ -80,7 +80,7 @@ export class FamilyCohesionRecordService implements IFamilyCohesionRecordService
         return this._repo.delete(familyCohesionId)
     }
 
-    public remove(id: string): Promise<boolean> {
+    public async remove(id: string): Promise<boolean> {
         throw Error('Not implemented yet!')
     }
 }

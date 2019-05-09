@@ -5,33 +5,19 @@ import { inject, injectable } from 'inversify'
 import { Identifier } from '../../di/identifiers'
 import { ISociodemographicRecordRepository } from '../port/sociodemographic.record.repository.interface'
 import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
-import { IPatientRepository } from '../port/patient.repository.interface'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
-import { ValidationException } from '../domain/exception/validation.exception'
-import { Strings } from '../../utils/strings'
 import { CreateSociodemographicRecordValidator } from '../domain/validator/create.sociodemographic.record.validator'
 import { UpdateSociodemographicRecordValidator } from '../domain/validator/update.sociodemographic.record.validator'
 
 @injectable()
 export class SociodemographicRecordService implements ISociodemographicRecordService {
     constructor(
-        @inject(Identifier.SOCIODEMOGRAPHIC_RECORD_REPOSITORY) private readonly _repo: ISociodemographicRecordRepository,
-        @inject(Identifier.PATIENT_REPOSITORY) private readonly _patientRepo: IPatientRepository
-    ) {
+        @inject(Identifier.SOCIODEMOGRAPHIC_RECORD_REPOSITORY) private readonly _repo: ISociodemographicRecordRepository) {
     }
 
     public async add(item: SociodemographicRecord): Promise<SociodemographicRecord> {
         try {
             CreateSociodemographicRecordValidator.validate(item)
-            if (item.patient_id) {
-                const patientExists = await this._patientRepo.checkExists(item.patient_id)
-                if (!patientExists) {
-                    throw new ValidationException(
-                        Strings.PATIENT.NOT_FOUND,
-                        Strings.PATIENT.NOT_FOUND_DESCRIPTION
-                    )
-                }
-            }
         } catch (err) {
             return Promise.reject(err)
         }

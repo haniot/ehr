@@ -7,19 +7,8 @@ import { OneDayFeedingAmountTypes } from '../../../src/application/domain/utils/
 import { BreastFeedingTypes } from '../../../src/application/domain/utils/breast.feeding.types'
 import { FoodAllergyIntoleranceTypes } from '../../../src/application/domain/utils/food.allergy.intolerance.types'
 import { SchoolActivityFrequencyTypes } from '../../../src/application/domain/utils/school.activity.frequency.types'
-import { GenderTypes } from '../../../src/application/domain/utils/gender.types'
 
 export abstract class DefaultEntityMock {
-
-    public static readonly PATIENT: any = {
-        id: '5ca23b9af04e7c28223cb590',
-        pilotstudy_id: '5ca3a865d07f8cce8b1c6372',
-        first_name: 'Elvis',
-        last_name: 'Aaron',
-        gender: GenderTypes.MALE,
-        birth_date: '1935-01-08'
-    }
-
     public static readonly ACTIVITY_HABITS_RECORD: any = {
         id: '5ca23b9af2bb205b0262556b',
         patient_id: '5ca23b9af04e7c28223cb590',

@@ -8,30 +8,16 @@ import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
 import { CreateSleepHabitValidator } from '../domain/validator/create.sleep.habit.validator'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
 import { UpdateSleepHabitValidator } from '../domain/validator/update.sleep.habit.validator'
-import { IPatientRepository } from '../port/patient.repository.interface'
-import { ValidationException } from '../domain/exception/validation.exception'
-import { Strings } from '../../utils/strings'
 
 @injectable()
 export class SleepHabitService implements ISleepHabitService {
     constructor(
-        @inject(Identifier.SLEEP_HABIT_REPOSITORY) private readonly _repo: ISleepHabitRepository,
-        @inject(Identifier.PATIENT_REPOSITORY) private readonly _patientRepo: IPatientRepository
-    ) {
+        @inject(Identifier.SLEEP_HABIT_REPOSITORY) private readonly _repo: ISleepHabitRepository) {
     }
 
     public async add(item: SleepHabit): Promise<SleepHabit> {
         try {
             CreateSleepHabitValidator.validate(item)
-            if (item.patient_id) {
-                const patientExists = await this._patientRepo.checkExists(item.patient_id)
-                if (!patientExists) {
-                    throw new ValidationException(
-                        Strings.PATIENT.NOT_FOUND,
-                        Strings.PATIENT.NOT_FOUND_DESCRIPTION
-                    )
-                }
-            }
         } catch (err) {
             return Promise.reject(err)
         }

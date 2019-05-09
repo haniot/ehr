@@ -1,38 +1,27 @@
-import {Container} from 'inversify'
-import {DI} from '../../../src/di/di'
-import {IConnectionDB} from '../../../src/infrastructure/port/connection.db.interface'
-import {Identifier} from '../../../src/di/identifiers'
-import {App} from '../../../src/app'
-import {IPatientRepository} from '../../../src/application/port/patient.repository.interface'
-
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {Patient} from '../../../src/application/domain/model/patient'
-import {SociodemographicRecord} from '../../../src/application/domain/model/sociodemographic.record'
-
-import {PatientRepoModel} from '../../../src/infrastructure/database/schema/patient.schema'
-import {SociodemographicRecordRepoModel} from '../../../src/infrastructure/database/schema/sociodemographic.record.schema'
-import {expect} from 'chai'
-import {ObjectID} from 'bson'
+import { Container } from 'inversify'
+import { DI } from '../../../src/di/di'
+import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
+import { Identifier } from '../../../src/di/identifiers'
+import { App } from '../../../src/app'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { SociodemographicRecord } from '../../../src/application/domain/model/sociodemographic.record'
+import { SociodemographicRecordRepoModel } from '../../../src/infrastructure/database/schema/sociodemographic.record.schema'
+import { expect } from 'chai'
+import { ObjectID } from 'bson'
 
 const container: Container = DI.getInstance().getContainer()
 const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
 const app: App = container.get(Identifier.APP)
-const patientRepo: IPatientRepository = container.get(Identifier.PATIENT_REPOSITORY)
 const request = require('supertest')(app.getExpress())
 
 describe('Routes: SociodemographicRecord', () => {
 
     const activity: SociodemographicRecord = new SociodemographicRecord().fromJSON(DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD)
-    const patient: Patient = new Patient().fromJSON(DefaultEntityMock.PATIENT)
 
     before(async () => {
             try {
                 await dbConnection.tryConnect(0, 500)
                 await deleteAllActivities({})
-                await deleteAllPatients({})
-                const result = await patientRepo.create(new Patient().fromJSON(DefaultEntityMock.PATIENT))
-                patient.id = result.id
-                activity.patient_id = patient.id
             } catch (err) {
                 throw new Error('Failure on Patient test: ' + err.message)
             }
@@ -42,7 +31,6 @@ describe('Routes: SociodemographicRecord', () => {
     after(async () => {
         try {
             await deleteAllActivities({})
-            await deleteAllPatients({})
             await dbConnection.dispose()
         } catch (err) {
             throw new Error('Failure on Patient test: ' + err.message)
@@ -53,7 +41,7 @@ describe('Routes: SociodemographicRecord', () => {
         context('when save a new sociodemographic record', () => {
             it('should return status code 200 and the saved sociodemographic record', () => {
                 return request
-                    .post(`/patients/${patient.id}/sociodemographicrecords`)
+                    .post(`/patients/${activity.patient_id}/sociodemographicrecords`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(201)
@@ -87,7 +75,7 @@ describe('Routes: SociodemographicRecord', () => {
         context('when get a unique sociodemographic record', () => {
             it('should return status code 200 and a sociodemographic record', () => {
                 return request
-                    .get(`/patients/${patient.id}/sociodemographicrecords/${activity.id}`)
+                    .get(`/patients/${activity.patient_id}/sociodemographicrecords/${activity.id}`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
@@ -113,7 +101,7 @@ describe('Routes: SociodemographicRecord', () => {
 
             it('should return status code 400 and message from invalid sociodemographicrecord_id', () => {
                 return request
-                    .get(`/patients/${patient.id}/sociodemographicrecords/123`)
+                    .get(`/patients/${activity.patient_id}/sociodemographicrecords/123`)
                     .set('Content-Type', 'application/json')
                     .expect(400)
                     .then(res => {
@@ -150,7 +138,8 @@ describe('Routes: SociodemographicRecord', () => {
                 activity.patient_id = undefined
                 activity.created_at = undefined
                 return request
-                    .patch(`/patients/${patient.id}/sociodemographicrecords/${activity.id}`)
+                    .patch
+                    (`/patients/${DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id}/sociodemographicrecords/${activity.id}`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(200)
@@ -178,7 +167,7 @@ describe('Routes: SociodemographicRecord', () => {
 
             it('should return status code 400 and message from invalid sociodemographicrecord_id', () => {
                 return request
-                    .patch(`/patients/${patient.id}/sociodemographicrecords/123`)
+                    .patch(`/patients/${activity.patient_id}/sociodemographicrecords/123`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -206,6 +195,8 @@ describe('Routes: SociodemographicRecord', () => {
                         expect(res.body.description).to.eql('Sociodemographic record not found or already removed.' +
                             ' A new operation for' +
                             ' the same resource is required.')
+                        activity.patient_id = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id
+                        activity.created_at = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.created_at
                     })
             })
         })
@@ -216,7 +207,7 @@ describe('Routes: SociodemographicRecord', () => {
             it('should return status code 204 and no content', async () => {
                 const result = await createActivity(DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD)
                 return request
-                    .delete(`/patients/${patient.id}/sociodemographicrecords/${result.id}`)
+                    .delete(`/patients/${activity.patient_id}/sociodemographicrecords/${result.id}`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(204)
@@ -243,7 +234,7 @@ describe('Routes: SociodemographicRecord', () => {
 
             it('should return status code 400 and message from invalid sociodemographicrecord_id', () => {
                 return request
-                    .delete(`/patients/${patient.id}/sociodemographicrecords/123`)
+                    .delete(`/patients/${activity.patient_id}/sociodemographicrecords/123`)
                     .set('Content-Type', 'application/json')
                     .expect(400)
                     .then(res => {
@@ -272,7 +263,7 @@ describe('Routes: SociodemographicRecord', () => {
         context('when get all sociodemographic record', () => {
             it('should return status code 200 and a list of sociodemographic record', () => {
                 return request
-                    .get(`/patients/${patient.id}/sociodemographicrecords`)
+                    .get(`/patients/${activity.patient_id}/sociodemographicrecords`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
@@ -315,7 +306,6 @@ describe('Routes: SociodemographicRecord', () => {
     })
 })
 
-
 async function deleteAllActivities(doc) {
     return SociodemographicRecordRepoModel.deleteMany({})
 }
@@ -323,9 +313,3 @@ async function deleteAllActivities(doc) {
 async function createActivity(doc) {
     return SociodemographicRecordRepoModel.create(doc)
 }
-
-async function deleteAllPatients(doc) {
-    return await PatientRepoModel.deleteMany(doc)
-}
-
-

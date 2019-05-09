@@ -1,19 +1,15 @@
-import {SociodemographicRecord} from '../../../src/application/domain/model/sociodemographic.record'
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {ISociodemographicRecordService} from '../../../src/application/port/sociodemographic.record.service.interface'
-import {SociodemographicRecordService} from '../../../src/application/service/sociodemographic.record.service'
-import {SociodemographicRecordRepositoryMock} from '../../mocks/repositories/sociodemographic.record.repository.mock'
-import {PatientRepositoryMock} from '../../mocks/repositories/patient.repository.mock'
-import {assert} from 'chai'
-import {ObjectID} from 'bson'
-import {Strings} from '../../../src/utils/strings'
-import {Query} from '../../../src/infrastructure/repository/query/query'
+import { SociodemographicRecord } from '../../../src/application/domain/model/sociodemographic.record'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { ISociodemographicRecordService } from '../../../src/application/port/sociodemographic.record.service.interface'
+import { SociodemographicRecordService } from '../../../src/application/service/sociodemographic.record.service'
+import { SociodemographicRecordRepositoryMock } from '../../mocks/repositories/sociodemographic.record.repository.mock'
+import { assert } from 'chai'
+import { Query } from '../../../src/infrastructure/repository/query/query'
 
 describe('Services: SociodemographicRecord', () => {
     const activity: SociodemographicRecord = new SociodemographicRecord().fromJSON(DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD)
     activity.id = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.id
-    const service: ISociodemographicRecordService = new SociodemographicRecordService(
-        new SociodemographicRecordRepositoryMock(), new PatientRepositoryMock() )
+    const service: ISociodemographicRecordService = new SociodemographicRecordService(new SociodemographicRecordRepositoryMock())
 
     describe('add()', () => {
         context('when save a new sociodemographic record', () => {
@@ -48,21 +44,6 @@ describe('Services: SociodemographicRecord', () => {
                         assert.propertyVal(err, 'message', 'Required fields were not provided...')
                         assert.propertyVal(err, 'description', 'Sociodemographic Record validation: color_race, ' +
                             'mother_schoolarity, people_in_home is required!')
-                    })
-            })
-        })
-
-        context('when the patient_id is not founded', () => {
-            it('should reject a validation error', () => {
-                activity.patient_id = `${new ObjectID()}`
-                return service
-                    .add(activity)
-                    .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
-                        assert.propertyVal(err, 'message', Strings.PATIENT.NOT_FOUND)
-                        assert.propertyVal(err, 'description', Strings.PATIENT.NOT_FOUND_DESCRIPTION)
-                        activity.patient_id = DefaultEntityMock.MEDICAL_RECORD.patient_id
                     })
             })
         })

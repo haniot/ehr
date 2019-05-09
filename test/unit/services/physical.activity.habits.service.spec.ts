@@ -3,19 +3,13 @@ import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { IPhysicalActivityHabitsService } from '../../../src/application/port/physical.activity.habits.service.interface'
 import { PhysicalActivityHabitsService } from '../../../src/application/service/physical.activity.habits.service'
 import { PhysicalActivityHabitsRepositoryMock } from '../../mocks/repositories/physical.activity.habits.repository.mock'
-import { PatientRepositoryMock } from '../../mocks/repositories/patient.repository.mock'
 import { assert } from 'chai'
-import { ObjectID } from 'bson'
-import { Strings } from '../../../src/utils/strings'
 import { Query } from '../../../src/infrastructure/repository/query/query'
 
 describe('Services: PhysicalActivityHabitsService', () => {
     const activity: PhysicalActivityHabits = new PhysicalActivityHabits().fromJSON(DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS)
     activity.id = DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.id
-    const service: IPhysicalActivityHabitsService = new PhysicalActivityHabitsService(
-        new PhysicalActivityHabitsRepositoryMock(),
-        new PatientRepositoryMock()
-    )
+    const service: IPhysicalActivityHabitsService = new PhysicalActivityHabitsService(new PhysicalActivityHabitsRepositoryMock())
 
     describe('add()', () => {
         context('when save a new physical activity habits', () => {
@@ -46,21 +40,6 @@ describe('Services: PhysicalActivityHabitsService', () => {
                         assert.propertyVal(err, 'message', 'Required fields were not provided...')
                         assert.property(err, 'description', 'Physical Activity Habits validation: school_activity_freq, ' +
                             'weekly_activities is required!')
-                    })
-            })
-        })
-
-        context('when the patient does not exists', () => {
-            it('should reject a validation error', () => {
-                activity.patient_id = `${new ObjectID()}`
-                return service
-                    .add(activity)
-                    .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
-                        assert.propertyVal(err, 'message', Strings.PATIENT.NOT_FOUND)
-                        assert.propertyVal(err, 'description', Strings.PATIENT.NOT_FOUND_DESCRIPTION)
-                        activity.patient_id = DefaultEntityMock.MEDICAL_RECORD.patient_id
                     })
             })
         })

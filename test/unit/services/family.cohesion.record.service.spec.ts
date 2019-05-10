@@ -1,21 +1,16 @@
-
 import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {PatientRepositoryMock} from '../../mocks/repositories/patient.repository.mock'
 import {FamilyCohesionRecord} from '../../../src/application/domain/model/family.cohesion.record'
 import {IFamilyCohesionRecordService} from '../../../src/application/port/family.cohesion.record.service.interface'
 import {FamilyCohesionRecordService} from '../../../src/application/service/family.cohesion.record.service'
 import {FamilyCohesionRecordRepositoryMock} from '../../mocks/repositories/family.cohesion.record.repository.mock'
 import {assert} from 'chai'
-import {ObjectID} from 'bson'
-import {Strings} from '../../../src/utils/strings'
 import {Query} from '../../../src/infrastructure/repository/query/query'
 
 describe('Services: FamilyCohesionRecord', () => {
     const activity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON(DefaultEntityMock.FAMILY_COHESION_RECORD)
     activity.id = DefaultEntityMock.FAMILY_COHESION_RECORD.id
     const service: IFamilyCohesionRecordService = new FamilyCohesionRecordService(
-        new FamilyCohesionRecordRepositoryMock(), new PatientRepositoryMock() )
-
+        new FamilyCohesionRecordRepositoryMock() )
 
     describe('add()', () => {
         context('when save a new family cohesion record', () => {
@@ -73,20 +68,6 @@ describe('Services: FamilyCohesionRecord', () => {
             })
         })
 
-        context('when the patient_id is not founded', () => {
-            it('should reject a validation error', () => {
-                activity.patient_id = `${new ObjectID()}`
-                return service
-                    .add(activity)
-                    .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
-                        assert.propertyVal(err, 'message', Strings.PATIENT.NOT_FOUND)
-                        assert.propertyVal(err, 'description', Strings.PATIENT.NOT_FOUND_DESCRIPTION)
-                        activity.patient_id = DefaultEntityMock.MEDICAL_RECORD.patient_id
-                    })
-            })
-        })
     })
 
     describe('getAll()', () => {

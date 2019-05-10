@@ -97,4 +97,22 @@ export abstract class DefaultEntityMock {
         family_union_relevance_freq: 'almost_never',
         family_cohesion_result: 45
     }
+
+    public static readonly ORAL_HEALTH_RECORD: any = {
+        id: '5cbddb07bd6cdd88c4735d99',
+        patient_id: '5ca23b9af04e7c28223cb590',
+        created_at: '2018-01-03T00:01:04.000Z',
+        teeth_brushing_freq: 'none',
+        type: QuestionnaireTypes.ORAL_HEALTH_RECORD,
+        teeth_lesions: [
+            {
+                tooth_type: 'deciduous_tooth',
+                lesion_type: 'white_spot_lesion'
+            },
+            {
+                tooth_type: 'deciduous_tooth',
+                lesion_type: 'cavitated_lesion'
+            }
+        ]
+    }
 }

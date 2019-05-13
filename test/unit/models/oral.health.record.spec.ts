@@ -92,7 +92,7 @@ describe('Models: OralHealthRecord', () => {
                 assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
                 assert.equal(result.teeth_brushing_freq, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq)
-                assert.equal(result.teeth_lesions, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
+                assert.deepPropertyVal(result, 'teeth_lesions', DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
             })
 
         })
@@ -107,7 +107,7 @@ describe('Models: OralHealthRecord', () => {
                 assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
                 assert.equal(result.teeth_brushing_freq, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq)
-                assert.equal(result.teeth_lesions, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
+                assert.deepEqual(result.teeth_lesions, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
             })
         })
 
@@ -122,7 +122,7 @@ describe('Models: OralHealthRecord', () => {
                 assert.equal(result.created_at, undefined)
                 assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
                 assert.equal(result.teeth_brushing_freq, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq)
-                assert.equal(result.teeth_lesions, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
+                assert.deepEqual(result.teeth_lesions, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
             })
         })
     })

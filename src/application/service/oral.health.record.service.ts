@@ -66,7 +66,7 @@ export class OralHealthRecordService implements IOralHealthRecordService {
         return this._repo.delete(oralHealthId)
     }
 
-    public remove(id: string): Promise<boolean> {
+    public async remove(id: string): Promise<boolean> {
         throw Error('Not implemented yet!')
     }
 }

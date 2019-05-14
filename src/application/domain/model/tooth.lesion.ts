@@ -30,6 +30,7 @@ export class ToothLesion implements IJSONSerializable, IJSONDeserializable<Tooth
 
         if (json.tooth_type !== undefined) this.tooth_type = json.tooth_type
         if (json.lesion_type !== undefined) this.lesion_type = json.lesion_type
+
         return this
     }
 

@@ -62,8 +62,10 @@ describe('Validators: UpdateOralHealthRecord', () => {
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
-                assert.propertyVal(err, 'message', 'Value not mapped for color_race: red')
-                assert.propertyVal(err, 'description', 'The mapped values are: white, black, parda, yellow.')
+                assert.propertyVal(err, 'message', 'Value not mapped for teeth_brushing_freq: invalid')
+                assert.propertyVal(err, 'description', 'The mapped values are: none, once, twice, three_more.')
+            } finally {
+                activity.teeth_brushing_freq = undefined
             }
         })
         it('should throw an error for does pass invalid teeth_lesions.tooth_type', () => {
@@ -72,10 +74,9 @@ describe('Validators: UpdateOralHealthRecord', () => {
                 UpdateOralHealthRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
-                assert.propertyVal(err, 'message', 'Value not mapped for seven_days_freq: invalid')
+                assert.propertyVal(err, 'message', 'Value not mapped for tooth_type: invalid')
                 assert.property(err, 'description')
-                assert.propertyVal(err, 'description', 'The mapped values are: never, no_day, one_two_days, ' +
-                    'three_four_days, five_six_days, all_days, undefined.')
+                assert.propertyVal(err, 'description', 'The mapped values are: deciduous_tooth, permanent_tooth.')
             } finally {
                 activity.teeth_lesions![0].tooth_type = undefined
             }
@@ -87,10 +88,9 @@ describe('Validators: UpdateOralHealthRecord', () => {
                 UpdateOralHealthRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
-                assert.propertyVal(err, 'message', 'Value not mapped for seven_days_freq: invalid')
+                assert.propertyVal(err, 'message', 'Value not mapped for lesion_type: invalid')
                 assert.property(err, 'description')
-                assert.propertyVal(err, 'description', 'The mapped values are: never, no_day, one_two_days, ' +
-                    'three_four_days, five_six_days, all_days, undefined.')
+                assert.propertyVal(err, 'description', 'The mapped values are: white_spot_lesion, cavitated_lesion.')
             }
         })
     })

@@ -38,7 +38,7 @@ export class OralHealthRecord extends QuestionnaireRecord implements IJSONSerial
 
         super.fromJSON(json)
         if (json.teeth_brushing_freq !== undefined) this.teeth_brushing_freq = json.teeth_brushing_freq
-        if (json.teeth_lesions !== undefined && json.teeth_lesions.length) {
+        if (json.teeth_lesions !== undefined && json.teeth_lesions instanceof Array) {
             this.teeth_lesions = json.teeth_lesions.map(value => new ToothLesion().fromJSON(value))
         }
         return this

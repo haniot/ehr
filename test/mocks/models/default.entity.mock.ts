@@ -99,7 +99,7 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly ORAL_HEALTH_RECORD: any = {
-        id: '5cbddb07bd6cdd88c4735d99',
+        id: '5ca23b9adcd6cc4649189c3b',
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-01-03T00:01:04.000Z',
         teeth_brushing_freq: 'none',

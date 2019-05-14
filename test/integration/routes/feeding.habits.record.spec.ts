@@ -39,6 +39,7 @@ describe('Routes: FeedingHabitsRecord', () => {
     describe('POST /patients/:patient_id/feedinghabitsrecords', () => {
         context('when save a new feeding habits record', () => {
             it('should return status code 200 and the saved feeding habit record', () => {
+                console.log('activity : ', activity)
                 return request
                     .post(`/patients/${activity.patient_id}/feedinghabitsrecords`)
                     .send(activity.toJSON())

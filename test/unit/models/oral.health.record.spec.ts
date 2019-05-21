@@ -79,23 +79,6 @@ describe('Models: OralHealthRecord', () => {
                 assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
                 assert.equal(result.teeth_brushing_freq, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq)
             })
-            /*
-
-            it('should return the object with set teeth_lesions', () => {
-                const result = new OralHealthRecord().fromJSON({
-                    patient_id: DefaultEntityMock.ORAL_HEALTH_RECORD.patient_id,
-                    created_at: DefaultEntityMock.ORAL_HEALTH_RECORD.created_at,
-                    teeth_brushing_freq: DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq,
-                    teeth_lesions: DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions
-                })
-                assert.equal(result.patient_id, DefaultEntityMock.ORAL_HEALTH_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
-                assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
-                assert.equal(result.teeth_brushing_freq, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq)
-                assert.deepEqual(result.teeth_lesions, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
-            })
-
-             */
         })
     })
 

@@ -39,14 +39,12 @@ describe('Routes: OralHealthRecord', () => {
     describe('POST /patients/:patient_id/oralhealthrecords', () => {
         context('when save a new oral health record', () => {
             it('should return status code 200 and the saved oral health record', () => {
-                console.log('ORAL HEALTH activity ', activity)
                 return request
                     .post(`/patients/${activity.patient_id}/oralhealthrecords`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(201)
                     .then(res => {
-                        console.log('ORAL HEALTH activity ', activity)
                         expect(res.body).to.have.property('id')
                         expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('created_at')
@@ -95,7 +93,6 @@ describe('Routes: OralHealthRecord', () => {
                         expect(res.body).to.have.property('teeth_brushing_freq')
                         expect(res.body.teeth_brushing_freq).to.eql(activity.teeth_brushing_freq)
                         expect(res.body).to.have.property('teeth_lesions')
-                       // expect(res.body.teeth_lesions).to.eql(activity.teeth_lesions)
                     })
             })
         })
@@ -161,7 +158,6 @@ describe('Routes: OralHealthRecord', () => {
                         expect(res.body).to.have.property('teeth_brushing_freq')
                         expect(res.body.teeth_brushing_freq).to.eql(activity.teeth_brushing_freq)
                         expect(res.body).to.have.property('teeth_lesions')
-                     //   expect(res.body.teeth_lesions).to.eql(activity.teeth_lesions)
                     })
             })
         })
@@ -270,6 +266,52 @@ describe('Routes: OralHealthRecord', () => {
                     .expect(204)
                     .then(res => {
                         expect(res.body).to.eql({})
+                    })
+            })
+        })
+    })
+
+    describe('GET` /patients/:patient_id/oralhealthrecords/', () => {
+        context('when get all oral health record', () => {
+            it('should return status code 200 and a list of oral health record', () => {
+                return request
+                    .get(`/patients/${activity.patient_id}/oralhealthrecords`)
+                    .set('Content-Type', 'application/json')
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body).to.be.an.instanceof(Array)
+                        expect(res.body).to.have.lengthOf(1)
+                        expect(res.body[0]).to.have.property('id')
+                    })
+            })
+        })
+
+        context('when there are validation errors', () => {
+            it('should return status code 400 and message from invalid patient_id', () => {
+                return request
+                    .get('/patients/123/oralhealthrecords')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body).to.have.property('message')
+                        expect(res.body).to.have.property('description')
+                        expect(res.body.message).to.eql('Some ID provided does not have a valid format!')
+                        expect(res.body.description).to.eql('A 24-byte hex ID similar to this: 507f191e810c19729de860ea ' +
+                            'is expected.')
+                    })
+            })
+
+        })
+
+        context('when the oral health record is not founded', () => {
+            it('should return status code 200 and a empty list', () => {
+                return request
+                    .get(`/patients/${new ObjectID()}/oralhealthrecords`)
+                    .set('Content-Type', 'application/json')
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body).to.be.an.instanceof(Array)
+                        expect(res.body).to.have.lengthOf(0)
                     })
             })
         })

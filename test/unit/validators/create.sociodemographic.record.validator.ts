@@ -51,7 +51,7 @@ describe('Validators: CreateSociodemographicRecord', () => {
                 activity.color_race = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race
             }
         })
-        it('should throw an error for does not pass  correct color_race', () => {
+        it('should throw an error for does not pass correct color_race', () => {
             activity.color_race = 'red'
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
@@ -74,6 +74,21 @@ describe('Validators: CreateSociodemographicRecord', () => {
                 assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description', 'Sociodemographic Record validation: mother_schoolarity is required!')
+            }finally {
+                activity.mother_schoolarity = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity
+            }
+        })
+
+        it('should throw an error for does not pass correct mother_schoolarity', () => {
+            activity.mother_schoolarity = 'invalid'
+            try {
+                CreateSociodemographicRecordValidator.validate(activity)
+            } catch (err) {
+                assert.property(err, 'message')
+                assert.property(err, 'description')
+                assert.propertyVal(err, 'message', 'Value not mapped for mother_schoolarity: invalid')
+                assert.propertyVal(err, 'description', 'The mapped values are: unlettered, elementary_1_to_3, ' +
+                    'elementary_4_to_7, elementary_complete, high_school_incomplete, high_school_complete, undefined.')
             }finally {
                 activity.mother_schoolarity = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity
             }

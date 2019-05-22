@@ -83,18 +83,18 @@ describe('Models: SociodemographicRecord', () => {
                 assert.equal(result.color_race, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
             })
 
-            it('should return the object with set mother schoolarity', () => {
+            it('should return the object with set mother scholarity', () => {
                 const result = new SociodemographicRecord().fromJSON({
                     patient_id: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id,
                     created_at: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.created_at,
                     color_race: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race,
-                    mother_schoolarity: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity
+                    mother_scholarity: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id)
                 assert.equal(result.created_at, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
                 assert.equal(result.color_race, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
-                assert.equal(result.mother_schoolarity, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity)
+                assert.equal(result.mother_scholarity, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity)
             })
 
             it('should return the object with set people in home', () => {
@@ -102,14 +102,14 @@ describe('Models: SociodemographicRecord', () => {
                     patient_id: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id,
                     created_at: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.created_at,
                     color_race: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race,
-                    mother_schoolarity: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity,
+                    mother_scholarity: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity,
                     people_in_home: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.people_in_home
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id)
                 assert.equal(result.created_at, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
                 assert.equal(result.color_race, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
-                assert.equal(result.mother_schoolarity, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity)
+                assert.equal(result.mother_scholarity, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity)
                 assert.equal(result.people_in_home, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.people_in_home)
             })
         })

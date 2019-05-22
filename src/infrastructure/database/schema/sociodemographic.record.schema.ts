@@ -19,9 +19,9 @@ const sociodemographicRecordSchema = new Mongoose.Schema({
             type: String,
             required: 'Color race from patient is required!'
         },
-        mother_schoolarity: {
+        mother_scholarity: {
             type: String,
-            required: 'Level of schoolarity of patient mother is required!'
+            required: 'Level of scholarity of patient mother is required!'
         },
         people_in_home: {
             type: Number,

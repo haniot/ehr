@@ -7,6 +7,7 @@ import { OneDayFeedingAmountTypes } from '../../../src/application/domain/utils/
 import { BreastFeedingTypes } from '../../../src/application/domain/utils/breast.feeding.types'
 import { FoodAllergyIntoleranceTypes } from '../../../src/application/domain/utils/food.allergy.intolerance.types'
 import { SchoolActivityFrequencyTypes } from '../../../src/application/domain/utils/school.activity.frequency.types'
+import { ScholarityLevelTypes } from '../../../src/application/domain/utils/scholarity.level.types'
 
 export abstract class DefaultEntityMock {
     public static readonly ACTIVITY_HABITS_RECORD: any = {
@@ -76,7 +77,7 @@ export abstract class DefaultEntityMock {
         created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
         color_race: 'white',
-        mother_schoolarity: 'unlettered',
+        mother_scholarity: ScholarityLevelTypes.UNLETTERED_ELEMENTARY_ONE_INCOMPLETE,
         people_in_home: 4
     }
 

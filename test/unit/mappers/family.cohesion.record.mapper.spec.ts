@@ -19,7 +19,6 @@ describe('Mappers: FamilyCohesionRecord', () => {
                 assert.property(result, 'patient_id')
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.property(result, 'all_family_tasks_freq')
                 assert.propertyVal(result, 'all_family_tasks_freq',
                     DefaultEntityMock.FAMILY_COHESION_RECORD.all_family_tasks_freq)
@@ -65,7 +64,6 @@ describe('Mappers: FamilyCohesionRecord', () => {
                 assert.property(result, 'patient_id')
                 assert.propertyVal(result, 'patient_id', undefined)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', undefined)
                 assert.property(result, 'all_family_tasks_freq')
                 assert.propertyVal(result, 'all_family_tasks_freq',
                     undefined)
@@ -156,7 +154,6 @@ describe('Mappers: FamilyCohesionRecord', () => {
             assert.property(result, 'patient_id')
             assert.propertyVal(result, 'patient_id', DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
             assert.property(result, 'created_at')
-            assert.propertyVal(result, 'created_at', DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
             assert.property(result, 'all_family_tasks_freq')
             assert.propertyVal(result, 'all_family_tasks_freq',
                 DefaultEntityMock.FAMILY_COHESION_RECORD.all_family_tasks_freq)

@@ -10,7 +10,7 @@ const feedingHabitsRecordSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the feeding habits record is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -56,4 +56,4 @@ const feedingHabitsRecordSchema = new Mongoose.Schema({
 
 export const FeedingHabitsRecordRepoModel =
     Mongoose.model <IFeedingHabitsRecordModel>
-    ('FeedingHabitsRecord', feedingHabitsRecordSchema, 'questionnairesanswers')
+    ('FeedingHabitsRecord', feedingHabitsRecordSchema, 'questionnaires')

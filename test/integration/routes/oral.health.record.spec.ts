@@ -46,9 +46,7 @@ describe('Routes: OralHealthRecord', () => {
                     .expect(201)
                     .then(res => {
                         expect(res.body).to.have.property('id')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('teeth_brushing_freq')
                         expect(res.body.teeth_brushing_freq).to.eql(activity.teeth_brushing_freq)
                         expect(res.body).to.have.property('teeth_lesions')
@@ -87,9 +85,7 @@ describe('Routes: OralHealthRecord', () => {
                     .expect(200)
                     .then(res => {
                         expect(res.body).to.have.property('id')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('teeth_brushing_freq')
                         expect(res.body.teeth_brushing_freq).to.eql(activity.teeth_brushing_freq)
                         expect(res.body).to.have.property('teeth_lesions')

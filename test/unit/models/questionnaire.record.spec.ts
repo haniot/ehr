@@ -8,7 +8,6 @@ describe('Models: QuestionnaireRecord', () => {
             it('should return the class with parameters set', () => {
                 const result = new QuestionnaireRecord().fromJSON(DefaultEntityMock.ACTIVITY_HABITS_RECORD)
                 assert.equal(result.patient_id, DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ACTIVITY_HABITS_RECORD.created_at)
             })
         })
 
@@ -36,7 +35,6 @@ describe('Models: QuestionnaireRecord', () => {
             it('should return the object with json parameters set', () => {
                 const result = new QuestionnaireRecord().fromJSON(JSON.stringify(DefaultEntityMock.ACTIVITY_HABITS_RECORD))
                 assert.equal(result.patient_id, DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ACTIVITY_HABITS_RECORD.created_at)
             })
 
             it('should return the class without parameters for empty string', () => {
@@ -64,7 +62,6 @@ describe('Models: QuestionnaireRecord', () => {
                     created_at: DefaultEntityMock.ACTIVITY_HABITS_RECORD.created_at
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ACTIVITY_HABITS_RECORD.created_at)
                 assert.equal(result.type, undefined)
             })
         })
@@ -75,7 +72,7 @@ describe('Models: QuestionnaireRecord', () => {
             it('should return the object as JSON', () => {
                 const activity = new QuestionnaireRecord().fromJSON(DefaultEntityMock.ACTIVITY_HABITS_RECORD)
                 const result = activity.toJSON()
-                assert.equal(result.created_at, DefaultEntityMock.ACTIVITY_HABITS_RECORD.created_at)
+                assert.equal(result.patient_id, undefined)
             })
         })
 

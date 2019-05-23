@@ -19,7 +19,6 @@ describe('Mappers: PhysicalActivityHabitsEntityMapper', () => {
                 assert.property(result, 'patient_id')
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
                 assert.property(result, 'school_activity_freq')
                 assert.propertyVal(result, 'school_activity_freq',
                     DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq)
@@ -87,7 +86,6 @@ describe('Mappers: PhysicalActivityHabitsEntityMapper', () => {
                 assert.property(result, 'patient_id')
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
                 assert.property(result, 'school_activity_freq')
                 assert.propertyVal(result, 'school_activity_freq',
                     DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq)

@@ -47,7 +47,6 @@ describe('Routes: MedicalRecord', () => {
                     .then(res => {
                         expect(res.body).to.have.property('id')
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('chronic_diseases')
                         expect(res.body.chronic_diseases).to.eql(activity.chronic_diseases)
                         activity.id = res.body.id
@@ -164,7 +163,6 @@ describe('Routes: MedicalRecord', () => {
                     .then(res => {
                         expect(res.body).to.have.property('id')
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('chronic_diseases')
                         expect(res.body.chronic_diseases).to.eql(activity.chronic_diseases)
                     })

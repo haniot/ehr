@@ -10,7 +10,7 @@ const physicalActivityHabitsSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the physical activity habits is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -38,4 +38,4 @@ const physicalActivityHabitsSchema = new Mongoose.Schema({
 
 export const PhysicalActivityHabitsRepoModel =
     Mongoose.model <IPhysicalActivityHabitsModel>
-    ('PhysicalActivityHabit', physicalActivityHabitsSchema, 'questionnairesanswers')
+    ('PhysicalActivityHabit', physicalActivityHabitsSchema, 'questionnaires')

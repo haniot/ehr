@@ -10,7 +10,7 @@ const medicalRecordSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the medical record is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -39,4 +39,4 @@ const medicalRecordSchema = new Mongoose.Schema({
     })
 
 export const MedicalRecordRepoModel =
-    Mongoose.model <IMedicalRecordModel>('MedicalRecord', medicalRecordSchema, 'questionnairesanswers')
+    Mongoose.model <IMedicalRecordModel>('MedicalRecord', medicalRecordSchema, 'questionnaires')

@@ -10,7 +10,7 @@ const sociodemographicRecordSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the sociodemographic record is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -42,4 +42,4 @@ const sociodemographicRecordSchema = new Mongoose.Schema({
 
 export const SociodemographicRecordRepoModel =
     Mongoose.model <ISociodemographicRecordModel>
-    ('SociodemographicRecord', sociodemographicRecordSchema, 'questionnairesanswers')
+    ('SociodemographicRecord', sociodemographicRecordSchema, 'questionnaires')

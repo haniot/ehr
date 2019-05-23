@@ -10,7 +10,6 @@ describe('Models: FamilyCohesionRecord', () => {
             it('should return the class with parameters set', () => {
                 const result = new FamilyCohesionRecord().fromJSON(DefaultEntityMock.FAMILY_COHESION_RECORD)
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
             })
         })
 
@@ -38,7 +37,6 @@ describe('Models: FamilyCohesionRecord', () => {
             it('should return the object with json parameters set', () => {
                 const result = new FamilyCohesionRecord().fromJSON(JSON.stringify(DefaultEntityMock.FAMILY_COHESION_RECORD))
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
             })
 
             it('should return the class without parameters for empty string', () => {
@@ -73,7 +71,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     created_at: DefaultEntityMock.FAMILY_COHESION_RECORD.created_at
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
             })
 
@@ -84,7 +81,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_mutual_aid_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
             })
@@ -97,7 +93,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_only_task_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -111,7 +106,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     friendship_approval_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.friendship_approval_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -127,7 +121,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_only_preference_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_preference_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -146,7 +139,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     free_time_together_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.free_time_together_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -168,7 +160,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_proximity_perception_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.family_proximity_perception_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -193,7 +184,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     all_family_tasks_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.all_family_tasks_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -221,7 +211,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_tasks_opportunity_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.family_tasks_opportunity_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -252,7 +241,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_decision_support_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.family_decision_support_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -286,7 +274,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_union_relevance_freq: DefaultEntityMock.FAMILY_COHESION_RECORD.family_union_relevance_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -324,7 +311,6 @@ describe('Models: FamilyCohesionRecord', () => {
                     family_cohesion_result: DefaultEntityMock.FAMILY_COHESION_RECORD.family_cohesion_result
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)
@@ -355,7 +341,6 @@ describe('Models: FamilyCohesionRecord', () => {
             it('should return the object as JSON', () => {
                 const activity = new FamilyCohesionRecord().fromJSON(DefaultEntityMock.FAMILY_COHESION_RECORD)
                 const result = activity.toJSON()
-                assert.equal(result.created_at, DefaultEntityMock.FAMILY_COHESION_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FAMILY_COHESION_RECORD.type)
                 assert.equal(result.family_mutual_aid_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq)
                 assert.equal(result.family_only_task_freq, DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq)

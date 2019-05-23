@@ -47,7 +47,6 @@ describe('Routes: SleepHabit', () => {
                     .then(res => {
                         expect(res.body).to.have.property('id')
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         activity.id = res.body.id
                     })
             })

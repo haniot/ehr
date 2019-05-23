@@ -10,7 +10,7 @@ const oralHealthRecordSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the oral health record is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -42,4 +42,4 @@ const oralHealthRecordSchema = new Mongoose.Schema({
 
 export const OralHealthRecordRepoModel =
     Mongoose.model <IOralHealthRecordModel>
-    ('OralHealthRecord', oralHealthRecordSchema, 'questionnairesanswers')
+    ('OralHealthRecord', oralHealthRecordSchema, 'questionnaires')

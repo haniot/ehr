@@ -39,7 +39,6 @@ describe('Routes: FeedingHabitsRecord', () => {
     describe('POST /patients/:patient_id/feedinghabitsrecords', () => {
         context('when save a new feeding habits record', () => {
             it('should return status code 200 and the saved feeding habit record', () => {
-                console.log('activity : ', activity)
                 return request
                     .post(`/patients/${activity.patient_id}/feedinghabitsrecords`)
                     .send(activity.toJSON())
@@ -47,9 +46,7 @@ describe('Routes: FeedingHabitsRecord', () => {
                     .expect(201)
                     .then(res => {
                         expect(res.body).to.have.property('id')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('weekly_feeding_habits')
                         expect(res.body.weekly_feeding_habits).to.eql(activity.weekly_feeding_habits)
                         expect(res.body).to.have.property('daily_water_glasses')
@@ -94,9 +91,7 @@ describe('Routes: FeedingHabitsRecord', () => {
                     .expect(200)
                     .then(res => {
                         expect(res.body).to.have.property('id')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('weekly_feeding_habits')
                         expect(res.body.weekly_feeding_habits).to.eql(activity.weekly_feeding_habits)
                         expect(res.body).to.have.property('daily_water_glasses')

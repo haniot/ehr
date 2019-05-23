@@ -10,7 +10,7 @@ const familyCohesionRecordSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the family cohesion record is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -74,4 +74,4 @@ const familyCohesionRecordSchema = new Mongoose.Schema({
 
 export const FamilyCohesionRecordRepoModel =
     Mongoose.model <IFamilyCohesionRecordModel>
-    ('FamilyCohesionRecord', familyCohesionRecordSchema, 'questionnairesanswers')
+    ('FamilyCohesionRecord', familyCohesionRecordSchema, 'questionnaires')

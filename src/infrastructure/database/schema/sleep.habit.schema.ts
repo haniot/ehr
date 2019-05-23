@@ -10,7 +10,7 @@ const sleepHabitSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the sleep habit is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -37,4 +37,4 @@ const sleepHabitSchema = new Mongoose.Schema({
     })
 
 export const SleepHabitRepoModel =
-    Mongoose.model <ISleepHabitModel>('SleepHabit', sleepHabitSchema, 'questionnairesanswers')
+    Mongoose.model <ISleepHabitModel>('SleepHabit', sleepHabitSchema, 'questionnaires')

@@ -10,7 +10,7 @@ const sociodemographicRecordSchema = new Mongoose.Schema({
             required: 'Id of patient associated with the sociodemographic record is required!'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String
@@ -19,9 +19,9 @@ const sociodemographicRecordSchema = new Mongoose.Schema({
             type: String,
             required: 'Color race from patient is required!'
         },
-        mother_schoolarity: {
+        mother_scholarity: {
             type: String,
-            required: 'Level of schoolarity of patient mother is required!'
+            required: 'Level of scholarity of patient mother is required!'
         },
         people_in_home: {
             type: Number,
@@ -42,4 +42,4 @@ const sociodemographicRecordSchema = new Mongoose.Schema({
 
 export const SociodemographicRecordRepoModel =
     Mongoose.model <ISociodemographicRecordModel>
-    ('SociodemographicRecord', sociodemographicRecordSchema, 'questionnairesanswers')
+    ('SociodemographicRecord', sociodemographicRecordSchema, 'questionnaires')

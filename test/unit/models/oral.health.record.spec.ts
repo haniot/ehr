@@ -1,6 +1,6 @@
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {assert} from 'chai'
-import {OralHealthRecord} from '../../../src/application/domain/model/oral.health.record'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { assert } from 'chai'
+import { OralHealthRecord } from '../../../src/application/domain/model/oral.health.record'
 
 describe('Models: OralHealthRecord', () => {
     describe('fromJSON()', () => {
@@ -8,7 +8,6 @@ describe('Models: OralHealthRecord', () => {
             it('should return the class with parameters set', () => {
                 const result = new OralHealthRecord().fromJSON(DefaultEntityMock.ORAL_HEALTH_RECORD)
                 assert.equal(result.patient_id, DefaultEntityMock.ORAL_HEALTH_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
             })
         })
 
@@ -36,7 +35,6 @@ describe('Models: OralHealthRecord', () => {
             it('should return the object with json parameters set', () => {
                 const result = new OralHealthRecord().fromJSON(JSON.stringify(DefaultEntityMock.ORAL_HEALTH_RECORD))
                 assert.equal(result.patient_id, DefaultEntityMock.ORAL_HEALTH_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
             })
 
             it('should return the class without parameters for empty string', () => {
@@ -71,7 +69,6 @@ describe('Models: OralHealthRecord', () => {
                     created_at: DefaultEntityMock.ORAL_HEALTH_RECORD.created_at
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.ORAL_HEALTH_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
             })
 
@@ -82,7 +79,6 @@ describe('Models: OralHealthRecord', () => {
                     teeth_brushing_freq: DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.ORAL_HEALTH_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
                 assert.equal(result.teeth_brushing_freq, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq)
             })
@@ -94,8 +90,7 @@ describe('Models: OralHealthRecord', () => {
             it('should return the object as JSON', () => {
                 const activity = new OralHealthRecord().fromJSON(DefaultEntityMock.ORAL_HEALTH_RECORD)
                 const result = activity.toJSON()
-                assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
-                assert.equal(result.created_at, DefaultEntityMock.ORAL_HEALTH_RECORD.created_at)
+
                 assert.equal(result.type, DefaultEntityMock.ORAL_HEALTH_RECORD.type)
                 assert.equal(result.teeth_brushing_freq, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq)
                 assert.deepEqual(result.teeth_lesions, DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
@@ -107,7 +102,7 @@ describe('Models: OralHealthRecord', () => {
                 const activity = new OralHealthRecord().fromJSON({
                     patient_id: DefaultEntityMock.ORAL_HEALTH_RECORD.patient_id,
                     teeth_brushing_freq: DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq,
-                    teeth_lesions: DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions,
+                    teeth_lesions: DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions
                 })
                 const result = activity.toJSON()
                 assert.equal(result.created_at, undefined)

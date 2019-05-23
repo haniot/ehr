@@ -3457,7 +3457,7 @@ components:
         - id
         - created_at
         - color_race
-        - mother_schoolarity
+        - mother_scholarity
         - people_in_home
       properties:
         id:
@@ -3475,9 +3475,9 @@ components:
           type: string
           description: Color race from patient.
           enum: ['white', 'black', 'parda', 'yellow']
-        mother_schoolarity:
+        mother_scholarity:
           type: string
-          description: Level of schoolarity of patient mother.
+          description: Level of scholarity of patient mother.
           enum: ['unlettered', 'elementary_1_to_3', 'elementary_4_to_7', 'elementary_complete', 'high_school_incomplete', 'high_school_complete', 'undefined']
         people_in_home:
           type: number

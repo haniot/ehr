@@ -8,7 +8,6 @@ describe('Models: SleepHabit', () => {
             it('should return the class with parameters set', () => {
                 const result = new SleepHabit().fromJSON(DefaultEntityMock.SLEEP_HABIT)
                 assert.equal(result.patient_id, DefaultEntityMock.SLEEP_HABIT.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.SLEEP_HABIT.created_at)
             })
         })
 
@@ -36,7 +35,6 @@ describe('Models: SleepHabit', () => {
             it('should return the object with json parameters set', () => {
                 const result = new SleepHabit().fromJSON(JSON.stringify(DefaultEntityMock.SLEEP_HABIT))
                 assert.equal(result.patient_id, DefaultEntityMock.SLEEP_HABIT.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.SLEEP_HABIT.created_at)
             })
 
             it('should return the class without parameters for empty string', () => {
@@ -64,7 +62,6 @@ describe('Models: SleepHabit', () => {
                     created_at: DefaultEntityMock.SLEEP_HABIT.created_at
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.SLEEP_HABIT.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.SLEEP_HABIT.created_at)
                 assert.equal(result.type, DefaultEntityMock.SLEEP_HABIT.type)
             })
 
@@ -75,7 +72,6 @@ describe('Models: SleepHabit', () => {
                     week_day_sleep: DefaultEntityMock.SLEEP_HABIT.week_day_sleep
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.SLEEP_HABIT.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.SLEEP_HABIT.created_at)
                 assert.equal(result.type, DefaultEntityMock.SLEEP_HABIT.type)
                 assert.equal(result.week_day_sleep, DefaultEntityMock.SLEEP_HABIT.week_day_sleep)
             })
@@ -88,7 +84,6 @@ describe('Models: SleepHabit', () => {
                     week_day_wake_up: DefaultEntityMock.SLEEP_HABIT.week_day_wake_up
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.SLEEP_HABIT.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.SLEEP_HABIT.created_at)
                 assert.equal(result.type, DefaultEntityMock.SLEEP_HABIT.type)
                 assert.equal(result.week_day_sleep, DefaultEntityMock.SLEEP_HABIT.week_day_sleep)
                 assert.equal(result.week_day_wake_up, DefaultEntityMock.SLEEP_HABIT.week_day_wake_up)
@@ -101,7 +96,7 @@ describe('Models: SleepHabit', () => {
             it('should return the object as JSON', () => {
                 const activity = new SleepHabit().fromJSON(DefaultEntityMock.SLEEP_HABIT)
                 const result = activity.toJSON()
-                assert.equal(result.created_at, DefaultEntityMock.SLEEP_HABIT.created_at)
+
                 assert.equal(result.week_day_sleep, DefaultEntityMock.SLEEP_HABIT.week_day_sleep)
                 assert.equal(result.week_day_wake_up, DefaultEntityMock.SLEEP_HABIT.week_day_wake_up)
             })

@@ -1,11 +1,12 @@
-import {SociodemographicRecord} from '../../../src/application/domain/model/sociodemographic.record'
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {assert} from 'chai'
-import {CreateSociodemographicRecordValidator} from '../../../src/application/domain/validator/create.sociodemographic.record.validator'
-import {Strings} from '../../../src/utils/strings'
+import { SociodemographicRecord } from '../../../src/application/domain/model/sociodemographic.record'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { assert } from 'chai'
+import { CreateSociodemographicRecordValidator } from '../../../src/application/domain/validator/create.sociodemographic.record.validator'
+import { Strings } from '../../../src/utils/strings'
+import { ScholarityLevelTypes } from '../../../src/application/domain/utils/scholarity.level.types'
 
 describe('Validators: CreateSociodemographicRecord', () => {
-    const activity : SociodemographicRecord = new SociodemographicRecord().fromJSON(DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD)
+    const activity: SociodemographicRecord = new SociodemographicRecord().fromJSON(DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD)
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateSociodemographicRecordValidator.validate(activity)
@@ -65,32 +66,32 @@ describe('Validators: CreateSociodemographicRecord', () => {
             }
         })
 
-        it('should throw an error for does not pass mother_schoolarity', () => {
-            activity.mother_schoolarity = undefined
+        it('should throw an error for does not pass mother_scholarity', () => {
+            activity.mother_scholarity = undefined
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
-                assert.propertyVal(err, 'description', 'Sociodemographic Record validation: mother_schoolarity is required!')
-            }finally {
-                activity.mother_schoolarity = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity
+                assert.propertyVal(err, 'description', 'Sociodemographic Record validation: mother_scholarity is required!')
+            } finally {
+                activity.mother_scholarity = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity
             }
         })
 
-        it('should throw an error for does not pass correct mother_schoolarity', () => {
-            activity.mother_schoolarity = 'invalid'
+        it('should throw an error for does not pass correct mother_scholarity', () => {
+            activity.mother_scholarity = 'invalid'
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
-                assert.propertyVal(err, 'message', 'Value not mapped for mother_schoolarity: invalid')
-                assert.propertyVal(err, 'description', 'The mapped values are: unlettered, elementary_1_to_3, ' +
-                    'elementary_4_to_7, elementary_complete, high_school_incomplete, high_school_complete, undefined.')
-            }finally {
-                activity.mother_schoolarity = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_schoolarity
+                assert.propertyVal(err, 'message', 'Value not mapped for mother_scholarity: invalid')
+                assert.propertyVal(err, 'description', Strings.ENUM_VALIDATOR.NOT_MAPPED_DESC
+                    .concat(Object.values(ScholarityLevelTypes).join(', ').concat('.')))
+            } finally {
+                activity.mother_scholarity = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity
             }
         })
         it('should throw an error for does not pass people_in_home', () => {

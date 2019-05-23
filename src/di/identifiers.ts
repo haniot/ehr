@@ -15,6 +15,7 @@ export abstract class Identifier {
     public static readonly FAMILY_COHESION_RECORD_CONTROLLER: any = Symbol.for('FamilyCohesionRecordController')
     public static readonly ORAL_HEALTH_RECORD_CONTROLLER: any = Symbol.for('OralHealthRecordController')
     public static readonly SOCIODEMOGRAPHIC_RECORD_CONTROLLER: any = Symbol.for('SociodemographicRecordController')
+    public static readonly QUESTIONNAIRES_CONTROLLER: any = Symbol.for('QuestionnairesController')
 
     // Services
     public static readonly FEEDING_HABITS_RECORD_SERVICE: any = Symbol.for('FeedingHabitsRecordService')

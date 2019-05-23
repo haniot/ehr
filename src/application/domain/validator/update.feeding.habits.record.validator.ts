@@ -6,13 +6,13 @@ import { FoodAllergyIntoleranceTypesValidator } from './food.allergy.intolerance
 import { DailyFeedingFrequencyTypesValidator } from './daily.feeding.frequency.types.validator'
 import { UpdateQuestionnaireRecordValidator } from './update.questionnaire.record.validator'
 import { OneDayFeedingAmountTypesValidator } from './one.day.feeding.amount.types.validator'
+import { WeeklyFoodRecord } from '../model/weekly.food.record'
 
 export class UpdateFeedingHabitsRecordValidator {
     public static validate(item: FeedingHabitsRecord): void | ValidationException {
         UpdateQuestionnaireRecordValidator.validate(item)
-        if (item.weekly_feeding_habits) item.weekly_feeding_habits.forEach(value => {
-            if (value.seven_days_freq) WeeklyFoodRecordValidator.validate(value.seven_days_freq)
-        })
+        if (item.weekly_feeding_habits)
+            item.weekly_feeding_habits.forEach((value: WeeklyFoodRecord) => WeeklyFoodRecordValidator.validate(value))
         if (item.daily_water_glasses) OneDayFeedingAmountTypesValidator.validate(item.daily_water_glasses)
         if (item.six_month_breast_feeding) BreastFeedingTypesValidator.validate(item.six_month_breast_feeding)
         if (item.food_allergy_intolerance) item.food_allergy_intolerance.forEach(value => {

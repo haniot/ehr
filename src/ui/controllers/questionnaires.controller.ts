@@ -12,8 +12,15 @@ import { IMedicalRecordService } from '../../application/port/medical.record.ser
 import { IOralHealthRecordService } from '../../application/port/oral.health.record.service.interface'
 import { ISleepHabitService } from '../../application/port/sleep.habit.service.interface'
 import { ISociodemographicRecordService } from '../../application/port/sociodemographic.record.service.interface'
+import { FamilyCohesionRecord } from '../../application/domain/model/family.cohesion.record'
+import { FeedingHabitsRecord } from '../../application/domain/model/feeding.habits.record'
+import { MedicalRecord } from '../../application/domain/model/medical.record'
+import { OralHealthRecord } from '../../application/domain/model/oral.health.record'
+import { PhysicalActivityHabits } from '../../application/domain/model/physical.activity.habits'
+import { SleepHabit } from '../../application/domain/model/sleep.habit'
+import { SociodemographicRecord } from '../../application/domain/model/sociodemographic.record'
 
-@controller('/patients/:patient_id/questionnaires')
+@controller('/patients/:patient_id/questionnaires/last')
 export class QuestionnairesController {
     constructor(
         @inject(Identifier.FAMILY_COHESION_RECORD_SERVICE)
@@ -34,20 +41,33 @@ export class QuestionnairesController {
     }
 
     @httpGet('/')
-    public async getAllPhysicalActivityHabitsFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
+    public async getLastPatientQuestionnaires(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const query: Query = new Query().fromJSON(req.query)
             query.addFilter({ patient_id: req.params.patient_id })
+            query.addOrdination('created_at', 'desc')
 
-            const result: Array<any> = [
-                ...await this._familyCohesionRecordService.getAll(query),
-                ...await this._feedingHabitsRecordService.getAll(query),
-                ...await this._medicalRecordService.getAll(query),
-                ...await this._oralHealthRecordService.getAll(query),
-                ...await this._physicalActivityHabitsService.getAll(query),
-                ...await this._sleepHabitService.getAll(query),
-                ...await this._sociodemographicRecordService.getAll(query)]
+            const feedingHabitsRecords: Array<FeedingHabitsRecord> = await this._feedingHabitsRecordService.getAll(query)
+            const medicalRecords: Array<MedicalRecord> = await this._medicalRecordService.getAll(query)
+            const physicalActivityHabits: Array<PhysicalActivityHabits> = await this._physicalActivityHabitsService.getAll(query)
+            const sleepHabits: Array<SleepHabit> = await this._sleepHabitService.getAll(query)
+            const sociodemographicRecord: Array<SociodemographicRecord> = await this._sociodemographicRecordService.getAll(query)
+            const familyCohesionRecords: Array<FamilyCohesionRecord> = await this._familyCohesionRecordService.getAll(query)
+            const oralHealthRecords: Array<OralHealthRecord> = await this._oralHealthRecordService.getAll(query)
 
+            const result: any = {
+                nutritional: {
+                    sleep_habit: this.toJSONView(sleepHabits[0].toJSON()),
+                    physical_activity_habits: this.toJSONView(physicalActivityHabits[0].toJSON()),
+                    feeding_habits_record: this.toJSONView(feedingHabitsRecords[0].toJSON()),
+                    medical_record: this.toJSONView(medicalRecords[0].toJSON())
+                },
+                odontological: {
+                    sociodemographic_record: this.toJSONView(sociodemographicRecord[0].toJSON()),
+                    family_cohesion_record: this.toJSONView(familyCohesionRecords[0].toJSON()),
+                    oral_health_record: this.toJSONView(oralHealthRecords[0].toJSON())
+                }
+            }
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -55,10 +75,9 @@ export class QuestionnairesController {
         }
     }
 
-    private toJSONView(item: any | Array<any>): object {
-        if (item instanceof Array) return item.map(value => this.toJSONView(value))
-        item.type = undefined
-        return item.toJSON()
+    private toJSONView(item: any): any {
+        delete item.type
+        return item
     }
 
 }

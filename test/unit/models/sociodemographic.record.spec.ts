@@ -49,6 +49,14 @@ describe('Models: SociodemographicRecord', () => {
                 assert.equal(result.created_at, undefined)
                 assert.equal(result.type, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
             })
+
+            it('should return the class without parameters for invalid string', () => {
+                const result = new SociodemographicRecord().fromJSON('invalid')
+                assert.equal(result.patient_id, undefined)
+                assert.equal(result.created_at, undefined)
+                assert.equal(result.type, DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
+            })
+
         })
 
         context('when pass the parameters', () => {

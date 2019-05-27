@@ -57,18 +57,18 @@ export class QuestionnairesController {
 
             const result: any = {
                 nutritional: {
-                    sleep_habit: this.toJSONView(sleepHabits[0].toJSON()),
-                    physical_activity_habits: this.toJSONView(physicalActivityHabits[0].toJSON()),
-                    feeding_habits_record: this.toJSONView(feedingHabitsRecords[0].toJSON()),
-                    medical_record: this.toJSONView(medicalRecords[0].toJSON())
+                    sleep_habit: this.toJSONView(sleepHabits[0]),
+                    physical_activity_habits: this.toJSONView(physicalActivityHabits[0]),
+                    feeding_habits_record: this.toJSONView(feedingHabitsRecords[0]),
+                    medical_record: this.toJSONView(medicalRecords[0])
                 },
                 odontological: {
-                    sociodemographic_record: this.toJSONView(sociodemographicRecord[0].toJSON()),
-                    family_cohesion_record: this.toJSONView(familyCohesionRecords[0].toJSON()),
-                    oral_health_record: this.toJSONView(oralHealthRecords[0].toJSON())
+                    sociodemographic_record: this.toJSONView(sociodemographicRecord[0]),
+                    family_cohesion_record: this.toJSONView(familyCohesionRecords[0]),
+                    oral_health_record: this.toJSONView(oralHealthRecords[0])
                 }
             }
-            return res.status(HttpStatus.OK).send(this.toJSONView(result))
+            return res.status(HttpStatus.OK).send(result)
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())
@@ -76,8 +76,9 @@ export class QuestionnairesController {
     }
 
     private toJSONView(item: any): any {
+        if (!item) return {}
         delete item.type
-        return item
+        return item.toJSON()
     }
 
 }

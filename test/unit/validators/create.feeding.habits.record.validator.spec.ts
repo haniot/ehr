@@ -6,7 +6,7 @@ import { WeeklyFoodRecord } from '../../../src/application/domain/model/weekly.f
 import { Strings } from '../../../src/utils/strings'
 
 describe('Validators: CreateFeedingHabitsRecordValidator', () => {
-    let activity: FeedingHabitsRecord = new FeedingHabitsRecord().fromJSON(DefaultEntityMock.FEEDING_HABITS_RECORD)
+    const activity: FeedingHabitsRecord = new FeedingHabitsRecord().fromJSON(DefaultEntityMock.FEEDING_HABITS_RECORD)
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateFeedingHabitsRecordValidator.validate(activity)
@@ -61,9 +61,10 @@ describe('Validators: CreateFeedingHabitsRecordValidator', () => {
             } catch (err) {
                 assert.property(err, 'message')
                 assert.property(err, 'description')
-                assert.propertyVal(err, 'message', 'Required fields were not provided...')
+                assert.
+                propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
-                    'Feeding Habits validation: weekly_feeding_habits.food is required!')
+                    'Weekly Food Record validation: food required!')
             } finally {
                 activity.weekly_feeding_habits = [new WeeklyFoodRecord().fromJSON(DefaultEntityMock.WEEKLY_FOOD_RECORD)]
             }
@@ -78,7 +79,7 @@ describe('Validators: CreateFeedingHabitsRecordValidator', () => {
                 assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
-                    'Feeding Habits validation: weekly_feeding_habits.seven_days_freq is required!')
+                    'Weekly Food Record validation: seven_days_freq required!')
             } finally {
                 activity.weekly_feeding_habits = [new WeeklyFoodRecord().fromJSON(DefaultEntityMock.WEEKLY_FOOD_RECORD)]
             }
@@ -90,7 +91,7 @@ describe('Validators: CreateFeedingHabitsRecordValidator', () => {
                 CreateFeedingHabitsRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
-                assert.propertyVal(err, 'message', 'Value not mapped for seven_days_freq: invalid')
+                assert.propertyVal(err, 'message', 'Value not mapped for weekly_food_record.seven_days_freq: invalid')
                 assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: never, no_day, one_two_days, ' +
                     'three_four_days, five_six_days, all_days, undefined.')

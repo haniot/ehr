@@ -8,6 +8,7 @@ import { BreastFeedingTypes } from '../../../src/application/domain/utils/breast
 import { FoodAllergyIntoleranceTypes } from '../../../src/application/domain/utils/food.allergy.intolerance.types'
 import { SchoolActivityFrequencyTypes } from '../../../src/application/domain/utils/school.activity.frequency.types'
 import { ScholarityLevelTypes } from '../../../src/application/domain/utils/scholarity.level.types'
+import { FoodTypes } from '../../../src/application/domain/utils/food.types'
 
 export abstract class DefaultEntityMock {
     public static readonly ACTIVITY_HABITS_RECORD: any = {
@@ -22,7 +23,7 @@ export abstract class DefaultEntityMock {
         created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
         weekly_feeding_habits: [{
-            food: 'bread',
+            food: FoodTypes.BURGER_SAUSAGE,
             seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
         }],
         daily_water_glasses: OneDayFeedingAmountTypes.FIVE_MORE,
@@ -67,7 +68,7 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly WEEKLY_FOOD_RECORD: any = {
-        food: 'bread',
+        food: FoodTypes.BURGER_SAUSAGE,
         seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
     }
 

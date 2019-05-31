@@ -8,7 +8,6 @@ describe('Models: PhysicalActivityHabits', () => {
             it('should return the class with parameters set', () => {
                 const result = new PhysicalActivityHabits().fromJSON(DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS)
                 assert.equal(result.patient_id, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
             })
         })
 
@@ -36,7 +35,6 @@ describe('Models: PhysicalActivityHabits', () => {
             it('should return the object with json parameters set', () => {
                 const result = new PhysicalActivityHabits().fromJSON(JSON.stringify(DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS))
                 assert.equal(result.patient_id, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
             })
 
             it('should return the class without parameters for empty string', () => {
@@ -64,7 +62,6 @@ describe('Models: PhysicalActivityHabits', () => {
                     created_at: DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
                 assert.equal(result.type, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
             })
 
@@ -75,7 +72,6 @@ describe('Models: PhysicalActivityHabits', () => {
                     school_activity_freq: DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
                 assert.equal(result.type, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
                 assert.equal(result.school_activity_freq, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq)
             })
@@ -88,7 +84,6 @@ describe('Models: PhysicalActivityHabits', () => {
                     weekly_activities: DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.weekly_activities
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
                 assert.equal(result.type, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
                 assert.equal(result.school_activity_freq, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq)
                 assert.deepEqual(result.weekly_activities, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.weekly_activities)
@@ -101,7 +96,6 @@ describe('Models: PhysicalActivityHabits', () => {
             it('should return the object as JSON', () => {
                 const activity = new PhysicalActivityHabits().fromJSON(DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS)
                 const result = activity.toJSON()
-                assert.equal(result.created_at, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.created_at)
                 assert.equal(result.school_activity_freq, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq)
                 assert.deepEqual(result.weekly_activities, DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.weekly_activities)
             })

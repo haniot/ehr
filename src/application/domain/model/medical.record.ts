@@ -1,18 +1,18 @@
-import { ActivityHabitsRecord } from './activity.habits.record'
+import { QuestionnaireRecord } from './questionnaire.record'
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { ChronicDisease } from './chronic.disease'
 import { JsonUtils } from '../utils/json.utils'
-import { ActivityHabitsTypes } from '../utils/activity.habits.types'
+import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
 export class MedicalRecord
-    extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<MedicalRecord> {
+    extends QuestionnaireRecord implements IJSONSerializable, IJSONDeserializable<MedicalRecord> {
 
     private _chronic_diseases?: Array<ChronicDisease>
 
     constructor() {
         super()
-        super.type = ActivityHabitsTypes.MEDICAL_RECORD
+        super.type = QuestionnaireTypes.MEDICAL_RECORD
     }
 
     get chronic_diseases(): Array<ChronicDisease> | undefined {

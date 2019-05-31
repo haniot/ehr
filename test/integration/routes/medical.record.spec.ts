@@ -3,33 +3,24 @@ import { DI } from '../../../src/di/di'
 import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
 import { Identifier } from '../../../src/di/identifiers'
 import { App } from '../../../src/app'
-import { ActivityHabitsRepoModel } from '../../../src/infrastructure/database/schema/activity.habits.schema'
-import { Patient } from '../../../src/application/domain/model/patient'
-import { IPatientRepository } from '../../../src/application/port/patient.repository.interface'
-import { PatientRepoModel } from '../../../src/infrastructure/database/schema/patient.schema'
 import { expect } from 'chai'
 import { MedicalRecord } from '../../../src/application/domain/model/medical.record'
 import { ObjectID } from 'bson'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { MedicalRecordRepoModel } from '../../../src/infrastructure/database/schema/medical.record.schema'
 
 const container: Container = DI.getInstance().getContainer()
 const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
 const app: App = container.get(Identifier.APP)
-const patientRepo: IPatientRepository = container.get(Identifier.PATIENT_REPOSITORY)
 const request = require('supertest')(app.getExpress())
 
 describe('Routes: MedicalRecord', () => {
     const activity: MedicalRecord = new MedicalRecord().fromJSON(DefaultEntityMock.MEDICAL_RECORD)
-    const patient: Patient = new Patient().fromJSON(DefaultEntityMock.PATIENT)
 
     before(async () => {
             try {
                 await dbConnection.tryConnect(0, 500)
                 await deleteAllActivities({})
-                await deleteAllPatients({})
-                const result = await patientRepo.create(new Patient().fromJSON(DefaultEntityMock.PATIENT))
-                patient.id = result.id
-                activity.patient_id = patient.id
             } catch (err) {
                 throw new Error('Failure on Medical Record test: ' + err.message)
             }
@@ -39,7 +30,6 @@ describe('Routes: MedicalRecord', () => {
     after(async () => {
         try {
             await deleteAllActivities({})
-            await deleteAllPatients({})
             await dbConnection.dispose()
         } catch (err) {
             throw new Error('Failure on Medical Record test: ' + err.message)
@@ -50,14 +40,13 @@ describe('Routes: MedicalRecord', () => {
         context('when save a new medical record', () => {
             it('should return status code 200 and the saved feeding habit record', () => {
                 return request
-                    .post(`/patients/${patient.id}/medicalrecords`)
+                    .post(`/patients/${activity.patient_id}/medicalrecords`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(201)
                     .then(res => {
                         expect(res.body).to.have.property('id')
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('chronic_diseases')
                         expect(res.body.chronic_diseases).to.eql(activity.chronic_diseases)
                         activity.id = res.body.id
@@ -86,7 +75,7 @@ describe('Routes: MedicalRecord', () => {
             it('should return status code 400 and message from does not pass chronic diseases', () => {
                 delete body.chronic_diseases
                 return request
-                    .post(`/patients/${patient.id}/medicalrecords`)
+                    .post(`/patients/${activity.patient_id}/medicalrecords`)
                     .send(body)
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -102,7 +91,7 @@ describe('Routes: MedicalRecord', () => {
             it('should return status code 400 and message from does not pass chronic diseases type', () => {
                 delete body.chronic_diseases[0].type
                 return request
-                    .post(`/patients/${patient.id}/medicalrecords`)
+                    .post(`/patients/${activity.patient_id}/medicalrecords`)
                     .send(body)
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -117,7 +106,7 @@ describe('Routes: MedicalRecord', () => {
             it('should return status code 400 and message from does pass invalid chronic diseases type', () => {
                 body.chronic_diseases[0].type = 'invalid'
                 return request
-                    .post(`/patients/${patient.id}/medicalrecords`)
+                    .post(`/patients/${activity.patient_id}/medicalrecords`)
                     .send(body)
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -133,7 +122,7 @@ describe('Routes: MedicalRecord', () => {
             it('should return status code 400 and message from does not pass chronic diseases.disease_history', () => {
                 delete body.chronic_diseases[0].disease_history
                 return request
-                    .post(`/patients/${patient.id}/medicalrecords`)
+                    .post(`/patients/${activity.patient_id}/medicalrecords`)
                     .send(body)
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -149,7 +138,7 @@ describe('Routes: MedicalRecord', () => {
             it('should return status code 400 and message from does pass invalid chronic diseases.disease_history', () => {
                 body.chronic_diseases[0].disease_history = 'invalid'
                 return request
-                    .post(`/patients/${patient.id}/medicalrecords`)
+                    .post(`/patients/${activity.patient_id}/medicalrecords`)
                     .send(body)
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -168,13 +157,12 @@ describe('Routes: MedicalRecord', () => {
         context('when get a unique medical record', () => {
             it('should return status code 200 and a medical record', () => {
                 return request
-                    .get(`/patients/${patient.id}/medicalrecords/${activity.id}`)
+                    .get(`/patients/${activity.patient_id}/medicalrecords/${activity.id}`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
                         expect(res.body).to.have.property('id')
                         expect(res.body).to.have.property('created_at')
-                        expect(res.body.created_at).to.eql(activity.created_at)
                         expect(res.body).to.have.property('chronic_diseases')
                         expect(res.body.chronic_diseases).to.eql(activity.chronic_diseases)
                     })
@@ -198,7 +186,7 @@ describe('Routes: MedicalRecord', () => {
 
             it('should return status code 400 and message from invalid medicalrecord_id', () => {
                 return request
-                    .get(`/patients/${patient.id}/medicalrecords/123`)
+                    .get(`/patients/${activity.patient_id}/medicalrecords/123`)
                     .set('Content-Type', 'application/json')
                     .expect(400)
                     .then(res => {
@@ -234,7 +222,7 @@ describe('Routes: MedicalRecord', () => {
                 activity.patient_id = undefined
                 activity.created_at = undefined
                 return request
-                    .patch(`/patients/${patient.id}/medicalrecords/${activity.id}`)
+                    .patch(`/patients/${DefaultEntityMock.MEDICAL_RECORD.patient_id}/medicalrecords/${activity.id}`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(200)
@@ -264,7 +252,7 @@ describe('Routes: MedicalRecord', () => {
 
             it('should return status code 400 and message from invalid medicalrecord_id', () => {
                 return request
-                    .patch(`/patients/${patient.id}/medicalrecords/123`)
+                    .patch(`/patients/${activity.patient_id}/medicalrecords/123`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(400)
@@ -291,8 +279,8 @@ describe('Routes: MedicalRecord', () => {
                         expect(res.body.message).to.eql('Medical record not found!')
                         expect(res.body.description).to.eql('Medical record not found or already removed. A new operation for' +
                             ' the same resource is required.')
-                        activity.patient_id = patient.id
-                        activity.created_at = DefaultEntityMock.FEEDING_HABITS_RECORD.created_at
+                        activity.patient_id = DefaultEntityMock.MEDICAL_RECORD.patient_id
+                        activity.created_at = DefaultEntityMock.MEDICAL_RECORD.created_at
                     })
             })
         })
@@ -303,7 +291,7 @@ describe('Routes: MedicalRecord', () => {
             it('should return status code 204 and no content', async () => {
                 const result = await createActivity(DefaultEntityMock.MEDICAL_RECORD)
                 return request
-                    .delete(`/patients/${patient.id}/medicalrecords/${result.id}`)
+                    .delete(`/patients/${activity.patient_id}/medicalrecords/${result.id}`)
                     .set('Content-Type', 'application/json')
                     .expect(204)
                     .then(res => {
@@ -329,7 +317,7 @@ describe('Routes: MedicalRecord', () => {
 
             it('should return status code 400 and message from invalid medicalrecord_id', () => {
                 return request
-                    .delete(`/patients/${patient.id}/medicalrecords/123`)
+                    .delete(`/patients/${activity.patient_id}/medicalrecords/123`)
                     .set('Content-Type', 'application/json')
                     .expect(400)
                     .then(res => {
@@ -359,7 +347,7 @@ describe('Routes: MedicalRecord', () => {
         context('when get all medical records', () => {
             it('should return status code 200 and a list of medical records', () => {
                 return request
-                    .get(`/patients/${patient.id}/medicalrecords`)
+                    .get(`/patients/${activity.patient_id}/medicalrecords`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
@@ -394,7 +382,7 @@ describe('Routes: MedicalRecord', () => {
             it('should return status code 200 and empty list', async () => {
                 await deleteAllActivities({}).then()
                 return request
-                    .get(`/patients/${patient.id}/medicalrecords`)
+                    .get(`/patients/${activity.patient_id}/medicalrecords`)
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .then(res => {
@@ -407,13 +395,9 @@ describe('Routes: MedicalRecord', () => {
 })
 
 async function deleteAllActivities(doc) {
-    return ActivityHabitsRepoModel.deleteMany({})
+    return MedicalRecordRepoModel.deleteMany({})
 }
 
 async function createActivity(doc) {
-    return ActivityHabitsRepoModel.create(doc)
-}
-
-async function deleteAllPatients(doc) {
-    return await PatientRepoModel.deleteMany(doc)
+    return MedicalRecordRepoModel.create(doc)
 }

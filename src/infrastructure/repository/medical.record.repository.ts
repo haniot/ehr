@@ -12,7 +12,7 @@ export class MedicalRecordRepository
     extends BaseRepository<MedicalRecord, MedicalRecordEntity> implements IMedicalRecordRepository {
 
     constructor(
-        @inject(Identifier.ACTIVITY_HABITS_REPO_MODEL) readonly _repoModel: any,
+        @inject(Identifier.MEDICAL_RECORD_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.MEDICAL_RECORD_ENTITY_MAPPER)
         readonly _entityMapper: IEntityMapper<MedicalRecord, MedicalRecordEntity>,
         @inject(Identifier.LOGGER) readonly _logger: ILogger

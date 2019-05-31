@@ -80,12 +80,12 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
                 UpdateFeedingHabitsRecordValidator.validate(activity)
             } catch (err) {
                 assert.property(err, 'message')
-                assert.propertyVal(err, 'message', 'Value not mapped for seven_days_freq: invalid')
+                assert.propertyVal(err, 'message', 'Value not mapped for weekly_food_record.seven_days_freq: invalid')
                 assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: never, no_day, one_two_days, ' +
                     'three_four_days, five_six_days, all_days, undefined.')
             } finally {
-                activity.weekly_feeding_habits![0].seven_days_freq = undefined
+                activity.weekly_feeding_habits![0].seven_days_freq = DefaultEntityMock.WEEKLY_FOOD_RECORD.seven_days_freq
             }
         })
 

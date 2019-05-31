@@ -1,17 +1,17 @@
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { JsonUtils } from '../utils/json.utils'
-import { ActivityHabitsRecord } from './activity.habits.record'
-import { ActivityHabitsTypes } from '../utils/activity.habits.types'
+import { QuestionnaireRecord } from './questionnaire.record'
+import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
-export class SleepHabit extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<SleepHabit> {
+export class SleepHabit extends QuestionnaireRecord implements IJSONSerializable, IJSONDeserializable<SleepHabit> {
 
     private _week_day_sleep?: number
     private _week_day_wake_up?: number
 
     constructor() {
         super()
-        super.type = ActivityHabitsTypes.SLEEP_HABIT
+        super.type = QuestionnaireTypes.SLEEP_HABIT
     }
 
     get week_day_sleep(): number | undefined {

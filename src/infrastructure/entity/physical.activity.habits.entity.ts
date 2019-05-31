@@ -1,6 +1,6 @@
-import { ActivityHabitsRecordEntity } from './activity.habits.record.entity'
+import { QuestionnaireRecordEntity } from './questionnaire.record.entity'
 
-export class PhysicalActivityHabitsEntity extends ActivityHabitsRecordEntity {
+export class PhysicalActivityHabitsEntity extends QuestionnaireRecordEntity {
     public school_activity_freq?: string
     public weekly_activities?: Array<string>
 }

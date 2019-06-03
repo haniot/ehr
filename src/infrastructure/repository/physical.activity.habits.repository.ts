@@ -13,7 +13,7 @@ export class PhysicalActivityHabitsRepository
     implements IPhysicalActivityHabitsRepository {
 
     constructor(
-        @inject(Identifier.ACTIVITY_HABITS_REPO_MODEL) readonly _repoModel: any,
+        @inject(Identifier.PHYSICAL_ACTIVITY_HABITS_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.PHYSICAL_ACTIVITY_HABITS_ENTITY_MAPPER)
         readonly _entityMapper: IEntityMapper<PhysicalActivityHabits, PhysicalActivityHabitsEntity>,
         @inject(Identifier.LOGGER) readonly _logger: ILogger

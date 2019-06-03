@@ -8,7 +8,6 @@ describe('Models: MedicalRecord', () => {
             it('should return the class with parameters set', () => {
                 const result = new MedicalRecord().fromJSON(DefaultEntityMock.MEDICAL_RECORD)
                 assert.equal(result.patient_id, DefaultEntityMock.MEDICAL_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.MEDICAL_RECORD.created_at)
             })
         })
 
@@ -36,7 +35,6 @@ describe('Models: MedicalRecord', () => {
             it('should return the object with json parameters set', () => {
                 const result = new MedicalRecord().fromJSON(JSON.stringify(DefaultEntityMock.MEDICAL_RECORD))
                 assert.equal(result.patient_id, DefaultEntityMock.MEDICAL_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.MEDICAL_RECORD.created_at)
             })
 
             it('should return the class without parameters for empty string', () => {
@@ -64,7 +62,6 @@ describe('Models: MedicalRecord', () => {
                     created_at: DefaultEntityMock.MEDICAL_RECORD.created_at
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.MEDICAL_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.MEDICAL_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.MEDICAL_RECORD.type)
             })
 
@@ -75,7 +72,6 @@ describe('Models: MedicalRecord', () => {
                     chronic_diseases: DefaultEntityMock.MEDICAL_RECORD.chronic_diseases
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.MEDICAL_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.MEDICAL_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.MEDICAL_RECORD.type)
                 assert.equal(result.chronic_diseases, DefaultEntityMock.MEDICAL_RECORD.chronic_diseases)
             })
@@ -87,7 +83,6 @@ describe('Models: MedicalRecord', () => {
             it('should return the object as JSON', () => {
                 const activity = new MedicalRecord().fromJSON(DefaultEntityMock.MEDICAL_RECORD)
                 const result = activity.toJSON()
-                assert.equal(result.created_at, DefaultEntityMock.MEDICAL_RECORD.created_at)
                 assert.equal(result.chronic_diseases, DefaultEntityMock.MEDICAL_RECORD.chronic_diseases)
 
             })

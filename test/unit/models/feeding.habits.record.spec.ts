@@ -8,7 +8,6 @@ describe('Models: FeedingHabitsRecord', () => {
             it('should return the class with parameters set', () => {
                 const result = new FeedingHabitsRecord().fromJSON(DefaultEntityMock.FEEDING_HABITS_RECORD)
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
             })
         })
 
@@ -36,7 +35,6 @@ describe('Models: FeedingHabitsRecord', () => {
             it('should return the object with json parameters set', () => {
                 const result = new FeedingHabitsRecord().fromJSON(JSON.stringify(DefaultEntityMock.FEEDING_HABITS_RECORD))
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
             })
 
             it('should return the class without parameters for empty string', () => {
@@ -64,7 +62,6 @@ describe('Models: FeedingHabitsRecord', () => {
                     created_at: DefaultEntityMock.FEEDING_HABITS_RECORD.created_at
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FEEDING_HABITS_RECORD.type)
             })
 
@@ -75,7 +72,6 @@ describe('Models: FeedingHabitsRecord', () => {
                     weekly_feeding_habits: DefaultEntityMock.FEEDING_HABITS_RECORD.weekly_feeding_habits
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FEEDING_HABITS_RECORD.type)
                 assert.equal(result.weekly_feeding_habits, DefaultEntityMock.FEEDING_HABITS_RECORD.weekly_feeding_habits)
             })
@@ -88,7 +84,6 @@ describe('Models: FeedingHabitsRecord', () => {
                     daily_water_glasses: DefaultEntityMock.FEEDING_HABITS_RECORD.daily_water_glasses
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FEEDING_HABITS_RECORD.type)
                 assert.equal(result.weekly_feeding_habits, DefaultEntityMock.FEEDING_HABITS_RECORD.weekly_feeding_habits)
                 assert.equal(result.daily_water_glasses, DefaultEntityMock.FEEDING_HABITS_RECORD.daily_water_glasses)
@@ -103,7 +98,6 @@ describe('Models: FeedingHabitsRecord', () => {
                     six_month_breast_feeding: DefaultEntityMock.FEEDING_HABITS_RECORD.six_month_breast_feeding
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FEEDING_HABITS_RECORD.type)
                 assert.equal(result.weekly_feeding_habits, DefaultEntityMock.FEEDING_HABITS_RECORD.weekly_feeding_habits)
                 assert.equal(result.daily_water_glasses, DefaultEntityMock.FEEDING_HABITS_RECORD.daily_water_glasses)
@@ -120,7 +114,6 @@ describe('Models: FeedingHabitsRecord', () => {
                     food_allergy_intolerance: DefaultEntityMock.FEEDING_HABITS_RECORD.food_allergy_intolerance
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FEEDING_HABITS_RECORD.type)
                 assert.equal(result.weekly_feeding_habits, DefaultEntityMock.FEEDING_HABITS_RECORD.weekly_feeding_habits)
                 assert.equal(result.daily_water_glasses, DefaultEntityMock.FEEDING_HABITS_RECORD.daily_water_glasses)
@@ -140,7 +133,6 @@ describe('Models: FeedingHabitsRecord', () => {
                     breakfast_daily_frequency: DefaultEntityMock.FEEDING_HABITS_RECORD.breakfast_daily_frequency
                 })
                 assert.equal(result.patient_id, DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FEEDING_HABITS_RECORD.type)
                 assert.equal(result.weekly_feeding_habits, DefaultEntityMock.FEEDING_HABITS_RECORD.weekly_feeding_habits)
                 assert.equal(result.daily_water_glasses, DefaultEntityMock.FEEDING_HABITS_RECORD.daily_water_glasses)
@@ -157,8 +149,6 @@ describe('Models: FeedingHabitsRecord', () => {
             it('should return the object as JSON', () => {
                 const activity = new FeedingHabitsRecord().fromJSON(DefaultEntityMock.FEEDING_HABITS_RECORD)
                 const result = activity.toJSON()
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
-                assert.equal(result.created_at, DefaultEntityMock.FEEDING_HABITS_RECORD.created_at)
                 assert.equal(result.type, DefaultEntityMock.FEEDING_HABITS_RECORD.type)
                 assert.equal(result.weekly_feeding_habits, DefaultEntityMock.FEEDING_HABITS_RECORD.weekly_feeding_habits)
                 assert.equal(result.daily_water_glasses, DefaultEntityMock.FEEDING_HABITS_RECORD.daily_water_glasses)

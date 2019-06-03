@@ -13,7 +13,6 @@ export class BackgroundService {
     }
 
     public async startServices(): Promise<void> {
-        this._logger.debug('startServices()')
         try {
             /**
              * Trying to connect to mongodb.
@@ -26,16 +25,15 @@ export class BackgroundService {
              * Register your events using the event bus instance here.
              */
         } catch (err) {
-            this._logger.error('Error initializing services in background: '.concat(err.message))
+            this._logger.error(`Error initializing services in background: ${err.message}`)
         }
     }
 
     public async stopServices(): Promise<void> {
-        this._logger.debug('stopServices()')
         try {
             await this._mongodb.dispose()
         } catch (err) {
-            this._logger.error('Error stopping background services: '.concat(err.message))
+            this._logger.error(`Error stopping background services: ${err.message}`)
         }
     }
 }

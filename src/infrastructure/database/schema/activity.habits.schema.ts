@@ -9,7 +9,7 @@ const activityHabitsSchema = new Mongoose.Schema({
             ref: 'Patient'
         },
         created_at: {
-            type: String
+            type: Date
         },
         type: {
             type: String

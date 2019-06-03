@@ -13,7 +13,7 @@ export class FeedingHabitsRecordRepository
     implements IFeedingHabitsRecordRepository {
 
     constructor(
-        @inject(Identifier.ACTIVITY_HABITS_REPO_MODEL) readonly _repoModel: any,
+        @inject(Identifier.FEEDING_HABITS_RECORD_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.FEEDING_HABITS_RECORD_ENTITY_MAPPER)
         readonly _entityMapper: IEntityMapper<FeedingHabitsRecord, FeedingHabitsRecordEntity>,
         @inject(Identifier.LOGGER) readonly _logger: ILogger

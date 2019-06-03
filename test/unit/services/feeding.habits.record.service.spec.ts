@@ -3,18 +3,13 @@ import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { IFeedingHabitsRecordService } from '../../../src/application/port/feeding.habits.record.service.interface'
 import { FeedingHabitsRecordService } from '../../../src/application/service/feeding.habits.record.service'
 import { FeedingHabitsRecordRepositoryMock } from '../../mocks/repositories/feeding.habits.record.repository.mock'
-import { PatientRepositoryMock } from '../../mocks/repositories/patient.repository.mock'
 import { assert } from 'chai'
-import { Strings } from '../../../src/utils/strings'
 import { Query } from '../../../src/infrastructure/repository/query/query'
-import { ObjectID } from 'bson'
 
 describe('Services: FeedingHabitsRecordService', () => {
     const activity: FeedingHabitsRecord = new FeedingHabitsRecord().fromJSON(DefaultEntityMock.FEEDING_HABITS_RECORD)
     activity.id = DefaultEntityMock.FEEDING_HABITS_RECORD.id
-    const service: IFeedingHabitsRecordService = new FeedingHabitsRecordService(
-        new FeedingHabitsRecordRepositoryMock(), new PatientRepositoryMock()
-    )
+    const service: IFeedingHabitsRecordService = new FeedingHabitsRecordService(new FeedingHabitsRecordRepositoryMock())
 
     describe('add()', () => {
         context('when add a new feeding habits record', () => {
@@ -56,21 +51,6 @@ describe('Services: FeedingHabitsRecordService', () => {
             })
         })
 
-        context('when the patient does not exists', () => {
-            it('should reject a validation error', () => {
-                activity.patient_id = `${new ObjectID()}`
-                return service
-                    .add(activity)
-                    .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
-                        assert.propertyVal(err, 'message', Strings.PATIENT.NOT_FOUND)
-                        assert.propertyVal(err, 'description', Strings.PATIENT.NOT_FOUND_DESCRIPTION)
-                        activity.patient_id = DefaultEntityMock.FEEDING_HABITS_RECORD.patient_id
-                    })
-            })
-
-        })
     })
 
     describe('getAll()', () => {

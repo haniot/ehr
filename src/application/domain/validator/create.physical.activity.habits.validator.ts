@@ -1,13 +1,13 @@
 import { ValidationException } from '../exception/validation.exception'
 import { PhysicalActivityHabits } from '../model/physical.activity.habits'
-import { CreateActivityHabitsRecordValidator } from './create.activity.habits.record.validator'
+import { CreateQuestionnaireRecordValidator } from './create.questionnaire.record.validator'
 import { SchoolActivityFrequencyTypesValidator } from './school.activity.frequency.types.validator'
 
 export class CreatePhysicalActivityHabitsValidator {
     public static validate(item: PhysicalActivityHabits): void | ValidationException {
         const fields: Array<string> = []
 
-        CreateActivityHabitsRecordValidator.validate(item)
+        CreateQuestionnaireRecordValidator.validate(item)
         if (!item.school_activity_freq) fields.push('school_activity_freq')
         else SchoolActivityFrequencyTypesValidator.validate(item.school_activity_freq)
         if (!item.weekly_activities) fields.push('weekly_activities')

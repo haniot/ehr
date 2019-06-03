@@ -1,14 +1,18 @@
-FROM node:11.3.0
+FROM node:10.15.3
 
 # create and set app directory
-RUN mkdir -p /usr/src/ts/
-WORKDIR /usr/src/ts/
+RUN mkdir -p /usr/src/ehr/
+WORKDIR /usr/src/ehr/
 
 # install app dependencies
-COPY package.json /usr/src/ts
+COPY package.json /usr/src/ehr
 RUN npm install
-COPY . /usr/src/ts
 
-EXPOSE 3000
+# Bundle app source
+COPY . /usr/src/ehr
+RUN npm run build
 
-ENTRYPOINT npm run build && npm start
+EXPOSE 5000
+EXPOSE 5001
+
+CMD ["npm", "start"]

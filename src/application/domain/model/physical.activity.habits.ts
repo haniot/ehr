@@ -1,18 +1,18 @@
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
-import { ActivityHabitsRecord } from './activity.habits.record'
+import { QuestionnaireRecord } from './questionnaire.record'
 import { JsonUtils } from '../utils/json.utils'
-import { ActivityHabitsTypes } from '../utils/activity.habits.types'
+import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
 export class PhysicalActivityHabits
-    extends ActivityHabitsRecord implements IJSONSerializable, IJSONDeserializable<PhysicalActivityHabits> {
+    extends QuestionnaireRecord implements IJSONSerializable, IJSONDeserializable<PhysicalActivityHabits> {
 
     private _school_activity_freq?: string
     private _weekly_activities?: Array<string>
 
     constructor() {
         super()
-        super.type = ActivityHabitsTypes.PHYSICAL_ACTIVITY_HABITS
+        super.type = QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS
     }
 
     get school_activity_freq(): string | undefined {

@@ -18,7 +18,6 @@ describe('Mappers: MedicalRecordEntityMapper', () => {
                 assert.property(result, 'patient_id')
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.MEDICAL_RECORD.patient_id)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', DefaultEntityMock.MEDICAL_RECORD.created_at)
             })
 
             it('should return model without parameters for empty json', () => {
@@ -55,7 +54,6 @@ describe('Mappers: MedicalRecordEntityMapper', () => {
                 assert.property(result, 'patient_id')
                 assert.propertyVal(result, 'patient_id', model.patient_id)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', model.created_at)
                 assert.property(result, 'chronic_diseases')
                 assert.deepPropertyVal(result, 'chronic_diseases', model.chronic_diseases)
             })

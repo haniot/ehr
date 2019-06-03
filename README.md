@@ -74,7 +74,7 @@ Follow all the steps present in the [official documentation](https://docs.docker
 
 Example:
 
-``docker build -t haniot-account-service:v0.1 .``
+``docker build -t haniot-ehr-service:v0.1 .``
 
 ## Executing the project container image
 
@@ -82,7 +82,7 @@ Example:
 
 Example:
 
-``docker run -p 80:80 -it haniot-account-service:v0.1``
+``docker run -p 80:80 -it haniot-ehr-service:v0.1``
 
 ## Access API
 

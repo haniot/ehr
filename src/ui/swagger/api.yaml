@@ -9,41 +9,47 @@ info:
   description: >-
     This is the RESTful API documentation of the microservice for HANIoT EHR platform .
   version: 1.0.0
-  title: HANIoT EHR Service 
+  title: HANIoT EHR Service
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
- 
-tags:   
+
+tags:
   - name: pilotstudies.patients
     description: Operations for Patient resource.
-  - name: pilotstudies.patients.sleephabits
+  - name: patients.sleephabits
     description: Operations for the patient Sleep Habit resource.
-  - name: pilotstudies.patients.physicalactivityhabits
+  - name: patients.physicalactivityhabits
     description: Operations for the patient Physical Activity Habit resource.
-  - name: pilotstudies.patients.feedinghabitsrecords
+  - name: patients.feedinghabitsrecords
     description: Operations for the patient Feeding Habits Record resource.
-  - name: pilotstudies.patients.medicalrecords
+  - name: patients.medicalrecords
     description: Operations for the patient Medical Record resource.
-  
-  
-paths: 
+  - name: patients.sociodemographicrecords
+    description: Operations for the patient Sociodemographic Record resource.
+  - name: patients.familycohesionrecords
+    description: Operations for the patient Family Cohesion Record resource.
+  - name: patients.oralhealthrecords
+    description: Operations for the patient Oral Health Record resource.
+
+
+paths:
   # pilotstudies.patients
   /pilotstudies/{pilotstudy_id}/patients:
-    post: 
+    post:
       tags:
-      - pilotstudies.patients
+        - pilotstudies.patients
       summary: Register patient.
       description: Register a new patient.
       operationId: addPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
+        - name: pilotstudy_id
+          in: path
+          required: true
+          description: Id of pilot study.
+          example: '5c86d00c2239a48ea20a0134'
+          schema:
+            type: string
       responses:
         '201':
           description: Patient successfully registered.
@@ -53,8 +59,8 @@ paths:
                 $ref: '#/components/schemas/Patient'
         '400':
           description: >-
-            Request can not be met, syntactically incorrect or violates the 
-            schema. Normally it occurs due to validation issues, such as 
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
             fields that are expected in the request body and not passed.
           content:
             application/json:
@@ -83,7 +89,7 @@ paths:
         '406':
           description: >-
             The server is not implementing the media type requested by the client
-            for the application response. Only application/json is currently 
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -91,8 +97,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-           The server does not support the requested payload format. Only 
-           application/json is accepted.
+            The server does not support the requested payload format. Only
+            application/json is accepted.
           content:
             application/json:
               schema:
@@ -121,10 +127,12 @@ paths:
         required: true
     get:
       tags:
-      - pilotstudies.patients
+        - pilotstudies.patients
       summary: Recover patients.
-      description: >- 
+      description: |
         Returns list with all patients. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
       operationId: getAllPatients
       parameters:
         - name: pilotstudy_id
@@ -170,8 +178,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -186,35 +194,35 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'  
+                $ref: '#/components/schemas/Error'
   /pilotstudies/{pilotstudy_id}/patients/{patient_id}:
     get:
       tags:
-      - pilotstudies.patients
+        - pilotstudies.patients
       summary: Recover patient data.
       description: Recover the patient data. The query suports Fields param.
       operationId: getPatientById
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - $ref: '#/components/parameters/fieldsParam'
+        - name: pilotstudy_id
+          in: path
+          required: true
+          description: Id of pilot study.
+          example: '5c86d00c2239a48ea20a0134'
+          schema:
+            type: string
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
       responses:
         '200':
           description: Requested patient data.
@@ -236,8 +244,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -267,25 +275,25 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-      - pilotstudies.patients
+        - pilotstudies.patients
       summary: Update patient data.
       description: Update the patient data.
       operationId: updatePatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
+        - name: pilotstudy_id
+          in: path
+          required: true
+          description: Id of pilot study.
+          example: '5c86d00c2239a48ea20a0134'
+          schema:
+            type: string
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
       responses:
         '200':
           description: Updated patient data.
@@ -315,8 +323,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -331,7 +339,7 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-            The server does not support the requested payload format. Only 
+            The server does not support the requested payload format. Only
             application/json is accepted.
           content:
             application/json:
@@ -346,7 +354,7 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
@@ -361,28 +369,28 @@ paths:
         required: true
     delete:
       tags:
-      - pilotstudies.patients
+        - pilotstudies.patients
       summary: Delete patient data.
       description: Delete the patient data.
       operationId: deletePatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      responses:  
+        - name: pilotstudy_id
+          in: path
+          required: true
+          description: Id of pilot study.
+          example: '5c86d00c2239a48ea20a0134'
+          schema:
+            type: string
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+      responses:
         '204':
-          description: >- 
+          description: >-
             Operation performed successfully. There is no data to be returned
         '401':
           description: Authentication failed due to invalid authentication credentials.
@@ -398,8 +406,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -427,30 +435,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          
-  # pilotstudies.patients.sleephabits
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/sleephabits:
-    post: 
+
+  # patients.sleephabits
+  /patients/{patient_id}/sleephabits:
+    post:
       tags:
-      - pilotstudies.patients.sleephabits
+        - patients.sleephabits
       summary: Register sleep habit.
       description: Register a sleep habit from patient.
       operationId: addSleepHabitFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
       responses:
         '201':
           description: Sleep habit successfully registered.
@@ -460,8 +461,8 @@ paths:
                 $ref: '#/components/schemas/SleepHabit'
         '400':
           description: >-
-            Request can not be met, syntactically incorrect or violates the 
-            schema. Normally it occurs due to validation issues, such as 
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
             fields that are expected in the request body and not passed.
           content:
             application/json:
@@ -490,7 +491,7 @@ paths:
         '406':
           description: >-
             The server is not implementing the media type requested by the client
-            for the application response. Only application/json is currently 
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -498,8 +499,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-           The server does not support the requested payload format. Only 
-           application/json is accepted.
+            The server does not support the requested payload format. Only
+            application/json is accepted.
           content:
             application/json:
               schema:
@@ -528,31 +529,26 @@ paths:
         required: true
     get:
       tags:
-      - pilotstudies.patients.sleephabits
+        - patients.sleephabits
       summary: Recover sleep habits.
-      description: >- 
+      description: |
         Returns list with all sleep habits from patient. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
       operationId: getAllSleepHabitsFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - $ref: '#/components/parameters/fieldsParam'
-      - $ref: '#/components/parameters/pageParam'
-      - $ref: '#/components/parameters/limitParam'
-      - $ref: '#/components/parameters/sortParam'
-      - $ref: '#/components/parameters/filterParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
       responses:
         '200':
           description: List of sleep habits.
@@ -584,8 +580,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -600,42 +596,35 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'  
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/sleephabits/{sleephabit_id}:
+                $ref: '#/components/schemas/Error'
+  /patients/{patient_id}/sleephabits/{sleephabit_id}:
     get:
       tags:
-      - pilotstudies.patients.sleephabits
+        - patients.sleephabits
       summary: Recover sleep habit data.
       description: Recover the patient sleep habit data. The query suports Fields param.
       operationId: getSleepDataFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: sleephabit_id
-        in: path  
-        required: true
-        description: Id of sleep habit.
-        example: '5c9137f2f6d3dba533e4cb36'
-        schema:
-          type: string  
-      - $ref: '#/components/parameters/fieldsParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: sleephabit_id
+          in: path
+          required: true
+          description: Id of sleep habit.
+          example: '5c9137f2f6d3dba533e4cb36'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
       responses:
         '200':
           description: Requested sleep habit data.
@@ -657,8 +646,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -688,32 +677,25 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-      - pilotstudies.patients.sleephabits
+        - patients.sleephabits
       summary: Update sleep habit data.
       description: Update the patient sleep habit data.
       operationId: updateSleepHabitFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: sleephabit_id
-        in: path  
-        required: true
-        description: Id of sleep habit.
-        example: '5c9137f2f6d3dba533e4cb36'
-        schema:
-          type: string  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: sleephabit_id
+          in: path
+          required: true
+          description: Id of sleep habit.
+          example: '5c9137f2f6d3dba533e4cb36'
+          schema:
+            type: string
       responses:
         '200':
           description: Updated sleep habit data.
@@ -743,8 +725,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -759,7 +741,7 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-            The server does not support the requested payload format. Only 
+            The server does not support the requested payload format. Only
             application/json is accepted.
           content:
             application/json:
@@ -774,7 +756,7 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
@@ -789,35 +771,28 @@ paths:
         required: true
     delete:
       tags:
-      - pilotstudies.patients.sleephabits
+        - patients.sleephabits
       summary: Delete sleep habit data.
       description: Delete the patient sleep habit data.
       operationId: deleteSleepHabitFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: sleephabit_id
-        in: path  
-        required: true
-        description: Id of sleep habit.
-        example: '5c9137f2f6d3dba533e4cb36'
-        schema:
-          type: string  
-      responses:  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: sleephabit_id
+          in: path
+          required: true
+          description: Id of sleep habit.
+          example: '5c9137f2f6d3dba533e4cb36'
+          schema:
+            type: string
+      responses:
         '204':
-          description: >- 
+          description: >-
             Operation performed successfully. There is no data to be returned
         '401':
           description: Authentication failed due to invalid authentication credentials.
@@ -833,8 +808,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -862,30 +837,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  
-  # pilotstudies.patients.physicalactivityhabits
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/physicalactivityhabits:
-    post: 
+
+  # patients.physicalactivityhabits
+  /patients/{patient_id}/physicalactivityhabits:
+    post:
       tags:
-      - pilotstudies.patients.physicalactivityhabits
+        - patients.physicalactivityhabits
       summary: Register physical activity habit.
       description: Register a physical activity habit from patient.
       operationId: addPhysicalActivityHabitFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
       responses:
         '201':
           description: Physical Activity habit successfully registered.
@@ -895,8 +863,8 @@ paths:
                 $ref: '#/components/schemas/PhysicalActivityHabits'
         '400':
           description: >-
-            Request can not be met, syntactically incorrect or violates the 
-            schema. Normally it occurs due to validation issues, such as 
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
             fields that are expected in the request body and not passed.
           content:
             application/json:
@@ -925,7 +893,7 @@ paths:
         '406':
           description: >-
             The server is not implementing the media type requested by the client
-            for the application response. Only application/json is currently 
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -933,8 +901,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-           The server does not support the requested payload format. Only 
-           application/json is accepted.
+            The server does not support the requested payload format. Only
+            application/json is accepted.
           content:
             application/json:
               schema:
@@ -963,31 +931,26 @@ paths:
         required: true
     get:
       tags:
-      - pilotstudies.patients.physicalactivityhabits
+        - patients.physicalactivityhabits
       summary: Recover physical activity habits.
-      description: >- 
+      description: |
         Returns list with all physical activity habits from patient. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
       operationId: getAllPhysicalActivityHabitsFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - $ref: '#/components/parameters/fieldsParam'
-      - $ref: '#/components/parameters/pageParam'
-      - $ref: '#/components/parameters/limitParam'
-      - $ref: '#/components/parameters/sortParam'
-      - $ref: '#/components/parameters/filterParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
       responses:
         '200':
           description: List of physical activity habits.
@@ -1019,8 +982,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -1035,42 +998,35 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'  
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/physicalactivityhabits/{physicalactivityhabits_id}:
+                $ref: '#/components/schemas/Error'
+  /patients/{patient_id}/physicalactivityhabits/{physicalactivityhabits_id}:
     get:
       tags:
-      - pilotstudies.patients.physicalactivityhabits
+        - patients.physicalactivityhabits
       summary: Recover physical activity habits data.
       description: Recover the patient physical activity habits data. The query suports Fields param.
-      operationId: getPhysicalActivityHabitsFromPacient
+      operationId: getPhysicalActivityHabitsFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: physicalactivityhabits_id
-        in: path  
-        required: true
-        description: Id of physical activity habits
-        example: '5c9137f2cdff19618c05cf31'
-        schema:
-          type: string  
-      - $ref: '#/components/parameters/fieldsParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: physicalactivityhabits_id
+          in: path
+          required: true
+          description: Id of physical activity habits
+          example: '5c9137f2cdff19618c05cf31'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
       responses:
         '200':
           description: Requested physical ativity habits data.
@@ -1092,8 +1048,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -1123,32 +1079,25 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-      - pilotstudies.patients.physicalactivityhabits
+        - patients.physicalactivityhabits
       summary: Update physical activity habits data.
       description: Update the patient physical activity habits data.
       operationId: updatePhysicalActivityHabitsFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: physicalactivityhabits_id
-        in: path  
-        required: true
-        description: Id of physical activity habits
-        example: '5c9137f2cdff19618c05cf31'
-        schema:
-          type: string  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: physicalactivityhabits_id
+          in: path
+          required: true
+          description: Id of physical activity habits
+          example: '5c9137f2cdff19618c05cf31'
+          schema:
+            type: string
       responses:
         '200':
           description: Updated physical activity habits data.
@@ -1178,8 +1127,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -1194,7 +1143,7 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-            The server does not support the requested payload format. Only 
+            The server does not support the requested payload format. Only
             application/json is accepted.
           content:
             application/json:
@@ -1209,7 +1158,7 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
@@ -1224,35 +1173,28 @@ paths:
         required: true
     delete:
       tags:
-      - pilotstudies.patients.physicalactivityhabits
+        - patients.physicalactivityhabits
       summary: Delete physical activity habits data.
       description: Delete the patient physical activity habits data.
       operationId: deletePhysicalActivityHabitsFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: physicalactivityhabits_id
-        in: path  
-        required: true
-        description: Id of physical activity habits
-        example: '5c9137f2cdff19618c05cf31'
-        schema:
-          type: string  
-      responses:  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: physicalactivityhabits_id
+          in: path
+          required: true
+          description: Id of physical activity habits
+          example: '5c9137f2cdff19618c05cf31'
+          schema:
+            type: string
+      responses:
         '204':
-          description: >- 
+          description: >-
             Operation performed successfully. There is no data to be returned
         '401':
           description: Authentication failed due to invalid authentication credentials.
@@ -1268,8 +1210,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -1297,30 +1239,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
-  # pilotstudies.patients.feedinghabitsrecords
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/feedinghabitsrecords:
-    post: 
+
+  # patients.feedinghabitsrecords
+  /patients/{patient_id}/feedinghabitsrecords:
+    post:
       tags:
-      - pilotstudies.patients.feedinghabitsrecords
+        - patients.feedinghabitsrecords
       summary: Register feeding habits record.
       description: Register a feeding habits record from patient.
       operationId: addFeedingHabitsRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
       responses:
         '201':
           description: Feeding habits record successfully registered.
@@ -1330,8 +1265,8 @@ paths:
                 $ref: '#/components/schemas/FeedingHabitsRecord'
         '400':
           description: >-
-            Request can not be met, syntactically incorrect or violates the 
-            schema. Normally it occurs due to validation issues, such as 
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
             fields that are expected in the request body and not passed.
           content:
             application/json:
@@ -1360,7 +1295,7 @@ paths:
         '406':
           description: >-
             The server is not implementing the media type requested by the client
-            for the application response. Only application/json is currently 
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -1368,8 +1303,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-           The server does not support the requested payload format. Only 
-           application/json is accepted.
+            The server does not support the requested payload format. Only
+            application/json is accepted.
           content:
             application/json:
               schema:
@@ -1398,31 +1333,26 @@ paths:
         required: true
     get:
       tags:
-      - pilotstudies.patients.feedinghabitsrecords
+        - patients.feedinghabitsrecords
       summary: Recover feeding habits records.
-      description: >- 
+      description: |
         Returns list with all feeding habits records from patient. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
       operationId: getAllFeedingHabitsRecordsFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - $ref: '#/components/parameters/fieldsParam'
-      - $ref: '#/components/parameters/pageParam'
-      - $ref: '#/components/parameters/limitParam'
-      - $ref: '#/components/parameters/sortParam'
-      - $ref: '#/components/parameters/filterParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
       responses:
         '200':
           description: List of feeding habits records.
@@ -1454,8 +1384,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -1470,42 +1400,35 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'  
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/feedinghabitsrecords/{feedinghabitsrecord_id}:
+                $ref: '#/components/schemas/Error'
+  /patients/{patient_id}/feedinghabitsrecords/{feedinghabitsrecord_id}:
     get:
       tags:
-      - pilotstudies.patients.feedinghabitsrecords
+        - patients.feedinghabitsrecords
       summary: Recover feeding habits record data.
       description: Recover the patient feeding habits record data. The query suports Fields param.
       operationId: getFeedingHabitsRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: feedinghabitsrecord_id
-        in: path  
-        required: true
-        description: Id of feeding habits record.
-        example: '5c9137f233b9b49d1c881189'
-        schema:
-          type: string  
-      - $ref: '#/components/parameters/fieldsParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: feedinghabitsrecord_id
+          in: path
+          required: true
+          description: Id of feeding habits record.
+          example: '5c9137f233b9b49d1c881189'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
       responses:
         '200':
           description: Requested feeding habits record data.
@@ -1527,8 +1450,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -1558,32 +1481,25 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-      - pilotstudies.patients.feedinghabitsrecords
+        - patients.feedinghabitsrecords
       summary: Update feeding habits record data.
       description: Update the patient feeding habits record data.
       operationId: updateFeedingHabitsRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: feedinghabitsrecord_id
-        in: path  
-        required: true
-        description: Id of feeding habits record.
-        example: '5c9137f233b9b49d1c881189'
-        schema:
-          type: string  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: feedinghabitsrecord_id
+          in: path
+          required: true
+          description: Id of feeding habits record.
+          example: '5c9137f233b9b49d1c881189'
+          schema:
+            type: string
       responses:
         '200':
           description: Updated feeding habits record data.
@@ -1613,8 +1529,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -1629,7 +1545,7 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-            The server does not support the requested payload format. Only 
+            The server does not support the requested payload format. Only
             application/json is accepted.
           content:
             application/json:
@@ -1644,7 +1560,7 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
@@ -1659,35 +1575,28 @@ paths:
         required: true
     delete:
       tags:
-      - pilotstudies.patients.feedinghabitsrecords
+        - patients.feedinghabitsrecords
       summary: Delete feeding habits record data.
       description: Delete the patient feeding habits record data.
       operationId: deleteFeedingHabitsRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: feedinghabitsrecord_id
-        in: path  
-        required: true
-        description: Id of feeding habits record.
-        example: '5c9137f233b9b49d1c881189'
-        schema:
-          type: string  
-      responses:  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: feedinghabitsrecord_id
+          in: path
+          required: true
+          description: Id of feeding habits record.
+          example: '5c9137f233b9b49d1c881189'
+          schema:
+            type: string
+      responses:
         '204':
-          description: >- 
+          description: >-
             Operation performed successfully. There is no data to be returned
         '401':
           description: Authentication failed due to invalid authentication credentials.
@@ -1703,8 +1612,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -1732,30 +1641,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  
-  # pilotstudies.patients.medicalrecords
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/medicalrecords:
-    post: 
+
+  # patients.medicalrecords
+  /patients/{patient_id}/medicalrecords:
+    post:
       tags:
-      - pilotstudies.patients.medicalrecords
+        - patients.medicalrecords
       summary: Register medical record.
       description: Register a medical record from patient.
-      operationId: addMedicalRecordFromPacient
+      operationId: addMedicalRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
       responses:
         '201':
           description: Medical record successfully registered.
@@ -1765,8 +1667,8 @@ paths:
                 $ref: '#/components/schemas/MedicalRecord'
         '400':
           description: >-
-            Request can not be met, syntactically incorrect or violates the 
-            schema. Normally it occurs due to validation issues, such as 
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
             fields that are expected in the request body and not passed.
           content:
             application/json:
@@ -1795,7 +1697,7 @@ paths:
         '406':
           description: >-
             The server is not implementing the media type requested by the client
-            for the application response. Only application/json is currently 
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -1803,8 +1705,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-           The server does not support the requested payload format. Only 
-           application/json is accepted.
+            The server does not support the requested payload format. Only
+            application/json is accepted.
           content:
             application/json:
               schema:
@@ -1833,31 +1735,26 @@ paths:
         required: true
     get:
       tags:
-      - pilotstudies.patients.medicalrecords
+        - patients.medicalrecords
       summary: Recover medical records.
-      description: >- 
+      description: |
         Returns list with all medical records from patient. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
       operationId: getAllMedicalRecordsFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - $ref: '#/components/parameters/fieldsParam'
-      - $ref: '#/components/parameters/pageParam'
-      - $ref: '#/components/parameters/limitParam'
-      - $ref: '#/components/parameters/sortParam'
-      - $ref: '#/components/parameters/filterParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
       responses:
         '200':
           description: List of medical records.
@@ -1866,7 +1763,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/FeedingHabitsRecord'
+                  $ref: '#/components/schemas/MedicalRecord'
         '401':
           description: Authentication failed due to invalid authentication credentials.
           content:
@@ -1889,8 +1786,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -1905,45 +1802,38 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'  
-  /pilotstudies/{pilotstudy_id}/patients/{patient_id}/medicalrecords/{medicalrecord_id}:
+                $ref: '#/components/schemas/Error'
+  /patients/{patient_id}/medicalrecords/{medicalrecord_id}:
     get:
       tags:
-      - pilotstudies.patients.medicalrecords
+        - patients.medicalrecords
       summary: Recover medical record data.
       description: Recover the patient medical record data. The query suports Fields param.
       operationId: getMedicalRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: medicalrecord_id
-        in: path  
-        required: true
-        description: Id of medical record.
-        example: '5c9137f29293b51a067711c8'
-        schema:
-          type: string  
-      - $ref: '#/components/parameters/fieldsParam'
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: medicalrecord_id
+          in: path
+          required: true
+          description: Id of medical record.
+          example: '5c9137f29293b51a067711c8'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
       responses:
         '200':
-          description: Requested feeding habits record data.
+          description: Requested medical record data.
           content:
             application/json:
               schema:
@@ -1962,8 +1852,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -1993,32 +1883,25 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-      - pilotstudies.patients.medicalrecords
+        - patients.medicalrecords
       summary: Update medical record data.
       description: Update the patient medical record data.
       operationId: updateMedicalRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: medicalrecord_id
-        in: path  
-        required: true
-        description: Id of medical record.
-        example: '5c9137f29293b51a067711c8'
-        schema:
-          type: string  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: medicalrecord_id
+          in: path
+          required: true
+          description: Id of medical record.
+          example: '5c9137f29293b51a067711c8'
+          schema:
+            type: string
       responses:
         '200':
           description: Updated medical record data.
@@ -2048,8 +1931,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '406':
           description: >-
-            The server is not implementing the media type requested by the client 
-            for the application response. Only application/json is currently 
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
             accepted.
           content:
             application/json:
@@ -2064,7 +1947,7 @@ paths:
                 $ref: '#/components/schemas/Error'
         '415':
           description: >-
-            The server does not support the requested payload format. Only 
+            The server does not support the requested payload format. Only
             application/json is accepted.
           content:
             application/json:
@@ -2079,7 +1962,7 @@ paths:
         '500':
           description: >-
             An internal server error occurred. Although the client appears to
-            provide a correct request, the server encountered an unexpected 
+            provide a correct request, the server encountered an unexpected
             condition that prevented it from responding to the request.
           content:
             application/json:
@@ -2094,35 +1977,28 @@ paths:
         required: true
     delete:
       tags:
-      - pilotstudies.patients.medicalrecords
+        - patients.medicalrecords
       summary: Delete medical record data.
       description: Delete the patient medical record data.
       operationId: deleteMedicalRecordFromPatient
       parameters:
-      - name: pilotstudy_id
-        in: path
-        required: true
-        description: Id of pilot study.
-        example: '5c86d00c2239a48ea20a0134'
-        schema:
-          type: string
-      - name: patient_id
-        in: path  
-        required: true
-        description: Id of patient.
-        example: '5c9137f2b8d3921ff3028378'
-        schema:
-          type: string
-      - name: medicalrecord_id
-        in: path  
-        required: true
-        description: Id of medical record.
-        example: '5c9137f29293b51a067711c8'
-        schema:
-          type: string  
-      responses:  
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: medicalrecord_id
+          in: path
+          required: true
+          description: Id of medical record.
+          example: '5c9137f29293b51a067711c8'
+          schema:
+            type: string
+      responses:
         '204':
-          description: >- 
+          description: >-
             Operation performed successfully. There is no data to be returned
         '401':
           description: Authentication failed due to invalid authentication credentials.
@@ -2138,8 +2014,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: >-
-           Specified resource does not exist. Usually when the URI is incorrect or the
-           resource is not found, or even no longer exists.
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
           content:
             application/json:
               schema:
@@ -2168,101 +2044,1297 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  # patients.sociodemographicrecords
+  /patients/{patient_id}/sociodemographicrecords:
+    post:
+      tags:
+        - patients.sociodemographicrecords
+      summary: Register sociodemographic record.
+      description: Register a sociodemographic record from patient.
+      operationId: addSociodemographicRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Sociodemographic record successfully registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SociodemographicRecord'
+        '400':
+          description: >-
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
+            fields that are expected in the request body and not passed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to register social demographic records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: >-
+            The server does not support the requested payload format. Only
+            application/json is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SociodemographicRecord'
+        description: Data of the sociodemographic record to be saved.
+        required: true
+    get:
+      tags:
+        - patients.sociodemographicrecords
+      summary: Recover sociodemographic records.
+      description: |
+        Returns list with all sociodemographic records from patient. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
+      operationId: getAllSociodemographicRecordsFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
+      responses:
+        '200':
+          description: List of sociodemographic records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SociodemographicRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to get sociodemographics records list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /patients/{patient_id}/sociodemographicrecords/{sociodemographicrecord_id}:
+    get:
+      tags:
+        - patients.sociodemographicrecords
+      summary: Recover sociodemographic record data.
+      description: Recover the patient sociodemographic record data. The query suports Fields param.
+      operationId: getSociodemographicRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: sociodemographicrecord_id
+          in: path
+          required: true
+          description: Id of sociodemographic record.
+          example: '5cbddb07bd6cdd88c4735d99'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+      responses:
+        '200':
+          description: Requested sociodemographic record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SociodemographicRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to get patient sociodemographic record record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client for
+            the application response. Only application/json is currently accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to provide a
+            correct request, the server encountered an unexpected condition that
+            prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - patients.sociodemographicrecords
+      summary: Update sociodemographic record data.
+      description: Update the patient sociodemographic record data.
+      operationId: updateSociodemographiclRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: sociodemographicrecord_id
+          in: path
+          required: true
+          description: Id of sociodemographic record.
+          example: '5cbddb07bd6cdd88c4735d99'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated sociodemographic record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SociodemographicRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to update sociodemographic record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: ->
+            Conflicts have probably occurred with data that can not be duplicated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: >-
+            The server does not support the requested payload format. Only
+            application/json is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SociodemographicRecord'
+        description: Data of the sociodemographic record to be updated.
+        required: true
+    delete:
+      tags:
+        - patients.sociodemographicrecords
+      summary: Delete sociodemographic record data.
+      description: Delete the patient sociodemographic record data.
+      operationId: deleteSociodemographicRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: sociodemographicrecord_id
+          in: path
+          required: true
+          description: Id of sociodemographic record.
+          example: '5cbddb07bd6cdd88c4735d99'
+          schema:
+            type: string
+      responses:
+        '204':
+          description: >-
+            Operation performed successfully. There is no data to be returned
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to delete sociodemographic record from patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client for
+            the application response. Only application/json is currently accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to provide a
+            correct request, the server encountered an unexpected condition that
+            prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # patients.familycohesionrecords
+  /patients/{patient_id}/familycohesionrecords:
+    post:
+      tags:
+        - patients.familycohesionrecords
+      summary: Register family cohesion record.
+      description: Register a family cohesion record from patient.
+      operationId: addFamilyCohesionRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Family cohesion record successfully registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FamilyCohesionRecord'
+        '400':
+          description: >-
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
+            fields that are expected in the request body and not passed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to register family cohesion records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: >-
+            The server does not support the requested payload format. Only
+            application/json is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FamilyCohesionRecord'
+        description: Data of the family cohesion record to be saved.
+        required: true
+    get:
+      tags:
+        - patients.familycohesionrecords
+      summary: Recover family cohesion records.
+      description: |
+        Returns list with all family cohesion records from patient. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
+      operationId: getAllFamilyCohesionRecordsFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
+      responses:
+        '200':
+          description: List of family cohesion records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FamilyCohesionRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to get family cohesion records list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /patients/{patient_id}/familycohesionrecords/{familycohesionrecord_id}:
+    get:
+      tags:
+        - patients.familycohesionrecords
+      summary: Recover family cohesion record data.
+      description: Recover the patient family cohesion record data. The query suports Fields param.
+      operationId: getFamilyCohesionRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: familycohesionrecord_id
+          in: path
+          required: true
+          description: Id of family cohesion record.
+          example: '5cbddb0701343856ceb30b16'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+      responses:
+        '200':
+          description: Requested family cohesion record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FamilyCohesionRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to get patient family cohesion record record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client for
+            the application response. Only application/json is currently accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to provide a
+            correct request, the server encountered an unexpected condition that
+            prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - patients.familycohesionrecords
+      summary: Update family cohesion record data.
+      description: Update the patient family cohesion record data.
+      operationId: updateFamilyCohesionRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: familycohesionrecord_id
+          in: path
+          required: true
+          description: Id of family cohesion record.
+          example: '5cbddb0701343856ceb30b16'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated family cohesion record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FamilyCohesionRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to update family cohesion record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: ->
+            Conflicts have probably occurred with data that can not be duplicated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: >-
+            The server does not support the requested payload format. Only
+            application/json is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FamilyCohesionRecord'
+        description: Data of the family cohesion record to be updated.
+        required: true
+    delete:
+      tags:
+        - patients.familycohesionrecords
+      summary: Delete family cohesion record data.
+      description: Delete the patient family cohesion record data.
+      operationId: deleteFamilyCohesionRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: familycohesionrecord_id
+          in: path
+          required: true
+          description: Id of family cohesion record.
+          example: '5cbddb0701343856ceb30b16'
+          schema:
+            type: string
+      responses:
+        '204':
+          description: >-
+            Operation performed successfully. There is no data to be returned
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to delete family cohesion record from patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client for
+            the application response. Only application/json is currently accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to provide a
+            correct request, the server encountered an unexpected condition that
+            prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # patients.oralhealthrecords
+  /patients/{patient_id}/oralhealthrecords:
+    post:
+      tags:
+        - patients.oralhealthrecords
+      summary: Register oral health record.
+      description: Register a oral health record from patient.
+      operationId: addOralHealthRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Oral health record successfully registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OralHealthRecord'
+        '400':
+          description: >-
+            Request can not be met, syntactically incorrect or violates the
+            schema. Normally it occurs due to validation issues, such as
+            fields that are expected in the request body and not passed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to register oral health records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: >-
+            The server does not support the requested payload format. Only
+            application/json is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OralHealthRecord'
+        description: Data of the oral health record to be saved.
+        required: true
+    get:
+      tags:
+        - patients.oralhealthrecords
+      summary: Recover oral health records.
+      description: |
+        Returns list with all oral health records from patient. The query supports Field Selection, Paging, Sorting, and Filtering.
+
+        This API supports filters in the query. Although Swagger does not support query filters, you can get information about filter queries by visiting this [link](https://github.com/nutes-uepb/query-strings-parser/wiki/3.4-Filtering).
+      operationId: getAllOralHealthRecordsFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
+      responses:
+        '200':
+          description: List of oral health records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OralHealthRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to get oral health records list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /patients/{patient_id}/oralhealthrecords/{oralhealthrecord_id}:
+    get:
+      tags:
+        - patients.oralhealthrecords
+      summary: Recover oral health record data.
+      description: Recover the patient oral health record data. The query suports Fields param.
+      operationId: getOralHealthRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: oralhealthrecord_id
+          in: path
+          required: true
+          description: Id of oral health record.
+          example: '5cbddb07bd6cdd88c4735d99'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/fieldsParam'
+      responses:
+        '200':
+          description: Requested medical record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OralHealthRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to get patient oral health record record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client for
+            the application response. Only application/json is currently accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to provide a
+            correct request, the server encountered an unexpected condition that
+            prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - patients.oralhealthrecords
+      summary: Update oral health record data.
+      description: Update the patient oral health record data.
+      operationId: updateOralHealthRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: oralhealthrecord_id
+          in: path
+          required: true
+          description: Id of oral health record.
+          example: '5cbddb07bd6cdd88c4735d99'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated oral health record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OralHealthRecord'
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to update oral health record data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect
+            or the resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client
+            for the application response. Only application/json is currently
+            accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: ->
+            Conflicts have probably occurred with data that can not be duplicated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: >-
+            The server does not support the requested payload format. Only
+            application/json is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to
+            provide a correct request, the server encountered an unexpected
+            condition that prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OralHealthRecord'
+        description: Data of the oral health record to be updated.
+        required: true
+    delete:
+      tags:
+        - patients.oralhealthrecords
+      summary: Delete oral health record data.
+      description: Delete the patient oral health record data.
+      operationId: deleteOralHealthRecordFromPatient
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: Id of patient.
+          example: '5c9137f2b8d3921ff3028378'
+          schema:
+            type: string
+        - name: oralhealthrecord_id
+          in: path
+          required: true
+          description: Id of oral health record.
+          example: '5cbddb07bd6cdd88c4735d99'
+          schema:
+            type: string
+      responses:
+        '204':
+          description: >-
+            Operation performed successfully. There is no data to be returned
+        '401':
+          description: Authentication failed due to invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: User does not have permission to delete oral health record from patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: >-
+            Specified resource does not exist. Usually when the URI is incorrect or the
+            resource is not found, or even no longer exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: >-
+            The server is not implementing the media type requested by the client for
+            the application response. Only application/json is currently accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The rate limit for requests exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            An internal server error occurred. Although the client appears to provide a
+            correct request, the server encountered an unexpected condition that
+            prevented it from responding to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Patient:
       type: object
       required:
-      - id
-      - pilotstudy_id
-      - first_name
-      - last_name
-      - gender
-      - age
+        - id
+        - pilotstudy_id
+        - first_name
+        - last_name
+        - gender
+        - birth_date
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-          description: Automatically generated key field. 
+          description: Automatically generated key field.
           example: '5c9137f2b8d3921ff3028378'
         pilotstudy_id:
           type: string
           format: uuid
+          readOnly: true
           description: Id of pilot study that patient is associated.
           example: '5c86d00c2239a48ea20a0134'
         first_name:
           type: string
           description: First name of patient.
-          example: Elvis 
+          example: Elvis
         last_name:
           type: string
           description: Last name of patient.
-          example: Aaron 
-        gender: 
+          example: Aaron
+        gender:
           type: string
-          description: GenderTypes of patient.
+          description: Gender of patient.
           enum: ['male', 'female']
-        age:
-          type: number
-          description: Age of patient.
-          example: 42
+        birth_date:
+          type: string
+          description: Date of patient birth, according to ISO format.
+          example: '1935-01-08'
     SleepHabit:
       type: object
       required:
-      - id
-      - patient_id
-      - created_at
-      - week_day_sleep
-      - week_day_wake_up
+        - id
+        - created_at
+        - week_day_sleep
+        - week_day_wake_up
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-          description: Automatically generated key field. 
+          description: Automatically generated key field.
           example: '5c9137f2f6d3dba533e4cb36'
-        patient_id:
-          type: string
-          format: uuid
-          description: Id of patient from feeding habits record.
-          example: '5c9137f2b8d3921ff3028378'
         created_at:
+          readOnly: true
           type: string
           description: Date of feeding habits record register in UTC format, according to ISO 8601.
-          example: '2018-11-19T14:40:00'  
+          example: '2018-11-19T14:40:00'
         week_day_sleep:
           type: number
           description: Approximate time the patient sleeps every day of the week.
           example: 22
-        week_day_wake_up: 
+        week_day_wake_up:
           type: number
           description: Approximate time the patient wake up every day of the week.
           example: 22
     PhysicalActivityHabits:
       type: object
       required:
-      - id
-      - patient_id
-      - created_at
-      - school_activity_freq
-      - weekly_activities
+        - id
+        - created_at
+        - school_activity_freq
+        - weekly_activities
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-          description: Automatically generated key field. 
+          description: Automatically generated key field.
           example: '5c9137f2cdff19618c05cf31'
-        patient_id:
-          type: string
-          format: uuid
-          description: Id of patient from feeding habits record.
-          example: '5c9137f2b8d3921ff3028378'
         created_at:
+          readOnly: true
           type: string
           description: Date of feeding habits record register in UTC format, according to ISO 8601.
-          example: '2018-11-19T14:40:00' 
+          example: '2018-11-19T14:40:00'
         school_activity_freq:
           type: string
           description: School activity frequency from patient.
@@ -2274,32 +3346,27 @@ components:
           items:
             type: string
           example:
-          - run
-          - swim
+            - run
+            - swim
     FeedingHabitsRecord:
       type: object
       required:
-      - id
-      - patient_id
-      - created_at
-      - weekly_feeding_habits
-      - daily_water_glasses
-      - six_month_breast_feeding
-      - food_allergy_intolerance
-      - breakfast_daily_frequency
+        - id
+        - created_at
+        - weekly_feeding_habits
+        - daily_water_glasses
+        - six_month_breast_feeding
+        - food_allergy_intolerance
+        - breakfast_daily_frequency
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-          description: Automatically generated key field. 
+          description: Automatically generated key field.
           example: '5c9137f233b9b49d1c881189'
-        patient_id:
-          type: string
-          format: uuid
-          description: Id of patient from feeding habits record.
-          example: '5c9137f2b8d3921ff3028378'
         created_at:
+          readOnly: true
           type: string
           description: Date of feeding habits record register in UTC format, according to ISO 8601.
           example: '2018-11-19T14:40:00'
@@ -2310,7 +3377,7 @@ components:
             $ref: '#/components/schemas/WeeklyFoodRecord'
         daily_water_glasses:
           type: string
-          description: Quantity of daily water glass consumption from patient. 
+          description: Quantity of daily water glass consumption from patient.
           enum: ['none', 'one_two', 'three_four', 'five_more', 'undefined']
           example: 'five_more'
         six_month_breast_feeding:
@@ -2325,8 +3392,8 @@ components:
             type: string
             enum: ['gluten', 'aplv', 'lactose', 'dye', 'egg', 'peanut', 'other', 'undefined' ]
           example:
-          - gluten
-          - other
+            - gluten
+            - other
         breakfast_daily_frequency:
           type: string
           description: Breakfast daily frequency from patient.
@@ -2335,8 +3402,8 @@ components:
     WeeklyFoodRecord:
       type: object
       required:
-      - food
-      - seven_days_freq
+        - food
+        - seven_days_freq
       properties:
         food:
           type: string
@@ -2350,23 +3417,18 @@ components:
     MedicalRecord:
       type: object
       required:
-      - id
-      - patient_id
-      - created_at
-      - chronic_diseases
+        - id
+        - created_at
+        - chronic_diseases
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-          description: Automatically generated key field. 
+          description: Automatically generated key field.
           example: '5c9137f29293b51a067711c8'
-        patient_id:
-          type: string
-          format: uuid
-          description: Id of patient from medical record.
-          example: '5c9137f2b8d3921ff3028378'
         created_at:
+          readOnly: true
           type: string
           description: Date of medical record register in UTC format, according to ISO 8601.
           example: '2018-11-19T14:40:00'
@@ -2378,17 +3440,178 @@ components:
     ChronicDisease:
       type: object
       required:
-      - type
-      - disease_history
+        - type
+        - disease_history
       properties:
         type:
           type: string
-          description: Type of chronic disease from pacient.
-          enum: ['hipertension', 'blood_fat', 'diabetes']
+          description: Type of chronic disease from Patient.
+          enum: ['hypertension', 'blood_fat', 'diabetes']
         disease_history:
           type: string
-          description: Disease history from pacient.
+          description: Disease history from Patient.
           enum: ['yes', 'no', 'undefined']
+    SociodemographicRecord:
+      type: object
+      required:
+        - id
+        - created_at
+        - color_race
+        - mother_scholarity
+        - people_in_home
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Automatically generated key field.
+          example: '5cbddb07bd6cdd88c4735d99'
+        created_at:
+          readOnly: true
+          type: string
+          description: Date of Sociodemographic record register in UTC format, according to ISO 8601.
+          example: '2018-11-19T14:40:00'
+        color_race:
+          type: string
+          description: Color race from patient.
+          enum: ['white', 'black', 'parda', 'yellow']
+        mother_scholarity:
+          type: string
+          description: Level of scholarity of patient mother.
+          enum: ['unlettered', 'elementary_1_to_3', 'elementary_4_to_7', 'elementary_complete', 'high_school_incomplete', 'high_school_complete', 'undefined']
+        people_in_home:
+          type: number
+          description: Quantity of people who lives with patient.
+          example: 4
+    FamilyCohesionRecord:
+      type: object
+      required:
+        - id
+        - created_at
+        - family_mutual_aid_freq
+        - friendship_approval_freq
+        - family_only_task_freq
+        - family_only_preference_freq
+        - free_time_together_freq
+        - family_proximity_perception_freq
+        - all_family_tasks_freq
+        - family_tasks_opportunity_freq
+        - family_decision_support_freq
+        - family_union_relevance_freq
+        - family_cohesion_result
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Automatically generated key field.
+          example: '5cbddb0701343856ceb30b16'
+        created_at:
+          readOnly: true
+          type: string
+          description: Date of family cohesion record register in UTC format, according to ISO 8601.
+          example: '2018-11-19T14:40:00'
+        family_mutual_aid_freq:
+          type: string
+          description: Frequency of family mutual aid from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        friendship_approval_freq:
+          type: string
+          description: Frequency of friendship approval from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        family_only_task_freq:
+          type: string
+          description: Frequency of family only task from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        family_only_preference_freq:
+          type: string
+          description: Frequency of family only preference from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        free_time_together_freq:
+          type: string
+          description: Frequency of patient free time together with family.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        family_proximity_perception_freq:
+          type: string
+          description: Frequency of family proximity perception from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        all_family_tasks_freq:
+          type: string
+          description: Frequency of all family tasks from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        family_tasks_opportunity_freq:
+          type: string
+          description: Frequency of family tasks opportunity from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        family_decision_support_freq:
+          type: string
+          description: Frequency of family decision support from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        family_union_relevance_freq:
+          type: string
+          description: Frequency of family union relevance from patient.
+          enum: ['almost_never', 'rarely', 'sometimes', 'often', 'almost_aways']
+          example: '2018-11-19T14:40:00'
+        family_cohesion_result:
+          type: number
+          description: Frequency sum of family cohesion result from patient.
+          example: 45
+    OralHealthRecord:
+      type: object
+      required:
+        - id
+        - created_at
+        - teeth_brushing_freq
+        - teeth_lesions
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: 5cbddb07650a2d92a750a9bb generated key field.
+          example: '5cbddb07bd6cdd88c4735d99'
+        created_at:
+          readOnly: true
+          type: string
+          description: Date of oral health record register in UTC format, according to ISO 8601.
+          example: '2018-11-19T14:40:00'
+        teeth_brushing_freq:
+          type: string
+          description: Frequency from patient teeth brushing per day.
+          enum: ['none', 'once', 'twice', 'three_more']
+        teeth_lesions:
+          type: array
+          description: List of teeth lesions from patient.
+          items:
+            $ref: '#/components/schemas/ToothLesion'
+          example:
+            - tooth_type: deciduous_tooth
+              lesion_type: white_spot_lesion
+            - tooth_type: deciduous_tooth
+              lesion_type: cavitated_lesion
+    ToothLesion:
+      type: object
+      required:
+        - tooth_type
+        - lesion_type
+      properties:
+        tooth_type:
+          type: string
+          description: Type of tooth.
+          enum: ['deciduous_tooth', 'permanent_tooth']
+        lesion_type:
+          type: string
+          description: Type of lesion in tooth.
+          enum: ['white_spot_lesion', 'cavitated_lesion']
     Error:
       type: object
       description: >-
@@ -2418,9 +3641,9 @@ components:
       name: fields
       required: false
       description: >-
-        Allows you to retrieve only the information you want. To do this, 
-        simply provide the name of the attributes separated by commas. 
-        For example: **_fields=field1,field2_** indicates that only 
+        Allows you to retrieve only the information you want. To do this,
+        simply provide the name of the attributes separated by commas.
+        For example: **_fields=field1,field2_** indicates that only
         field1 and field2 should be listed in the query result.
       schema:
         type: array
@@ -2453,7 +3676,7 @@ components:
       description: >-
         Contains the names of the attributes, separated by commas, that
         will be used to sort the result of the query. For ascending sort,
-        use the '+' character before the attribute name. For descending 
+        use the '+' character before the attribute name. For descending
         sort, use the '-' character before the attribute name. By default,
         the order is ascending, so the '+' symbol is optional, just enter
         the attribute.
@@ -2468,24 +3691,24 @@ components:
       name: ''
       required: false
       description: >-
-        To filter a collection by multiple concurrent attributes or filter 
+        To filter a collection by multiple concurrent attributes or filter
         multiple values for an attribute, simply use the attribute/property
         name with an equal sign and the expected values, separated by a comma.
         **_property=value1,value2,value3_**. The query is not case sensitive.
-        Example: **_?name=elvis,john_** to retrieve exactly the same users with 
+        Example: **_?name=elvis,john_** to retrieve exactly the same users with
         elvis or john name.
         For filtering with logical operators, just follow the syntax:
         **_property=operator:value_**. The available operators are:
-         - **gt** -> Defines which value of the attribute is greater than 
+         - **gt** -> Defines which value of the attribute is greater than
                     (that is,>) the specified value.
          - **gte** -> Defines which attribute value is greater than or equal to
                     (that is,>=) the specified value.
          - **lt** -> Define the value of the attribute to be less than (that is, <)
                     the specified value.
-         - **lte** -> Defines which value of the attribute is less than or equal to 
+         - **lte** -> Defines which value of the attribute is less than or equal to
                     (that is, <=) the specified value.
 
-        Example: **_?field1=gte:80&age=lt:100_** to recover the users with age 
+        Example: **_?field1=gte:80&age=lt:100_** to recover the users with age
         is greater than or equal to 80 and less then 100.
       schema:
         type: string
@@ -2504,7 +3727,7 @@ components:
       required: false
       description: >-
         Define end date in format: YYYY-MM-DD ou YYYY-MM-DD hh:mm:ss.The
-        attribute used for the query will be the registration_date. 
+        attribute used for the query will be the registration_date.
       schema:
         type: string
         default: today

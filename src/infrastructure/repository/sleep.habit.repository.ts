@@ -10,7 +10,7 @@ import { ILogger } from '../../utils/custom.logger'
 @injectable()
 export class SleepHabitRepository extends BaseRepository<SleepHabit, SleepHabitEntity> implements ISleepHabitRepository {
     constructor(
-        @inject(Identifier.ACTIVITY_HABITS_REPO_MODEL) readonly _repoModel: any,
+        @inject(Identifier.SLEEP_HABIT_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.SLEEP_HABIT_ENTITY_MAPPER) readonly _entityMapper: IEntityMapper<SleepHabit, SleepHabitEntity>,
         @inject(Identifier.LOGGER) readonly _logger: ILogger
     ) {

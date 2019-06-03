@@ -20,7 +20,6 @@ describe('Mappers: FeedingHabitsRecordEntityMapper', () => {
                 assert.property(result, 'patient_id')
                 assert.propertyVal(result, 'patient_id', result.patient_id)
                 assert.property(result, 'created_at')
-                assert.propertyVal(result, 'created_at', result.created_at)
                 assert.property(result, 'daily_water_glasses')
                 assert.propertyVal(result, 'daily_water_glasses', result.daily_water_glasses)
                 assert.property(result, 'six_month_breast_feeding')

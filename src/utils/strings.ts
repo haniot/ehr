@@ -9,8 +9,8 @@
  */
 export abstract class Strings {
     public static readonly APP: any = {
-        TITLE: 'Account Service',
-        APP_DESCRIPTION: 'Micro-service for Account.'
+        TITLE: 'EHR Service',
+        APP_DESCRIPTION: 'Micro-service for EHR.'
     }
 
     public static readonly PARAMETERS: any = {

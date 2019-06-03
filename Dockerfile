@@ -7,9 +7,12 @@ WORKDIR /usr/src/ehr/
 # install app dependencies
 COPY package.json /usr/src/ehr
 RUN npm install
+
+# Bundle app source
 COPY . /usr/src/ehr
+RUN npm run build
 
-EXPOSE 3000
-EXPOSE 3001
+EXPOSE 5000
+EXPOSE 5001
 
-ENTRYPOINT npm run build && npm start
+CMD ["npm", "start"]

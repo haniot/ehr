@@ -69,4 +69,8 @@ export class FeedingHabitsRecordService implements IFeedingHabitsRecordService {
     public async remove(id: string): Promise<boolean> {
         throw Error('Not implemented yet!')
     }
+
+    public count(): Promise<number> {
+        return this._repo.count()
+    }
 }

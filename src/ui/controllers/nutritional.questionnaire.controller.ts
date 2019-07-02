@@ -1,24 +1,21 @@
 import {controller, httpGet, request, response} from 'inversify-express-utils'
 import {inject} from 'inversify'
 import {Identifier} from '../../di/identifiers'
-
+import HttpStatus from 'http-status-codes'
 import {IFeedingHabitsRecordService} from '../../application/port/feeding.habits.record.service.interface'
 import {IMedicalRecordService} from '../../application/port/medical.record.service.interface'
-
 import {IPhysicalActivityHabitsService} from '../../application/port/physical.activity.habits.service.interface'
 import {ISleepHabitService} from '../../application/port/sleep.habit.service.interface'
-
 import {Request, Response} from 'express'
 import {Query} from '../../infrastructure/repository/query/query'
 import {FeedingHabitsRecord} from '../../application/domain/model/feeding.habits.record'
 import {MedicalRecord} from '../../application/domain/model/medical.record'
 import {PhysicalActivityHabits} from '../../application/domain/model/physical.activity.habits'
 import {SleepHabit} from '../../application/domain/model/sleep.habit'
-
 import {ApiExceptionManager} from '../exception/api.exception.manager'
 
 @controller('/patients/:patient_id/nutritional/questionnaires')
-export class NutritionalQuestionnaireController{
+export class NutritionalQuestionnaireController {
     constructor(
         @inject(Identifier.FEEDING_HABITS_RECORD_SERVICE)
         private readonly _feedingHabitsRecordService: IFeedingHabitsRecordService,
@@ -46,19 +43,16 @@ export class NutritionalQuestionnaireController{
             const countPhysicalActivityHabits: number = await this._physicalActivityHabitsService.count()
             const countSleepHabits: number = await this._sleepHabitService.count()
 
-            const sumCount = countFeedingHabitsRecords + countMedicalRecords + countPhysicalActivityHabits + countSleepHabits
+            const xTotal = countFeedingHabitsRecords + countMedicalRecords + countPhysicalActivityHabits + countSleepHabits
 
             const result: any = {
-
-                sleep_habit: this.toJSONView(sleepHabits[0]),
-                physical_activity_habits: this.toJSONView(physicalActivityHabits[0]),
-                feeding_habits_record: this.toJSONView(feedingHabitsRecords[0]),
-                medical_record: this.toJSONView(medicalRecords[0])
+                sleep_habit: this.toJSONView(sleepHabits),
+                physical_activity_habits: this.toJSONView(physicalActivityHabits),
+                feeding_habits_record: this.toJSONView(feedingHabitsRecords),
+                medical_record: this.toJSONView(medicalRecords)
             }
 
-
-
-            res.setHeader('X-Total-Count', sumCount)
+            res.setHeader('X-Total-Count', xTotal)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handlerError = ApiExceptionManager.build(err)

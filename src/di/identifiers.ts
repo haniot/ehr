@@ -16,6 +16,7 @@ export abstract class Identifier {
     public static readonly ORAL_HEALTH_RECORD_CONTROLLER: any = Symbol.for('OralHealthRecordController')
     public static readonly SOCIODEMOGRAPHIC_RECORD_CONTROLLER: any = Symbol.for('SociodemographicRecordController')
     public static readonly QUESTIONNAIRES_CONTROLLER: any = Symbol.for('QuestionnairesController')
+    public static readonly NUTRITIONAL_QUESTIONNAIRE_CONTROLLER: any = Symbol.for('NutritionalQuestionnnaireController')
 
     // Services
     public static readonly FEEDING_HABITS_RECORD_SERVICE: any = Symbol.for('FeedingHabitsRecordService')

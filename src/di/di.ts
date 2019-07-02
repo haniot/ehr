@@ -74,6 +74,7 @@ import { OralHealthRecordService } from '../application/service/oral.health.reco
 import { ISociodemographicRecordService } from '../application/port/sociodemographic.record.service.interface'
 import { SociodemographicRecordService } from '../application/service/sociodemographic.record.service'
 import { QuestionnairesController } from '../ui/controllers/questionnaires.controller'
+import { NutritionalQuestionnaireController} from '../ui/controllers/nutritional.questionnaire.controller'
 
 export class DI {
     private static instance: DI
@@ -137,6 +138,8 @@ export class DI {
             .to(SociodemographicRecordController).inSingletonScope()
         this.container.bind<QuestionnairesController>(Identifier.QUESTIONNAIRES_CONTROLLER)
             .to(QuestionnairesController).inSingletonScope()
+        this.container.bind<NutritionalQuestionnaireController>(Identifier.NUTRITIONAL_QUESTIONNAIRE_CONTROLLER)
+            .to(NutritionalQuestionnaireController).inSingletonScope()
 
         // Services
         this.container.bind<IFeedingHabitsRecordService>(Identifier.FEEDING_HABITS_RECORD_SERVICE)

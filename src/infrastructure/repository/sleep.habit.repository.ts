@@ -6,6 +6,8 @@ import { ISleepHabitRepository } from '../../application/port/sleep.habit.reposi
 import { Identifier } from '../../di/identifiers'
 import { IEntityMapper } from '../port/entity.mapper.interface'
 import { ILogger } from '../../utils/custom.logger'
+import {Query} from "./query/query";
+import {QuestionnaireTypes} from "../../application/domain/utils/questionnaire.types";
 
 @injectable()
 export class SleepHabitRepository extends BaseRepository<SleepHabit, SleepHabitEntity> implements ISleepHabitRepository {
@@ -15,5 +17,9 @@ export class SleepHabitRepository extends BaseRepository<SleepHabit, SleepHabitE
         @inject(Identifier.LOGGER) readonly _logger: ILogger
     ) {
         super(_repoModel, _entityMapper, _logger)
+    }
+
+    public count(): Promise<number> {
+        return super.count(new Query().fromJSON({ filters: { type: QuestionnaireTypes.SLEEP_HABIT } }))
     }
 }

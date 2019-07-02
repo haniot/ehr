@@ -3,4 +3,5 @@ import { PhysicalActivityHabits } from '../domain/model/physical.activity.habits
 
 export interface IPhysicalActivityHabitsService extends IService<PhysicalActivityHabits> {
     removePhysicalActivityHabits(patientId: string, physicalId: string): Promise<boolean>
+    count(): Promise<number>
 }

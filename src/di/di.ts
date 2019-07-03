@@ -75,6 +75,14 @@ import { ISociodemographicRecordService } from '../application/port/sociodemogra
 import { SociodemographicRecordService } from '../application/service/sociodemographic.record.service'
 import { QuestionnairesController } from '../ui/controllers/questionnaires.controller'
 import { NutritionalQuestionnaireController} from '../ui/controllers/nutritional.questionnaire.controller'
+import {IOdontologicalQuestionnaireService} from "../application/port/odontological.questionnaire.service.interface";
+import {OdontologicalQuestionnaireService} from "../application/service/odontological.questionnaire.service";
+import {IOdontologicalQuestionnaireRepository} from "../application/port/odontological.questionnaire.repository.interface";
+import {OdontologicalQuestionnaireRepository} from "../infrastructure/repository/odontological.questionnaire.repository";
+import {OdontologicalQuestionnaireRepoModel} from "../infrastructure/database/schema/odontological.questionnaire.schema";
+import {OdontologicalQuestionnaire} from "../application/domain/model/odontological.questionnaire";
+import {OdontologicalQuestionnaireEntity} from "../infrastructure/entity/odontological.questionnaire.entity";
+import {OdontologicalQuestionnaireEntityMapper} from "../infrastructure/entity/mapper/odontological.questionnaire.entity.mapper";
 
 export class DI {
     private static instance: DI
@@ -156,6 +164,8 @@ export class DI {
             .to(OralHealthRecordService).inSingletonScope()
         this.container.bind<ISociodemographicRecordService>(Identifier.SOCIODEMOGRAPHIC_RECORD_SERVICE)
             .to(SociodemographicRecordService).inSingletonScope()
+        this.container.bind<IOdontologicalQuestionnaireService>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_SERVICE)
+            .to(OdontologicalQuestionnaireService).inSingletonScope()
 
         // Repositories
         this.container.bind<IFeedingHabitsRecordRepository>(Identifier.FEEDING_HABITS_RECORD_REPOSITORY)
@@ -172,6 +182,8 @@ export class DI {
             .to(OralHealthRecordRepository).inSingletonScope()
         this.container.bind<ISociodemographicRecordRepository>(Identifier.SOCIODEMOGRAPHIC_RECORD_REPOSITORY)
             .to(SociodemographicRecordRepository).inSingletonScope()
+        this.container.bind<IOdontologicalQuestionnaireRepository>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPOSITORY)
+            .to(OdontologicalQuestionnaireRepository).inSingletonScope()
 
         // Models
         this.container.bind(Identifier.FEEDING_HABITS_RECORD_REPO_MODEL).toConstantValue(FeedingHabitsRecordRepoModel)
@@ -181,6 +193,8 @@ export class DI {
         this.container.bind(Identifier.FAMILY_COHESION_RECORD_REPO_MODEL).toConstantValue(FamilyCohesionRecordRepoModel)
         this.container.bind(Identifier.ORAL_HEALTH_RECORD_REPO_MODEL).toConstantValue(OralHealthRecordRepoModel)
         this.container.bind(Identifier.SOCIODEMOGRAPHIC_RECORD_REPO_MODEL).toConstantValue(SociodemographicRecordRepoModel)
+        this.container.bind(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPO_MODEL)
+            .toConstantValue(OdontologicalQuestionnaireRepoModel)
 
         // Mappers
         this.container
@@ -207,6 +221,10 @@ export class DI {
             .bind<IEntityMapper<SociodemographicRecord, SociodemographicRecordEntity>>
             (Identifier.SOCIODEMOGRAPHIC_RECORD_ENTITY_MAPPER)
             .to(SociodemographicRecordEntityMapper).inSingletonScope()
+        this.container
+            .bind<IEntityMapper<OdontologicalQuestionnaire, OdontologicalQuestionnaireEntity>>
+            (Identifier.ODONTOLOGICAL_QUESTIONNAIRE_ENTITY_MAPPER)
+            .to(OdontologicalQuestionnaireEntityMapper).inSingletonScope()
 
         // Background Services
         this.container

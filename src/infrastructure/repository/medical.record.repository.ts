@@ -6,8 +6,8 @@ import { IMedicalRecordRepository } from '../../application/port/medical.record.
 import { Identifier } from '../../di/identifiers'
 import { IEntityMapper } from '../port/entity.mapper.interface'
 import { ILogger } from '../../utils/custom.logger'
-import {Query} from "./query/query";
-import {QuestionnaireTypes} from "../../application/domain/utils/questionnaire.types";
+import {Query} from './query/query'
+import {QuestionnaireTypes} from '../../application/domain/utils/questionnaire.types'
 
 @injectable()
 export class MedicalRecordRepository

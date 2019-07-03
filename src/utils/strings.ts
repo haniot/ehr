@@ -67,4 +67,10 @@ export abstract class Strings {
         NOT_FOUND_DESCRIPTION: 'Sociodemographic record not found or already removed.' +
             ' A new operation for the same resource is required.'
     }
+
+    public static readonly ODONTOLOGICAL_QUESTIONNAIRE: any = {
+        NOT_FOUND: 'Odontological questionnaire not found!',
+        NOT_FOUND_DESCRIPTION: 'Odontological questionnaire not found or already removed.' +
+            ' A new operation for the same resource is required.'
+    }
 }

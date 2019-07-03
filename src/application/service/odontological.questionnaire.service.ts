@@ -1,7 +1,76 @@
 import {IOdontologicalQuestionnaireService} from '../port/odontological.questionnaire.service.interface'
-import {injectable} from 'inversify'
+import {inject, injectable} from 'inversify'
+import {Identifier} from '../../di/identifiers'
+import {IOdontologicalQuestionnaireRepository} from '../port/odontological.questionnaire.repository.interface'
+import {CreateOdontologicalQuestionnaireValidator} from '../domain/validator/create.odontological.questionnaire.validator'
+import {OdontologicalQuestionnaire} from '../domain/model/odontological.questionnaire'
+import {IQuery} from '../port/query.interface'
+import {ObjectIdValidator} from '../domain/validator/object.id.validator'
+import {QuestionnaireTypes} from '../domain/utils/questionnaire.types'
+import {UpdateOdontologicalQuestionnaireValidator} from '../domain/validator/update.odontological.questionnaire.validator'
 
 @injectable()
 export class OdontologicalQuestionnaireService implements IOdontologicalQuestionnaireService{
+
+    constructor(
+        @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPOSITORY) private readonly  _repo: IOdontologicalQuestionnaireRepository
+    ){
+
+    }
+
+    public async add(item: OdontologicalQuestionnaire): Promise<OdontologicalQuestionnaire> {
+        try {
+            CreateOdontologicalQuestionnaireValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+        return this._repo.create(item)
+    }
+
+    public getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
+        try {
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+        query.addFilter({ type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
+        return this._repo.find(query)
+    }
+
+    public getById(id: string, query: IQuery): Promise<OdontologicalQuestionnaire> {
+        try {
+            ObjectIdValidator.validate(id)
+            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+        query.addFilter({ _id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
+        return this._repo.findOne(query)
+    }
+
+    public update(item: OdontologicalQuestionnaire): Promise<OdontologicalQuestionnaire> {
+        try {
+            ObjectIdValidator.validate(item.patient_id!)
+            item.patient_id = undefined
+            UpdateOdontologicalQuestionnaireValidator.validate(item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+        return this._repo.update(item)
+    }
+
+    public remove(id: string): Promise<boolean> {
+        throw Error('Not implemented yet!')
+    }
+
+    public removeOdontologicalQuestionnaire(patientId: string, odontologicalQuestionnaireId: string): Promise<boolean> {
+        try {
+            ObjectIdValidator.validate(patientId)
+            ObjectIdValidator.validate(odontologicalQuestionnaireId)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+        return this._repo.delete(odontologicalQuestionnaireId)
+    }
 
 }

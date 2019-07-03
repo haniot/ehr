@@ -1,31 +1,20 @@
 import {IJSONSerializable} from '../utils/json.serializable.interface'
 import {IJSONDeserializable} from '../utils/json.deserializable.interface'
-import {Entity} from './entity'
 import {SociodemographicRecord} from './sociodemographic.record'
 import {FamilyCohesionRecord} from './family.cohesion.record'
 import {OralHealthRecord} from './oral.health.record'
-import {JsonUtils} from "../utils/json.utils";
-import {DatetimeValidator} from "../validator/datetime.validator";
+import {JsonUtils} from '../utils/json.utils'
+import {QuestionnaireRecord} from './questionnaire.record'
 
-export class OdontologicalQuestionnaire extends Entity implements IJSONSerializable,
+export class OdontologicalQuestionnaire extends QuestionnaireRecord implements IJSONSerializable,
     IJSONDeserializable<OdontologicalQuestionnaire> {
 
-    private _patient_id?: string
-    private _created_at?: Date
     private _sociodemographic_recod?: SociodemographicRecord
     private _family_cohesion_record?: FamilyCohesionRecord
     private _oral_health_record?: OralHealthRecord
 
     constructor(){
         super()
-    }
-
-    get created_at(): Date | undefined {
-        return this._created_at
-    }
-
-    set created_at(value: Date | undefined) {
-        this._created_at = value
     }
 
     get sociodemographic_recod(): SociodemographicRecord | undefined{
@@ -52,31 +41,13 @@ export class OdontologicalQuestionnaire extends Entity implements IJSONSerializa
         this._oral_health_record = value
     }
 
-    get patient_id(): string | undefined{
-        return this._patient_id;
-    }
-
-    set patient_id(value: string | undefined) {
-        this._patient_id = value;
-    }
-
-    public convertDatetimeString(value: string): Date {
-        DatetimeValidator.validate(value)
-        return new Date(value)
-    }
-
     public fromJSON(json: any): OdontologicalQuestionnaire {
         if (!json)
             return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json) )
             json = JSON.parse(json)
 
-        if (json.id !== undefined)
-            super.id = this.id
-        if (json.patient_id !== undefined)
-            this.patient_id = json.patient_id
-        if (json.created_at !== undefined)
-            this.created_at = this.convertDatetimeString(json.created_at)
+        super.fromJSON(json)
         if (json.sociodemographic_recod !== undefined)
             this.sociodemographic_recod = json.sociodemographic_recod
         if (json.family_cohesion_record !== undefined)
@@ -90,9 +61,7 @@ export class OdontologicalQuestionnaire extends Entity implements IJSONSerializa
     public toJSON(): any {
 
         return {
-            id: super.id,
-            create_at: this.created_at,
-            patient_id: this.patient_id,
+            ...super.toJSON(),
             sociodemographic_recod: this.sociodemographic_recod,
             family_cohesion_record: this.family_cohesion_record,
             oral_health_record: this.oral_health_record

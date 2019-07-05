@@ -47,8 +47,6 @@ export class FamilyCohesionRecordService implements IFamilyCohesionRecordService
 
     public async update(item: FamilyCohesionRecord): Promise<FamilyCohesionRecord> {
         try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
             UpdateFamilyCohesionRecordValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)

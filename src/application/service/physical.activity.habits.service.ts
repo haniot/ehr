@@ -59,8 +59,6 @@ export class PhysicalActivityHabitsService implements IPhysicalActivityHabitsSer
 
     public async update(item: PhysicalActivityHabits): Promise<PhysicalActivityHabits> {
         try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
             UpdatePhysicalActivityHabitsValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)

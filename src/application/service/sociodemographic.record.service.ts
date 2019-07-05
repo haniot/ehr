@@ -47,8 +47,6 @@ export class SociodemographicRecordService implements ISociodemographicRecordSer
 
     public async update(item: SociodemographicRecord): Promise<SociodemographicRecord> {
         try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
             UpdateSociodemographicRecordValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)

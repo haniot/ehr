@@ -1,22 +1,19 @@
-import { QuestionnaireRecord } from './questionnaire.record'
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { WeeklyFoodRecord } from './weekly.food.record'
 import { JsonUtils } from '../utils/json.utils'
 import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
-export class FeedingHabitsRecord
-    extends QuestionnaireRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
+export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
 
     private _weekly_feeding_habits?: Array<WeeklyFoodRecord>
     private _daily_water_glasses?: string
     private _six_month_breast_feeding?: string
     private _food_allergy_intolerance?: Array<string>
     private _breakfast_daily_frequency?: string
-
+    private _type?: string
     constructor() {
-        super()
-        super.type = QuestionnaireTypes.FEEDING_HABITS_RECORD
+        this.type = QuestionnaireTypes.FEEDING_HABITS_RECORD
     }
 
     get weekly_feeding_habits(): Array<WeeklyFoodRecord> | undefined {
@@ -58,14 +55,19 @@ export class FeedingHabitsRecord
     set breakfast_daily_frequency(value: string | undefined) {
         this._breakfast_daily_frequency = value
     }
+    get type(): string | undefined{
+        return this._type
+    }
+
+    set type(value: string | undefined) {
+        this._type = value
+    }
 
     public fromJSON(json: any): FeedingHabitsRecord {
         if (!json) return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)
         }
-
-        super.fromJSON(json)
 
         if (json.weekly_feeding_habits !== undefined && json.weekly_feeding_habits instanceof Array)
             this.weekly_feeding_habits =
@@ -76,20 +78,19 @@ export class FeedingHabitsRecord
             this.food_allergy_intolerance =
                 json.food_allergy_intolerance.filter(item => typeof item === 'string')
         if (json.breakfast_daily_frequency !== undefined) this.breakfast_daily_frequency = json.breakfast_daily_frequency
+        if (json.type !== undefined) this.type = json.type
 
         return this
     }
 
     public toJSON(): any {
-        return {
-            ...super.toJSON(),
-            ...{
+        return{
                 weekly_feeding_habits: this.weekly_feeding_habits,
                 daily_water_glasses: this.daily_water_glasses,
                 six_month_breast_feeding: this.six_month_breast_feeding,
                 food_allergy_intolerance: this.food_allergy_intolerance,
-                breakfast_daily_frequency: this.breakfast_daily_frequency
+                breakfast_daily_frequency: this.breakfast_daily_frequency,
+                type: this.type
             }
-        }
     }
 }

@@ -1,17 +1,16 @@
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { JsonUtils } from '../utils/json.utils'
-import { QuestionnaireRecord } from './questionnaire.record'
 import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
-export class SleepHabit extends QuestionnaireRecord implements IJSONSerializable, IJSONDeserializable<SleepHabit> {
+export class SleepHabit implements IJSONSerializable, IJSONDeserializable<SleepHabit> {
 
     private _week_day_sleep?: number
     private _week_day_wake_up?: number
+    private _type?: string
 
     constructor() {
-        super()
-        super.type = QuestionnaireTypes.SLEEP_HABIT
+        this.type = QuestionnaireTypes.SLEEP_HABIT
     }
 
     get week_day_sleep(): number | undefined {
@@ -29,6 +28,13 @@ export class SleepHabit extends QuestionnaireRecord implements IJSONSerializable
     set week_day_wake_up(value: number | undefined) {
         this._week_day_wake_up = value
     }
+    get type(): string | undefined{
+        return this._type
+    }
+
+    set type(value: string | undefined) {
+        this._type = value
+    }
 
     public fromJSON(json: any): SleepHabit {
         if (!json) return this
@@ -36,17 +42,16 @@ export class SleepHabit extends QuestionnaireRecord implements IJSONSerializable
             json = JSON.parse(json)
         }
 
-        super.fromJSON(json)
         if (json.week_day_sleep !== undefined) this.week_day_sleep = json.week_day_sleep
         if (json.week_day_wake_up  !== undefined) this.week_day_wake_up = json.week_day_wake_up
-
+        if (json.type !== undefined) this.type = json.type
         return this
     }
 
     public toJSON(): any {
         return {
-            ...super.toJSON(),
-            ...{ week_day_sleep: this.week_day_sleep, week_day_wake_up: this.week_day_wake_up }
+            week_day_sleep: this.week_day_sleep, week_day_wake_up: this.week_day_wake_up,
+            type: this.type
         }
     }
 

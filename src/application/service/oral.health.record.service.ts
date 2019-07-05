@@ -47,8 +47,6 @@ export class OralHealthRecordService implements IOralHealthRecordService {
 
     public async update(item: OralHealthRecord): Promise<OralHealthRecord> {
         try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
             UpdateOralHealthRecordValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)

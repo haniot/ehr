@@ -57,8 +57,6 @@ export class MedicalRecordService implements IMedicalRecordService {
 
     public async update(item: MedicalRecord): Promise<MedicalRecord> {
         try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
             UpdateMedicalRecordValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)

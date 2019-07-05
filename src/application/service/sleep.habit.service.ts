@@ -57,8 +57,6 @@ export class SleepHabitService implements ISleepHabitService {
 
     public async update(item: SleepHabit): Promise<SleepHabit> {
         try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
             UpdateSleepHabitValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)

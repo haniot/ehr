@@ -57,8 +57,6 @@ export class FeedingHabitsRecordService implements IFeedingHabitsRecordService {
 
     public async update(item: FeedingHabitsRecord): Promise<FeedingHabitsRecord> {
         try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
             UpdateFeedingHabitsRecordValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)

@@ -7,4 +7,5 @@ export enum QuestionnaireTypes {
     FAMILY_COHESION_RECORD = 'family_cohesion_record',
     ORAL_HEALTH_RECORD = 'oral_health_record',
     ODONTOLOGICAL_QUESTIONNAIRE = 'odotological_questionnaire',
+    NUTRITIONAL_QUESTIONNAIRE = 'nutritional_questionnaire',
 }

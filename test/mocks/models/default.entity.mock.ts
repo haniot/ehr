@@ -117,4 +117,42 @@ export abstract class DefaultEntityMock {
             }
         ]
     }
+
+    public static readonly ODONTOLOGICAL_QUESTIONNAIRE: any = {
+        id: '5d078f2c6fb1b4cde4578892',
+        patient_id: '5ca23b9af04e7c28223cb590',
+        created_at: '2018-11-19T14:40:00',
+        type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE,
+        sociodemographic_recod: {
+            color_race: 'white',
+            mother_scholarity: 'unlettered_elementary_one_incomplete',
+            people_in_home: 4
+        },
+        family_cohesion_record: {
+            family_mutual_aid_freq: 'almost_never',
+            friendship_approval_freq: 'almost_never',
+            family_only_task_freq: 'almost_never',
+            family_only_preference_freq: 'almost_never',
+            free_time_together_freq: 'almost_never',
+            family_proximity_perception_freq: 'almost_never',
+            all_family_tasks_freq: 'almost_never',
+            family_tasks_opportunity_freq: 'almost_never',
+            family_decision_support_freq: 'almost_never',
+            family_union_relevance_freq: 'almost_never',
+            family_cohesion_result: 45
+        },
+        oral_health_record: {
+            teeth_brushing_freq: 'none',
+            teeth_lesions: [
+                {
+                    tooth_type: 'deciduous_tooth',
+                    lesion_type: 'white_spot_lesion'
+                },
+                {
+                    tooth_type: 'deciduous_tooth',
+                    lesion_type: 'cavitated_lesion'
+                }
+            ]
+        }
+    }
 }

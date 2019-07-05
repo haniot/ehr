@@ -14,6 +14,9 @@ const odontologicalQuestionnaireSchema = new Mongoose.Schema({
     created_at: {
         type: Date
     },
+    type: {
+        type: String
+    },
     sociodemographic_recod: {
         type: {
             type: String

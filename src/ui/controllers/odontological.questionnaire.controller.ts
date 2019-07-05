@@ -1,4 +1,4 @@
-import {controller, httpGet, httpPost, request, response} from 'inversify-express-utils'
+import {controller, httpDelete, httpGet, httpPost, httpPut, request, response} from 'inversify-express-utils'
 import {inject} from 'inversify'
 import {Identifier} from '../../di/identifiers'
 import {IOdontologicalQuestionnaireService} from '../../application/port/odontological.questionnaire.service.interface'
@@ -33,7 +33,6 @@ export class OdontologicalQuestionnaireController {
     @httpGet('/')
     public async getAllOdontologicalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
-
         try {
             const query: Query = new Query().fromJSON(req.query)
             query.addFilter({ patient_id: req.params.patient_id })
@@ -72,6 +71,34 @@ export class OdontologicalQuestionnaireController {
             const result: any = this.toJSONView(odontologicalQuestionnaires[0])
 
             return res.status(HttpStatus.OK).send(result)
+        } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
+    @httpDelete('/:questionnaire_id')
+    public async deleteOdontologicalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            await this._service.removeOdontologicalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
+            return res.status(HttpStatus.NO_CONTENT).send()
+        } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
+    @httpPut('/:questionnaire_id/:resource_name')
+    public async updateOdontologicalQuestionnaireFromPatient(
+        @request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            const odontologicalQuestionnaire: OdontologicalQuestionnaire = new OdontologicalQuestionnaire().fromJSON(req.body)
+            odontologicalQuestionnaire.id = req.params.questionnaire_id
+            odontologicalQuestionnaire.patient_id = req.params.patient_id
+           // odontologicalQuestionnaire = req.params.resource_name
+            const result: OdontologicalQuestionnaire = await this._service.update(odontologicalQuestionnaire)
+            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
+            return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())

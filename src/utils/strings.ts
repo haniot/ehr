@@ -71,6 +71,11 @@ export abstract class Strings {
     public static readonly ODONTOLOGICAL_QUESTIONNAIRE: any = {
         NOT_FOUND: 'Odontological questionnaire not found!',
         NOT_FOUND_DESCRIPTION: 'Odontological questionnaire not found or already removed.' +
-            ' A new operation for the same resource is required.'
+            ' A new operation for the same questionnaire is required.'
+    }
+    public static readonly NUTRITIONAL_QUESTIONNAIRE: any = {
+        NOT_FOUND: 'Nutritional questionnaire not found!',
+        NOT_FOUND_DESCRIPTION: 'Nutritional questionnaire not found or already removed.' +
+            ' A new operation for the same questionnaire is required.'
     }
 }

@@ -5,6 +5,7 @@ import {FamilyCohesionRecord} from './family.cohesion.record'
 import {OralHealthRecord} from './oral.health.record'
 import {JsonUtils} from '../utils/json.utils'
 import {QuestionnaireRecord} from './questionnaire.record'
+import {QuestionnaireTypes} from "../utils/questionnaire.types";
 
 export class OdontologicalQuestionnaire extends QuestionnaireRecord implements IJSONSerializable,
     IJSONDeserializable<OdontologicalQuestionnaire> {
@@ -15,6 +16,7 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
 
     constructor(){
         super()
+        super.type = QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE
     }
 
     get sociodemographic_recod(): SociodemographicRecord | undefined{

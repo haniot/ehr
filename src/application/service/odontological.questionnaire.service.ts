@@ -27,7 +27,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         return this._repo.create(item)
     }
 
-    public getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
+    public async getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
         try {
             ObjectIdValidator.validate(query.toJSON().filters.patient_id)
         } catch (err) {
@@ -37,7 +37,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         return this._repo.find(query)
     }
 
-    public getById(id: string, query: IQuery): Promise<OdontologicalQuestionnaire> {
+    public async getById(id: string, query: IQuery): Promise<OdontologicalQuestionnaire> {
         try {
             ObjectIdValidator.validate(id)
             ObjectIdValidator.validate(query.toJSON().filters.patient_id)
@@ -48,7 +48,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         return this._repo.findOne(query)
     }
 
-    public update(item: OdontologicalQuestionnaire): Promise<OdontologicalQuestionnaire> {
+    public async update(item: OdontologicalQuestionnaire): Promise<OdontologicalQuestionnaire> {
         try {
             ObjectIdValidator.validate(item.patient_id!)
             item.patient_id = undefined
@@ -59,11 +59,11 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         return this._repo.update(item)
     }
 
-    public remove(id: string): Promise<boolean> {
+    public async remove(id: string): Promise<boolean> {
         throw Error('Not implemented yet!')
     }
 
-    public removeOdontologicalQuestionnaire(patientId: string, odontologicalQuestionnaireId: string): Promise<boolean> {
+    public async removeOdontologicalQuestionnaire(patientId: string, odontologicalQuestionnaireId: string): Promise<boolean> {
         try {
             ObjectIdValidator.validate(patientId)
             ObjectIdValidator.validate(odontologicalQuestionnaireId)

@@ -1,65 +1,89 @@
-import {controller, httpGet, request, response} from 'inversify-express-utils'
+import {controller, httpDelete, httpGet, httpPost, request, response} from 'inversify-express-utils'
 import {inject} from 'inversify'
 import {Identifier} from '../../di/identifiers'
 import HttpStatus from 'http-status-codes'
-import {IFeedingHabitsRecordService} from '../../application/port/feeding.habits.record.service.interface'
-import {IMedicalRecordService} from '../../application/port/medical.record.service.interface'
-import {IPhysicalActivityHabitsService} from '../../application/port/physical.activity.habits.service.interface'
-import {ISleepHabitService} from '../../application/port/sleep.habit.service.interface'
 import {Request, Response} from 'express'
 import {Query} from '../../infrastructure/repository/query/query'
-import {FeedingHabitsRecord} from '../../application/domain/model/feeding.habits.record'
-import {MedicalRecord} from '../../application/domain/model/medical.record'
-import {PhysicalActivityHabits} from '../../application/domain/model/physical.activity.habits'
-import {SleepHabit} from '../../application/domain/model/sleep.habit'
 import {ApiExceptionManager} from '../exception/api.exception.manager'
+import {INutritionalQuestionnaireService} from '../../application/port/nutritional.questionnaire.service'
+import {ApiException} from '../exception/api.exception'
+import {Strings} from '../../utils/strings'
+import {NutritionalQuestionnaire} from '../../application/domain/model/nutritional.questionnaire'
 
 @controller('/patients/:patient_id/nutritional/questionnaires')
 export class NutritionalQuestionnaireController {
     constructor(
-        @inject(Identifier.FEEDING_HABITS_RECORD_SERVICE)
-        private readonly _feedingHabitsRecordService: IFeedingHabitsRecordService,
-        @inject(Identifier.MEDICAL_RECORD_SERVICE)
-        private readonly _medicalRecordService: IMedicalRecordService,
-        @inject(Identifier.PHYSICAL_ACTIVITY_HABITS_SERVICE)
-        private readonly _physicalActivityHabitsService: IPhysicalActivityHabitsService,
-        @inject(Identifier.SLEEP_HABIT_SERVICE)
-        private readonly _sleepHabitService: ISleepHabitService,
+        @inject(Identifier.NUTRITIONAL_QUESTIONNAIRE_SERVICE) private readonly _service: INutritionalQuestionnaireService
     ) {
     }
 
+    @httpPost('/')
+    public async addNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            const nutritionalQuestionnaire: NutritionalQuestionnaire = new NutritionalQuestionnaire().fromJSON(req.body)
+            nutritionalQuestionnaire.patient_id = req.params.patient_id
+            const result: NutritionalQuestionnaire = await this._service.add(nutritionalQuestionnaire)
+            return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
+        } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
     @httpGet('/')
-    public async getAllPatientNutritionalQuestionnaires(@request() req: Request, @response() res: Response): Promise<Response> {
+    public async getAllNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response>{
         try {
             const query: Query = new Query().fromJSON(req.query)
-
-            const feedingHabitsRecords: Array<FeedingHabitsRecord> = await this._feedingHabitsRecordService.getAll(query)
-            const medicalRecords: Array<MedicalRecord> = await this._medicalRecordService.getAll(query)
-            const physicalActivityHabits: Array<PhysicalActivityHabits> = await this._physicalActivityHabitsService.getAll(query)
-            const sleepHabits: Array<SleepHabit> = await this._sleepHabitService.getAll(query)
-
-            const countFeedingHabitsRecords: number = await this._feedingHabitsRecordService.count()
-            const countMedicalRecords: number = await this._medicalRecordService.count()
-            const countPhysicalActivityHabits: number = await this._physicalActivityHabitsService.count()
-            const countSleepHabits: number = await this._sleepHabitService.count()
-
-            const xTotal = countFeedingHabitsRecords + countMedicalRecords + countPhysicalActivityHabits + countSleepHabits
-
-            const result: any = {
-                sleep_habit: this.toJSONView(sleepHabits),
-                physical_activity_habits: this.toJSONView(physicalActivityHabits),
-                feeding_habits_record: this.toJSONView(feedingHabitsRecords),
-                medical_record: this.toJSONView(medicalRecords)
-            }
-
-            res.setHeader('X-Total-Count', xTotal)
+            query.addFilter({patient_id: req.params.patient_id})
+            const result: Array<NutritionalQuestionnaire> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
+        }catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+    @httpGet('/:questionnaire_id')
+    public async getNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response>{
+        try {
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({patient_id: req.params.patient_id})
+            const result: NutritionalQuestionnaire = await this._service.getById(req.params.questionnaire_id, query)
+
+            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
+            return res.status(HttpStatus.OK).send(this.toJSONView(result))
+        }
+        catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
+    @httpGet('/Last')
+    public async getLastNutritionalQuestionnaireFromPatient(
+        @request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
+            query.addOrdination('created_at', 'desc')
+
+            const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(query)
+            const result: any = this.toJSONView(nutritionalQuestionnaire[0])
+
+            return res.status(HttpStatus.OK).send(result)
         } catch (err) {
-            const handlerError = ApiExceptionManager.build(err)
-            return res.status(handlerError.code)
-                .send(handlerError.toJson())
-        } finally {
-            req.query = {}
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
+    @httpDelete('/:questionnaire_id')
+    public async deleteNutritionalFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            await this._service.removeNutrionalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
+            return res.status(HttpStatus.NO_CONTENT).send()
+        } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
         }
     }
 
@@ -67,5 +91,13 @@ export class NutritionalQuestionnaireController {
         if (!item) return {}
         delete item.type
         return item.toJSON()
+    }
+
+    private getMessageNotFound(): object {
+        return new ApiException(
+            HttpStatus.NOT_FOUND,
+            Strings.ODONTOLOGICAL_QUESTIONNAIRE.NOT_FOUND,
+            Strings.ODONTOLOGICAL_QUESTIONNAIRE.NOT_FOUND_DESCRIPTION
+        ).toJson()
     }
 }

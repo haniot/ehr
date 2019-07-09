@@ -5,7 +5,7 @@ import {FamilyCohesionRecord} from './family.cohesion.record'
 import {OralHealthRecord} from './oral.health.record'
 import {JsonUtils} from '../utils/json.utils'
 import {QuestionnaireRecord} from './questionnaire.record'
-import {QuestionnaireTypes} from "../utils/questionnaire.types";
+import {QuestionnaireTypes} from '../utils/questionnaire.types'
 
 export class OdontologicalQuestionnaire extends QuestionnaireRecord implements IJSONSerializable,
     IJSONDeserializable<OdontologicalQuestionnaire> {
@@ -14,12 +14,12 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
     private _family_cohesion_record?: FamilyCohesionRecord
     private _oral_health_record?: OralHealthRecord
 
-    constructor(){
+    constructor() {
         super()
         super.type = QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE
     }
 
-    get sociodemographic_recod(): SociodemographicRecord | undefined{
+    get sociodemographic_recod(): SociodemographicRecord | undefined {
         return this._sociodemographic_recod
     }
 
@@ -27,7 +27,7 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
         this._sociodemographic_recod = value
     }
 
-    get family_cohesion_record(): FamilyCohesionRecord | undefined{
+    get family_cohesion_record(): FamilyCohesionRecord | undefined {
         return this._family_cohesion_record
     }
 
@@ -35,7 +35,7 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
         this._family_cohesion_record = value
     }
 
-    get oral_health_record(): OralHealthRecord | undefined{
+    get oral_health_record(): OralHealthRecord | undefined {
         return this._oral_health_record
     }
 
@@ -46,7 +46,7 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
     public fromJSON(json: any): OdontologicalQuestionnaire {
         if (!json)
             return this
-        if (typeof json === 'string' && JsonUtils.isJsonString(json) )
+        if (typeof json === 'string' && JsonUtils.isJsonString(json))
             json = JSON.parse(json)
 
         super.fromJSON(json)

@@ -7,7 +7,7 @@ import {UpdateOralHealthRecordValidator} from './update.oral.health.record.valid
 
 export class UpdateOdontologicalQuestionnaireValidator {
 
-    public static validate(item: OdontologicalQuestionnaire): void | ValidationException{
+    public static validate(item: OdontologicalQuestionnaire): void | ValidationException {
         UpdateQuestionnaireRecordValidator.validate(item)
 
         if (item.sociodemographic_recod)
@@ -17,5 +17,4 @@ export class UpdateOdontologicalQuestionnaireValidator {
         if (item.oral_health_record)
             UpdateOralHealthRecordValidator.validate(item.oral_health_record)
     }
-
 }

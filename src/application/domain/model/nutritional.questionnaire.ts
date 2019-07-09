@@ -8,19 +8,20 @@ import {JsonUtils} from '../utils/json.utils'
 import {QuestionnaireRecord} from './questionnaire.record'
 import {QuestionnaireTypes} from '../utils/questionnaire.types'
 
-export class NutritionalQuestionnaire extends QuestionnaireRecord implements IJSONSerializable, IJSONDeserializable<NutritionalQuestionnaire>{
+export class NutritionalQuestionnaire extends QuestionnaireRecord
+    implements IJSONSerializable, IJSONDeserializable<NutritionalQuestionnaire> {
 
     private _sleep_habit?: SleepHabit
     private _physical_activity_habits?: PhysicalActivityHabits
     private _feeding_habits_record?: FeedingHabitsRecord
     private _medical_record?: MedicalRecord
 
-    constructor(){
+    constructor() {
         super()
         super.type = QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE
     }
 
-    get sleep_habit(): SleepHabit | undefined{
+    get sleep_habit(): SleepHabit | undefined {
         return this._sleep_habit
     }
 
@@ -36,7 +37,7 @@ export class NutritionalQuestionnaire extends QuestionnaireRecord implements IJS
         this._physical_activity_habits = value
     }
 
-    get feeding_habits_record(): FeedingHabitsRecord | undefined{
+    get feeding_habits_record(): FeedingHabitsRecord | undefined {
         return this._feeding_habits_record
     }
 
@@ -44,7 +45,7 @@ export class NutritionalQuestionnaire extends QuestionnaireRecord implements IJS
         this._feeding_habits_record = value
     }
 
-    get medical_record(): MedicalRecord | undefined{
+    get medical_record(): MedicalRecord | undefined {
         return this._medical_record
     }
 
@@ -55,7 +56,7 @@ export class NutritionalQuestionnaire extends QuestionnaireRecord implements IJS
     public fromJSON(json: any): NutritionalQuestionnaire {
         if (!json)
             return this
-        if (typeof json === 'string' && JsonUtils.isJsonString(json)){
+        if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)
         }
 

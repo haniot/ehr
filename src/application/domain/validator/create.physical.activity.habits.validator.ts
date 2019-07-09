@@ -1,6 +1,6 @@
-import { ValidationException } from '../exception/validation.exception'
-import { PhysicalActivityHabits } from '../model/physical.activity.habits'
-import { SchoolActivityFrequencyTypesValidator } from './school.activity.frequency.types.validator'
+import {ValidationException} from '../exception/validation.exception'
+import {PhysicalActivityHabits} from '../model/physical.activity.habits'
+import {SchoolActivityFrequencyTypesValidator} from './school.activity.frequency.types.validator'
 
 export class CreatePhysicalActivityHabitsValidator {
     public static validate(item: PhysicalActivityHabits): void | ValidationException {

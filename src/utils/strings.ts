@@ -30,44 +30,6 @@ export abstract class Strings {
         NOT_MAPPED_DESC: 'The mapped values are: '
     }
 
-    public static readonly FEEDING_HABITS_RECORD: any = {
-        NOT_FOUND: 'Feeding habits record not found!',
-        NOT_FOUND_DESCRIPTION: 'Feeding habits record not found or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
-
-    public static readonly MEDICAL_RECORD: any = {
-        NOT_FOUND: 'Medical record not found!',
-        NOT_FOUND_DESCRIPTION: 'Medical record not found or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
-
-    public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
-        NOT_FOUND: 'Physical activity habits not founded!',
-        NOT_FOUND_DESCRIPTION: 'Physical activity habits not founded or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
-    public static readonly SLEEP_HABIT: any = {
-        NOT_FOUND: 'Sleep habit not found!',
-        NOT_FOUND_DESCRIPTION: 'Sleep habit not found or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
-    public static readonly FAMILY_COHESION_RECORD: any = {
-        NOT_FOUND: 'Family cohesion record it not found!',
-        NOT_FOUND_DESCRIPTION: 'Family cohesion record not found or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
-    public static readonly ORAL_HEALTH_RECORD: any = {
-        NOT_FOUND: 'Oral health record not found!',
-        NOT_FOUND_DESCRIPTION: 'Oral health record not found or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
-    public static readonly SOCIODEMOGRAPHIC_RECORD: any = {
-        NOT_FOUND: 'Sociodemographic record not found!',
-        NOT_FOUND_DESCRIPTION: 'Sociodemographic record not found or already removed.' +
-            ' A new operation for the same resource is required.'
-    }
-
     public static readonly ODONTOLOGICAL_QUESTIONNAIRE: any = {
         NOT_FOUND: 'Odontological questionnaire not found!',
         NOT_FOUND_DESCRIPTION: 'Odontological questionnaire not found or already removed.' +

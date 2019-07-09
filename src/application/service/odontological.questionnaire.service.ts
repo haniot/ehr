@@ -10,11 +10,11 @@ import {QuestionnaireTypes} from '../domain/utils/questionnaire.types'
 import {UpdateOdontologicalQuestionnaireValidator} from '../domain/validator/update.odontological.questionnaire.validator'
 
 @injectable()
-export class OdontologicalQuestionnaireService implements IOdontologicalQuestionnaireService{
+export class OdontologicalQuestionnaireService implements IOdontologicalQuestionnaireService {
 
     constructor(
         @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPOSITORY) private readonly  _repo: IOdontologicalQuestionnaireRepository
-    ){
+    ) {
 
     }
 
@@ -24,7 +24,9 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         } catch (err) {
             return Promise.reject(err)
         }
-        return this._repo.create(item)
+        const ondotologicalQuestionnaire = this._repo.create(item)
+
+        return ondotologicalQuestionnaire
     }
 
     public async getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
@@ -33,7 +35,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
+        query.addFilter({type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
         return this._repo.find(query)
     }
 
@@ -44,7 +46,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ _id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
+        query.addFilter({_id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
         return this._repo.findOne(query)
     }
 
@@ -72,5 +74,4 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         }
         return this._repo.delete(odontologicalQuestionnaireId)
     }
-
 }

@@ -6,7 +6,7 @@ import {UpdatePhysicalActivityHabitsValidator} from './update.physical.activity.
 import {UpdateFeedingHabitsRecordValidator} from './update.feeding.habits.record.validator'
 import {UpdateMedicalRecordValidator} from './update.medical.record.validator'
 
-export class UpdateNutrtionalQuestionnaireValidator {
+export class UpdateNutritionalQuestionnaireValidator {
 
     public static validate(item: NutritionalQuestionnaire): void | ValidationException {
         UpdateQuestionnaireRecordValidator.validate(item)
@@ -19,6 +19,5 @@ export class UpdateNutrtionalQuestionnaireValidator {
             UpdateFeedingHabitsRecordValidator.validate(item.feeding_habits_record)
         if (item.medical_record)
             UpdateMedicalRecordValidator.validate(item.medical_record)
-
     }
 }

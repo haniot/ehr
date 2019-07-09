@@ -6,11 +6,11 @@ import {CreateFamilyCohesionRecordValidator} from './create.family.cohesion.reco
 import {CreateOralHealthRecordValidator} from './create.oral.health.record.validator'
 
 export class CreateOdontologicalQuestionnaireValidator {
-    public static validate(item: OdontologicalQuestionnaire): void | ValidationException{
+    public static validate(item: OdontologicalQuestionnaire): void | ValidationException {
 
         const fields: Array<string> = []
-        CreateQuestionnaireRecordValidator.validate(item)
 
+        CreateQuestionnaireRecordValidator.validate(item)
         if (!item.sociodemographic_recod)
             fields.push('sociodemographic_recod')
         else
@@ -24,11 +24,10 @@ export class CreateOdontologicalQuestionnaireValidator {
             fields.push('oral_health_record')
         else
             CreateOralHealthRecordValidator.validate(item.oral_health_record)
-
+        
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',
                 'Odontological Questionnaire validation: '.concat(fields.join(', ')).concat(' is required!'))
         }
-
     }
 }

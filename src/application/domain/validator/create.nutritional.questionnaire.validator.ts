@@ -24,7 +24,7 @@ export class CreateNutritionalQuestionnaireValidator {
             fields.push('physical_activity_habits')
         else
             CreatePhysicalActivityHabitsValidator.validate(item.physical_activity_habits)
-        if(!item.feeding_habits_record)
+        if (!item.feeding_habits_record)
             fields.push('feeding_habits_record')
         else
             CreateFeedingHabitsRecordValidator.validate((item.feeding_habits_record))
@@ -37,5 +37,6 @@ export class CreateNutritionalQuestionnaireValidator {
             throw new ValidationException('Required fields were not provided...',
                 'Nutritional Questionnaire validation: '.concat(fields.join(', ')).concat(' is required!'))
 
+        }
     }
 }

@@ -23,6 +23,7 @@ export class OdontologicalQuestionnaireController {
             const odontologicalQuestionnaire: OdontologicalQuestionnaire = new OdontologicalQuestionnaire().fromJSON(req.body)
             odontologicalQuestionnaire.patient_id = req.params.patient_id
             const result: OdontologicalQuestionnaire = await this._service.add(odontologicalQuestionnaire)
+            console.log(result)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -59,7 +60,7 @@ export class OdontologicalQuestionnaireController {
         }
     }
 
-    @httpGet('/Last')
+    @httpGet('/last')
     public async getLastPatientOdontologicalQuestionnaire(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const query: Query = new Query().fromJSON(req.query)
@@ -78,7 +79,8 @@ export class OdontologicalQuestionnaireController {
     }
 
     @httpDelete('/:questionnaire_id')
-    public async deleteOdontologicalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
+    public async deleteOdontologicalQuestionnaireFromPatient(
+        @request() req: Request, @response() res: Response): Promise<Response> {
         try {
             await this._service.removeOdontologicalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
             return res.status(HttpStatus.NO_CONTENT).send()
@@ -95,7 +97,6 @@ export class OdontologicalQuestionnaireController {
             const odontologicalQuestionnaire: OdontologicalQuestionnaire = new OdontologicalQuestionnaire().fromJSON(req.body)
             odontologicalQuestionnaire.id = req.params.questionnaire_id
             odontologicalQuestionnaire.patient_id = req.params.patient_id
-           // odontologicalQuestionnaire = req.params.resource_name
             const result: OdontologicalQuestionnaire = await this._service.update(odontologicalQuestionnaire)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))

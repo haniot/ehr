@@ -124,11 +124,13 @@ export abstract class DefaultEntityMock {
         created_at: '2018-11-19T14:40:00',
         type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE,
         sociodemographic_recod: {
+            type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
             color_race: 'white',
             mother_scholarity: 'unlettered_elementary_one_incomplete',
             people_in_home: 4
         },
         family_cohesion_record: {
+            type: QuestionnaireTypes.FAMILY_COHESION_RECORD,
             family_mutual_aid_freq: 'almost_never',
             friendship_approval_freq: 'almost_never',
             family_only_task_freq: 'almost_never',
@@ -142,6 +144,7 @@ export abstract class DefaultEntityMock {
             family_cohesion_result: 45
         },
         oral_health_record: {
+            type: QuestionnaireTypes.ORAL_HEALTH_RECORD,
             teeth_brushing_freq: 'none',
             teeth_lesions: [
                 {

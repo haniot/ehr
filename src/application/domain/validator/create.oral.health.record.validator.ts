@@ -1,8 +1,8 @@
-import { ValidationException } from '../exception/validation.exception'
-import { OralHealthRecord } from '../model/oral.health.record'
-import { ToothBrushingFrequencyTypesValidator } from './tooth.brushing.frequency.types.validator'
-import { DentalLesionTypesValidator } from './dental.lesion.types.validator'
-import { ToothTypesValidator } from './tooth.types.validator'
+import {ValidationException} from '../exception/validation.exception'
+import {OralHealthRecord} from '../model/oral.health.record'
+import {ToothBrushingFrequencyTypesValidator} from './tooth.brushing.frequency.types.validator'
+import {DentalLesionTypesValidator} from './dental.lesion.types.validator'
+import {ToothTypesValidator} from './tooth.types.validator'
 
 export class CreateOralHealthRecordValidator {
     public static validate(item: OralHealthRecord): void | ValidationException {

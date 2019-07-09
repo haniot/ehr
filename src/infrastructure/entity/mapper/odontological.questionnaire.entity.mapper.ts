@@ -4,8 +4,8 @@ import {OdontologicalQuestionnaireEntity} from '../odontological.questionnaire.e
 import {injectable} from 'inversify'
 
 @injectable()
-export class OdontologicalQuestionnaireEntityMapper implements
-            IEntityMapper<OdontologicalQuestionnaire, OdontologicalQuestionnaireEntity> {
+export class OdontologicalQuestionnaireEntityMapper
+    implements IEntityMapper<OdontologicalQuestionnaire, OdontologicalQuestionnaireEntity> {
 
     public jsonToModel(json: any): OdontologicalQuestionnaire {
 
@@ -20,6 +20,8 @@ export class OdontologicalQuestionnaireEntityMapper implements
             result.patient_id = json.patient_id
         if (json.created_at !== undefined)
             result.created_at = json.created_at
+        if (json.type !== undefined)
+            result.type = json.type
         if (json.sociodemographic_recod !== undefined)
             result.sociodemographic_recod = json.sociodemographic_recod
         if (json.family_cohesion_record !== undefined)
@@ -44,6 +46,8 @@ export class OdontologicalQuestionnaireEntityMapper implements
             result.patient_id = item.patient_id
         if (item.created_at !== undefined)
             result.created_at = item.created_at
+        if (item.type !== undefined)
+            result.type = item.type
         if (item.sociodemographic_recod !== undefined)
             result.sociodemographic_recod = item.sociodemographic_recod
         if (item.family_cohesion_record !== undefined)

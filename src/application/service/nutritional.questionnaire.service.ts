@@ -7,7 +7,7 @@ import {CreateNutritionalQuestionnaireValidator} from '../domain/validator/creat
 import {ObjectIdValidator} from '../domain/validator/object.id.validator'
 import {QuestionnaireTypes} from '../domain/utils/questionnaire.types'
 import {IQuery} from '../port/query.interface'
-import {UpdateNutrtionalQuestionnaireValidator} from '../domain/validator/update.nutrtional.questionnaire.validator'
+import {UpdateNutritionalQuestionnaireValidator} from '../domain/validator/update.nutritional.questionnaire.validator'
 
 @injectable()
 export class NutritionalQuestionnaireService implements INutritionalQuestionnaireService {
@@ -25,7 +25,6 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
             return Promise.reject(err)
         }
         return this._repo.create(item)
-
     }
 
     public async getAll(query: IQuery): Promise<Array<NutritionalQuestionnaire>> {
@@ -34,7 +33,7 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE})
+        query.addFilter({type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE})
         return this._repo.find(query)
     }
 
@@ -45,7 +44,7 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ _id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
+        query.addFilter({_id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
         return this._repo.findOne(query)
 
     }
@@ -54,7 +53,7 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         try {
             ObjectIdValidator.validate(item.patient_id!)
             item.patient_id = undefined
-            UpdateNutrtionalQuestionnaireValidator.validate(item)
+            UpdateNutritionalQuestionnaireValidator.validate(item)
         } catch (err) {
             return Promise.reject(err)
         }

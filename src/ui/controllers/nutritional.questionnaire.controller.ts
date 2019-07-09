@@ -58,7 +58,7 @@ export class NutritionalQuestionnaireController {
         }
     }
 
-    @httpGet('/Last')
+    @httpGet('/last')
     public async getLastNutritionalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
@@ -96,8 +96,8 @@ export class NutritionalQuestionnaireController {
     private getMessageNotFound(): object {
         return new ApiException(
             HttpStatus.NOT_FOUND,
-            Strings.ODONTOLOGICAL_QUESTIONNAIRE.NOT_FOUND,
-            Strings.ODONTOLOGICAL_QUESTIONNAIRE.NOT_FOUND_DESCRIPTION
+            Strings.NUTRITIONAL_QUESTIONNAIRE.NOT_FOUND,
+            Strings.NUTRITIONAL_QUESTIONNAIRE.NOT_FOUND_DESCRIPTION
         ).toJson()
     }
 }

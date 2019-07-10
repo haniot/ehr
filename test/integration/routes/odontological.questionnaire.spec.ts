@@ -45,10 +45,8 @@ describe('Routes: OdontologicalQuestionnaire', () => {
                     .set('Content-Type', 'application/json')
                     .expect(201)
                     .then(res => {
-                       // expect(res.body).to.have.property('id')
-                       // activity.id = res.body.id
-
-                        console.log(res.body)
+                        expect(res.body).to.have.property('id')
+                        activity.id = res.body.id
                     })
             })
         })

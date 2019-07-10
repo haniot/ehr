@@ -79,7 +79,7 @@ export class NutritionalQuestionnaireController {
     @httpDelete('/:questionnaire_id')
     public async deleteNutritionalFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            await this._service.removeNutrionalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
+            await this._service.removeNutritionalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
             return res.status(HttpStatus.NO_CONTENT).send()
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)

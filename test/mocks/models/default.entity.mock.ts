@@ -158,4 +158,39 @@ export abstract class DefaultEntityMock {
             ]
         }
     }
+
+    public static readonly NUTRITIONAL_QUESTIONNAIRE: any = {
+        id: '5c9137f2f6d3dba533e4cb36',
+        patient_id: '5ca23b9af04e7c28223cb590',
+        created_at: '2018-11-19T14:40:00',
+        type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE,
+        sleep_habit: {
+            type: QuestionnaireTypes.SLEEP_HABIT,
+            week_day_sleep: 22,
+            week_day_wake_up: 6
+        },
+        physical_activity_habits: {
+            type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS,
+            school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
+            weekly_activities: ['run', 'swin']
+        },
+        feeding_habits_record: {
+            type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
+            weekly_feeding_habits: [{
+                food: FoodTypes.BURGER_SAUSAGE,
+                seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
+            }],
+            daily_water_glasses: OneDayFeedingAmountTypes.FIVE_MORE,
+            six_month_breast_feeding: BreastFeedingTypes.COMPLEMENTARY,
+            food_allergy_intolerance: [FoodAllergyIntoleranceTypes.EGG, FoodAllergyIntoleranceTypes.OTHER],
+            breakfast_daily_frequency: DailyFeedingFrequencyTypes.ALMOST_EVERYDAY
+        },
+        medical_record: {
+            type: QuestionnaireTypes.MEDICAL_RECORD,
+            chronic_diseases: [{
+                type: ChronicDiseaseTypes.BLOOD_FAT,
+                disease_history: DiseaseHistoryTypes.YES
+            }]
+        }
+    }
 }

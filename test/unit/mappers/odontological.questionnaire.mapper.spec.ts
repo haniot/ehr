@@ -64,12 +64,19 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
 
         })
 
-        it('should return a model entity without parameters for empty model', () => {
-            const emptyQuestionnaire: OdontologicalQuestionnaire = new OdontologicalQuestionnaire()
-            emptyQuestionnaire.type = undefined
-            const result = mapper.transform(emptyQuestionnaire)
-            console.log(result)
-            assert.isEmpty(result)
+        it('should return a model entity with basic parameters for empty model', () => {
+            const result = mapper.transform(new OdontologicalQuestionnaire())
+            result.type = undefined
+
+            assert.isUndefined(result.id, 'no id defined')
+            assert.isUndefined(result.patient_id, 'no patient_id defined')
+            assert.isUndefined(result.created_at, 'no created_at defined')
+            assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_recod defined')
+            assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
+            assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
+            assert.isUndefined(result.type, 'no type defined')
+
+
         })
 
         describe('modelEntityToModel()', () => {
@@ -79,7 +86,7 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                         mapper.modelEntityToModel(new OdontologicalQuestionnaireEntity())
                     } catch (err) {
                         assert.property(err, 'message')
-                        assert.property(err, 'message', 'Not implemented!')
+                        assert.propertyVal(err, 'message', 'Not implemented!')
                     }
                 })
             })

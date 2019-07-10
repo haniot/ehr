@@ -5,12 +5,15 @@ import {UpdateSleepHabitValidator} from './update.sleep.habit.validator'
 import {UpdatePhysicalActivityHabitsValidator} from './update.physical.activity.habits.validator'
 import {UpdateFeedingHabitsRecordValidator} from './update.feeding.habits.record.validator'
 import {UpdateMedicalRecordValidator} from './update.medical.record.validator'
+import {ObjectIdValidator} from './object.id.validator'
 
 export class UpdateNutritionalQuestionnaireValidator {
 
     public static validate(item: NutritionalQuestionnaire): void | ValidationException {
         UpdateQuestionnaireRecordValidator.validate(item)
 
+        if (item.patient_id)
+            ObjectIdValidator.validate(item.patient_id)
         if (item.sleep_habit)
             UpdateSleepHabitValidator.validate(item.sleep_habit)
         if (item.physical_activity_habits)

@@ -4,12 +4,15 @@ import {UpdateQuestionnaireRecordValidator} from './update.questionnaire.record.
 import {UpdateSociodemographicRecordValidator} from './update.sociodemographic.record.validator'
 import {UpdateFamilyCohesionRecordValidator} from './update.family.cohesion.record.validator'
 import {UpdateOralHealthRecordValidator} from './update.oral.health.record.validator'
+import {ObjectIdValidator} from './object.id.validator'
 
 export class UpdateOdontologicalQuestionnaireValidator {
 
     public static validate(item: OdontologicalQuestionnaire): void | ValidationException {
         UpdateQuestionnaireRecordValidator.validate(item)
 
+        if (item.patient_id)
+            ObjectIdValidator.validate(item.patient_id)
         if (item.sociodemographic_recod)
             UpdateSociodemographicRecordValidator.validate(item.sociodemographic_recod)
         if (item.family_cohesion_record)

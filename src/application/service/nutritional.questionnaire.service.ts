@@ -64,7 +64,7 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         throw Error('Not implemented yet!')
     }
 
-    public async removeNutrionalQuestionnaire(patientId: string, nutritionalQuestionnaireId: string): Promise<boolean> {
+    public async removeNutritionalQuestionnaire(patientId: string, nutritionalQuestionnaireId: string): Promise<boolean> {
         try {
             ObjectIdValidator.validate(patientId)
             ObjectIdValidator.validate(nutritionalQuestionnaireId)

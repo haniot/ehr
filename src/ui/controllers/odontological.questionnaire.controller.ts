@@ -23,7 +23,6 @@ export class OdontologicalQuestionnaireController {
             const odontologicalQuestionnaire: OdontologicalQuestionnaire = new OdontologicalQuestionnaire().fromJSON(req.body)
             odontologicalQuestionnaire.patient_id = req.params.patient_id
             const result: OdontologicalQuestionnaire = await this._service.add(odontologicalQuestionnaire)
-            console.log(result)
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -36,7 +35,6 @@ export class OdontologicalQuestionnaireController {
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const query: Query = new Query().fromJSON(req.query)
-            query.addFilter({ patient_id: req.params.patient_id })
             const result: Array<OdontologicalQuestionnaire> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
@@ -49,7 +47,6 @@ export class OdontologicalQuestionnaireController {
     public async getOdontologicalFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const query: Query = new Query().fromJSON(req.query)
-            query.addFilter({ patient_id: req.params.patient_id })
             const result: OdontologicalQuestionnaire =
                 await this._service.getById(req.params.questionnaire_id, query)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
@@ -64,13 +61,8 @@ export class OdontologicalQuestionnaireController {
     public async getLastPatientOdontologicalQuestionnaire(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const query: Query = new Query().fromJSON(req.query)
-            query.addFilter({ patient_id: req.params.patient_id })
-            query.addOrdination('created_at', 'desc')
-
             const odontologicalQuestionnaires: Array<OdontologicalQuestionnaire> = await this._service.getAll(query)
-
             const result: any = this.toJSONView(odontologicalQuestionnaires[0])
-
             return res.status(HttpStatus.OK).send(result)
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)

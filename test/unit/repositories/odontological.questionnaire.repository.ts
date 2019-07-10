@@ -1,28 +1,29 @@
 import {EntityMapperMock} from '../../mocks/models/entity.mapper.mock'
 import {CustomLoggerMock} from '../../mocks/custom.logger.mock'
 import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {OralHealthRecordRepository} from '../../../src/infrastructure/repository/oral.health.record.repository'
-import {OralHealthRecord} from '../../../src/application/domain/model/oral.health.record'
-
-require('sinon-mongoose')
+import {OdontologicalQuestionnaireRepository} from '../../../src/infrastructure/repository/odontological.questionnaire.repository'
+import {OdontologicalQuestionnaire} from '../../../src/application/domain/model/odontological.questionnaire'
 import sinon from 'sinon'
 import {assert} from 'chai'
 import {Query} from '../../../src/infrastructure/repository/query/query'
-import {OralHealthRecordRepoModel} from '../../../src/infrastructure/database/schema/oral.health.record.schema';
+import {OdontologicalQuestionnaireRepoModel} from '../../../src/infrastructure/database/schema/odontological.questionnaire.schema'
 
-describe('Repositories: OralHealthRepository', () => {
-    const modelFake: any = OralHealthRecordRepoModel
+require('sinon-mongoose')
+
+describe('Repositories: OdontologicalQuestionnaire', () => {
+    const modelFake: any = OdontologicalQuestionnaireRepoModel
     const repo =
-        new OralHealthRecordRepository(modelFake, new EntityMapperMock(), new CustomLoggerMock())
-    const activity: OralHealthRecord = new OralHealthRecord().fromJSON(DefaultEntityMock.ORAL_HEALTH_RECORD)
+        new OdontologicalQuestionnaireRepository(modelFake, new EntityMapperMock(), new CustomLoggerMock())
+    const activity: OdontologicalQuestionnaire =
+        new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
 
     afterEach(() => {
         sinon.restore()
     })
 
     describe('create()', () => {
-        context('when save a new oral health record', () => {
-            it('should return the saved oral health record', () => {
+        context('when save a new odontological questionnaire', () => {
+            it('should return the saved odontological questionnaire', () => {
                 sinon
                     .mock(modelFake)
                     .expects('create')
@@ -32,19 +33,19 @@ describe('Repositories: OralHealthRepository', () => {
 
                 return repo.create(activity)
                     .then(result => {
-                        assert.property(result, 'id')
-                        assert.propertyVal(result, 'id', activity.id)
-                        assert.property(result, 'created_at')
-                        assert.propertyVal(result, 'created_at', activity.created_at)
-                        assert.property(result, 'teeth_brushing_freq')
-                        assert.propertyVal(result, 'teeth_brushing_freq', result.teeth_brushing_freq)
-                        assert.property(result, 'teeth_lesions')
-                        assert.propertyVal(result, 'teeth_lesions', result.teeth_lesions)
+                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result, 'sociodemographic_recod',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
+                        assert.propertyVal(result, 'oral_health_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
+                        assert.propertyVal(result, 'family_cohesion_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
+                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
                     })
             })
         })
 
-        context('when the oral health record is not saved', () => {
+        context('when the odontological questionnaire is not saved', () => {
             it('should return undefined', () => {
                 sinon
                     .mock(modelFake)
@@ -55,7 +56,7 @@ describe('Repositories: OralHealthRepository', () => {
 
                 return repo.create(activity)
                     .then(result => {
-                        assert.equal(result, undefined)
+                        assert.isUndefined(result, 'no result defined')
                     })
             })
         })
@@ -79,15 +80,16 @@ describe('Repositories: OralHealthRepository', () => {
             })
         })
     })
+
     describe('find()', () => {
-        context('when get all oral health records', () => {
-            it('should return a list of oral health records', () => {
+        context('when get all odontological questionnaires', () => {
+            it('should return a list of odontological questionnaires', () => {
                 sinon
                     .mock(modelFake)
                     .expects('find')
                     .chain('select')
                     .chain('sort')
-                    .withArgs({ created_at: 'desc' })
+                    .withArgs({created_at: 'desc'})
                     .chain('skip')
                     .withArgs(0)
                     .chain('limit')
@@ -99,26 +101,26 @@ describe('Repositories: OralHealthRepository', () => {
                     .then(result => {
                         assert.isArray(result)
                         assert.lengthOf(result, 1)
-                        assert.property(result[0], 'id')
-                        assert.propertyVal(result[0], 'id', activity.id)
-                        assert.property(result[0], 'created_at')
-                        assert.propertyVal(result[0], 'created_at', activity.created_at)
-                        assert.property(result[0], 'teeth_brushing_freq')
-                        assert.propertyVal(result[0], 'teeth_brushing_freq', activity.teeth_brushing_freq)
-                        assert.property(result[0], 'teeth_lesions')
-                        assert.propertyVal(result[0], 'teeth_lesions', activity.teeth_lesions)
+                        assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result[0], 'sociodemographic_recod',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
+                        assert.propertyVal(result[0], 'oral_health_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
+                        assert.propertyVal(result[0], 'family_cohesion_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
+                        assert.propertyVal(result[0], 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
                     })
             })
         })
 
-        context('when there are no oral health records', () => {
+        context('when there are no odontological questionnaires', () => {
             it('should return empty array', () => {
                 sinon
                     .mock(modelFake)
                     .expects('find')
                     .chain('select')
                     .chain('sort')
-                    .withArgs({ created_at: 'desc' })
+                    .withArgs({created_at: 'desc'})
                     .chain('skip')
                     .withArgs(0)
                     .chain('limit')
@@ -141,13 +143,13 @@ describe('Repositories: OralHealthRepository', () => {
                     .expects('find')
                     .chain('select')
                     .chain('sort')
-                    .withArgs({ created_at: 'desc' })
+                    .withArgs({created_at: 'desc'})
                     .chain('skip')
                     .withArgs(0)
                     .chain('limit')
                     .withArgs(100)
                     .chain('exec')
-                    .rejects({ message: 'An internal error has occurred in the database!' })
+                    .rejects({message: 'An internal error has occurred in the database!'})
 
                 return repo.find(new Query())
                     .catch(err => {
@@ -159,51 +161,52 @@ describe('Repositories: OralHealthRepository', () => {
             })
         })
     })
+
     describe('findOne()', () => {
-        context('when get a unique oral health record', () => {
-            it('should return a unique oral health record', () => {
+        context('when get a unique odontological questionnaire', () => {
+            it('should return a unique odontological questionnaire', () => {
 
                 const query = new Query()
-                query.addFilter({ _id: activity.id })
+                query.addFilter({_id: activity.id})
 
                 sinon
                     .mock(modelFake)
                     .expects('findOne')
-                    .withArgs({ _id: activity.id })
+                    .withArgs({_id: activity.id})
                     .chain('select')
                     .chain('exec')
                     .resolves(activity)
 
                 return repo.findOne(query)
                     .then(result => {
-                        assert.property(result, 'id')
-                        assert.propertyVal(result, 'id', activity.id)
-                        assert.property(result, 'created_at')
-                        assert.propertyVal(result, 'created_at', activity.created_at)
-                        assert.property(result, 'teeth_brushing_freq')
-                        assert.propertyVal(result, 'teeth_brushing_freq', result.teeth_brushing_freq)
-                        assert.property(result, 'teeth_lesions')
-                        assert.propertyVal(result, 'teeth_lesions', result.teeth_lesions)
+                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result, 'sociodemographic_recod',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
+                        assert.propertyVal(result, 'oral_health_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
+                        assert.propertyVal(result, 'family_cohesion_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
+                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
                     })
             })
         })
 
-        context('when the oral health record is not found', () => {
+        context('when the odontological questionnaire is not found', () => {
             it('should return undefined', () => {
                 const query = new Query()
-                query.addFilter({ _id: activity.id })
+                query.addFilter({_id: activity.id})
 
                 sinon
                     .mock(modelFake)
                     .expects('findOne')
-                    .withArgs({ _id: activity.id })
+                    .withArgs({_id: activity.id})
                     .chain('select')
                     .chain('exec')
                     .resolves(undefined)
 
                 return repo.findOne(query)
                     .then(result => {
-                        assert.equal(result, undefined)
+                        assert.isUndefined(result, 'no result defined')
                     })
             })
         })
@@ -211,15 +214,15 @@ describe('Repositories: OralHealthRepository', () => {
         context('when a database error occurs', () => {
             it('should reject a error', () => {
                 const query = new Query()
-                query.addFilter({ _id: activity.id })
+                query.addFilter({_id: activity.id})
 
                 sinon
                     .mock(modelFake)
                     .expects('findOne')
-                    .withArgs({ _id: activity.id })
+                    .withArgs({_id: activity.id})
                     .chain('select')
                     .chain('exec')
-                    .rejects({ message: 'An internal error has occurred in the database!' })
+                    .rejects({message: 'An internal error has occurred in the database!'})
 
                 return repo.findOne(query)
                     .catch(err => {
@@ -231,41 +234,42 @@ describe('Repositories: OralHealthRepository', () => {
             })
         })
     })
+
     describe('update()', () => {
-        context('when update a oral health record', () => {
-            it('should return the updated oral health record', () => {
+        context('when update a odontological questionnaire', () => {
+            it('should return the odontological questionnaire record', () => {
                 sinon
                     .mock(modelFake)
                     .expects('findOneAndUpdate')
-                    .withArgs({ _id: activity.id }, activity, { new: true })
+                    .withArgs({_id: activity.id}, activity, {new: true})
                     .chain('exec')
                     .resolves(activity)
 
                 return repo.update(activity)
                     .then(result => {
-                        assert.property(result, 'id')
-                        assert.propertyVal(result, 'id', activity.id)
-                        assert.property(result, 'created_at')
-                        assert.propertyVal(result, 'created_at', activity.created_at)
-                        assert.property(result, 'teeth_brushing_freq')
-                        assert.propertyVal(result, 'teeth_brushing_freq', result.teeth_brushing_freq)
-                        assert.property(result, 'teeth_lesions')
-                        assert.propertyVal(result, 'teeth_lesions', result.teeth_lesions)
+                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result, 'sociodemographic_recod',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
+                        assert.propertyVal(result, 'oral_health_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
+                        assert.propertyVal(result, 'family_cohesion_record',
+                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
+                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
                     })
             })
         })
-        context('when the oral health record is not found', () => {
+        context('when the odontological questionnaire is not found', () => {
             it('should return undefined', () => {
                 sinon
                     .mock(modelFake)
                     .expects('findOneAndUpdate')
-                    .withArgs({ _id: activity.id }, activity, { new: true })
+                    .withArgs({_id: activity.id}, activity, {new: true})
                     .chain('exec')
                     .resolves(undefined)
 
                 return repo.update(activity)
                     .then(result => {
-                        assert.equal(result, undefined)
+                        assert.isUndefined(result, 'no result defined')
                     })
             })
         })
@@ -275,9 +279,9 @@ describe('Repositories: OralHealthRepository', () => {
                 sinon
                     .mock(modelFake)
                     .expects('findOneAndUpdate')
-                    .withArgs({ _id: activity.id }, activity, { new: true })
+                    .withArgs({_id: activity.id}, activity, {new: true})
                     .chain('exec')
-                    .rejects({ message: 'An internal error has occurred in the database!' })
+                    .rejects({message: 'An internal error has occurred in the database!'})
 
                 return repo.update(activity)
                     .catch(err => {
@@ -291,12 +295,12 @@ describe('Repositories: OralHealthRepository', () => {
     })
 
     describe('delete()', () => {
-        context('when want delete oral health record', () => {
+        context('when want delete odontological questionnaire', () => {
             it('should return true', () => {
                 sinon
                     .mock(modelFake)
                     .expects('findOneAndDelete')
-                    .withArgs({ _id: activity.id })
+                    .withArgs({_id: activity.id})
                     .chain('exec')
                     .resolves(true)
 
@@ -308,12 +312,12 @@ describe('Repositories: OralHealthRepository', () => {
             })
         })
 
-        context('when the oral health record is not found', () => {
+        context('when the odontological questionnaire is not found', () => {
             it('should return false', () => {
                 sinon
                     .mock(modelFake)
                     .expects('findOneAndDelete')
-                    .withArgs({ _id: activity.id })
+                    .withArgs({_id: activity.id})
                     .chain('exec')
                     .resolves(false)
 
@@ -330,9 +334,9 @@ describe('Repositories: OralHealthRepository', () => {
                 sinon
                     .mock(modelFake)
                     .expects('findOneAndDelete')
-                    .withArgs({ _id: activity.id })
+                    .withArgs({_id: activity.id})
                     .chain('exec')
-                    .rejects({ message: 'An internal error has occurred in the database!' })
+                    .rejects({message: 'An internal error has occurred in the database!'})
 
                 return repo.delete(activity.id!)
                     .catch(err => {
@@ -346,8 +350,8 @@ describe('Repositories: OralHealthRepository', () => {
     })
 
     describe('count()', () => {
-        context('when count all oral health records by a filter', () => {
-            it('should return the number of oral health records', () => {
+        context('when count all odontological questionnaire by a filter', () => {
+            it('should return the number of odontological questionnaire', () => {
                 sinon
                     .mock(modelFake)
                     .expects('countDocuments')
@@ -370,7 +374,7 @@ describe('Repositories: OralHealthRepository', () => {
                     .expects('countDocuments')
                     .withArgs({})
                     .chain('exec')
-                    .rejects({ message: 'An internal error has occurred in the database!' })
+                    .rejects({message: 'An internal error has occurred in the database!'})
 
                 return repo.count(new Query())
                     .catch(err => {

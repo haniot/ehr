@@ -24,9 +24,9 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         } catch (err) {
             return Promise.reject(err)
         }
-        const ondotologicalQuestionnaire = this._repo.create(item)
+        const odontologicalQuestionnaire = this._repo.create(item)
 
-        return ondotologicalQuestionnaire
+        return odontologicalQuestionnaire
     }
 
     public async getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
@@ -74,4 +74,5 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         }
         return this._repo.delete(odontologicalQuestionnaireId)
     }
+
 }

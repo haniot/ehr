@@ -21,7 +21,7 @@ describe('Services: OdontologicalQuestionnaire', () => {
                     .then(result => {
                         assert.propertyVal(result, 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
                         assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_recod',
+                        assert.propertyVal(result, 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result, 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
@@ -41,7 +41,7 @@ describe('Services: OdontologicalQuestionnaire', () => {
                         assert.property(err, 'description')
                         assert.propertyVal(err, 'message', 'Required fields were not provided...')
                         assert.propertyVal(err, 'description', 'Odontological Questionnaire validation: ' +
-                            'sociodemographic_recod, family_cohesion_record, oral_health_record is required!')
+                            'sociodemographic_record, family_cohesion_record, oral_health_record is required!')
                     })
             })
         })
@@ -59,7 +59,7 @@ describe('Services: OdontologicalQuestionnaire', () => {
                         assert.lengthOf(result, 1)
                         assert.propertyVal(result[0], 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
                         assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result[0], 'sociodemographic_recod',
+                        assert.propertyVal(result[0], 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result[0], 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
@@ -97,7 +97,7 @@ describe('Services: OdontologicalQuestionnaire', () => {
                     .then(result => {
                         assert.propertyVal(result, 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
                         assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_recod',
+                        assert.propertyVal(result, 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result, 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
@@ -161,7 +161,7 @@ describe('Services: OdontologicalQuestionnaire', () => {
                     .then(result => {
                         assert.propertyVal(result, 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
                         assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_recod',
+                        assert.propertyVal(result, 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result, 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)

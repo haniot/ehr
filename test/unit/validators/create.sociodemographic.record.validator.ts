@@ -13,31 +13,6 @@ describe('Validators: CreateSociodemographicRecord', () => {
         assert.equal(result, undefined)
     })
     context('when there are validation errors', () => {
-        it('should throw an error for does not pass patient_id', () => {
-            activity.patient_id = undefined
-            try {
-                CreateSociodemographicRecordValidator.validate(activity)
-            } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
-                assert.propertyVal(err, 'message', 'Required fields were not provided...')
-                assert.propertyVal(err, 'description', 'Activity Habits Record validation: patient_id is required!')
-            }
-        })
-
-        it('should throw an error for does pass invalid patient_id', () => {
-            activity.patient_id = '123'
-            try {
-                CreateSociodemographicRecordValidator.validate(activity)
-            } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
-                assert.propertyVal(err, 'message', Strings.ERROR_MESSAGE.UUID_NOT_VALID_FORMAT)
-                assert.propertyVal(err, 'description', Strings.ERROR_MESSAGE.UUID_NOT_VALID_FORMAT_DESC)
-            } finally {
-                activity.patient_id = DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.patient_id
-            }
-        })
 
         it('should throw an error for does not pass color_race', () => {
             activity.color_race = undefined

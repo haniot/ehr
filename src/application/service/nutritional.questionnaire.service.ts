@@ -73,4 +73,8 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         }
         return this._repo.delete(nutritionalQuestionnaireId)
     }
+
+    public count(query: IQuery): Promise<number> {
+        return this._repo.count(query)
+    }
 }

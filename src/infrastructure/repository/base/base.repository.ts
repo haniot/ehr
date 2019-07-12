@@ -34,7 +34,6 @@ export abstract class BaseRepository<T extends Entity, TModel> implements IRepos
                     return resolve(this.mapper.transform(result))
                 })
                 .catch(err => {
-                    console.log(err)
                     reject(this.mongoDBErrorListener(err))
                 })
         })

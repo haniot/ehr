@@ -11,10 +11,10 @@ export class CreateOdontologicalQuestionnaireValidator {
         const fields: Array<string> = []
 
         CreateQuestionnaireRecordValidator.validate(item)
-        if (!item.sociodemographic_recod)
-            fields.push('sociodemographic_recod')
+        if (!item.sociodemographic_record)
+            fields.push('sociodemographic_record')
         else
-            CreateSociodemographicRecordValidator.validate(item.sociodemographic_recod)
+            CreateSociodemographicRecordValidator.validate(item.sociodemographic_record)
 
         if (!item.family_cohesion_record)
             fields.push('family_cohesion_record')
@@ -24,7 +24,6 @@ export class CreateOdontologicalQuestionnaireValidator {
             fields.push('oral_health_record')
         else
             CreateOralHealthRecordValidator.validate(item.oral_health_record)
-        
         if (fields.length > 0) {
             throw new ValidationException('Required fields were not provided...',
                 'Odontological Questionnaire validation: '.concat(fields.join(', ')).concat(' is required!'))

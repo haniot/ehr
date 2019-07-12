@@ -2,6 +2,9 @@ import {IEntityMapper} from '../../port/entity.mapper.interface'
 import {OdontologicalQuestionnaire} from '../../../application/domain/model/odontological.questionnaire'
 import {OdontologicalQuestionnaireEntity} from '../odontological.questionnaire.entity'
 import {injectable} from 'inversify'
+import { SociodemographicRecord } from '../../../application/domain/model/sociodemographic.record'
+import { FamilyCohesionRecord } from '../../../application/domain/model/family.cohesion.record'
+import { OralHealthRecord } from '../../../application/domain/model/oral.health.record'
 
 @injectable()
 export class OdontologicalQuestionnaireEntityMapper
@@ -20,14 +23,13 @@ export class OdontologicalQuestionnaireEntityMapper
             result.patient_id = json.patient_id
         if (json.created_at !== undefined)
             result.created_at = json.created_at
-        if (json.type !== undefined)
-            result.type = json.type
-        if (json.sociodemographic_recod !== undefined)
-            result.sociodemographic_recod = json.sociodemographic_recod
+        if (json.type !== undefined) result.type = json.type
+        if (json.sociodemographic_record !== undefined)
+            result.sociodemographic_record = new SociodemographicRecord().fromJSON(json.sociodemographic_record)
         if (json.family_cohesion_record !== undefined)
-            result.family_cohesion_record = json.family_cohesion_record
+            result.family_cohesion_record = new FamilyCohesionRecord().fromJSON(json.family_cohesion_record)
         if (json.oral_health_record !== undefined)
-            result.oral_health_record = json.oral_health_record
+            result.oral_health_record = new OralHealthRecord().fromJSON(json.oral_health_record)
 
         return result
     }
@@ -40,17 +42,14 @@ export class OdontologicalQuestionnaireEntityMapper
         OdontologicalQuestionnaireEntity {
         const result: OdontologicalQuestionnaireEntity = new OdontologicalQuestionnaireEntity()
 
-
-
         if (item.id !== undefined) result.id = item.id
         if (item.patient_id !== undefined) result.patient_id = item.patient_id
         if (item.created_at !== undefined) result.created_at = item.created_at
         if (item.type !== undefined) result.type = item.type
-        if (item.sociodemographic_recod !== undefined) result.sociodemographic_recod = item.sociodemographic_recod
+        if (item.sociodemographic_record !== undefined) result.sociodemographic_record = item.sociodemographic_record
         if (item.family_cohesion_record !== undefined) result.family_cohesion_record = item.family_cohesion_record
         if (item.oral_health_record !== undefined) result.oral_health_record = item.oral_health_record
 
-       // console.log(item)
         return result
     }
 

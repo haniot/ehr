@@ -9,6 +9,7 @@ import {INutritionalQuestionnaireService} from '../../application/port/nutrition
 import {ApiException} from '../exception/api.exception'
 import {Strings} from '../../utils/strings'
 import {NutritionalQuestionnaire} from '../../application/domain/model/nutritional.questionnaire'
+import { QuestionnaireTypes } from '../../application/domain/utils/questionnaire.types'
 
 @controller('/patients/:patient_id/nutritional/questionnaires')
 export class NutritionalQuestionnaireController {
@@ -48,7 +49,9 @@ export class NutritionalQuestionnaireController {
             const query: Query = new Query().fromJSON(req.query)
             query.addFilter({patient_id: req.params.patient_id})
             const result: NutritionalQuestionnaire = await this._service.getById(req.params.questionnaire_id, query)
-
+            const count: number = await this._service.count(
+                new Query().fromJSON({ filters: { type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE } }))
+            res.setHeader('X-Total-Count', count)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         }
@@ -77,7 +80,8 @@ export class NutritionalQuestionnaireController {
     }
 
     @httpDelete('/:questionnaire_id')
-    public async deleteNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
+    public async deleteNutritionalQuestionnaireFromPatient(
+        @request() req: Request, @response() res: Response): Promise<Response> {
         try {
             await this._service.removeNutritionalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
             return res.status(HttpStatus.NO_CONTENT).send()

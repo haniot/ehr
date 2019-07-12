@@ -10,7 +10,7 @@ import {QuestionnaireTypes} from '../utils/questionnaire.types'
 export class OdontologicalQuestionnaire extends QuestionnaireRecord implements IJSONSerializable,
     IJSONDeserializable<OdontologicalQuestionnaire> {
 
-    private _sociodemographic_recod?: SociodemographicRecord
+    private _sociodemographic_record?: SociodemographicRecord
     private _family_cohesion_record?: FamilyCohesionRecord
     private _oral_health_record?: OralHealthRecord
 
@@ -19,12 +19,12 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
         super.type = QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE
     }
 
-    get sociodemographic_recod(): SociodemographicRecord | undefined {
-        return this._sociodemographic_recod
+    get sociodemographic_record(): SociodemographicRecord | undefined {
+        return this._sociodemographic_record
     }
 
-    set sociodemographic_recod(value: SociodemographicRecord | undefined) {
-        this._sociodemographic_recod = value
+    set sociodemographic_record(value: SociodemographicRecord | undefined) {
+        this._sociodemographic_record = value
     }
 
     get family_cohesion_record(): FamilyCohesionRecord | undefined {
@@ -50,8 +50,8 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
                 json = JSON.parse(json)
         }
         super.fromJSON(json)
-        if (json.sociodemographic_recod !== undefined )
-            this.sociodemographic_recod = json.sociodemographic_recod
+        if (json.sociodemographic_record !== undefined )
+            this.sociodemographic_record = json.sociodemographic_record
         if (json.family_cohesion_record !== undefined)
             this.family_cohesion_record = json.family_cohesion_record
         if (json.oral_health_record !== undefined)
@@ -65,7 +65,7 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
         return {
             ...super.toJSON(),
             ...{
-                sociodemographic_recod: this.sociodemographic_recod,
+                sociodemographic_record: this.sociodemographic_record,
                 family_cohesion_record: this.family_cohesion_record,
                 oral_health_record: this.oral_health_record
             }

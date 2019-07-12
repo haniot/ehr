@@ -13,8 +13,8 @@ export class UpdateOdontologicalQuestionnaireValidator {
 
         if (item.patient_id)
             ObjectIdValidator.validate(item.patient_id)
-        if (item.sociodemographic_recod)
-            UpdateSociodemographicRecordValidator.validate(item.sociodemographic_recod)
+        if (item.sociodemographic_record)
+            UpdateSociodemographicRecordValidator.validate(item.sociodemographic_record)
         if (item.family_cohesion_record)
             UpdateFamilyCohesionRecordValidator.validate(item.family_cohesion_record)
         if (item.oral_health_record)

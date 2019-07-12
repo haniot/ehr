@@ -34,7 +34,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
                 return repo.create(activity)
                     .then(result => {
                         assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_recod',
+                        assert.propertyVal(result, 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result, 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
@@ -102,7 +102,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
                         assert.isArray(result)
                         assert.lengthOf(result, 1)
                         assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result[0], 'sociodemographic_recod',
+                        assert.propertyVal(result[0], 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result[0], 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
@@ -180,7 +180,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
                 return repo.findOne(query)
                     .then(result => {
                         assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_recod',
+                        assert.propertyVal(result, 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result, 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
@@ -248,7 +248,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
                 return repo.update(activity)
                     .then(result => {
                         assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_recod',
+                        assert.propertyVal(result, 'sociodemographic_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                         assert.propertyVal(result, 'oral_health_record',
                             DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)

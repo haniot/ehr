@@ -36,7 +36,6 @@ export class PhysicalActivityHabits implements IJSONSerializable, IJSONDeseriali
         this._type = value
     }
 
-
     public fromJSON(json: any): PhysicalActivityHabits {
         if (!json) return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {

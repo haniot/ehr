@@ -27,7 +27,7 @@ import {NutritionalQuestionnaireRepository} from '../infrastructure/repository/n
 import {NutritionalQuestionnaireEntity} from '../infrastructure/entity/nutritional.questionnaire.entity'
 import {NutritionalQuestionnaire} from '../application/domain/model/nutritional.questionnaire'
 import {NutritionalQuestionnaireEntityMapper} from '../infrastructure/entity/mapper/nutritional.questionnaire.entity.mapper'
-import {NutritionalQuestionnaireRepoModel} from "../infrastructure/database/schema/nutritional.questionnaire.schema";
+import {NutritionalQuestionnaireRepoModel} from '../infrastructure/database/schema/nutritional.questionnaire.schema'
 
 export class DI {
     private static instance: DI

@@ -19,7 +19,7 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
                 assert.propertyVal(result, 'created_at', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.created_at)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
-                assert.propertyVal(result, 'sociodemographic_recod',
+                assert.propertyVal(result, 'sociodemographic_record',
                     DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                 assert.propertyVal(result, 'family_cohesion_record',
                     DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
@@ -32,7 +32,7 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                 assert.isUndefined(result.id, 'no id defined')
                 assert.isUndefined(result.patient_id, 'no patient_id defined')
                 assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_recod defined')
+                assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_record defined')
                 assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
                 assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
@@ -44,7 +44,7 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                 assert.isUndefined(result.id, 'no id defined')
                 assert.isUndefined(result.patient_id, 'no patient_id defined')
                 assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_recod defined')
+                assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_record defined')
                 assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
                 assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
@@ -59,7 +59,7 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
             assert.propertyVal(result, 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
             assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
             assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
-            assert.propertyVal(result, 'sociodemographic_recod',
+            assert.propertyVal(result, 'sociodemographic_record',
                 DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
             assert.propertyVal(result, 'family_cohesion_record',
                 DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
@@ -74,7 +74,7 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
             assert.isUndefined(result.id, 'no id defined')
             assert.isUndefined(result.patient_id, 'no patient_id defined')
             assert.isUndefined(result.created_at, 'no created_at defined')
-            assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_recod defined')
+            assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_record defined')
             assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
             assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
             assert.isUndefined(result.type, 'no type defined')

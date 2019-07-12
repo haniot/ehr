@@ -102,7 +102,7 @@ export abstract class DefaultEntityMock {
         patient_id: '5ca23b9af04e7c28223cb590',
         created_at: '2018-11-19T14:40:00',
         type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE,
-        sociodemographic_recod: {
+        sociodemographic_record: {
             type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
             color_race: 'white',
             mother_scholarity: 'unlettered_elementary_one_incomplete',

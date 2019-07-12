@@ -18,6 +18,7 @@ describe('Routes: OdontologicalQuestionnaire', () => {
 
     const activity: OdontologicalQuestionnaire =
         new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
+
     before(async () => {
             try {
                 await dbConnection.tryConnect(0, 500)

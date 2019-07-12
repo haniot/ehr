@@ -1,4 +1,4 @@
-import {controller, httpDelete, httpGet, httpPost, request, response} from 'inversify-express-utils'
+import {controller, httpDelete, httpGet, httpPost, httpPut, request, response} from 'inversify-express-utils'
 import {inject} from 'inversify'
 import {Identifier} from '../../di/identifiers'
 import HttpStatus from 'http-status-codes'
@@ -77,10 +77,26 @@ export class NutritionalQuestionnaireController {
     }
 
     @httpDelete('/:questionnaire_id')
-    public async deleteNutritionalFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
+    public async deleteNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             await this._service.removeNutritionalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
             return res.status(HttpStatus.NO_CONTENT).send()
+        } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
+    @httpPut('/:questionnaire_id/:resource_name')
+    public async updateNutritionalQuestionnaireFromPatient(
+        @request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            const nutritionalQuestionnaire: NutritionalQuestionnaire = new NutritionalQuestionnaire().fromJSON(req.body)
+            nutritionalQuestionnaire.id = req.params.questionnaire_id
+            nutritionalQuestionnaire.patient_id = req.params.patient_id
+            const result: NutritionalQuestionnaire = await this._service.update(nutritionalQuestionnaire)
+            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
+            return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())

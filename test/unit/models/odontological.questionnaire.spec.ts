@@ -101,6 +101,8 @@ describe('Models: OdontologicalQuestionnaire', () => {
                     new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
                 const result = ondotologicalQuestionnaire.toJSON()
 
+                console.log(result)
+
                 assert.propertyVal(result, 'sociodemographic_recod',
                     DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
                 assert.propertyVal(result, 'oral_health_record', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)

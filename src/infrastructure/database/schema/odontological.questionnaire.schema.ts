@@ -102,6 +102,7 @@ const odontologicalQuestionnaireSchema = new Mongoose.Schema({
         }
     },
     {
+        timestamps: { createdAt: 'created_at', updatedAt: false },
         toJSON: {
             transform: (doc, ret) => {
                 ret.id = ret._id

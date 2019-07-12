@@ -8,11 +8,13 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
     const mapper = new OdontologicalQuestionnaireEntityMapper()
     const model: OdontologicalQuestionnaire =
         new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
+    model.id = DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id
 
     describe('transform()', () => {
         context('when the parameter is a json', () => {
             it('should call the jsonToModel() method', () => {
                 const result = mapper.transform(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
+
                 assert.propertyVal(result, 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
                 assert.propertyVal(result, 'created_at', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.created_at)
@@ -54,6 +56,7 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
     context('when the parameter is a model', () => {
         it('should call the modelToModelEntity() method', () => {
             const result = mapper.transform(model)
+            assert.propertyVal(result, 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
             assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
             assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
             assert.propertyVal(result, 'sociodemographic_recod',

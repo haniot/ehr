@@ -26,13 +26,17 @@ export abstract class BaseRepository<T extends Entity, TModel> implements IRepos
 
     public create(item: T): Promise<T> {
         const itemNew: TModel = this.mapper.transform(item)
+
         return new Promise<T>((resolve, reject) => {
             this.Model.create(itemNew)
                 .then((result) => {
                     if (!result) return resolve(undefined)
                     return resolve(this.mapper.transform(result))
                 })
-                .catch(err => reject(this.mongoDBErrorListener(err)))
+                .catch(err => {
+                    console.log(err)
+                    reject(this.mongoDBErrorListener(err))
+                })
         })
     }
 

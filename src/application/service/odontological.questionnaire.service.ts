@@ -24,9 +24,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         } catch (err) {
             return Promise.reject(err)
         }
-        const odontologicalQuestionnaire = this._repo.create(item)
-
-        return odontologicalQuestionnaire
+        return this._repo.create(item)
     }
 
     public async getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
@@ -35,6 +33,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         } catch (err) {
             return Promise.reject(err)
         }
+
         query.addFilter({type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
         return this._repo.find(query)
     }

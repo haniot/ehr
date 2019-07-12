@@ -9,12 +9,14 @@ import {Query} from '../../infrastructure/repository/query/query'
 import HttpStatus from 'http-status-codes'
 import {ApiException} from '../exception/api.exception'
 import {Strings} from '../../utils/strings'
+import {ILogger} from '../../utils/custom.logger'
 
 @controller('/patients/:patient_id/odontological/questionnaires')
 export class OdontologicalQuestionnaireController {
 
     constructor(
-        @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_SERVICE) private readonly _service: IOdontologicalQuestionnaireService
+        @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_SERVICE) private readonly _service: IOdontologicalQuestionnaireService,
+        @inject(Identifier.LOGGER) readonly _logger: ILogger
     ) {
     }
     @httpPost('/')
@@ -35,6 +37,7 @@ export class OdontologicalQuestionnaireController {
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
             const result: Array<OdontologicalQuestionnaire> = await this._service.getAll(query)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
@@ -47,6 +50,7 @@ export class OdontologicalQuestionnaireController {
     public async getOdontologicalFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
             const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
             const result: OdontologicalQuestionnaire =
                 await this._service.getById(req.params.questionnaire_id, query)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())

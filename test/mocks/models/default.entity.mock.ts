@@ -18,9 +18,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly FEEDING_HABITS_RECORD: any = {
-        id: '5ca23b9a4c0ed58781c8ee3f',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
         weekly_feeding_habits: [{
             food: FoodTypes.BURGER_SAUSAGE,
@@ -34,9 +31,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly MEDICAL_RECORD: any = {
-        id: '5ca23b9ac442321a589285b0',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.MEDICAL_RECORD,
         chronic_diseases: [{
             type: ChronicDiseaseTypes.BLOOD_FAT,
@@ -45,18 +39,12 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
-        id: '5ca23b9adcd6cc4649189c4a',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS,
         school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
         weekly_activities: ['run', 'swin']
     }
 
     public static readonly SLEEP_HABIT: any = {
-        id: '5ca23b9ac6c20c399e333f46',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.SLEEP_HABIT,
         week_day_sleep: 22,
         week_day_wake_up: 6
@@ -73,9 +61,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly SOCIODEMOGRAPHIC_RECORD: any = {
-        id: '5ca23b9adcd6cc4649189c4c',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
         color_race: 'white',
         mother_scholarity: ScholarityLevelTypes.UNLETTERED_ELEMENTARY_ONE_INCOMPLETE,
@@ -83,9 +68,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly FAMILY_COHESION_RECORD: any = {
-        id: '5ca23b9adcd6cc4649189c3b',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.FAMILY_COHESION_RECORD,
         family_mutual_aid_freq: 'almost_never',
         friendship_approval_freq: 'almost_never',
@@ -101,9 +83,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly ORAL_HEALTH_RECORD: any = {
-        id: '5ca23b9adcd6cc4649189c3b',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         teeth_brushing_freq: 'none',
         type: QuestionnaireTypes.ORAL_HEALTH_RECORD,
         teeth_lesions: [

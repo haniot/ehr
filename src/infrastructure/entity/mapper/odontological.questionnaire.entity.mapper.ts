@@ -38,23 +38,19 @@ export class OdontologicalQuestionnaireEntityMapper
 
     public modelToModelEntity(item: OdontologicalQuestionnaire):
         OdontologicalQuestionnaireEntity {
-        const result: OdontologicalQuestionnaire = new OdontologicalQuestionnaire()
+        const result: OdontologicalQuestionnaireEntity = new OdontologicalQuestionnaireEntity()
 
-        if (item.id !== undefined)
-            result.id = item.id
-        if (item.patient_id !== undefined)
-            result.patient_id = item.patient_id
-        if (item.created_at !== undefined)
-            result.created_at = item.created_at
-        if (item.type !== undefined)
-            result.type = item.type
-        if (item.sociodemographic_recod !== undefined)
-            result.sociodemographic_recod = item.sociodemographic_recod
-        if (item.family_cohesion_record !== undefined)
-            result.family_cohesion_record = item.family_cohesion_record
-        if (item.oral_health_record !== undefined)
-            result.oral_health_record = item.oral_health_record
 
+
+        if (item.id !== undefined) result.id = item.id
+        if (item.patient_id !== undefined) result.patient_id = item.patient_id
+        if (item.created_at !== undefined) result.created_at = item.created_at
+        if (item.type !== undefined) result.type = item.type
+        if (item.sociodemographic_recod !== undefined) result.sociodemographic_recod = item.sociodemographic_recod
+        if (item.family_cohesion_record !== undefined) result.family_cohesion_record = item.family_cohesion_record
+        if (item.oral_health_record !== undefined) result.oral_health_record = item.oral_health_record
+
+       // console.log(item)
         return result
     }
 

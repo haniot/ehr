@@ -60,7 +60,8 @@ export class QuestionnaireRecord extends Entity implements IJSONSerializable, IJ
         return {
             id: super.id,
             created_at: this.created_at,
-            type: this._type
+            type: this._type,
+            patient_id: this.patient_id
         }
     }
 }

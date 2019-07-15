@@ -33,17 +33,17 @@ export class MedicalRecord implements IJSONSerializable, IJSONDeserializable<Med
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)
         }
-
         if (json.chronic_diseases !== undefined && json.chronic_diseases instanceof Array)
             this.chronic_diseases =
                 json.chronic_diseases.map(item => new ChronicDisease().fromJSON(item))
-
+        if (json.type !== undefined) this.type = json.type
         return this
     }
 
     public toJSON(): any {
         return {
-            chronic_diseases: this.chronic_diseases
+            chronic_diseases: this.chronic_diseases,
+            type: this.type
         }
     }
 }

@@ -8,7 +8,6 @@ import { IQuery } from '../port/query.interface'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
 import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
 import { UpdateOdontologicalQuestionnaireValidator } from '../domain/validator/update.odontological.questionnaire.validator'
-import { Query } from '../../infrastructure/repository/query/query'
 
 @injectable()
 export class OdontologicalQuestionnaireService implements IOdontologicalQuestionnaireService {
@@ -30,11 +29,12 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
 
     public async getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
         try {
-            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+            const patientId = query.toJSON().filters.patient_id
+            if (patientId)
+                ObjectIdValidator.validate(patientId)
         } catch (err) {
             return Promise.reject(err)
         }
-
         query.addFilter({ type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
         return this._repo.find(query)
     }
@@ -42,11 +42,13 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
     public async getById(id: string, query: IQuery): Promise<OdontologicalQuestionnaire> {
         try {
             ObjectIdValidator.validate(id)
-            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+            const patientId = query.toJSON().filters.patient_id
+            if (patientId)
+                ObjectIdValidator.validate(patientId)
+            query.addFilter({ _id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ _id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
         return this._repo.findOne(query)
     }
 
@@ -76,7 +78,6 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
     }
 
     public count(query: IQuery): Promise<number> {
-        return this._repo.count(new Query().fromJSON({ filters: { type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE } }))
+        return this._repo.count(query)
     }
-
 }

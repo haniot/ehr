@@ -61,11 +61,10 @@ export class NutritionalQuestionnaire extends QuestionnaireRecord
         }
 
         super.fromJSON(json)
-
         if (json.sleep_habit !== undefined)
             this.sleep_habit = json.sleep_habit
         if (json.physical_activity_habits !== undefined)
-            this.feeding_habits_record = json.physical_activity_habits
+            this.physical_activity_habits = json.physical_activity_habits
         if (json.feeding_habits_record !== undefined)
             this.feeding_habits_record = json.feeding_habits_record
         if (json.medical_record !== undefined)

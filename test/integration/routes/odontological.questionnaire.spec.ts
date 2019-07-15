@@ -85,7 +85,7 @@ describe('Routes: OdontologicalQuestionnaire', () => {
                         expect(res.body).is.an.instanceOf(Array)
                         expect(res.body.length).to.eql(1)
                         expect(res.body[0]).to.have.property('id', activity.id)
-
+                        expect(res.header).to.have.property('x-total-count', '1')
                     })
             })
         })
@@ -166,6 +166,38 @@ describe('Routes: OdontologicalQuestionnaire', () => {
                             'operation for the same questionnaire is required.')
                     })
             })
+        })
+    })
+
+    describe('GET /patients/:patient_id/odontological/questionnaires/last', () => {
+        context('when get the last odontological questionnaire', () => {
+            it('should return status code 200', () => {
+                return request
+                    .get(`/patients/${activity.patient_id}/odontological/questionnaires/last`)
+                    .set('Content-Type', 'application/json')
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body).to.have.property('id')
+                        expect(res.body).to.have.property('created_at')
+                    })
+            })
+        })
+
+        context('when there are validation errors', () => {
+            it('should return status code 400 and message from invalid patient_id', () => {
+                return request
+                    .get(`/patients/123/odontological/questionnaires/last`)
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body).to.have.property('message')
+                        expect(res.body).to.have.property('description')
+                        expect(res.body.message).to.eql('Some ID provided does not have a valid format!')
+                        expect(res.body.description).to.eql('A 24-byte hex ID similar to this: 507f191e810c19729de860ea ' +
+                            'is expected.')
+                    })
+            })
+
         })
     })
     describe('PUT` /patients/:patient_id/odontological/questionnaires/:questionnaire_id/:resource_name', () => {

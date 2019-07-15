@@ -29,7 +29,9 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
 
     public async getAll(query: IQuery): Promise<Array<NutritionalQuestionnaire>> {
         try {
-            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+            const patientId = query.toJSON().filters.patient_id
+            if (patientId)
+                ObjectIdValidator.validate(patientId)
         } catch (err) {
             return Promise.reject(err)
         }
@@ -40,7 +42,9 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
     public async getById(id: string, query: IQuery): Promise<NutritionalQuestionnaire> {
         try {
             ObjectIdValidator.validate(id)
-            ObjectIdValidator.validate(query.toJSON().filters.patient_id)
+            const patientId = query.toJSON().filters.patient_id
+            if (patientId)
+                ObjectIdValidator.validate(patientId)
         } catch (err) {
             return Promise.reject(err)
         }

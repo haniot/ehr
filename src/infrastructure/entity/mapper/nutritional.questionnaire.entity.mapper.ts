@@ -2,6 +2,10 @@ import {IEntityMapper} from '../../port/entity.mapper.interface'
 import {NutritionalQuestionnaire} from '../../../application/domain/model/nutritional.questionnaire'
 import {NutritionalQuestionnaireEntity} from '../nutritional.questionnaire.entity'
 import {injectable} from 'inversify'
+import { PhysicalActivityHabits } from '../../../application/domain/model/physical.activity.habits'
+import { MedicalRecord } from '../../../application/domain/model/medical.record'
+import { FeedingHabitsRecord } from '../../../application/domain/model/feeding.habits.record'
+import { SleepHabit } from '../../../application/domain/model/sleep.habit'
 
 @injectable()
 export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<NutritionalQuestionnaire,
@@ -19,14 +23,13 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
         if (json.created_at !== undefined)
             result.created_at = json.created_at
         if (json.sleep_habit !== undefined)
-            result.sleep_habit = json.sleep_habit
+            result.sleep_habit =  new SleepHabit().fromJSON(json.sleep_habit)
         if (json.physical_activity_habits !== undefined)
-            result.physical_activity_habits = json.physical_activity_habits
+            result.physical_activity_habits = new PhysicalActivityHabits().fromJSON(json.physical_activity_habits)
         if (json.feeding_habits_record !== undefined)
-            result.feeding_habits_record = json.feeding_habits_record
+            result.feeding_habits_record = new FeedingHabitsRecord().fromJSON(json.feeding_habits_record)
         if (json.medical_record !== undefined)
-            result.medical_record = json.medical_record
-
+            result.medical_record = new MedicalRecord().fromJSON(json.medical_record)
         return result
     }
 
@@ -35,7 +38,7 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
     }
 
     public modelToModelEntity(item: NutritionalQuestionnaire): NutritionalQuestionnaireEntity {
-        const result: NutritionalQuestionnaire = new NutritionalQuestionnaire()
+        const result: NutritionalQuestionnaireEntity = new NutritionalQuestionnaireEntity()
 
         if (item.id !== undefined)
             result.id = item.id
@@ -44,14 +47,13 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
         if (item.created_at !== undefined)
             result.created_at = item.created_at
         if (item.sleep_habit !== undefined)
-            result.sleep_habit = item.sleep_habit
+            result.sleep_habit = new SleepHabit().fromJSON(item.sleep_habit).toJSON()
         if (item.physical_activity_habits !== undefined)
-            result.physical_activity_habits = item.physical_activity_habits
+            result.physical_activity_habits = new PhysicalActivityHabits().fromJSON(item.physical_activity_habits).toJSON()
         if (item.feeding_habits_record !== undefined)
-            result.feeding_habits_record = item.feeding_habits_record
+            result.feeding_habits_record = new FeedingHabitsRecord().fromJSON(item.feeding_habits_record).toJSON()
         if (item.medical_record !== undefined)
-            result.medical_record = item.medical_record
-
+            result.medical_record = new MedicalRecord().fromJSON(item.medical_record).toJSON()
         return result
     }
 

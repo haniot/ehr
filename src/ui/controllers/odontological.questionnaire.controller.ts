@@ -49,6 +49,19 @@ export class OdontologicalQuestionnaireController {
         }
     }
 
+    @httpGet('/last')
+    public async getLastPatientOdontologicalQuestionnaire(@request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            const odontologicalQuestionnaires: Array<OdontologicalQuestionnaire> =
+                await this._service.getAll(new Query().fromJSON({filters: { patient_id: req.params.patient_id}}))
+            const result: any = this.toJSONView(odontologicalQuestionnaires[0])
+            return res.status(HttpStatus.OK).send(result)
+        } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
     @httpGet('/:questionnaire_id')
     public async getOdontologicalFromPatient(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
@@ -56,19 +69,6 @@ export class OdontologicalQuestionnaireController {
                 req.params.questionnaire_id, new Query().fromJSON({filters: {patient_id: req.params.patient_id}}))
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
-        } catch (err) {
-            const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
-        }
-    }
-
-    @httpGet('/last')
-    public async getLastPatientOdontologicalQuestionnaire(@request() req: Request, @response() res: Response): Promise<Response> {
-        try {
-            const odontologicalQuestionnaires: Array<OdontologicalQuestionnaire> =
-                await this._service.getAll(new Query().fromJSON(req.query))
-            const result: any = this.toJSONView(odontologicalQuestionnaires[0])
-            return res.status(HttpStatus.OK).send(result)
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())

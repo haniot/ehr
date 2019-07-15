@@ -34,28 +34,13 @@ export class NutritionalQuestionnaireController {
     @httpGet('/')
     public async getAllNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response>{
         try {
-            const query: Query = new Query().fromJSON(req.query)
-            query.addFilter({patient_id: req.params.patient_id})
-            const result: Array<NutritionalQuestionnaire> = await this._service.getAll(query)
-            return res.status(HttpStatus.OK).send(this.toJSONView(result))
-        }catch (err) {
-            const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
-        }
-    }
-    @httpGet('/:questionnaire_id')
-    public async getNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response>{
-        try {
-            const query: Query = new Query().fromJSON(req.query)
-            query.addFilter({patient_id: req.params.patient_id})
-            const result: NutritionalQuestionnaire = await this._service.getById(req.params.questionnaire_id, query)
+            const result: Array<NutritionalQuestionnaire> = await this._service.getAll(
+                new Query().fromJSON({filters: {patient_id: req.params.patient_id}}))
             const count: number = await this._service.count(
                 new Query().fromJSON({ filters: { type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE } }))
             res.setHeader('X-Total-Count', count)
-            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
-        }
-        catch (err) {
+        }catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())
         }
@@ -65,15 +50,28 @@ export class NutritionalQuestionnaireController {
     public async getLastNutritionalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const query: Query = new Query().fromJSON(req.query)
-            query.addFilter({ patient_id: req.params.patient_id })
-            query.addOrdination('created_at', 'desc')
-
-            const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(query)
+            const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(
+                new Query().fromJSON({filters: { patient_id: req.params.patient_id}}))
             const result: any = this.toJSONView(nutritionalQuestionnaire[0])
 
             return res.status(HttpStatus.OK).send(result)
         } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+    @httpGet('/:questionnaire_id')
+    public async getNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response>{
+        try {
+            const result: NutritionalQuestionnaire = await this._service.getById(
+                req.params.questionnaire_id, new Query().fromJSON({filters: {patient_id: req.params.patient_id}}))
+            const count: number = await this._service.count(
+                new Query().fromJSON({ filters: { type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE } }))
+            res.setHeader('X-Total-Count', count)
+            if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
+            return res.status(HttpStatus.OK).send(this.toJSONView(result))
+        }
+        catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())
         }

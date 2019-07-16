@@ -15,11 +15,11 @@ export class OdontologicalQuestionnaireRepository
     constructor(
         @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_ENTITY_MAPPER)
-        readonly _entityMappser: IEntityMapper<OdontologicalQuestionnaire, OdontologicalQuestionnaireEntity>,
+        readonly _entityMapper: IEntityMapper<OdontologicalQuestionnaire, OdontologicalQuestionnaireEntity>,
         @inject(Identifier.LOGGER) readonly _logger: ILogger
     )
     {
-    super(_repoModel, _entityMappser, _logger)
+    super(_repoModel, _entityMapper, _logger)
 }
 
 }

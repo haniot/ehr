@@ -9,7 +9,7 @@ const nutritionalQuestionnaireSchema = new Mongoose.Schema({
         patient_id: {
             type: Schema.Types.ObjectId,
             ref: 'Patient',
-            required: 'Id of patient associated with the odontological questionnaire is required!'
+            required: 'Id of patient associated with the nutritional questionnaire is required!'
         },
         created_at: {
             type: Date
@@ -91,6 +91,7 @@ const nutritionalQuestionnaireSchema = new Mongoose.Schema({
         }
     },
     {
+        timestamps: { createdAt: 'created_at', updatedAt: false },
         toJSON: {
             transform: (doc, ret) => {
                 ret.id = ret._id

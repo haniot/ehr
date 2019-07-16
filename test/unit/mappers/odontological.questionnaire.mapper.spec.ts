@@ -3,6 +3,9 @@ import {OdontologicalQuestionnaire} from '../../../src/application/domain/model/
 import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
 import {assert} from 'chai'
 import {OdontologicalQuestionnaireEntity} from '../../../src/infrastructure/entity/odontological.questionnaire.entity'
+import { SociodemographicRecord } from '../../../src/application/domain/model/sociodemographic.record'
+import { FamilyCohesionRecord } from '../../../src/application/domain/model/family.cohesion.record'
+import { OralHealthRecord } from '../../../src/application/domain/model/oral.health.record'
 
 describe('Mappers: OdontologicalQuestionnaire', () => {
     const mapper = new OdontologicalQuestionnaireEntityMapper()
@@ -19,11 +22,12 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
                 assert.propertyVal(result, 'created_at', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.created_at)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
-                assert.propertyVal(result, 'sociodemographic_record',
-                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
-                assert.propertyVal(result, 'family_cohesion_record',
-                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                assert.propertyVal(result, 'oral_health_record', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
+                assert.deepPropertyVal(result, 'sociodemographic_record',
+                    new SociodemographicRecord().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record))
+                assert.deepPropertyVal(result, 'family_cohesion_record',
+                    new FamilyCohesionRecord().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record))
+                assert.deepPropertyVal(result, 'oral_health_record',
+                    new OralHealthRecord().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record))
 
             })
 
@@ -59,12 +63,12 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
             assert.propertyVal(result, 'id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.id)
             assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
             assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
-            assert.propertyVal(result, 'sociodemographic_record',
-                DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
-            assert.propertyVal(result, 'family_cohesion_record',
-                DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-            assert.propertyVal(result, 'oral_health_record', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-
+            assert.deepPropertyVal(result, 'sociodemographic_record', new SociodemographicRecord().fromJSON(
+                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record).toJSON())
+            assert.deepPropertyVal(result, 'family_cohesion_record', new FamilyCohesionRecord().fromJSON(
+                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record).toJSON())
+            assert.deepPropertyVal(result, 'oral_health_record',
+                new OralHealthRecord().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record).toJSON())
         })
 
         it('should return a model entity with basic parameters for empty model', () => {

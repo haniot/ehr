@@ -11,7 +11,7 @@ describe('Models: OdontologicalQuestionnaire', () => {
 
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
                 assert.propertyVal(result, 'sociodemographic_record',
-                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
+                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record)
                 assert.propertyVal(result, 'oral_health_record', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
                 assert.propertyVal(result, 'family_cohesion_record',
                     DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
@@ -69,7 +69,7 @@ describe('Models: OdontologicalQuestionnaire', () => {
 
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
                 assert.deepPropertyVal(result, 'sociodemographic_record',
-                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
+                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record)
                 assert.deepPropertyVal(result, 'oral_health_record',
                     DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
                 assert.deepPropertyVal(result, 'family_cohesion_record',
@@ -101,15 +101,12 @@ describe('Models: OdontologicalQuestionnaire', () => {
                     new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
                 const result = ondotologicalQuestionnaire.toJSON()
 
-                console.log(result)
-
                 assert.propertyVal(result, 'sociodemographic_record',
-                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
+                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record)
                 assert.propertyVal(result, 'oral_health_record', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
                 assert.propertyVal(result, 'family_cohesion_record',
                     DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
-
             })
         })
 
@@ -129,5 +126,4 @@ describe('Models: OdontologicalQuestionnaire', () => {
             })
         })
     })
-
 })

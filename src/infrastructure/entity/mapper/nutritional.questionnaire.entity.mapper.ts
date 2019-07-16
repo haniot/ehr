@@ -20,6 +20,7 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
             result.id = json.id
         if (json.patient_id !== undefined)
             result.patient_id = json.patient_id
+        if (json.type !== undefined) result.type = json.type
         if (json.created_at !== undefined)
             result.created_at = json.created_at
         if (json.sleep_habit !== undefined)
@@ -44,6 +45,7 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
             result.id = item.id
         if (item.patient_id !== undefined)
             result.patient_id = item.patient_id
+        if (item.type !== undefined) result.type = item.type
         if (item.created_at !== undefined)
             result.created_at = item.created_at
         if (item.sleep_habit !== undefined)

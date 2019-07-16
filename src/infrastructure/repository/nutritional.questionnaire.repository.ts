@@ -13,11 +13,11 @@ export class NutritionalQuestionnaireRepository extends BaseRepository<Nutrition
     constructor(
         @inject(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.NUTRITIONAL_QUESTIONNAIRE_ENTITY_MAPPER)
-        readonly _entityMappser: IEntityMapper<NutritionalQuestionnaire, NutritionalQuestionnaireEntity>,
+        readonly _entityMapper: IEntityMapper<NutritionalQuestionnaire, NutritionalQuestionnaireEntity>,
         @inject(Identifier.LOGGER) readonly _logger: ILogger
     )
     {
-        super(_repoModel, _entityMappser, _logger)
+        super(_repoModel, _entityMapper, _logger)
     }
 
 }

@@ -46,20 +46,6 @@ export class NutritionalQuestionnaireController {
         }
     }
 
-    @httpGet('/last')
-    public async getLastNutritionalQuestionnaireFromPatient(
-        @request() req: Request, @response() res: Response): Promise<Response> {
-        try {
-            const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(
-                new Query().fromJSON({filters: { patient_id: req.params.patient_id}}))
-            const result: any = this.toJSONView(nutritionalQuestionnaire[0])
-
-            return res.status(HttpStatus.OK).send(result)
-        } catch (err) {
-            const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
-        }
-    }
     @httpGet('/:questionnaire_id')
     public async getNutritionalQuestionnaireFromPatient(@request() req: Request, @response() res: Response): Promise<Response>{
         try {
@@ -83,6 +69,21 @@ export class NutritionalQuestionnaireController {
         try {
             await this._service.removeNutritionalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
             return res.status(HttpStatus.NO_CONTENT).send()
+        } catch (err) {
+            const handleError = ApiExceptionManager.build(err)
+            return res.status(handleError.code).send(handleError.toJson())
+        }
+    }
+
+    @httpGet('/last')
+    public async getLastNutritionalQuestionnaireFromPatient(
+        @request() req: Request, @response() res: Response): Promise<Response> {
+        try {
+            const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(
+                new Query().fromJSON({filters: { patient_id: req.params.patient_id}}))
+            const result: any = this.toJSONView(nutritionalQuestionnaire[0])
+
+            return res.status(HttpStatus.OK).send(result)
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())

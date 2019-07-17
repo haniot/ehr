@@ -1,8 +1,8 @@
-import {OdontologicalQuestionnaireEntityMapper} from '../../../src/infrastructure/entity/mapper/odontological.questionnaire.entity.mapper'
-import {OdontologicalQuestionnaire} from '../../../src/application/domain/model/odontological.questionnaire'
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {assert} from 'chai'
-import {OdontologicalQuestionnaireEntity} from '../../../src/infrastructure/entity/odontological.questionnaire.entity'
+import { OdontologicalQuestionnaireEntityMapper } from '../../../src/infrastructure/entity/mapper/odontological.questionnaire.entity.mapper'
+import { OdontologicalQuestionnaire } from '../../../src/application/domain/model/odontological.questionnaire'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { assert } from 'chai'
+import { OdontologicalQuestionnaireEntity } from '../../../src/infrastructure/entity/odontological.questionnaire.entity'
 import { SociodemographicRecord } from '../../../src/application/domain/model/sociodemographic.record'
 import { FamilyCohesionRecord } from '../../../src/application/domain/model/family.cohesion.record'
 import { OralHealthRecord } from '../../../src/application/domain/model/oral.health.record'
@@ -52,7 +52,6 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                 assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
                 assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
-
             })
         })
     })
@@ -64,9 +63,9 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
             assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
             assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
             assert.deepPropertyVal(result, 'sociodemographic_record', new SociodemographicRecord().fromJSON(
-                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record).toJSON())
+                DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record).toJSON())
             assert.deepPropertyVal(result, 'family_cohesion_record', new FamilyCohesionRecord().fromJSON(
-                    DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record).toJSON())
+                DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record).toJSON())
             assert.deepPropertyVal(result, 'oral_health_record',
                 new OralHealthRecord().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record).toJSON())
         })
@@ -82,8 +81,6 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
             assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
             assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
             assert.isUndefined(result.type, 'no type defined')
-
-
         })
 
         describe('modelEntityToModel()', () => {

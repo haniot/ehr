@@ -1,13 +1,13 @@
-import {inject, injectable} from 'inversify'
-import {Identifier} from '../../di/identifiers'
-import {INutritionalQuestionnaireRepository} from '../port/nutritional.questionnaire.repository'
-import {INutritionalQuestionnaireService} from '../port/nutritional.questionnaire.service'
-import {NutritionalQuestionnaire} from '../domain/model/nutritional.questionnaire'
-import {CreateNutritionalQuestionnaireValidator} from '../domain/validator/create.nutritional.questionnaire.validator'
-import {ObjectIdValidator} from '../domain/validator/object.id.validator'
-import {QuestionnaireTypes} from '../domain/utils/questionnaire.types'
-import {IQuery} from '../port/query.interface'
-import {UpdateNutritionalQuestionnaireValidator} from '../domain/validator/update.nutritional.questionnaire.validator'
+import { inject, injectable } from 'inversify'
+import { Identifier } from '../../di/identifiers'
+import { INutritionalQuestionnaireRepository } from '../port/nutritional.questionnaire.repository'
+import { INutritionalQuestionnaireService } from '../port/nutritional.questionnaire.service'
+import { NutritionalQuestionnaire } from '../domain/model/nutritional.questionnaire'
+import { CreateNutritionalQuestionnaireValidator } from '../domain/validator/create.nutritional.questionnaire.validator'
+import { ObjectIdValidator } from '../domain/validator/object.id.validator'
+import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
+import { IQuery } from '../port/query.interface'
+import { UpdateNutritionalQuestionnaireValidator } from '../domain/validator/update.nutritional.questionnaire.validator'
 
 @injectable()
 export class NutritionalQuestionnaireService implements INutritionalQuestionnaireService {
@@ -35,7 +35,7 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE})
+        query.addFilter({ type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE })
         return this._repo.find(query)
     }
 
@@ -48,7 +48,7 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({_id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE})
+        query.addFilter({ _id: id, type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE })
         return this._repo.findOne(query)
 
     }

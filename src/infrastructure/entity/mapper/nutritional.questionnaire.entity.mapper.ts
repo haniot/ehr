@@ -1,7 +1,7 @@
-import {IEntityMapper} from '../../port/entity.mapper.interface'
-import {NutritionalQuestionnaire} from '../../../application/domain/model/nutritional.questionnaire'
-import {NutritionalQuestionnaireEntity} from '../nutritional.questionnaire.entity'
-import {injectable} from 'inversify'
+import { IEntityMapper } from '../../port/entity.mapper.interface'
+import { NutritionalQuestionnaire } from '../../../application/domain/model/nutritional.questionnaire'
+import { NutritionalQuestionnaireEntity } from '../nutritional.questionnaire.entity'
+import { injectable } from 'inversify'
 import { PhysicalActivityHabits } from '../../../application/domain/model/physical.activity.habits'
 import { MedicalRecord } from '../../../application/domain/model/medical.record'
 import { FeedingHabitsRecord } from '../../../application/domain/model/feeding.habits.record'
@@ -24,7 +24,7 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
         if (json.created_at !== undefined)
             result.created_at = json.created_at
         if (json.sleep_habit !== undefined)
-            result.sleep_habit =  new SleepHabit().fromJSON(json.sleep_habit)
+            result.sleep_habit = new SleepHabit().fromJSON(json.sleep_habit)
         if (json.physical_activity_habits !== undefined)
             result.physical_activity_habits = new PhysicalActivityHabits().fromJSON(json.physical_activity_habits)
         if (json.feeding_habits_record !== undefined)

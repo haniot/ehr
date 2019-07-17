@@ -1,11 +1,11 @@
-import {IJSONSerializable} from '../utils/json.serializable.interface'
-import {IJSONDeserializable} from '../utils/json.deserializable.interface'
-import {SociodemographicRecord} from './sociodemographic.record'
-import {FamilyCohesionRecord} from './family.cohesion.record'
-import {OralHealthRecord} from './oral.health.record'
-import {JsonUtils} from '../utils/json.utils'
-import {QuestionnaireRecord} from './questionnaire.record'
-import {QuestionnaireTypes} from '../utils/questionnaire.types'
+import { IJSONSerializable } from '../utils/json.serializable.interface'
+import { IJSONDeserializable } from '../utils/json.deserializable.interface'
+import { SociodemographicRecord } from './sociodemographic.record'
+import { FamilyCohesionRecord } from './family.cohesion.record'
+import { OralHealthRecord } from './oral.health.record'
+import { JsonUtils } from '../utils/json.utils'
+import { QuestionnaireRecord } from './questionnaire.record'
+import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
 export class OdontologicalQuestionnaire extends QuestionnaireRecord implements IJSONSerializable,
     IJSONDeserializable<OdontologicalQuestionnaire> {
@@ -47,10 +47,10 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
         if (!json)
             return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
-                json = JSON.parse(json)
+            json = JSON.parse(json)
         }
         super.fromJSON(json)
-        if (json.sociodemographic_record !== undefined )
+        if (json.sociodemographic_record !== undefined)
             this.sociodemographic_record = json.sociodemographic_record
         if (json.family_cohesion_record !== undefined)
             this.family_cohesion_record = json.family_cohesion_record

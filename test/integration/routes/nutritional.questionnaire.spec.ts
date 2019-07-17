@@ -84,8 +84,6 @@ describe('Routes: NutritionalQuestionnaire', () => {
                         expect(res.body.length).to.eql(1)
                         expect(res.body[0]).to.have.property('id', activity.id)
                         expect(res.header).to.have.property('x-total-count', '1')
-                    }).catch( err => {
-                        console.log(err)
                     })
             })
         })
@@ -104,14 +102,12 @@ describe('Routes: NutritionalQuestionnaire', () => {
                             'is expected.')
                     })
             })
-
         })
     })
 
     describe('GET  /patients/:patient_id/nutritional/questionnaires/:questionnaire_id', () => {
         context('when get a unique nutritional questionnaire', () => {
             it('should return status code 200 and a nutritional questionnaire', () => {
-                console.log(activity.id)
                 return request
                     .get(`/patients/${activity.patient_id}/nutritional/questionnaires/${activity.id}`)
                     .set('Content-Type', 'application/json')

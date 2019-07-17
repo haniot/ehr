@@ -1,12 +1,12 @@
-import {IJSONSerializable} from '../utils/json.serializable.interface'
-import {IJSONDeserializable} from '../utils/json.deserializable.interface'
-import {SleepHabit} from './sleep.habit'
-import {PhysicalActivityHabits} from './physical.activity.habits'
-import {FeedingHabitsRecord} from './feeding.habits.record'
-import {MedicalRecord} from './medical.record'
-import {JsonUtils} from '../utils/json.utils'
-import {QuestionnaireRecord} from './questionnaire.record'
-import {QuestionnaireTypes} from '../utils/questionnaire.types'
+import { IJSONSerializable } from '../utils/json.serializable.interface'
+import { IJSONDeserializable } from '../utils/json.deserializable.interface'
+import { SleepHabit } from './sleep.habit'
+import { PhysicalActivityHabits } from './physical.activity.habits'
+import { FeedingHabitsRecord } from './feeding.habits.record'
+import { MedicalRecord } from './medical.record'
+import { JsonUtils } from '../utils/json.utils'
+import { QuestionnaireRecord } from './questionnaire.record'
+import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
 export class NutritionalQuestionnaire extends QuestionnaireRecord
     implements IJSONSerializable, IJSONDeserializable<NutritionalQuestionnaire> {

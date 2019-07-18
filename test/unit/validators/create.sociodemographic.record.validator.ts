@@ -10,7 +10,7 @@ describe('Validators: CreateSociodemographicRecord', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateSociodemographicRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
     context('when there are validation errors', () => {
 
@@ -19,8 +19,6 @@ describe('Validators: CreateSociodemographicRecord', () => {
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description', 'Sociodemographic Record validation: color_race is required!')
             } finally {
@@ -32,8 +30,6 @@ describe('Validators: CreateSociodemographicRecord', () => {
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for color_race: red')
                 assert.propertyVal(err, 'description', 'The mapped values are: white, black, parda, yellow.')
             } finally {
@@ -46,8 +42,6 @@ describe('Validators: CreateSociodemographicRecord', () => {
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description', 'Sociodemographic Record validation: mother_scholarity is required!')
             } finally {
@@ -60,8 +54,6 @@ describe('Validators: CreateSociodemographicRecord', () => {
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for mother_scholarity: invalid')
                 assert.propertyVal(err, 'description', Strings.ENUM_VALIDATOR.NOT_MAPPED_DESC
                     .concat(Object.values(ScholarityLevelTypes).join(', ').concat('.')))
@@ -74,8 +66,6 @@ describe('Validators: CreateSociodemographicRecord', () => {
             try {
                 CreateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description', 'Sociodemographic Record validation: people_in_home is required!')
             }

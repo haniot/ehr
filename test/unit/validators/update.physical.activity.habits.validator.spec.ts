@@ -11,7 +11,7 @@ describe('Validators: UpdatePhysicalActivityHabitsValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdatePhysicalActivityHabitsValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
     context('when there are validation errors', () => {
         it('should throw an error for does pass invalid school_activity_freq ', () => {
@@ -19,8 +19,6 @@ describe('Validators: UpdatePhysicalActivityHabitsValidator', () => {
                 activity.school_activity_freq = 'invalid'
                 UpdatePhysicalActivityHabitsValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for school_activity_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: one_per_week, two_per_week,' +
                     ' three_per_week, four_more_per_week, none.')

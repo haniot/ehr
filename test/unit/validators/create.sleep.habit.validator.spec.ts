@@ -8,7 +8,7 @@ describe('Validators: CreateSleepHabitValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateSleepHabitValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
 
     context('when there are validation errors', () => {
@@ -17,8 +17,6 @@ describe('Validators: CreateSleepHabitValidator', () => {
             try {
                 CreateSleepHabitValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description', 'Sleep Habit validation: week_day_sleep is required!')
             } finally {
@@ -31,8 +29,6 @@ describe('Validators: CreateSleepHabitValidator', () => {
             try {
                 CreateSleepHabitValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description', 'Sleep Habit validation: week_day_wake_up is required!')
             }

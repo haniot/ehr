@@ -11,7 +11,7 @@ describe('Validators: UpdateQuestionnaireRecordValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateQuestionnaireRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
 
     context('when there are validation errors', () => {
@@ -20,7 +20,6 @@ describe('Validators: UpdateQuestionnaireRecordValidator', () => {
             try {
                 UpdateQuestionnaireRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'patient_id: '.concat(Strings.PARAMETERS.COULD_NOT_BE_UPDATED))
             } finally {
                 activity.patient_id = undefined
@@ -32,7 +31,6 @@ describe('Validators: UpdateQuestionnaireRecordValidator', () => {
             try {
                 UpdateQuestionnaireRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'created_at: '.concat(Strings.PARAMETERS.COULD_NOT_BE_UPDATED))
             }
         })

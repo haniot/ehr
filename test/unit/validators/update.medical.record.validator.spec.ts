@@ -6,13 +6,11 @@ import { UpdateMedicalRecordValidator } from '../../../src/application/domain/va
 describe('Validators: UpdateMedicalRecordValidator', () => {
 
     const activityJSON = Object.assign(DefaultEntityMock.MEDICAL_RECORD, {})
-    delete activityJSON.chronic_diseases
     const activity: MedicalRecord = new MedicalRecord().fromJSON(activityJSON)
-
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateMedicalRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
 
     context('when there are validation errors', () => {
@@ -21,9 +19,7 @@ describe('Validators: UpdateMedicalRecordValidator', () => {
             try {
                 UpdateMedicalRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'Value not mapped for type: invalid')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: hypertension, blood_fat, diabetes.')
             } finally {
                 activity.chronic_diseases![0].type = DefaultEntityMock.CHRONIC_DISEASE.type
@@ -35,9 +31,7 @@ describe('Validators: UpdateMedicalRecordValidator', () => {
             try {
                 UpdateMedicalRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'Value not mapped for disease_history: invalid')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: yes, no, undefined.')
             }
         })

@@ -6,13 +6,11 @@ import { UpdateFeedingHabitsRecordValidator } from '../../../src/application/dom
 describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
 
     const activityJSON = Object.assign(DefaultEntityMock.FEEDING_HABITS_RECORD, {})
-    delete activityJSON.weekly_feeding_habits
     const activity: FeedingHabitsRecord = new FeedingHabitsRecord().fromJSON(activityJSON)
-    activity.breakfast_daily_frequency = undefined
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateFeedingHabitsRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
 
     context('when there are validation errors', () => {
@@ -21,9 +19,7 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFeedingHabitsRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'Value not mapped for weekly_food_record.seven_days_freq: invalid')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: never, no_day, one_two_days, ' +
                     'three_four_days, five_six_days, all_days, undefined.')
             } finally {
@@ -36,8 +32,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFeedingHabitsRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for daily_water_glasses: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: none, one_two, three_four, five_more, ' +
                     'undefined.')
@@ -51,8 +45,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFeedingHabitsRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for six_month_breast_feeding: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: exclusive, complementary, ' +
                     'infant_formulas, other, undefined.')
@@ -66,8 +58,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFeedingHabitsRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for food_allergy_intolerance: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: gluten, apvl, lactose, dye, egg, ' +
                     'peanut, other, undefined.')
@@ -81,8 +71,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFeedingHabitsRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for breakfast_daily_frequency: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: never, sometimes, almost_everyday, ' +
                     'everyday, undefined.')

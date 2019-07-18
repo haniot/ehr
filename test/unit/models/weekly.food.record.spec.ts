@@ -47,7 +47,7 @@ describe('Models: WeeklyFoodRecord', () => {
                 const result = new WeeklyFoodRecord().fromJSON({
                     food: DefaultEntityMock.WEEKLY_FOOD_RECORD.food
                 })
-                assert.isUndefined(result.food, 'no food defined')
+                assert.propertyVal(result, 'food', DefaultEntityMock.WEEKLY_FOOD_RECORD.food)
                 assert.isUndefined(result.seven_days_freq, 'no seven_days_freq defined')
             })
 

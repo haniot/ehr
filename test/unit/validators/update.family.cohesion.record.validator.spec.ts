@@ -8,7 +8,7 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateFamilyCohesionRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
 
     context('when there are validation errors', () => {
@@ -18,9 +18,7 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_mutual_aid_freq: invalid')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: almost_never,' +
                     ' rarely, sometimes, often, almost_always.')
             } finally {
@@ -33,8 +31,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for friendship_approval_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -48,8 +44,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_only_task_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -63,8 +57,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_only_preference_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -78,8 +70,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for free_time_together_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -92,8 +82,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_proximity_perception_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -106,8 +94,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for all_family_tasks_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -120,8 +106,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_tasks_opportunity_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -134,8 +118,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_decision_support_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')
@@ -148,8 +130,6 @@ describe('Validators: UpdateFeedingHabitsRecordValidator', () => {
             try {
                 UpdateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_union_relevance_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: ' +
                     'almost_never, rarely, sometimes, often, almost_always.')

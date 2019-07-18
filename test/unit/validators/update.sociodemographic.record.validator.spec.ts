@@ -8,7 +8,7 @@ describe('Validators: UpdateSociographicRecord', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateSociodemographicRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
     context('when there are validation errors', () => {
         it('should throw an error for does pass color_race', () => {
@@ -16,8 +16,6 @@ describe('Validators: UpdateSociographicRecord', () => {
             try {
                 UpdateSociodemographicRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for color_race: red')
                 assert.propertyVal(err, 'description', 'The mapped values are: white, black, parda, yellow.')
             }

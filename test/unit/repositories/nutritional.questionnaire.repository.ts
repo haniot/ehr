@@ -1,29 +1,28 @@
+import { NutritionalQuestionnaireRepoModel } from '../../../src/infrastructure/database/schema/nutritional.questionnaire.schema'
+import { NutritionalQuestionnaireRepository } from '../../../src/infrastructure/repository/nutritional.questionnaire.repository'
 import { EntityMapperMock } from '../../mocks/models/entity.mapper.mock'
 import { CustomLoggerMock } from '../../mocks/custom.logger.mock'
+import { NutritionalQuestionnaire } from '../../../src/application/domain/model/nutritional.questionnaire'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
-import { OdontologicalQuestionnaireRepository } from '../../../src/infrastructure/repository/odontological.questionnaire.repository'
-import { OdontologicalQuestionnaire } from '../../../src/application/domain/model/odontological.questionnaire'
 import sinon from 'sinon'
 import { assert } from 'chai'
 import { Query } from '../../../src/infrastructure/repository/query/query'
-import { OdontologicalQuestionnaireRepoModel } from '../../../src/infrastructure/database/schema/odontological.questionnaire.schema'
 
 require('sinon-mongoose')
 
-describe('Repositories: OdontologicalQuestionnaire', () => {
-    const modelFake: any = OdontologicalQuestionnaireRepoModel
-    const repo =
-        new OdontologicalQuestionnaireRepository(modelFake, new EntityMapperMock(), new CustomLoggerMock())
-    const activity: OdontologicalQuestionnaire =
-        new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
+describe('Repositories: NutritionalQuestionnaire', () => {
+    const modelFake: any = NutritionalQuestionnaireRepoModel
+    const repo = new NutritionalQuestionnaireRepository(modelFake, new EntityMapperMock(), new CustomLoggerMock())
+    const activity: NutritionalQuestionnaire =
+        new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
 
     afterEach(() => {
         sinon.restore()
     })
 
     describe('create()', () => {
-        context('when save a new odontological questionnaire', () => {
-            it('should return the saved odontological questionnaire', () => {
+        context('when save a new nutritional questionnaire', () => {
+            it('should return the saved nutritional questionnaire', () => {
                 sinon
                     .mock(modelFake)
                     .expects('create')
@@ -33,19 +32,21 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.create(activity)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
-                        assert.propertyVal(result, 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result, 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result, 'sleep_habit',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
+                        assert.propertyVal(result, 'feeding_habits_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
+                        assert.propertyVal(result, 'physical_activity_habits',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
+                        assert.propertyVal(result, 'medical_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
                     })
             })
         })
 
-        context('when the odontological questionnaire is not saved', () => {
+        context('when the nutritional questionnaire is not saved', () => {
             it('should return undefined', () => {
                 sinon
                     .mock(modelFake)
@@ -80,10 +81,9 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
             })
         })
     })
-
     describe('find()', () => {
-        context('when get all odontological questionnaires', () => {
-            it('should return a list of odontological questionnaires', () => {
+        context('when get all nutritional questionnaires', () => {
+            it('should return a list of nutritional questionnaires', () => {
                 sinon
                     .mock(modelFake)
                     .expects('find')
@@ -101,19 +101,21 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
                     .then(result => {
                         assert.isArray(result)
                         assert.lengthOf(result, 1)
-                        assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result[0], 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
-                        assert.propertyVal(result[0], 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result[0], 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result[0], 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result[0], 'sleep_habit',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
+                        assert.propertyVal(result[0], 'feeding_habits_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
+                        assert.propertyVal(result[0], 'physical_activity_habits',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
+                        assert.propertyVal(result[0], 'medical_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result[0], 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
                     })
             })
         })
 
-        context('when there are no odontological questionnaires', () => {
+        context('when there are no nutritional questionnaires', () => {
             it('should return empty array', () => {
                 sinon
                     .mock(modelFake)
@@ -163,8 +165,8 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
     })
 
     describe('findOne()', () => {
-        context('when get a unique odontological questionnaire', () => {
-            it('should return a unique odontological questionnaire', () => {
+        context('when get a unique nutritional questionnaire', () => {
+            it('should return a unique nutritional questionnaire', () => {
 
                 const query = new Query()
                 query.addFilter({ _id: activity.id })
@@ -179,19 +181,21 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.findOne(query)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
-                        assert.propertyVal(result, 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result, 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result, 'sleep_habit',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
+                        assert.propertyVal(result, 'feeding_habits_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
+                        assert.propertyVal(result, 'physical_activity_habits',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
+                        assert.propertyVal(result, 'medical_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
                     })
             })
         })
 
-        context('when the odontological questionnaire is not found', () => {
+        context('when the nutritional questionnaire is not found', () => {
             it('should return undefined', () => {
                 const query = new Query()
                 query.addFilter({ _id: activity.id })
@@ -236,8 +240,8 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
     })
 
     describe('update()', () => {
-        context('when update a odontological questionnaire', () => {
-            it('should return the odontological questionnaire record', () => {
+        context('when update a nutritional questionnaire', () => {
+            it('should return the nutritional questionnaire record', () => {
                 sinon
                     .mock(modelFake)
                     .expects('findOneAndUpdate')
@@ -247,18 +251,20 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.update(activity)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_recod)
-                        assert.propertyVal(result, 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result, 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
+                        assert.propertyVal(result, 'sleep_habit',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
+                        assert.propertyVal(result, 'feeding_habits_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
+                        assert.propertyVal(result, 'physical_activity_habits',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
+                        assert.propertyVal(result, 'medical_record',
+                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
                     })
             })
         })
-        context('when the odontological questionnaire is not found', () => {
+        context('when the nutritional questionnaire is not found', () => {
             it('should return undefined', () => {
                 sinon
                     .mock(modelFake)
@@ -295,7 +301,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
     })
 
     describe('delete()', () => {
-        context('when want delete odontological questionnaire', () => {
+        context('when want delete nutritional questionnaire', () => {
             it('should return true', () => {
                 sinon
                     .mock(modelFake)
@@ -312,7 +318,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
             })
         })
 
-        context('when the odontological questionnaire is not found', () => {
+        context('when the nutritional questionnaire is not found', () => {
             it('should return false', () => {
                 sinon
                     .mock(modelFake)
@@ -350,8 +356,8 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
     })
 
     describe('count()', () => {
-        context('when count all odontological questionnaire by a filter', () => {
-            it('should return the number of odontological questionnaire', () => {
+        context('when count all nutritional questionnaire by a filter', () => {
+            it('should return the number of nutritional questionnaire', () => {
                 sinon
                     .mock(modelFake)
                     .expects('countDocuments')
@@ -386,5 +392,4 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
             })
         })
     })
-
 })

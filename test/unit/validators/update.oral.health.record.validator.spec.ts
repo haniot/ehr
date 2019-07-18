@@ -7,7 +7,7 @@ describe('Validators: UpdateOralHealthRecord', () => {
     const activity: OralHealthRecord = new OralHealthRecord().fromJSON(DefaultEntityMock.ORAL_HEALTH_RECORD)
     it('should return undefined when the validation is successful', () => {
         const result = UpdateOralHealthRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result, 'no result defined')
     })
 
     context('when there are validation errors', () => {
@@ -16,8 +16,6 @@ describe('Validators: UpdateOralHealthRecord', () => {
             try {
                 UpdateOralHealthRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for teeth_brushing_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: none, once, twice, three_more.')
             } finally {
@@ -29,9 +27,7 @@ describe('Validators: UpdateOralHealthRecord', () => {
             try {
                 UpdateOralHealthRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'Value not mapped for tooth_type: invalid')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: deciduous_tooth, permanent_tooth.')
             } finally {
                 activity.teeth_lesions![0].tooth_type = undefined
@@ -43,9 +39,7 @@ describe('Validators: UpdateOralHealthRecord', () => {
             try {
                 UpdateOralHealthRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
                 assert.propertyVal(err, 'message', 'Value not mapped for lesion_type: invalid')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'description', 'The mapped values are: white_spot_lesion, cavitated_lesion.')
             }
         })

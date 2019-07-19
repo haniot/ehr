@@ -267,8 +267,67 @@ describe('Routes: NutritionalQuestionnaire', () => {
             })
         })
     })
+    describe('DELETE` /patients/:patient_id/nutritional/questionnaires/:questionnaire_id', () => {
+        context('when delete a nutritional questionnaire', () => {
+            it('should return status code 204 and no content', async () => {
+                const result = await createActivity(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
+                return request
+                    .delete(`/patients/${activity.patient_id}/nutritional/questionnaires/${result.id}`)
+                    .set('Content-Type', 'application/json')
+                    .expect(204)
+                    .then(res => {
+                        expect(res.body).to.eql({})
+                    })
+            })
+        })
+
+        context('when there are validation errors', () => {
+            it('should return status code 400 and message from invalid patient_id', () => {
+                return request
+                    .delete(`/patients/123/nutritional/questionnaires/${activity.id}`)
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body).to.have.property('message')
+                        expect(res.body).to.have.property('description')
+                        expect(res.body.message).to.eql('Some ID provided does not have a valid format!')
+                        expect(res.body.description).to.eql('A 24-byte hex ID similar to this: 507f191e810c19729de860ea ' +
+                            'is expected.')
+                    })
+            })
+
+            it('should return status code 400 and message from invalid medicalrecord_id', () => {
+                return request
+                    .delete(`/patients/${activity.patient_id}/nutritional/questionnaires/123`)
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body).to.have.property('message')
+                        expect(res.body).to.have.property('description')
+                        expect(res.body.message).to.eql('Some ID provided does not have a valid format!')
+                        expect(res.body.description).to.eql('A 24-byte hex ID similar to this: 507f191e810c19729de860ea ' +
+                            'is expected.')
+                    })
+            })
+        })
+
+        context('when the nutritional questionnaire is not founded', () => {
+            it('should return status code 204 and no content', async () => {
+                return request
+                    .delete(`/patients/${new ObjectID()}/nutritional/questionnaires/${new ObjectID()}`)
+                    .set('Content-Type', 'application/json')
+                    .expect(204)
+                    .then(res => {
+                        expect(res.body).to.eql({})
+                    })
+            })
+        })
+    })
 })
 
 async function deleteAllActivities(doc) {
     return NutritionalQuestionnaireRepoModel.deleteMany({})
+}
+async function createActivity(doc) {
+    return NutritionalQuestionnaireRepoModel.create(doc)
 }

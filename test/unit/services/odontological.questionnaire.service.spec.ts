@@ -193,7 +193,6 @@ describe('Services: OdontologicalQuestionnaire', () => {
             return service
                 .remove(activity.id!)
                 .catch(err => {
-                    assert.property(err, 'message')
                     assert.propertyVal(err, 'message', 'Not implemented yet!')
                 })
         })

@@ -1,4 +1,3 @@
-
 import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
 import {assert} from 'chai'
 import {SociodemographicRecord} from '../../../src/application/domain/model/sociodemographic.record'
@@ -95,6 +94,32 @@ describe('Models: SociodemographicRecord', () => {
                 assert.propertyVal(result, 'color_race', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
                 assert.propertyVal(result, 'mother_scholarity', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity)
                 assert.propertyVal(result, 'people_in_home', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.people_in_home)
+            })
+        })
+    })
+
+    describe('toJSON()', () => {
+        context('when the object contains all parameters set', () => {
+            it('should return the object as JSON', () => {
+                const activity = new SociodemographicRecord().fromJSON(DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD)
+                const result = activity.toJSON()
+                assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
+                assert.propertyVal(result, 'color_race', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
+                assert.propertyVal(result, 'mother_scholarity', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity)
+                assert.propertyVal(result, 'people_in_home', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.people_in_home)
+            })
+        })
+
+        context('when some parameter is missing', () => {
+            it('should return json without created_at', () => {
+                const activity = new SociodemographicRecord().fromJSON({
+                    color_race: DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race
+                })
+                const result = activity.toJSON()
+                assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
+                assert.isUndefined(result.mother_scholarity, 'no mother_scholarity defined')
+                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.propertyVal(result, 'color_race', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
             })
         })
     })

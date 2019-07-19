@@ -47,12 +47,12 @@ export class OdontologicalQuestionnaireEntityMapper
         if (item.created_at !== undefined) result.created_at = item.created_at
         if (item.type !== undefined) result.type = item.type
         if (item.sociodemographic_record !== undefined)
-            result.sociodemographic_record = new SociodemographicRecord().fromJSON(item.sociodemographic_record).toJSON()
+            result.sociodemographic_record = item.sociodemographic_record
         if (item.family_cohesion_record !== undefined)
-            result.family_cohesion_record = new FamilyCohesionRecord().fromJSON(item.family_cohesion_record).toJSON()
+            result.family_cohesion_record = item.family_cohesion_record
         if (item.oral_health_record !== undefined)
-            result.oral_health_record = new OralHealthRecord().fromJSON(item.oral_health_record).toJSON()
-
+            result.oral_health_record = item.oral_health_record
+        
         return result
     }
 

@@ -7,6 +7,7 @@ export abstract class Identifier {
     public static readonly APP: any = Symbol.for('App')
 
     // Controllers
+    public static readonly HOME_CONTROLLER: any = Symbol.for('HomeController')
     public static readonly NUTRITIONAL_QUESTIONNAIRE_CONTROLLER: any = Symbol.for('NutritionalQuestionnnaireController')
     public static readonly ODONTOLOGICAL_QUESTIONNAIRE_CONTROLLER: any = Symbol.for('OdontologicalQuestionnaireController')
     // Services

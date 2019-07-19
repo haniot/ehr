@@ -49,8 +49,6 @@ describe('Models: MedicalRecord', () => {
 
             it('should return the object with set chronic_diseases', () => {
                 const result = new MedicalRecord().fromJSON({
-                    patient_id: DefaultEntityMock.MEDICAL_RECORD.patient_id,
-                    created_at: DefaultEntityMock.MEDICAL_RECORD.created_at,
                     chronic_diseases: DefaultEntityMock.MEDICAL_RECORD.chronic_diseases
                 })
 
@@ -75,8 +73,7 @@ describe('Models: MedicalRecord', () => {
 
         context('when some parameter is missing', () => {
             it('should return json without created_at', () => {
-                const activity = new MedicalRecord().fromJSON({
-                })
+                const activity = new MedicalRecord().fromJSON({})
                 const result = activity.toJSON()
                 assert.isUndefined(result.chronic_diseases, 'no chronic_diseases defined')
                 assert.propertyVal(result, 'type', DefaultEntityMock.MEDICAL_RECORD.type)

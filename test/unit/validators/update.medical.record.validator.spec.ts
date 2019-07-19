@@ -4,9 +4,7 @@ import { MedicalRecord } from '../../../src/application/domain/model/medical.rec
 import { UpdateMedicalRecordValidator } from '../../../src/application/domain/validator/update.medical.record.validator'
 
 describe('Validators: UpdateMedicalRecordValidator', () => {
-
-    const activityJSON = Object.assign(DefaultEntityMock.MEDICAL_RECORD, {})
-    const activity: MedicalRecord = new MedicalRecord().fromJSON(activityJSON)
+    const activity: MedicalRecord = new MedicalRecord().fromJSON(DefaultEntityMock.MEDICAL_RECORD)
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateMedicalRecordValidator.validate(activity)

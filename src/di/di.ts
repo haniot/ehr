@@ -28,6 +28,7 @@ import { NutritionalQuestionnaireEntity } from '../infrastructure/entity/nutriti
 import { NutritionalQuestionnaire } from '../application/domain/model/nutritional.questionnaire'
 import { NutritionalQuestionnaireEntityMapper } from '../infrastructure/entity/mapper/nutritional.questionnaire.entity.mapper'
 import { NutritionalQuestionnaireRepoModel } from '../infrastructure/database/schema/nutritional.questionnaire.schema'
+import { HomeController } from '../ui/controllers/home.controller'
 
 export class DI {
     private static instance: DI
@@ -73,6 +74,8 @@ export class DI {
         this.container.bind(Identifier.APP).to(App).inSingletonScope()
 
         // Controllers
+        this.container.bind<HomeController>(Identifier.HOME_CONTROLLER)
+            .to(HomeController).inSingletonScope()
         this.container.bind<NutritionalQuestionnaireController>(Identifier.NUTRITIONAL_QUESTIONNAIRE_CONTROLLER)
             .to(NutritionalQuestionnaireController).inSingletonScope()
         this.container.bind<OdontologicalQuestionnaireController>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_CONTROLLER)

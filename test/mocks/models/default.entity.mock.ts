@@ -96,6 +96,10 @@ export abstract class DefaultEntityMock {
             }
         ]
     }
+    public static readonly TOOTH_LESSION: any = {
+        tooth_type: 'deciduous_tooth',
+        lesion_type: 'white_spot_lesion'
+    }
 
     public static readonly ODONTOLOGICAL_QUESTIONNAIRE: any = {
         id: '5d078f2c6fb1b4cde4578892',

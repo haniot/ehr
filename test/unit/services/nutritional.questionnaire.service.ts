@@ -10,7 +10,6 @@ describe('Services: NutritionalQuestionnaire', () => {
 
     const activity: NutritionalQuestionnaire =
         new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
-        new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
     activity.id = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.id
     const service: INutritionalQuestionnaireService =
         new NutritionalQuestionnaireService(new NutritionalQuestionnaireRepositoryMock())
@@ -38,7 +37,7 @@ describe('Services: NutritionalQuestionnaire', () => {
         context('when there are validation errors', () => {
             it('should reject a validation error', () => {
                 return service
-                    .add(new NutritionalQuestionnaire().fromJSON({patient_id: activity.patient_id}))
+                    .add(new NutritionalQuestionnaire().fromJSON({ patient_id: activity.patient_id }))
                     .catch(err => {
                         assert.property(err, 'message')
                         assert.property(err, 'description')
@@ -130,8 +129,7 @@ describe('Services: NutritionalQuestionnaire', () => {
     describe('removeNutritionalQuestionnaire()', () => {
         context('when delete a nutritional questionnaire', () => {
             it('should return true', () => {
-                return service
-                    .removeNutritionalQuestionnaire(activity.patient_id!, activity.id!)
+                return service.removeNutritionalQuestionnaire(activity.patient_id!, activity.id!)
                     .then(result => {
                         assert.isBoolean(result)
                         assert.isTrue(result)
@@ -141,8 +139,7 @@ describe('Services: NutritionalQuestionnaire', () => {
 
         context('when there are validation errors', () => {
             it('should reject a validation error', () => {
-                return service
-                    .removeNutritionalQuestionnaire('123', '321')
+                return service.removeNutritionalQuestionnaire('123', '321')
                     .catch(err => {
                         assert.property(err, 'message')
                         assert.property(err, 'description')
@@ -196,7 +193,6 @@ describe('Services: NutritionalQuestionnaire', () => {
             return service
                 .remove(activity.id!)
                 .catch(err => {
-                    assert.property(err, 'message')
                     assert.propertyVal(err, 'message', 'Not implemented yet!')
                 })
         })

@@ -269,8 +269,69 @@ describe('Routes: OdontologicalQuestionnaire', () => {
             })
         })
     })
+
+    describe('DELETE` /patients/:patient_id/odontological/questionnaires/:questionnaire_id', () => {
+        context('when delete a odontological questionnaire', () => {
+            it('should return status code 204 and no content', async () => {
+                const result = await createActivity(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
+                return request
+                    .delete(`/patients/${activity.patient_id}/odontological/questionnaires/${result.id}`)
+                    .set('Content-Type', 'application/json')
+                    .expect(204)
+                    .then(res => {
+                        expect(res.body).to.eql({})
+                    })
+            })
+        })
+
+        context('when there are validation errors', () => {
+            it('should return status code 400 and message from invalid patient_id', () => {
+                return request
+                    .delete(`/patients/123/odontological/questionnaires/${activity.id}`)
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body).to.have.property('message')
+                        expect(res.body).to.have.property('description')
+                        expect(res.body.message).to.eql('Some ID provided does not have a valid format!')
+                        expect(res.body.description).to.eql('A 24-byte hex ID similar to this: 507f191e810c19729de860ea ' +
+                            'is expected.')
+                    })
+            })
+
+            it('should return status code 400 and message from invalid medicalrecord_id', () => {
+                return request
+                    .delete(`/patients/${activity.patient_id}/odontological/questionnaires/123`)
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body).to.have.property('message')
+                        expect(res.body).to.have.property('description')
+                        expect(res.body.message).to.eql('Some ID provided does not have a valid format!')
+                        expect(res.body.description).to.eql('A 24-byte hex ID similar to this: 507f191e810c19729de860ea ' +
+                            'is expected.')
+                    })
+            })
+        })
+
+        context('when the odontological questionnaire is not founded', () => {
+            it('should return status code 204 and no content', async () => {
+                return request
+                    .delete(`/patients/${new ObjectID()}/odontological/questionnaires/${new ObjectID()}`)
+                    .set('Content-Type', 'application/json')
+                    .expect(204)
+                    .then(res => {
+                        expect(res.body).to.eql({})
+                    })
+            })
+        })
+    })
+
 })
 
 async function deleteAllActivities(doc) {
     return OdontologicalQuestionnaireRepoModel.deleteMany({})
+}
+async function createActivity(doc) {
+    return OdontologicalQuestionnaireRepoModel.create(doc)
 }

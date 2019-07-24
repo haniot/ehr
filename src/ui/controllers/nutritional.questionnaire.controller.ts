@@ -11,7 +11,7 @@ import { Strings } from '../../utils/strings'
 import { NutritionalQuestionnaire } from '../../application/domain/model/nutritional.questionnaire'
 import { QuestionnaireTypes } from '../../application/domain/utils/questionnaire.types'
 
-@controller('/patients/:patient_id/nutritional/questionnaires')
+@controller('/v1/patients/:patient_id/nutritional/questionnaires')
 export class NutritionalQuestionnaireController {
     constructor(
         @inject(Identifier.NUTRITIONAL_QUESTIONNAIRE_SERVICE) private readonly _service: INutritionalQuestionnaireService

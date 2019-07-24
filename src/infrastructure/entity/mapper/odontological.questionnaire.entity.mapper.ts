@@ -52,7 +52,6 @@ export class OdontologicalQuestionnaireEntityMapper
             result.family_cohesion_record = item.family_cohesion_record
         if (item.oral_health_record !== undefined)
             result.oral_health_record = item.oral_health_record
-        
         return result
     }
 

@@ -12,7 +12,7 @@ import { Strings } from '../../utils/strings'
 import { ILogger } from '../../utils/custom.logger'
 import { QuestionnaireTypes } from '../../application/domain/utils/questionnaire.types'
 
-@controller('/patients/:patient_id/odontological/questionnaires')
+@controller('/v1/patients/:patient_id/odontological/questionnaires')
 export class OdontologicalQuestionnaireController {
 
     constructor(

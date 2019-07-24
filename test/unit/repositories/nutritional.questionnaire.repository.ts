@@ -73,10 +73,67 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.create(activity)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
+                    })
+            })
+
+            it('should reject a error in validation', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('create')
+                    .withArgs(activity)
+                    .chain('exec')
+                    .rejects({ name: 'ValidationError' })
+
+                return repo.create(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Required fields were not provided!')
+                    })
+            })
+
+            it('should reject a error in cast', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('create')
+                    .withArgs(activity)
+                    .chain('exec')
+                    .rejects({ name: 'CastError' })
+
+                return repo.create(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'The given ID is in invalid format.')
+                    })
+            })
+
+            it('should reject a error in mongo', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('create')
+                    .withArgs(activity)
+                    .chain('exec')
+                    .rejects({ name: 'MongoError', code: 11000 })
+
+                return repo.create(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'A registration with the same unique data already exists!')
+                    })
+            })
+            it('should reject a error in parameter', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('create')
+                    .withArgs(activity)
+                    .chain('exec')
+                    .rejects({ name: 'ObjectParameterError' })
+
+                return repo.create(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Invalid query parameters!')
                     })
             })
         })
@@ -134,6 +191,74 @@ describe('Repositories: NutritionalQuestionnaire', () => {
                     .then(result => {
                         assert.isArray(result)
                         assert.lengthOf(result, 0)
+                    })
+            })
+
+            it('should reject a error in validation', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('find')
+                    .chain('sort')
+                    .chain('skip')
+                    .chain('limit')
+                    .chain('exec')
+                    .rejects({ name: 'ValidationError' })
+
+                return repo.find(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Required fields were not provided!')
+                    })
+            })
+
+            it('should reject a error in cast', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('find')
+                    .chain('sort')
+                    .chain('skip')
+                    .chain('limit')
+                    .chain('exec')
+                    .rejects({ name: 'CastError' })
+
+                return repo.find(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'The given ID is in invalid format.')
+                    })
+            })
+
+            it('should reject a error in mongo', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('find')
+                    .chain('sort')
+                    .chain('skip')
+                    .chain('limit')
+                    .chain('exec')
+                    .rejects({ name: 'MongoError', code: 11000 })
+
+                return repo.find(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'A registration with the same unique data already exists!')
+                    })
+            })
+
+            it('should reject a error in parameter', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('find')
+                    .chain('sort')
+                    .chain('skip')
+                    .chain('limit')
+                    .chain('exec')
+                    .rejects({ name: 'ObjectParameterError' })
+
+                return repo.find(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Invalid query parameters!')
                     })
             })
         })
@@ -216,10 +341,9 @@ describe('Repositories: NutritionalQuestionnaire', () => {
         })
 
         context('when a database error occurs', () => {
+            const query = new Query()
+            query.addFilter({ _id: activity.id })
             it('should reject a error', () => {
-                const query = new Query()
-                query.addFilter({ _id: activity.id })
-
                 sinon
                     .mock(modelFake)
                     .expects('findOne')
@@ -234,6 +358,66 @@ describe('Repositories: NutritionalQuestionnaire', () => {
                         assert.propertyVal(err, 'name', 'Error')
                         assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
+                    })
+            })
+
+            it('should reject a error in validation', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOne')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'ValidationError' })
+
+                return repo.findOne(query)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Required fields were not provided!')
+                    })
+            })
+
+            it('should reject a error in cast', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOne')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'CastError' })
+
+                return repo.findOne(query)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'The given ID is in invalid format.')
+                    })
+            })
+
+            it('should reject a error in mongo', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOne')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'MongoError', code: 11000 })
+
+                return repo.findOne(query)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'A registration with the same unique data already exists!')
+                    })
+            })
+
+            it('should reject a error in parameter', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOne')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'ObjectParameterError' })
+
+                return repo.findOne(query)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Invalid query parameters!')
                     })
             })
         })
@@ -297,6 +481,66 @@ describe('Repositories: NutritionalQuestionnaire', () => {
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
+
+            it('should reject a error in validation', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndUpdate')
+                    .withArgs({ _id: activity.id }, activity, { new: true })
+                    .chain('exec')
+                    .rejects({ name: 'ValidationError' })
+
+                return repo.update(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Required fields were not provided!')
+                    })
+            })
+
+            it('should reject a error in cast', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndUpdate')
+                    .withArgs({ _id: activity.id }, activity, { new: true })
+                    .chain('exec')
+                    .rejects({ name: 'CastError' })
+
+                return repo.update(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'The given ID is in invalid format.')
+                    })
+            })
+
+            it('should reject a error in mongo', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndUpdate')
+                    .withArgs({ _id: activity.id }, activity, { new: true })
+                    .chain('exec')
+                    .rejects({ name: 'MongoError', code: 11000 })
+
+                return repo.update(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'A registration with the same unique data already exists!')
+                    })
+            })
+
+            it('should reject a error in parameter', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndUpdate')
+                    .withArgs({ _id: activity.id }, activity, { new: true })
+                    .chain('exec')
+                    .rejects({ name: 'ObjectParameterError' })
+
+                return repo.update(activity)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Invalid query parameters!')
+                    })
+            })
         })
     })
 
@@ -352,6 +596,65 @@ describe('Repositories: NutritionalQuestionnaire', () => {
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
+            it('should reject a error in validation', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndDelete')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'ValidationError' })
+
+                return repo.delete(activity.id!)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Required fields were not provided!')
+                    })
+            })
+
+            it('should reject a error in cast', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndDelete')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'CastError' })
+
+                return repo.delete(activity.id!)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'The given ID is in invalid format.')
+                    })
+            })
+
+            it('should reject a error in mongo', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndDelete')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'MongoError', code: 11000 })
+
+                return repo.delete(activity.id!)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'A registration with the same unique data already exists!')
+                    })
+            })
+
+            it('should reject a error in parameter', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('findOneAndDelete')
+                    .withArgs({ _id: activity.id })
+                    .chain('exec')
+                    .rejects({ name: 'ObjectParameterError' })
+
+                return repo.delete(activity.id!)
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Invalid query parameters!')
+                    })
+            })
         })
     })
 
@@ -388,6 +691,66 @@ describe('Repositories: NutritionalQuestionnaire', () => {
                         assert.propertyVal(err, 'name', 'Error')
                         assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
+                    })
+            })
+
+            it('should reject a error in validation', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('countDocuments')
+                    .withArgs({})
+                    .chain('exec')
+                    .rejects({ name: 'ValidationError' })
+
+                return repo.count(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Required fields were not provided!')
+                    })
+            })
+
+            it('should reject a error in cast', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('countDocuments')
+                    .withArgs({})
+                    .chain('exec')
+                    .rejects({ name: 'CastError' })
+
+                return repo.count(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'The given ID is in invalid format.')
+                    })
+            })
+
+            it('should reject a error in mongo', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('countDocuments')
+                    .withArgs({})
+                    .chain('exec')
+                    .rejects({ name: 'MongoError', code: 11000 })
+
+                return repo.count(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'A registration with the same unique data already exists!')
+                    })
+            })
+
+            it('should reject a error in parameter', () => {
+                sinon
+                    .mock(modelFake)
+                    .expects('countDocuments')
+                    .withArgs({})
+                    .chain('exec')
+                    .rejects({ name: 'ObjectParameterError' })
+
+                return repo.count(new Query())
+                    .catch(err => {
+                        assert.propertyVal(err, 'name', 'Error')
+                        assert.propertyVal(err, 'message', 'Invalid query parameters!')
                     })
             })
         })

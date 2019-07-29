@@ -3,11 +3,10 @@ import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { INutritionalQuestionnaireService } from '../../../src/application/port/nutritional.questionnaire.service'
 import { NutritionalQuestionnaireService } from '../../../src/application/service/nutritional.questionnaire.service'
 import { NutritionalQuestionnaireRepositoryMock } from '../../mocks/repositories/nutritional.questionnaire.repository.mock'
-import { assert } from 'chai'
 import { Query } from '../../../src/infrastructure/repository/query/query'
+import { assert } from 'chai'
 
 describe('Services: NutritionalQuestionnaire', () => {
-
     const activity: NutritionalQuestionnaire =
         new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
     activity.id = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.id
@@ -183,6 +182,18 @@ describe('Services: NutritionalQuestionnaire', () => {
                         assert.propertyVal(err, 'message', 'Some ID provided does not have a valid format!')
                         assert.propertyVal(err, 'description', 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea' +
                             ' is expected.')
+                    })
+            })
+        })
+    })
+
+    describe('count()', () => {
+        context('when want count nutritional questionnaires', () => {
+            it('should return a number of nutritional questionnaires', () => {
+                return service.count(new Query())
+                    .then(res => {
+                        assert.isNumber(res)
+                        assert.equal(res, 1)
                     })
             })
         })

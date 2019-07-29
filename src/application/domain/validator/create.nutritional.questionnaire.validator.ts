@@ -13,9 +13,6 @@ export class CreateNutritionalQuestionnaireValidator {
         const fields: Array<string> = []
         CreateQuestionnaireRecordValidator.validate(item)
 
-        if (!item.created_at)
-            fields.push('created_at')
-
         if (!item.sleep_habit)
             fields.push('sleep_habit')
         else

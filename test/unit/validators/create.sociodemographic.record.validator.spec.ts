@@ -5,7 +5,7 @@ import { CreateSociodemographicRecordValidator } from '../../../src/application/
 import { Strings } from '../../../src/utils/strings'
 import { ScholarityLevelTypes } from '../../../src/application/domain/utils/scholarity.level.types'
 
-describe('Validators: CreateSociodemographicRecord', () => {
+describe('Validators: CreateSociodemographicRecordValidator', () => {
     const activity: SociodemographicRecord = new SociodemographicRecord().fromJSON(DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD)
 
     it('should return undefined when the validation is successful', () => {

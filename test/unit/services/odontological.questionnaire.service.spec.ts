@@ -188,6 +188,18 @@ describe('Services: OdontologicalQuestionnaire', () => {
         })
     })
 
+    describe('count()', () => {
+        context('when want count odontological questionnaires', () => {
+            it('should return a number of odontological questionnaires', () => {
+                return service.count(new Query())
+                    .then(res => {
+                        assert.isNumber(res)
+                        assert.equal(res, 1)
+                    })
+            })
+        })
+    })
+
     describe('remove()', () => {
         it('should throw an error for does not implemented', () => {
             return service

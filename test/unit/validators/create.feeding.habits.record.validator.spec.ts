@@ -39,6 +39,18 @@ describe('Validators: CreateFeedingHabitsRecordValidator', () => {
                 activity.weekly_feeding_habits = [new WeeklyFoodRecord().fromJSON(DefaultEntityMock.WEEKLY_FOOD_RECORD)]
             }
         })
+        it('should throw an error for does pass invalid weekly_feeding_habits.food', () => {
+            activity.weekly_feeding_habits![0].food = 'invalid'
+            try {
+                CreateFeedingHabitsRecordValidator.validate(activity)
+            } catch (err) {
+                assert.propertyVal(err, 'message', 'Value not mapped for weekly_food_record.food: invalid')
+                assert.propertyVal(err, 'description', 'The mapped values are: fish_chicken_meat, soda, salad_vegetable,' +
+                    ' fried_salt_food, milk, bean, fruits, candy_sugar_cookie, burger_sausage.')
+            } finally {
+                activity.weekly_feeding_habits = [new WeeklyFoodRecord().fromJSON(DefaultEntityMock.WEEKLY_FOOD_RECORD)]
+            }
+        })
 
         it('should throw an error for does not pass weekly_feeding_habits.seven_days_freq', () => {
             activity.weekly_feeding_habits![0].seven_days_freq = undefined

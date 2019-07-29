@@ -66,6 +66,22 @@ describe('Validators: CreateOralHealthValidator', () => {
             }
         })
 
+        it('should throw an error for does not pass tooth_type', () => {
+            activity.teeth_lesions = [new ToothLesion().fromJSON(
+                {  tooth_type: undefined,
+                    lesion_type: 'white_spot_lesion'
+                })
+            ]
+            try {
+                CreateOralHealthRecordValidator.validate(activity)
+            } catch (err) {
+                assert.propertyVal(err, 'message', 'Required fields were not provided...')
+                assert.propertyVal(err, 'description', 'Oral Health Record validation: teeth_lesions.tooth_type is required!')
+            }finally {
+                activity.teeth_lesions = DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions
+            }
+        })
+
         it('should throw an error for does not pass correct lesion_type', () => {
             activity.teeth_lesions = [new ToothLesion().fromJSON(
                 {  tooth_type: 'deciduous_tooth',
@@ -77,6 +93,22 @@ describe('Validators: CreateOralHealthValidator', () => {
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for lesion_type: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: white_spot_lesion, cavitated_lesion.')
+            }finally {
+                activity.teeth_lesions = DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions
+            }
+        })
+
+        it('should throw an error for does not pass lesion_type', () => {
+            activity.teeth_lesions = [new ToothLesion().fromJSON(
+                {  tooth_type: 'deciduous_tooth',
+                    lesion_type: undefined
+                })
+            ]
+            try {
+                CreateOralHealthRecordValidator.validate(activity)
+            } catch (err) {
+                assert.propertyVal(err, 'message', 'Required fields were not provided...')
+                assert.propertyVal(err, 'description', 'Oral Health Record validation: teeth_lesions.lesion_type is required!')
             }finally {
                 activity.teeth_lesions = DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions
             }

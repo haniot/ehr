@@ -9,7 +9,6 @@ import { INutritionalQuestionnaireService } from '../../application/port/nutriti
 import { ApiException } from '../exception/api.exception'
 import { Strings } from '../../utils/strings'
 import { NutritionalQuestionnaire } from '../../application/domain/model/nutritional.questionnaire'
-import { QuestionnaireTypes } from '../../application/domain/utils/questionnaire.types'
 
 @controller('/v1/patients/:patient_id/nutritional/questionnaires')
 export class NutritionalQuestionnaireController {
@@ -38,7 +37,7 @@ export class NutritionalQuestionnaireController {
             const result: Array<NutritionalQuestionnaire> = await this._service.getAll(
                 new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
             const count: number = await this._service.count(
-                new Query().fromJSON({ filters: { type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE } }))
+                new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
             res.setHeader('X-Total-Count', count)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {

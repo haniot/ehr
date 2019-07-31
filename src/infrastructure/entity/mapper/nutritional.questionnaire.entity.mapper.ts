@@ -31,6 +31,7 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
             result.feeding_habits_record = new FeedingHabitsRecord().fromJSON(json.feeding_habits_record)
         if (json.medical_record !== undefined)
             result.medical_record = new MedicalRecord().fromJSON(json.medical_record)
+
         return result
     }
 
@@ -56,7 +57,6 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
             result.feeding_habits_record = item.feeding_habits_record
         if (item.medical_record !== undefined)
             result.medical_record = item.medical_record
-
         return result
     }
 

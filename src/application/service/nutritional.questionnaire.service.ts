@@ -79,6 +79,7 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
     }
 
     public count(query: IQuery): Promise<number> {
+        query.addFilter( { type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE })
         return this._repo.count(query)
     }
 }

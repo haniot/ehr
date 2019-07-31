@@ -78,6 +78,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
     }
 
     public count(query: IQuery): Promise<number> {
+        query.addFilter( { type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
         return this._repo.count(query)
     }
 }

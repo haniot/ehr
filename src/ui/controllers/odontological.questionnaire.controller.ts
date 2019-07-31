@@ -10,7 +10,6 @@ import HttpStatus from 'http-status-codes'
 import { ApiException } from '../exception/api.exception'
 import { Strings } from '../../utils/strings'
 import { ILogger } from '../../utils/custom.logger'
-import { QuestionnaireTypes } from '../../application/domain/utils/questionnaire.types'
 
 @controller('/v1/patients/:patient_id/odontological/questionnaires')
 export class OdontologicalQuestionnaireController {
@@ -41,7 +40,7 @@ export class OdontologicalQuestionnaireController {
             const result: Array<OdontologicalQuestionnaire> = await this._service.getAll(
                 new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
             const count: number = await this._service.count(
-                new Query().fromJSON({ filters: { type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE } }))
+                new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
             res.setHeader('X-Total-Count', count)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {

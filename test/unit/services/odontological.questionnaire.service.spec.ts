@@ -37,8 +37,6 @@ describe('Services: OdontologicalQuestionnaire', () => {
                 return service
                     .add(new OdontologicalQuestionnaire().fromJSON({ patient_id: activity.patient_id }))
                     .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
                         assert.propertyVal(err, 'message', 'Required fields were not provided...')
                         assert.propertyVal(err, 'description', 'Odontological Questionnaire validation: ' +
                             'sociodemographic_record, family_cohesion_record, oral_health_record is required!')
@@ -77,8 +75,6 @@ describe('Services: OdontologicalQuestionnaire', () => {
                 return service
                     .getAll(query)
                     .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
                         assert.propertyVal(err, 'message', 'Some ID provided does not have a valid format!')
                         assert.propertyVal(err, 'description', 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea' +
                             ' is expected.')
@@ -115,8 +111,6 @@ describe('Services: OdontologicalQuestionnaire', () => {
                 return service
                     .getById(activity.id!, query)
                     .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
                         assert.propertyVal(err, 'message', 'Some ID provided does not have a valid format!')
                         assert.propertyVal(err, 'description', 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea' +
                             ' is expected.')
@@ -142,8 +136,6 @@ describe('Services: OdontologicalQuestionnaire', () => {
                 return service
                     .removeOdontologicalQuestionnaire('123', '321')
                     .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
                         assert.propertyVal(err, 'message', 'Some ID provided does not have a valid format!')
                         assert.propertyVal(err, 'description', 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea' +
                             ' is expected.')
@@ -178,8 +170,6 @@ describe('Services: OdontologicalQuestionnaire', () => {
                 return service
                     .update(activity)
                     .catch(err => {
-                        assert.property(err, 'message')
-                        assert.property(err, 'description')
                         assert.propertyVal(err, 'message', 'Some ID provided does not have a valid format!')
                         assert.propertyVal(err, 'description', 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea' +
                             ' is expected.')

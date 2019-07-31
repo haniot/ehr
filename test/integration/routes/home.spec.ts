@@ -17,7 +17,7 @@ describe('Routes: Home', () => {
                     .set('Content-Type', 'application/json')
                     .expect(302)
                     .then(res => {
-                        expect(res.body).to.eql({})
+                        expect(res.body).to.be.empty
                     })
             })
         })

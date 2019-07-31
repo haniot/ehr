@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import HttpStatus from 'http-status-codes'
 import swaggerUi from 'swagger-ui-express'
 import qs from 'query-strings-parser'
-import express, { Application, Request, Response } from 'express'
+import express, { Application, NextFunction, Request, Response } from 'express'
 import { Container, inject, injectable } from 'inversify'
 import { InversifyExpressServer } from 'inversify-express-utils'
 import { ApiException } from './ui/exception/api.exception'
@@ -14,7 +14,7 @@ import { DI } from './di/di'
 import { Identifier } from './di/identifiers'
 import { ILogger } from './utils/custom.logger'
 import { Strings } from './utils/strings'
-import whitelist from 'ip-allowed'
+import ipAllowed = require('ip-allowed')
 
 /**
  * Implementation of class App.
@@ -78,7 +78,11 @@ export class App {
      * @return Promise<void>
      */
     private async setupHostWhitelist(): Promise<void> {
-        this.express.use(whitelist(process.env.HOST_WHITELIST || Default.IP_WHITELIST))
+        this.express.use(ipAllowed(process.env.HOST_WHITELIST || Default.HOST_WHITELIST, {
+            log: (clientIp, accessDenied) => {
+                if (accessDenied) this._logger.warn(`Client with IP address ${clientIp} is not allowed!`)
+            }
+        }))
     }
 
     /**
@@ -138,7 +142,7 @@ export class App {
                 customfavIcon: Default.LOGO_URI,
                 customSiteTitle: `API Reference | ${Strings.APP.TITLE}`
             }
-            this.express.use('/reference', swaggerUi.serve, swaggerUi.setup(null, options))
+            this.express.use('/v1/reference', swaggerUi.serve, swaggerUi.setup(null, options))
         }
     }
 
@@ -150,17 +154,24 @@ export class App {
      */
     private setupErrorsHandler(): void {
         // Handle 404
-        this.express.use((req: Request, res: Response) => {
+        this.express.use((req, res) => {
             const errorMessage: ApiException = new ApiException(404, `${req.url} not found.`,
                 `Specified resource: ${req.url} was not found or does not exist.`)
             res.status(HttpStatus.NOT_FOUND).send(errorMessage.toJson())
         })
 
-        // Handle 500
-        this.express.use((err: any, req: Request, res: Response) => {
-            res.locals
-            const errorMessage: ApiException = new ApiException(err.code, err.message, err.description)
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(errorMessage.toJson())
+        // Handle 400, 500
+        this.express.use((err: any, req: Request, res: Response, next: NextFunction) => {
+            let statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+            const errorMessage: ApiException = new ApiException(statusCode, err.message)
+            if (err && err.statusCode === HttpStatus.BAD_REQUEST) {
+                statusCode = HttpStatus.BAD_REQUEST
+                errorMessage.code = statusCode
+                errorMessage.message = 'Unable to process request body.'
+                errorMessage.description = 'Please verify that the JSON provided in'
+                    .concat(' the request body has a valid format and try again.')
+            }
+            res.status(statusCode).send(errorMessage.toJson())
         })
     }
 }

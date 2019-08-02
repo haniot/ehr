@@ -5,7 +5,7 @@ import { ObjectID } from 'bson'
 describe('Validators: ObjectIdValidator', () => {
     it('should return undefined when the validation was successful', () => {
         const result = ObjectIdValidator.validate(`${new ObjectID()}`)
-        assert.isUndefined(result, 'no result defined')
+        assert.isUndefined(result)
     })
 
     context('when there are validation errors', () => {
@@ -13,8 +13,9 @@ describe('Validators: ObjectIdValidator', () => {
             try {
                 ObjectIdValidator.validate('123')
             } catch (err) {
-                assert.equal(err.message, 'Some ID provided does not have a valid format!')
-                assert.equal(err.description, 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea is expected.')
+                assert.propertyVal(err, 'message', 'Some ID provided does not have a valid format!')
+                assert.propertyVal(err, 'description',
+                    'A 24-byte hex ID similar to this: 507f191e810c19729de860ea is expected.')
             }
         })
 

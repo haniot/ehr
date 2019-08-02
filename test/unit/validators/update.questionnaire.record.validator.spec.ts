@@ -11,7 +11,7 @@ describe('Validators: UpdateQuestionnaireRecordValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateQuestionnaireRecordValidator.validate(activity)
-        assert.isUndefined(result, 'no result defined')
+        assert.isUndefined(result)
     })
 
     context('when there are validation errors', () => {

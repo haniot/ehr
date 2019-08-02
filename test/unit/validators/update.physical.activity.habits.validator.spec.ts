@@ -11,7 +11,7 @@ describe('Validators: UpdatePhysicalActivityHabitsValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdatePhysicalActivityHabitsValidator.validate(activity)
-        assert.isUndefined(result, 'no result defined')
+        assert.isUndefined(result)
     })
     context('when there are validation errors', () => {
         it('should throw an error for does pass invalid school_activity_freq ', () => {

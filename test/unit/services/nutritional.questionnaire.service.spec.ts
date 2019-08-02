@@ -12,6 +12,8 @@ describe('Services: NutritionalQuestionnaire', () => {
     activity.id = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.id
     const service: INutritionalQuestionnaireService =
         new NutritionalQuestionnaireService(new NutritionalQuestionnaireRepositoryMock())
+    const data: NutritionalQuestionnaire =
+        new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
 
     describe('add()', () => {
         context('when save a new nutritional questionnaire', () => {
@@ -20,15 +22,12 @@ describe('Services: NutritionalQuestionnaire', () => {
                     .add(activity)
                     .then(result => {
                         assert.propertyVal(result, 'id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.id)
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result, 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result, 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result, 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })
@@ -55,16 +54,12 @@ describe('Services: NutritionalQuestionnaire', () => {
                     .then(result => {
                         assert.isArray(result)
                         assert.lengthOf(result, 1)
-                        assert.propertyVal(result[0], 'id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.id)
-                        assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result[0], 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result[0], 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result[0], 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result[0], 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result[0], 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result[0], 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result[0], 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result[0], 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result[0], 'medical_record', data.medical_record)
+                        assert.propertyVal(result[0], 'type', data.type)
                     })
             })
         })
@@ -92,15 +87,12 @@ describe('Services: NutritionalQuestionnaire', () => {
                     .getById(activity.id!, query)
                     .then(result => {
                         assert.propertyVal(result, 'id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.id)
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result, 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result, 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result, 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })
@@ -150,15 +142,12 @@ describe('Services: NutritionalQuestionnaire', () => {
                     .update(activity)
                     .then(result => {
                         assert.propertyVal(result, 'id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.id)
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result, 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result, 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result, 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })

@@ -16,6 +16,8 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
         new OdontologicalQuestionnaireRepository(modelFake, new EntityMapperMock(), new CustomLoggerMock())
     const activity: OdontologicalQuestionnaire =
         new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
+    const data: OdontologicalQuestionnaire =
+        new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
 
     afterEach(() => {
         sinon.restore()
@@ -33,14 +35,10 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.create(activity)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record)
-                        assert.propertyVal(result, 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result, 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sociodemographic_record', data.sociodemographic_record)
+                        assert.deepPropertyVal(result, 'oral_health_record', data.oral_health_record)
+                        assert.deepPropertyVal(result, 'family_cohesion_record', data.family_cohesion_record)
                     })
             })
         })
@@ -56,7 +54,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.create(activity)
                     .then(result => {
-                        assert.isUndefined(result, 'no result defined')
+                        assert.isUndefined(result)
                     })
             })
         })
@@ -72,9 +70,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.create(activity)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -159,14 +155,10 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
                     .then(result => {
                         assert.isArray(result)
                         assert.lengthOf(result, 1)
-                        assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result[0], 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record)
-                        assert.propertyVal(result[0], 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result[0], 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result[0], 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result[0], 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result[0], 'sociodemographic_record', data.sociodemographic_record)
+                        assert.deepPropertyVal(result[0], 'oral_health_record', data.oral_health_record)
+                        assert.deepPropertyVal(result[0], 'family_cohesion_record', data.family_cohesion_record)
                     })
             })
         })
@@ -209,9 +201,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.find(new Query())
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -301,14 +291,11 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.findOne(query)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record)
-                        assert.propertyVal(result, 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result, 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sociodemographic_record', data.sociodemographic_record)
+                        assert.deepPropertyVal(result, 'oral_health_record', data.oral_health_record)
+                        assert.deepPropertyVal(result, 'family_cohesion_record', data.family_cohesion_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })
@@ -327,7 +314,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.findOne(query)
                     .then(result => {
-                        assert.isUndefined(result, 'no result defined')
+                        assert.isUndefined(result)
                     })
             })
         })
@@ -346,9 +333,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.findOne(query)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -427,14 +412,11 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.update(activity)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sociodemographic_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.sociodemographic_record)
-                        assert.propertyVal(result, 'oral_health_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record)
-                        assert.propertyVal(result, 'family_cohesion_record',
-                            DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sociodemographic_record', data.sociodemographic_record)
+                        assert.deepPropertyVal(result, 'oral_health_record', data.oral_health_record)
+                        assert.deepPropertyVal(result, 'family_cohesion_record', data.family_cohesion_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })
@@ -449,7 +431,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.update(activity)
                     .then(result => {
-                        assert.isUndefined(result, 'no result defined')
+                        assert.isUndefined(result)
                     })
             })
         })
@@ -465,9 +447,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.update(activity)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -579,9 +559,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.delete(activity.id!)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -676,9 +654,7 @@ describe('Repositories: OdontologicalQuestionnaire', () => {
 
                 return repo.count(new Query())
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })

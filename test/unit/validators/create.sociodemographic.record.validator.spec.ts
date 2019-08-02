@@ -10,7 +10,7 @@ describe('Validators: CreateSociodemographicRecordValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateSociodemographicRecordValidator.validate(activity)
-        assert.isUndefined(result, 'no result defined')
+        assert.isUndefined(result)
     })
     context('when there are validation errors', () => {
 

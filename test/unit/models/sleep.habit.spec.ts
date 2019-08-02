@@ -16,8 +16,8 @@ describe('Models: SleepHabit', () => {
             it('should return the class without parameters', () => {
                 const result = new SleepHabit().fromJSON(undefined)
                 assert.propertyVal(result, 'type', DefaultEntityMock.SLEEP_HABIT.type)
-                assert.isUndefined(result.week_day_sleep, 'no week_day_sleep defined')
-                assert.isUndefined(result.week_day_wake_up, 'no week_day_wake_up defined')
+                assert.isUndefined(result.week_day_sleep)
+                assert.isUndefined(result.week_day_wake_up)
             })
         })
 
@@ -25,8 +25,8 @@ describe('Models: SleepHabit', () => {
             it('should return the class without parameters', () => {
                 const result = new SleepHabit().fromJSON({})
                 assert.propertyVal(result, 'type', DefaultEntityMock.SLEEP_HABIT.type)
-                assert.isUndefined(result.week_day_sleep, 'no week_day_sleep defined')
-                assert.isUndefined(result.week_day_wake_up, 'no week_day_wake_up defined')
+                assert.isUndefined(result.week_day_sleep)
+                assert.isUndefined(result.week_day_wake_up)
             })
         })
 
@@ -53,7 +53,7 @@ describe('Models: SleepHabit', () => {
                 })
                 assert.propertyVal(result, 'type', DefaultEntityMock.SLEEP_HABIT.type)
                 assert.propertyVal(result, 'week_day_sleep', DefaultEntityMock.SLEEP_HABIT.week_day_sleep)
-                assert.isUndefined(result.week_day_wake_up, 'no week_day_wake_up defined')
+                assert.isUndefined(result.week_day_wake_up)
             })
 
             it('should return the object with set week_day_wake_up', () => {
@@ -88,7 +88,7 @@ describe('Models: SleepHabit', () => {
                 })
                 const result = activity.toJSON()
                 assert.propertyVal(result, 'type', DefaultEntityMock.SLEEP_HABIT.type)
-                assert.isUndefined(result.week_day_sleep, 'no week_day_sleep defined')
+                assert.isUndefined(result.week_day_sleep)
                 assert.propertyVal(result, 'week_day_wake_up', DefaultEntityMock.SLEEP_HABIT.week_day_wake_up)
             })
         })

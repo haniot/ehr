@@ -15,8 +15,8 @@ describe('Models: ChronicDisease', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new ChronicDisease().fromJSON(undefined)
-                assert.isUndefined(result.type, 'no type defined')
-                assert.isUndefined(result.disease_history, 'no disease_history defined')
+                assert.isUndefined(result.type)
+                assert.isUndefined(result.disease_history)
 
             })
         })
@@ -24,8 +24,8 @@ describe('Models: ChronicDisease', () => {
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new ChronicDisease().fromJSON({})
-                assert.isUndefined(result.type, 'no type defined')
-                assert.isUndefined(result.disease_history, 'no disease_history defined')
+                assert.isUndefined(result.type)
+                assert.isUndefined(result.disease_history)
             })
         })
 
@@ -38,8 +38,8 @@ describe('Models: ChronicDisease', () => {
 
             it('should return the class without parameters for empty string', () => {
                 const result = new ChronicDisease().fromJSON('')
-                assert.isUndefined(result.type, 'no type defined')
-                assert.isUndefined(result.disease_history, 'no disease_history defined')
+                assert.isUndefined(result.type)
+                assert.isUndefined(result.disease_history)
             })
         })
 
@@ -49,7 +49,7 @@ describe('Models: ChronicDisease', () => {
                     type: DefaultEntityMock.CHRONIC_DISEASE.type
                 })
                 assert.propertyVal(result, 'type', DefaultEntityMock.CHRONIC_DISEASE.type)
-                assert.isUndefined(result.disease_history, 'no disease_history defined')
+                assert.isUndefined(result.disease_history)
             })
 
             it('should return the object with set disease_history', () => {

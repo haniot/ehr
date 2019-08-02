@@ -4,20 +4,21 @@ import { NutritionalQuestionnaire } from '../../../src/application/domain/model/
 
 describe('Models: NutritionalQuestionnaire', () => {
 
+    const data: NutritionalQuestionnaire =
+        new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
+
     describe('fromJSON()', () => {
         context('when the json contain all parameters', () => {
             it('should return the class with parameters set', () => {
-                const result = new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
+                const result: NutritionalQuestionnaire =
+                    new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
 
-                assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                assert.propertyVal(result, 'sleep_habit',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                assert.propertyVal(result, 'feeding_habits_record',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                assert.propertyVal(result, 'physical_activity_habits',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                assert.propertyVal(result, 'medical_record', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
-                assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
+                assert.propertyVal(result, 'patient_id', data.patient_id)
+                assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                assert.propertyVal(result, 'type', data.type)
             })
         })
 
@@ -25,13 +26,13 @@ describe('Models: NutritionalQuestionnaire', () => {
             it('should return the class without parameters', () => {
                 const result = new NutritionalQuestionnaire().fromJSON(undefined)
 
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-                assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-                assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-                assert.isUndefined(result.medical_record, 'no medical_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.sleep_habit)
+                assert.isUndefined(result.feeding_habits_record)
+                assert.isUndefined(result.physical_activity_habits)
+                assert.isUndefined(result.medical_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
             })
         })
@@ -40,13 +41,13 @@ describe('Models: NutritionalQuestionnaire', () => {
             it('should return the class without parameters', () => {
                 const result = new NutritionalQuestionnaire().fromJSON('invalid')
 
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-                assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-                assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-                assert.isUndefined(result.medical_record, 'no medical_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.sleep_habit)
+                assert.isUndefined(result.feeding_habits_record)
+                assert.isUndefined(result.physical_activity_habits)
+                assert.isUndefined(result.medical_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
             })
         })
@@ -55,13 +56,13 @@ describe('Models: NutritionalQuestionnaire', () => {
             it('should return a model with undefined parameters', () => {
                 const result = new NutritionalQuestionnaire().fromJSON({})
 
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-                assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-                assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-                assert.isUndefined(result.medical_record, 'no medical_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.sleep_habit)
+                assert.isUndefined(result.feeding_habits_record)
+                assert.isUndefined(result.physical_activity_habits)
+                assert.isUndefined(result.medical_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
             })
         })
@@ -71,28 +72,25 @@ describe('Models: NutritionalQuestionnaire', () => {
                 const result = new NutritionalQuestionnaire().fromJSON(
                     JSON.stringify(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE))
 
-                assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                assert.deepPropertyVal(result, 'sleep_habit',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                assert.deepPropertyVal(result, 'feeding_habits_record',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                assert.deepPropertyVal(result, 'physical_activity_habits',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                assert.deepPropertyVal(result, 'medical_record', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
-                assert.deepPropertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
+                assert.propertyVal(result, 'patient_id', data.patient_id)
+                assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                assert.propertyVal(result, 'type', data.type)
 
             })
 
             it('should return the class without parameters for empty string', () => {
                 const result = new NutritionalQuestionnaire().fromJSON('')
 
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-                assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-                assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-                assert.isUndefined(result.medical_record, 'no medical_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.sleep_habit)
+                assert.isUndefined(result.feeding_habits_record)
+                assert.isUndefined(result.physical_activity_habits)
+                assert.isUndefined(result.medical_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
             })
         })
@@ -107,15 +105,12 @@ describe('Models: NutritionalQuestionnaire', () => {
                     new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
                 const result = nutritionalQuestionnaire.toJSON()
 
-                assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                assert.deepPropertyVal(result, 'sleep_habit',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                assert.deepPropertyVal(result, 'feeding_habits_record',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                assert.deepPropertyVal(result, 'physical_activity_habits',
-                    DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                assert.deepPropertyVal(result, 'medical_record', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
-                assert.deepPropertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
+                assert.propertyVal(result, 'patient_id', data.patient_id)
+                assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                assert.propertyVal(result, 'type', data.type)
             })
         })
 
@@ -124,13 +119,13 @@ describe('Models: NutritionalQuestionnaire', () => {
                 const result: NutritionalQuestionnaire =
                     new NutritionalQuestionnaire().toJSON()
 
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-                assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-                assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-                assert.isUndefined(result.medical_record, 'no medical_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.sleep_habit)
+                assert.isUndefined(result.feeding_habits_record)
+                assert.isUndefined(result.physical_activity_habits)
+                assert.isUndefined(result.medical_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
 
             })

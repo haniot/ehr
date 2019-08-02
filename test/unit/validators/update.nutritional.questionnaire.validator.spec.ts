@@ -15,7 +15,7 @@ describe('Validators: UpdateNutritionalQuestionnaire', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = UpdateNutritionalQuestionnaireValidator.validate(activity)
-        assert.isUndefined(result, 'no result defined')
+        assert.isUndefined(result)
     })
 
     context('when there are validation errors', () => {

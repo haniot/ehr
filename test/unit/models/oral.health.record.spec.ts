@@ -14,8 +14,8 @@ describe('Models: OralHealthRecord', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new OralHealthRecord().fromJSON(undefined)
-                assert.isUndefined(result.teeth_brushing_freq, 'no teeth_brushing_freq defined')
-                assert.isUndefined(result.teeth_lesions, 'no teeth_lesions defined')
+                assert.isUndefined(result.teeth_brushing_freq)
+                assert.isUndefined(result.teeth_lesions)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ORAL_HEALTH_RECORD.type)
             })
         })
@@ -23,8 +23,8 @@ describe('Models: OralHealthRecord', () => {
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new OralHealthRecord().fromJSON({})
-                assert.isUndefined(result.teeth_brushing_freq, 'no teeth_brushing_freq defined')
-                assert.isUndefined(result.teeth_lesions, 'no teeth_lesions defined')
+                assert.isUndefined(result.teeth_brushing_freq)
+                assert.isUndefined(result.teeth_lesions)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ORAL_HEALTH_RECORD.type)
             })
         })
@@ -38,15 +38,15 @@ describe('Models: OralHealthRecord', () => {
 
             it('should return the class without parameters for empty string', () => {
                 const result = new OralHealthRecord().fromJSON('')
-                assert.isUndefined(result.teeth_brushing_freq, 'no teeth_brushing_freq defined')
-                assert.isUndefined(result.teeth_lesions, 'no teeth_lesions defined')
+                assert.isUndefined(result.teeth_brushing_freq)
+                assert.isUndefined(result.teeth_lesions)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ORAL_HEALTH_RECORD.type)
             })
 
             it('should return the class without parameters for invalid string', () => {
                 const result = new OralHealthRecord().fromJSON('invalid')
-                assert.isUndefined(result.teeth_brushing_freq, 'no teeth_brushing_freq defined')
-                assert.isUndefined(result.teeth_lesions, 'no teeth_lesions defined')
+                assert.isUndefined(result.teeth_brushing_freq)
+                assert.isUndefined(result.teeth_lesions)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ORAL_HEALTH_RECORD.type)
             })
         })
@@ -89,7 +89,7 @@ describe('Models: OralHealthRecord', () => {
                     teeth_lesions: DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions
                 })
                 const result = activity.toJSON()
-                assert.isUndefined(result.teeth_brushing_freq, 'no teeth_brushing_freq defined')
+                assert.isUndefined(result.teeth_brushing_freq)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ORAL_HEALTH_RECORD.type)
                 assert.deepPropertyVal(result, 'teeth_lesions', DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_lesions)
             })

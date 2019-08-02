@@ -17,7 +17,7 @@ describe('Models: MedicalRecord', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new MedicalRecord().fromJSON(undefined)
-                assert.isUndefined(result.chronic_diseases, 'no chronic_diseases defined')
+                assert.isUndefined(result.chronic_diseases)
                 assert.propertyVal(result, 'type', DefaultEntityMock.MEDICAL_RECORD.type)
             })
         })
@@ -25,7 +25,7 @@ describe('Models: MedicalRecord', () => {
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new MedicalRecord().fromJSON({})
-                assert.isUndefined(result.chronic_diseases, 'no chronic_diseases defined')
+                assert.isUndefined(result.chronic_diseases)
                 assert.propertyVal(result, 'type', DefaultEntityMock.MEDICAL_RECORD.type)
             })
         })
@@ -40,7 +40,7 @@ describe('Models: MedicalRecord', () => {
 
             it('should return the class without parameters for empty string', () => {
                 const result = new MedicalRecord().fromJSON('')
-                assert.isUndefined(result.chronic_diseases, 'no chronic_diseases defined')
+                assert.isUndefined(result.chronic_diseases)
                 assert.propertyVal(result, 'type', DefaultEntityMock.MEDICAL_RECORD.type)
             })
         })
@@ -75,7 +75,7 @@ describe('Models: MedicalRecord', () => {
             it('should return json without created_at', () => {
                 const activity = new MedicalRecord().fromJSON({})
                 const result = activity.toJSON()
-                assert.isUndefined(result.chronic_diseases, 'no chronic_diseases defined')
+                assert.isUndefined(result.chronic_diseases)
                 assert.propertyVal(result, 'type', DefaultEntityMock.MEDICAL_RECORD.type)
 
             })

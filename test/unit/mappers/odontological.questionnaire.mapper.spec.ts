@@ -28,29 +28,27 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                     new FamilyCohesionRecord().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.family_cohesion_record))
                 assert.deepPropertyVal(result, 'oral_health_record',
                     new OralHealthRecord().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.oral_health_record))
-
             })
 
             it('should return model without parameters for empty json', () => {
                 const result = mapper.transform({})
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_record defined')
-                assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
-                assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.sociodemographic_recod)
+                assert.isUndefined(result.family_cohesion_record)
+                assert.isUndefined(result.oral_health_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
-
             })
 
             it('should return model without parameter for undefined json', () => {
                 const result = mapper.transform(undefined)
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_record defined')
-                assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
-                assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.sociodemographic_recod)
+                assert.isUndefined(result.family_cohesion_record)
+                assert.isUndefined(result.oral_health_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.type)
             })
         })
@@ -74,13 +72,13 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
             const result = mapper.transform(new OdontologicalQuestionnaire())
             result.type = undefined
 
-            assert.isUndefined(result.id, 'no id defined')
-            assert.isUndefined(result.patient_id, 'no patient_id defined')
-            assert.isUndefined(result.created_at, 'no created_at defined')
-            assert.isUndefined(result.sociodemographic_recod, 'no sociodemographic_record defined')
-            assert.isUndefined(result.family_cohesion_record, 'no family_cohesion_record defined')
-            assert.isUndefined(result.oral_health_record, 'no oral_health_record defined')
-            assert.isUndefined(result.type, 'no type defined')
+            assert.isUndefined(result.id)
+            assert.isUndefined(result.patient_id)
+            assert.isUndefined(result.created_at)
+            assert.isUndefined(result.sociodemographic_recod)
+            assert.isUndefined(result.family_cohesion_record)
+            assert.isUndefined(result.oral_health_record)
+            assert.isUndefined(result.type)
         })
 
         describe('modelEntityToModel()', () => {
@@ -89,7 +87,6 @@ describe('Mappers: OdontologicalQuestionnaire', () => {
                     try {
                         mapper.modelEntityToModel(new OdontologicalQuestionnaireEntity())
                     } catch (err) {
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'Not implemented!')
                     }
                 })

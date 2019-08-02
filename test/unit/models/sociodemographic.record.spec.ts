@@ -18,9 +18,9 @@ describe('Models: SociodemographicRecord', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new SociodemographicRecord().fromJSON(undefined)
-                assert.isUndefined(result.color_race, 'no color_race defined')
-                assert.isUndefined(result.mother_scholarity, 'no mother_scholarity defined')
-                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.isUndefined(result.color_race)
+                assert.isUndefined(result.mother_scholarity)
+                assert.isUndefined(result.people_in_home)
                 assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
             })
         })
@@ -28,9 +28,9 @@ describe('Models: SociodemographicRecord', () => {
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new SociodemographicRecord().fromJSON({})
-                assert.isUndefined(result.color_race, 'no color_race defined')
-                assert.isUndefined(result.mother_scholarity, 'no mother_scholarity defined')
-                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.isUndefined(result.color_race)
+                assert.isUndefined(result.mother_scholarity)
+                assert.isUndefined(result.people_in_home)
                 assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
             })
         })
@@ -46,17 +46,17 @@ describe('Models: SociodemographicRecord', () => {
 
             it('should return the class without parameters for empty string', () => {
                 const result = new SociodemographicRecord().fromJSON('')
-                assert.isUndefined(result.color_race, 'no color_race defined')
-                assert.isUndefined(result.mother_scholarity, 'no mother_scholarity defined')
-                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.isUndefined(result.color_race)
+                assert.isUndefined(result.mother_scholarity)
+                assert.isUndefined(result.people_in_home)
                 assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
             })
 
             it('should return the class without parameters for invalid string', () => {
                 const result = new SociodemographicRecord().fromJSON('invalid')
-                assert.isUndefined(result.color_race, 'no color_race defined')
-                assert.isUndefined(result.mother_scholarity, 'no mother_scholarity defined')
-                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.isUndefined(result.color_race)
+                assert.isUndefined(result.mother_scholarity)
+                assert.isUndefined(result.people_in_home)
                 assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
             })
 
@@ -69,8 +69,8 @@ describe('Models: SociodemographicRecord', () => {
                 })
                 assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
                 assert.propertyVal(result, 'color_race', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
-                assert.isUndefined(result.mother_scholarity, 'no mother_scholarity defined')
-                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.isUndefined(result.mother_scholarity)
+                assert.isUndefined(result.people_in_home)
             })
 
             it('should return the object with set mother scholarity', () => {
@@ -81,7 +81,7 @@ describe('Models: SociodemographicRecord', () => {
                 assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
                 assert.propertyVal(result, 'color_race', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
                 assert.propertyVal(result, 'mother_scholarity', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.mother_scholarity)
-                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.isUndefined(result.people_in_home)
             })
 
             it('should return the object with set people in home', () => {
@@ -117,8 +117,8 @@ describe('Models: SociodemographicRecord', () => {
                 })
                 const result = activity.toJSON()
                 assert.propertyVal(result, 'type', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.type)
-                assert.isUndefined(result.mother_scholarity, 'no mother_scholarity defined')
-                assert.isUndefined(result.people_in_home, 'no people_in_home defined')
+                assert.isUndefined(result.mother_scholarity)
+                assert.isUndefined(result.people_in_home)
                 assert.propertyVal(result, 'color_race', DefaultEntityMock.SOCIODEMOGRAPHIC_RECORD.color_race)
             })
         })

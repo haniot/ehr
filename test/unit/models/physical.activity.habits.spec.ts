@@ -17,8 +17,8 @@ describe('Models: PhysicalActivityHabits', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new PhysicalActivityHabits().fromJSON(undefined)
-                assert.isUndefined(result.school_activity_freq, 'no school_activity_freq defined')
-                assert.isUndefined(result.weekly_activities, 'no weekly_activities defined')
+                assert.isUndefined(result.school_activity_freq)
+                assert.isUndefined(result.weekly_activities)
                 assert.propertyVal(result, 'type', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
             })
         })
@@ -26,8 +26,8 @@ describe('Models: PhysicalActivityHabits', () => {
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new PhysicalActivityHabits().fromJSON({})
-                assert.isUndefined(result.school_activity_freq, 'no school_activity_freq defined')
-                assert.isUndefined(result.weekly_activities, 'no weekly_activities defined')
+                assert.isUndefined(result.school_activity_freq)
+                assert.isUndefined(result.weekly_activities)
                 assert.propertyVal(result, 'type', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
             })
         })
@@ -43,8 +43,8 @@ describe('Models: PhysicalActivityHabits', () => {
 
             it('should return the class without parameters for empty string', () => {
                 const result = new PhysicalActivityHabits().fromJSON('')
-                assert.isUndefined(result.school_activity_freq, 'no school_activity_freq defined')
-                assert.isUndefined(result.weekly_activities, 'no weekly_activities defined')
+                assert.isUndefined(result.school_activity_freq)
+                assert.isUndefined(result.weekly_activities)
                 assert.propertyVal(result, 'type', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
             })
         })
@@ -57,7 +57,7 @@ describe('Models: PhysicalActivityHabits', () => {
                 assert.propertyVal(result, 'school_activity_freq',
                     DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq)
                 assert.propertyVal(result, 'type', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
-                assert.isUndefined(result.weekly_activities, 'no weekly_activities defined')
+                assert.isUndefined(result.weekly_activities)
             })
 
             it('should return the object with set weekly_activities', () => {
@@ -91,7 +91,7 @@ describe('Models: PhysicalActivityHabits', () => {
                     weekly_activities: DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.weekly_activities
                 })
                 const result = activity.toJSON()
-                assert.isUndefined(result.school_activity_freq, 'no school_activity_freq defined')
+                assert.isUndefined(result.school_activity_freq)
                 assert.deepPropertyVal(result, 'weekly_activities', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.weekly_activities)
                 assert.propertyVal(result, 'type', DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.type)
             })

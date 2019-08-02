@@ -32,31 +32,29 @@ describe('Mappers: NutritionalQuestionnaire', () => {
                     new PhysicalActivityHabits().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits))
                 assert.deepPropertyVal(result, 'medical_record',
                     new MedicalRecord().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record))
-
             })
 
             it('should return model without parameters for empty json', () => {
                 const result = mapper.transform({})
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-                assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-                assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-                assert.isUndefined(result.medical_record, 'no medical_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.sleep_habit)
+                assert.isUndefined(result.feeding_habits_record)
+                assert.isUndefined(result.physical_activity_habits)
+                assert.isUndefined(result.medical_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
-
             })
 
             it('should return model without parameter for undefined json', () => {
                 const result = mapper.transform(undefined)
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-                assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-                assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-                assert.isUndefined(result.medical_record, 'no medical_record defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.sleep_habit)
+                assert.isUndefined(result.feeding_habits_record)
+                assert.isUndefined(result.physical_activity_habits)
+                assert.isUndefined(result.medical_record)
                 assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
 
             })
@@ -84,14 +82,14 @@ describe('Mappers: NutritionalQuestionnaire', () => {
             const result = mapper.transform(new NutritionalQuestionnaire())
             result.type = undefined
 
-            assert.isUndefined(result.id, 'no id defined')
-            assert.isUndefined(result.patient_id, 'no patient_id defined')
-            assert.isUndefined(result.created_at, 'no created_at defined')
-            assert.isUndefined(result.sleep_habit, 'no sleep_habit defined')
-            assert.isUndefined(result.feeding_habits_record, 'no feeding_habits_record defined')
-            assert.isUndefined(result.physical_activity_habits, 'no physical_activity_habits defined')
-            assert.isUndefined(result.medical_record, 'no medical_record defined')
-            assert.isUndefined(result.type, 'no type defined')
+            assert.isUndefined(result.id)
+            assert.isUndefined(result.patient_id)
+            assert.isUndefined(result.created_at)
+            assert.isUndefined(result.sleep_habit)
+            assert.isUndefined(result.feeding_habits_record)
+            assert.isUndefined(result.physical_activity_habits)
+            assert.isUndefined(result.medical_record)
+            assert.isUndefined(result.type)
         })
 
         describe('modelEntityToModel()', () => {
@@ -100,7 +98,6 @@ describe('Mappers: NutritionalQuestionnaire', () => {
                     try {
                         mapper.modelEntityToModel(new NutritionalQuestionnaireEntity())
                     } catch (err) {
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'Not implemented!')
                     }
                 })

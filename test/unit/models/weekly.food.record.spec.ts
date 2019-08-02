@@ -15,16 +15,16 @@ describe('Models: WeeklyFoodRecord', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new WeeklyFoodRecord().fromJSON(undefined)
-                assert.isUndefined(result.food, 'no food defined')
-                assert.isUndefined(result.seven_days_freq, 'no seven_days_freq defined')
+                assert.isUndefined(result.food)
+                assert.isUndefined(result.seven_days_freq)
             })
         })
 
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new WeeklyFoodRecord().fromJSON({})
-                assert.isUndefined(result.food, 'no food defined')
-                assert.isUndefined(result.seven_days_freq, 'no seven_days_freq defined')
+                assert.isUndefined(result.food)
+                assert.isUndefined(result.seven_days_freq)
             })
         })
 
@@ -37,8 +37,8 @@ describe('Models: WeeklyFoodRecord', () => {
 
             it('should return the class without parameters for empty string', () => {
                 const result = new WeeklyFoodRecord().fromJSON('')
-                assert.isUndefined(result.food, 'no food defined')
-                assert.isUndefined(result.seven_days_freq, 'no seven_days_freq defined')
+                assert.isUndefined(result.food)
+                assert.isUndefined(result.seven_days_freq)
             })
         })
 
@@ -48,7 +48,7 @@ describe('Models: WeeklyFoodRecord', () => {
                     food: DefaultEntityMock.WEEKLY_FOOD_RECORD.food
                 })
                 assert.propertyVal(result, 'food', DefaultEntityMock.WEEKLY_FOOD_RECORD.food)
-                assert.isUndefined(result.seven_days_freq, 'no seven_days_freq defined')
+                assert.isUndefined(result.seven_days_freq)
             })
 
             it('should return the object with set seven_days_freq', () => {

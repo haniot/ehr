@@ -50,13 +50,13 @@ export class NutritionalQuestionnaireEntityMapper implements IEntityMapper<Nutri
         if (item.created_at !== undefined)
             result.created_at = item.created_at
         if (item.sleep_habit !== undefined)
-            result.sleep_habit = item.sleep_habit
+            result.sleep_habit = item.sleep_habit.toJSON()
         if (item.physical_activity_habits !== undefined)
-            result.physical_activity_habits = item.physical_activity_habits
+            result.physical_activity_habits = item.physical_activity_habits.toJSON()
         if (item.feeding_habits_record !== undefined)
-            result.feeding_habits_record = item.feeding_habits_record
+            result.feeding_habits_record = item.feeding_habits_record.toJSON()
         if (item.medical_record !== undefined)
-            result.medical_record = item.medical_record
+            result.medical_record = item.medical_record.toJSON()
         return result
     }
 

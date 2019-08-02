@@ -15,7 +15,8 @@ describe('Repositories: NutritionalQuestionnaire', () => {
     const repo = new NutritionalQuestionnaireRepository(modelFake, new EntityMapperMock(), new CustomLoggerMock())
     const activity: NutritionalQuestionnaire =
         new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
-
+    const data: NutritionalQuestionnaire =
+        new NutritionalQuestionnaire().fromJSON(DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE)
     afterEach(() => {
         sinon.restore()
     })
@@ -32,16 +33,12 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.create(activity)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result, 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result, 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result, 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })
@@ -57,7 +54,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.create(activity)
                     .then(result => {
-                        assert.isUndefined(result, 'no result defined')
+                        assert.isUndefined(result)
                     })
             })
         })
@@ -157,16 +154,12 @@ describe('Repositories: NutritionalQuestionnaire', () => {
                     .then(result => {
                         assert.isArray(result)
                         assert.lengthOf(result, 1)
-                        assert.propertyVal(result[0], 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result[0], 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result[0], 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result[0], 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result[0], 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
-                        assert.propertyVal(result[0], 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result[0], 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result[0], 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result[0], 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result[0], 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result[0], 'medical_record', data.medical_record)
+                        assert.propertyVal(result[0], 'type', data.type)
                     })
             })
         })
@@ -277,9 +270,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.find(new Query())
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -302,16 +293,12 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.findOne(query)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result, 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result, 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result, 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })
@@ -330,7 +317,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.findOne(query)
                     .then(result => {
-                        assert.isUndefined(result, 'no result defined')
+                        assert.isUndefined(result)
                     })
             })
         })
@@ -348,9 +335,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.findOne(query)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -429,16 +414,12 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.update(activity)
                     .then(result => {
-                        assert.propertyVal(result, 'patient_id', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id)
-                        assert.propertyVal(result, 'sleep_habit',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.sleep_habit)
-                        assert.propertyVal(result, 'feeding_habits_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.feeding_habits_record)
-                        assert.propertyVal(result, 'physical_activity_habits',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.physical_activity_habits)
-                        assert.propertyVal(result, 'medical_record',
-                            DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.medical_record)
-                        assert.propertyVal(result, 'type', DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.type)
+                        assert.propertyVal(result, 'patient_id', data.patient_id)
+                        assert.deepPropertyVal(result, 'sleep_habit', data.sleep_habit)
+                        assert.deepPropertyVal(result, 'feeding_habits_record', data.feeding_habits_record)
+                        assert.deepPropertyVal(result, 'physical_activity_habits', data.physical_activity_habits)
+                        assert.deepPropertyVal(result, 'medical_record', data.medical_record)
+                        assert.propertyVal(result, 'type', data.type)
                     })
             })
         })
@@ -453,7 +434,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.update(activity)
                     .then(result => {
-                        assert.isUndefined(result, 'no result defined')
+                        assert.isUndefined(result)
                     })
             })
         })
@@ -469,9 +450,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.update(activity)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -584,9 +563,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.delete(activity.id!)
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })
@@ -681,9 +658,7 @@ describe('Repositories: NutritionalQuestionnaire', () => {
 
                 return repo.count(new Query())
                     .catch(err => {
-                        assert.property(err, 'name')
                         assert.propertyVal(err, 'name', 'Error')
-                        assert.property(err, 'message')
                         assert.propertyVal(err, 'message', 'An internal error has occurred in the database!')
                     })
             })

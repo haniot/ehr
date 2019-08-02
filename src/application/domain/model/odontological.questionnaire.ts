@@ -51,11 +51,11 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
         }
         super.fromJSON(json)
         if (json.sociodemographic_record !== undefined)
-            this.sociodemographic_record = json.sociodemographic_record
+            this.sociodemographic_record = new SociodemographicRecord().fromJSON(json.sociodemographic_record)
         if (json.family_cohesion_record !== undefined)
-            this.family_cohesion_record = json.family_cohesion_record
+            this.family_cohesion_record = new FamilyCohesionRecord().fromJSON(json.family_cohesion_record)
         if (json.oral_health_record !== undefined)
-            this.oral_health_record = json.oral_health_record
+            this.oral_health_record = new OralHealthRecord().fromJSON(json.oral_health_record)
 
         return this
     }

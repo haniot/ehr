@@ -7,7 +7,7 @@ describe('Models: QuestionnaireRecord', () => {
         context('when the json contain all parameters', () => {
             it('should return the class with parameters set', () => {
                 const result = new QuestionnaireRecord().fromJSON(DefaultEntityMock.ACTIVITY_HABITS_RECORD)
-                assert.isUndefined(result.id, 'no id defined')
+                assert.isUndefined(result.id)
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
             })
         })
@@ -15,35 +15,36 @@ describe('Models: QuestionnaireRecord', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new QuestionnaireRecord().fromJSON(undefined)
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.type, 'no type defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.type)
             })
         })
 
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new QuestionnaireRecord().fromJSON({})
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.type, 'no type defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.type)
             })
         })
 
         context('when pass json as string', () => {
             it('should return the object with json parameters set', () => {
                 const result = new QuestionnaireRecord().fromJSON(JSON.stringify(DefaultEntityMock.ACTIVITY_HABITS_RECORD))
-                assert.equal(result.patient_id, DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
+                assert.isUndefined(result.id)
+                assert.propertyVal(result, 'patient_id', DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
             })
 
             it('should return the class without parameters for empty string', () => {
                 const result = new QuestionnaireRecord().fromJSON('')
-                assert.isUndefined(result.id, 'no id defined')
-                assert.isUndefined(result.patient_id, 'no patient_id defined')
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.type, 'no type defined')
+                assert.isUndefined(result.id)
+                assert.isUndefined(result.patient_id)
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.type)
             })
         })
 
@@ -53,8 +54,8 @@ describe('Models: QuestionnaireRecord', () => {
                     patient_id: DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id
                 })
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.type, 'no type defined')
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.type)
             })
 
             it('should return the object with set created_at', () => {
@@ -63,7 +64,7 @@ describe('Models: QuestionnaireRecord', () => {
                     created_at: DefaultEntityMock.ACTIVITY_HABITS_RECORD.created_at
                 })
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
-                assert.isUndefined(result.type, 'no type defined')
+                assert.isUndefined(result.type)
             })
         })
     })
@@ -74,7 +75,7 @@ describe('Models: QuestionnaireRecord', () => {
                 const activity = new QuestionnaireRecord().fromJSON(DefaultEntityMock.ACTIVITY_HABITS_RECORD)
                 const result = activity.toJSON()
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
-                assert.isUndefined(result.type, 'no type defined')
+                assert.isUndefined(result.type)
             })
         })
 
@@ -85,8 +86,8 @@ describe('Models: QuestionnaireRecord', () => {
                 })
                 const result = activity.toJSON()
                 assert.propertyVal(result, 'patient_id', DefaultEntityMock.ACTIVITY_HABITS_RECORD.patient_id)
-                assert.isUndefined(result.created_at, 'no created_at defined')
-                assert.isUndefined(result.type, 'no type defined')
+                assert.isUndefined(result.created_at)
+                assert.isUndefined(result.type)
             })
         })
     })

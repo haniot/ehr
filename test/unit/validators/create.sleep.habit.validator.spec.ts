@@ -8,7 +8,7 @@ describe('Validators: CreateSleepHabitValidator', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateSleepHabitValidator.validate(activity)
-        assert.isUndefined(result, 'no result defined')
+        assert.isUndefined(result)
     })
 
     context('when there are validation errors', () => {

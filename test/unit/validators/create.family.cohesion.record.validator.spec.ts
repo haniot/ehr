@@ -9,7 +9,7 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateFamilyCohesionRecordValidator.validate(activity)
-        assert.isUndefined(result, 'no result defined')
+        assert.isUndefined(result)
     })
     context('when there are validation errors', () => {
 
@@ -180,8 +180,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_only_task_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')

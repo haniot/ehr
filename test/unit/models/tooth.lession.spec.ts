@@ -15,16 +15,16 @@ describe('Models: ToothLession', () => {
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new ToothLesion().fromJSON(undefined)
-                assert.isUndefined(result.tooth_type, 'no tooth_type defined')
-                assert.isUndefined(result.lesion_type, 'no lesion_type defined')
+                assert.isUndefined(result.tooth_type)
+                assert.isUndefined(result.lesion_type)
             })
         })
 
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new ToothLesion().fromJSON({})
-                assert.isUndefined(result.tooth_type, 'no tooth_type defined')
-                assert.isUndefined(result.lesion_type, 'no lesion_type defined')
+                assert.isUndefined(result.tooth_type)
+                assert.isUndefined(result.lesion_type)
             })
         })
 
@@ -38,8 +38,8 @@ describe('Models: ToothLession', () => {
 
             it('should return the class without parameters for empty string', () => {
                 const result = new ToothLesion().fromJSON('')
-                assert.isUndefined(result.tooth_type, 'no tooth_type defined')
-                assert.isUndefined(result.lesion_type, 'no lesion_type defined')
+                assert.isUndefined(result.tooth_type)
+                assert.isUndefined(result.lesion_type)
             })
         })
         context('when pass the parameters', () => {
@@ -49,7 +49,7 @@ describe('Models: ToothLession', () => {
                 })
 
                 assert.propertyVal(result, 'tooth_type', DefaultEntityMock.TOOTH_LESSION.tooth_type)
-                assert.isUndefined(result.lesion_type, 'no lesion_type defined')
+                assert.isUndefined(result.lesion_type)
             })
         })
     })
@@ -70,7 +70,7 @@ describe('Models: ToothLession', () => {
                     lesion_type: DefaultEntityMock.TOOTH_LESSION.lesion_type
                 })
                 const result = activity.toJSON()
-                assert.isUndefined(result.tooth_type, 'no tooth_type defined')
+                assert.isUndefined(result.tooth_type)
                 assert.propertyVal(result, 'lesion_type', DefaultEntityMock.TOOTH_LESSION.lesion_type)
             })
         })

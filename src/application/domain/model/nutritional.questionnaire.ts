@@ -61,24 +61,24 @@ export class NutritionalQuestionnaire extends QuestionnaireRecord
         }
 
         super.fromJSON(json)
-        if (json.sleep_habit !== undefined)
-            this.sleep_habit = new SleepHabit().fromJSON(json.sleep_habit)
-        if (json.physical_activity_habits !== undefined)
+        if (json.sleep_habit !== undefined) this.sleep_habit = new SleepHabit().fromJSON(json.sleep_habit)
+        if (json.physical_activity_habits !== undefined) {
             this.physical_activity_habits = new PhysicalActivityHabits().fromJSON(json.physical_activity_habits)
-        if (json.feeding_habits_record !== undefined)
+        }
+        if (json.feeding_habits_record !== undefined) {
             this.feeding_habits_record = new FeedingHabitsRecord().fromJSON(json.feeding_habits_record)
-        if (json.medical_record !== undefined)
-            this.medical_record = new MedicalRecord().fromJSON(json.medical_record)
+        }
+        if (json.medical_record !== undefined) this.medical_record = new MedicalRecord().fromJSON(json.medical_record)
         return this
     }
 
     public toJSON(): any {
         return {
             ...super.toJSON(),
-            sleep_habit: this.sleep_habit,
-            physical_activity_habits: this.physical_activity_habits,
-            feeding_habits_record: this.feeding_habits_record,
-            medical_record: this.medical_record
+            sleep_habit: this.sleep_habit ? this.sleep_habit.toJSON() : undefined,
+            physical_activity_habits: this.physical_activity_habits ? this.physical_activity_habits.toJSON() : undefined,
+            feeding_habits_record: this.feeding_habits_record ? this.feeding_habits_record.toJSON() : undefined,
+            medical_record: this.medical_record ? this.medical_record.toJSON() : undefined
         }
     }
 }

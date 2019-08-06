@@ -9,7 +9,6 @@ import { ILogger } from '../../utils/custom.logger'
 
 export class NutritionalQuestionnaireRepository extends BaseRepository<NutritionalQuestionnaire, NutritionalQuestionnaireEntity>
     implements INutritionalQuestionnaireRepository {
-
     constructor(
         @inject(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.NUTRITIONAL_QUESTIONNAIRE_ENTITY_MAPPER)

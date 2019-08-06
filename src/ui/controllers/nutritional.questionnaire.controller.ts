@@ -34,10 +34,11 @@ export class NutritionalQuestionnaireController {
     public async getAllNutritionalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const result: Array<NutritionalQuestionnaire> = await this._service.getAll(
-                new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
-            const count: number = await this._service.count(
-                new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
+            const query: Query = new Query().fromJSON(req.query)
+            query.addFilter({ patient_id: req.params.patient_id })
+            const result: Array<NutritionalQuestionnaire> = await this._service.getAll(query)
+            const count: number =
+                await this._service.count(new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
             res.setHeader('X-Total-Count', count)
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
@@ -53,7 +54,6 @@ export class NutritionalQuestionnaireController {
             const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(
                 new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
             const result: any = this.toJSONView(nutritionalQuestionnaire[0])
-
             return res.status(HttpStatus.OK).send(result)
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)

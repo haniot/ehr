@@ -44,18 +44,20 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
     }
 
     public fromJSON(json: any): OdontologicalQuestionnaire {
-        if (!json)
-            return this
+        if (!json) return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)
         }
         super.fromJSON(json)
-        if (json.sociodemographic_record !== undefined)
+        if (json.sociodemographic_record !== undefined) {
             this.sociodemographic_record = new SociodemographicRecord().fromJSON(json.sociodemographic_record)
-        if (json.family_cohesion_record !== undefined)
+        }
+        if (json.family_cohesion_record !== undefined) {
             this.family_cohesion_record = new FamilyCohesionRecord().fromJSON(json.family_cohesion_record)
-        if (json.oral_health_record !== undefined)
+        }
+        if (json.oral_health_record !== undefined) {
             this.oral_health_record = new OralHealthRecord().fromJSON(json.oral_health_record)
+        }
 
         return this
     }
@@ -65,9 +67,9 @@ export class OdontologicalQuestionnaire extends QuestionnaireRecord implements I
         return {
             ...super.toJSON(),
             ...{
-                sociodemographic_record: this.sociodemographic_record,
-                family_cohesion_record: this.family_cohesion_record,
-                oral_health_record: this.oral_health_record
+                sociodemographic_record: this.sociodemographic_record ? this.sociodemographic_record.toJSON() : undefined,
+                family_cohesion_record: this.family_cohesion_record ? this.family_cohesion_record.toJSON() : undefined,
+                oral_health_record: this.oral_health_record ? this.oral_health_record.toJSON() : undefined
             }
         }
     }

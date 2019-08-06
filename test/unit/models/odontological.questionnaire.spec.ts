@@ -98,9 +98,9 @@ describe('Models: OdontologicalQuestionnaire', () => {
                 const result = ondotologicalQuestionnaire.toJSON()
 
                 assert.propertyVal(result, 'patient_id', data.patient_id)
-                assert.deepPropertyVal(result, 'sociodemographic_record', data.sociodemographic_record)
-                assert.deepPropertyVal(result, 'oral_health_record', data.oral_health_record)
-                assert.deepPropertyVal(result, 'family_cohesion_record', data.family_cohesion_record)
+                assert.deepPropertyVal(result, 'sociodemographic_record', data.sociodemographic_record!.toJSON())
+                assert.deepPropertyVal(result, 'oral_health_record', data.oral_health_record!.toJSON())
+                assert.deepPropertyVal(result, 'family_cohesion_record', data.family_cohesion_record!.toJSON())
                 assert.propertyVal(result, 'type', data.type)
             })
         })

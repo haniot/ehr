@@ -11,7 +11,6 @@ import { ILogger } from '../../utils/custom.logger'
 export class OdontologicalQuestionnaireRepository
     extends BaseRepository<OdontologicalQuestionnaire, OdontologicalQuestionnaireEntity>
     implements IOdontologicalQuestionnaireRepository {
-
     constructor(
         @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPO_MODEL) readonly _repoModel: any,
         @inject(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_ENTITY_MAPPER)

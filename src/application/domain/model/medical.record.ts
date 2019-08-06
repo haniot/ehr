@@ -1,4 +1,3 @@
-
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { ChronicDisease } from './chronic.disease'
@@ -9,6 +8,7 @@ export class MedicalRecord implements IJSONSerializable, IJSONDeserializable<Med
 
     private _chronic_diseases?: Array<ChronicDisease>
     private _type?: string
+
     constructor() {
         this.type = QuestionnaireTypes.MEDICAL_RECORD
     }
@@ -20,7 +20,8 @@ export class MedicalRecord implements IJSONSerializable, IJSONDeserializable<Med
     set chronic_diseases(value: Array<ChronicDisease> | undefined) {
         this._chronic_diseases = value
     }
-    get type(): string | undefined{
+
+    get type(): string | undefined {
         return this._type
     }
 
@@ -33,9 +34,9 @@ export class MedicalRecord implements IJSONSerializable, IJSONDeserializable<Med
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)
         }
-        if (json.chronic_diseases !== undefined && json.chronic_diseases instanceof Array)
-            this.chronic_diseases =
-                json.chronic_diseases.map(item => new ChronicDisease().fromJSON(item))
+        if (json.chronic_diseases !== undefined && json.chronic_diseases instanceof Array) {
+            this.chronic_diseases = json.chronic_diseases.map(item => new ChronicDisease().fromJSON(item))
+        }
         if (json.type !== undefined) this.type = json.type
         return this
     }

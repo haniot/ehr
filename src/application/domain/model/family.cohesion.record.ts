@@ -1,10 +1,9 @@
-import { QuestionnaireRecord } from './questionnaire.record'
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { QuestionnaireTypes } from '../utils/questionnaire.types'
 import { JsonUtils } from '../utils/json.utils'
 
-export class FamilyCohesionRecord extends QuestionnaireRecord
+export class FamilyCohesionRecord
     implements IJSONSerializable, IJSONDeserializable<FamilyCohesionRecord> {
     private _family_mutual_aid_freq?: string
     private _friendship_approval_freq?: string
@@ -17,10 +16,11 @@ export class FamilyCohesionRecord extends QuestionnaireRecord
     private _family_decision_support_freq?: string
     private _family_union_relevance_freq?: string
     private _family_cohesion_result?: number
+    private _type?: string
 
     constructor() {
-        super()
-        super.type = QuestionnaireTypes.FAMILY_COHESION_RECORD
+
+       this.type = QuestionnaireTypes.FAMILY_COHESION_RECORD
     }
 
     get family_mutual_aid_freq(): string | undefined {
@@ -111,13 +111,19 @@ export class FamilyCohesionRecord extends QuestionnaireRecord
         this._family_cohesion_result = value
     }
 
+    get type(): string | undefined{
+        return this._type
+    }
+
+    set type(value: string | undefined) {
+        this._type = value
+    }
+
     public fromJSON(json: any): FamilyCohesionRecord {
         if (!json) return this
         if (typeof json === 'string' && JsonUtils.isJsonString(json)) {
             json = JSON.parse(json)
         }
-
-        super.fromJSON(json)
         if (json.family_mutual_aid_freq !== undefined) this.family_mutual_aid_freq = json.family_mutual_aid_freq
         if (json.friendship_approval_freq !== undefined) this.friendship_approval_freq = json.friendship_approval_freq
         if (json.family_only_task_freq !== undefined) this.family_only_task_freq = json.family_only_task_freq
@@ -131,25 +137,25 @@ export class FamilyCohesionRecord extends QuestionnaireRecord
         if (json.family_decision_support_freq !== undefined) this.family_decision_support_freq = json.family_decision_support_freq
         if (json.family_union_relevance_freq !== undefined) this.family_union_relevance_freq = json.family_union_relevance_freq
         if (json.family_cohesion_result !== undefined) this.family_cohesion_result = json.family_cohesion_result
+        if (json.type !== undefined) this.type = json.type
         return this
     }
 
     public toJSON(): any {
-        return {
-            ...super.toJSON(),
-            ...{
-                family_mutual_aid_freq: this.family_mutual_aid_freq,
-                friendship_approval_freq: this.friendship_approval_freq,
-                family_only_task_freq: this.family_only_task_freq,
-                family_only_preference_freq: this.family_only_preference_freq,
-                free_time_together_freq: this.free_time_together_freq,
-                family_proximity_perception_freq: this.family_proximity_perception_freq,
-                all_family_tasks_freq: this.all_family_tasks_freq,
-                family_tasks_opportunity_freq: this.family_tasks_opportunity_freq,
-                family_decision_support_freq: this.family_decision_support_freq,
-                family_union_relevance_freq: this.family_union_relevance_freq,
-                family_cohesion_result: this.family_cohesion_result
-            }
+        return{
+            family_mutual_aid_freq: this.family_mutual_aid_freq,
+            friendship_approval_freq: this.friendship_approval_freq,
+            family_only_task_freq: this.family_only_task_freq,
+            family_only_preference_freq: this.family_only_preference_freq,
+            free_time_together_freq: this.free_time_together_freq,
+            family_proximity_perception_freq: this.family_proximity_perception_freq,
+            all_family_tasks_freq: this.all_family_tasks_freq,
+            family_tasks_opportunity_freq: this.family_tasks_opportunity_freq,
+            family_decision_support_freq: this.family_decision_support_freq,
+            family_union_relevance_freq: this.family_union_relevance_freq,
+            family_cohesion_result: this.family_cohesion_result,
+            type: this.type
         }
+
     }
 }

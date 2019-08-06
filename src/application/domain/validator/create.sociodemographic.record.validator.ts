@@ -1,5 +1,4 @@
 import { ValidationException } from '../exception/validation.exception'
-import { CreateQuestionnaireRecordValidator } from './create.questionnaire.record.validator'
 import { SociodemographicRecord } from '../model/sociodemographic.record'
 import { ColorRaceTypesValidator } from './color.race.types.validator'
 import { ScholarityLevelTypesValidator } from './scholarity.level.types.validator'
@@ -8,7 +7,6 @@ export class CreateSociodemographicRecordValidator {
     public static validate(item: SociodemographicRecord): void | ValidationException {
         let fields: Array<string> = []
 
-        CreateQuestionnaireRecordValidator.validate(item)
         if (!item.color_race) fields.push('color_race')
         else ColorRaceTypesValidator.validate(item.color_race)
         if (!item.mother_scholarity) fields.push('mother_scholarity')

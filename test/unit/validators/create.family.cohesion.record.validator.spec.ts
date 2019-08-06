@@ -1,8 +1,7 @@
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {assert} from 'chai'
-import {FamilyCohesionRecord} from '../../../src/application/domain/model/family.cohesion.record'
-import {CreateFamilyCohesionRecordValidator} from '../../../src/application/domain/validator/create.family.cohesion.record.validator'
-import {Strings} from '../../../src/utils/strings'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { assert } from 'chai'
+import { FamilyCohesionRecord } from '../../../src/application/domain/model/family.cohesion.record'
+import { CreateFamilyCohesionRecordValidator } from '../../../src/application/domain/validator/create.family.cohesion.record.validator'
 
 describe('Validators: CreateFamilyCohesionRecord', () => {
 
@@ -10,41 +9,15 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
 
     it('should return undefined when the validation is successful', () => {
         const result = CreateFamilyCohesionRecordValidator.validate(activity)
-        assert.equal(result, undefined)
+        assert.isUndefined(result)
     })
     context('when there are validation errors', () => {
-        it('should throw an error for does not pass patient_id', () => {
-            activity.patient_id = undefined
-            try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
-            } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
-                assert.propertyVal(err, 'message', 'Required fields were not provided...')
-                assert.propertyVal(err, 'description', 'Activity Habits Record validation: patient_id is required!')
-            }
-        })
-        it('should throw an error for does pass invalid patient_id', () => {
-            activity.patient_id = '123'
-            try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
-            } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
-                assert.propertyVal(err, 'message', Strings.ERROR_MESSAGE.UUID_NOT_VALID_FORMAT)
-                assert.propertyVal(err, 'description', Strings.ERROR_MESSAGE.UUID_NOT_VALID_FORMAT_DESC)
-            } finally {
-                activity.patient_id = DefaultEntityMock.FAMILY_COHESION_RECORD.patient_id
-            }
-        })
 
         it('should throw an error for does not pass family_mutual_aid_freq', () => {
             activity.family_mutual_aid_freq = undefined
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_mutual_aid_freq is required!')
@@ -59,12 +32,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: friendship_approval_freq is required!')
-            }finally {
+            } finally {
                 activity.friendship_approval_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.friendship_approval_freq
             }
         })
@@ -73,12 +44,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_only_task_freq is required!')
-            }finally {
+            } finally {
                 activity.family_only_task_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq
             }
         })
@@ -87,12 +56,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_only_preference_freq is required!')
-            }finally {
+            } finally {
                 activity.family_only_preference_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_preference_freq
             }
         })
@@ -101,12 +68,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: free_time_together_freq is required!')
-            }finally {
+            } finally {
                 activity.free_time_together_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.free_time_together_freq
             }
         })
@@ -115,12 +80,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_proximity_perception_freq is required!')
-            }finally {
+            } finally {
                 activity.family_proximity_perception_freq =
                     DefaultEntityMock.FAMILY_COHESION_RECORD.family_proximity_perception_freq
             }
@@ -130,12 +93,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: all_family_tasks_freq is required!')
-            }finally {
+            } finally {
                 activity.all_family_tasks_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.all_family_tasks_freq
             }
         })
@@ -144,12 +105,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_tasks_opportunity_freq is required!')
-            }finally {
+            } finally {
                 activity.family_tasks_opportunity_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_tasks_opportunity_freq
             }
         })
@@ -158,12 +117,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_decision_support_freq is required!')
-            }finally {
+            } finally {
                 activity.family_decision_support_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_decision_support_freq
             }
         })
@@ -172,12 +129,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_union_relevance_freq is required!')
-            }finally {
+            } finally {
                 activity.family_union_relevance_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_union_relevance_freq
             }
         })
@@ -186,12 +141,10 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Required fields were not provided...')
                 assert.propertyVal(err, 'description',
                     'Family Cohesion Record validation: family_cohesion_result is required!')
-            }finally {
+            } finally {
                 activity.family_cohesion_result = DefaultEntityMock.FAMILY_COHESION_RECORD.family_cohesion_result
             }
         })
@@ -201,8 +154,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_mutual_aid_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -216,8 +167,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for friendship_approval_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -231,8 +180,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_only_task_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -246,8 +193,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_only_preference_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -261,8 +206,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for free_time_together_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -276,8 +219,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_proximity_perception_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -292,8 +233,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for all_family_tasks_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -308,8 +247,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_tasks_opportunity_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -324,8 +261,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_decision_support_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
@@ -340,8 +275,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             try {
                 CreateFamilyCohesionRecordValidator.validate(activity)
             } catch (err) {
-                assert.property(err, 'message')
-                assert.property(err, 'description')
                 assert.propertyVal(err, 'message', 'Value not mapped for family_union_relevance_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')

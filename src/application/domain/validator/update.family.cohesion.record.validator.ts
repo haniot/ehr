@@ -1,12 +1,10 @@
 import { FamilyCohesionRecord } from '../model/family.cohesion.record'
 import { ValidationException } from '../exception/validation.exception'
 import { FamilyCohesionFrequencyTypesValidator } from './family.cohesion.frequency.types.validator'
-import { UpdateQuestionnaireRecordValidator } from './update.questionnaire.record.validator'
 
 export class UpdateFamilyCohesionRecordValidator {
     public static validate(item: FamilyCohesionRecord): void | ValidationException {
 
-        UpdateQuestionnaireRecordValidator.validate(item)
         if (item.family_mutual_aid_freq)
             FamilyCohesionFrequencyTypesValidator.validate(item.family_mutual_aid_freq, 'family_mutual_aid_freq')
         if (item.friendship_approval_freq)

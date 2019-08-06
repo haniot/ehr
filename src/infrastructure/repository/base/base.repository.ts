@@ -32,7 +32,9 @@ export abstract class BaseRepository<T extends Entity, TModel> implements IRepos
                     if (!result) return resolve(undefined)
                     return resolve(this.mapper.transform(result))
                 })
-                .catch(err => reject(this.mongoDBErrorListener(err)))
+                .catch(err => {
+                    reject(this.mongoDBErrorListener(err))
+                })
         })
     }
 
@@ -40,12 +42,12 @@ export abstract class BaseRepository<T extends Entity, TModel> implements IRepos
         const q: any = query.toJSON()
         return new Promise<Array<T>>((resolve, reject) => {
             this.Model.find(q.filters)
-                .select(q.fields)
                 .sort(q.ordination)
                 .skip(Number((q.pagination.limit * q.pagination.page) - q.pagination.limit))
                 .limit(Number(q.pagination.limit))
                 .exec() // execute query
-                .then((result: Array<TModel>) => resolve(result.map(item => this.mapper.transform(item))))
+                .then((result: Array<TModel>) =>
+                    resolve(result.map(item => this.mapper.transform(item))))
                 .catch(err => reject(this.mongoDBErrorListener(err)))
         })
     }
@@ -54,7 +56,6 @@ export abstract class BaseRepository<T extends Entity, TModel> implements IRepos
         const q: any = query.toJSON()
         return new Promise<T>((resolve, reject) => {
             this.Model.findOne(q.filters)
-                .select(q.fields)
                 .exec()
                 .then((result: TModel) => {
                     if (!result) return resolve(undefined)

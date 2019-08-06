@@ -7,16 +7,16 @@ describe('Models: ChronicDisease', () => {
         context('when the json contain all parameters', () => {
             it('should return the class with parameters set', () => {
                 const result = new ChronicDisease().fromJSON(DefaultEntityMock.CHRONIC_DISEASE)
-                assert.equal(result.type, DefaultEntityMock.CHRONIC_DISEASE.type)
-                assert.equal(result.disease_history, DefaultEntityMock.CHRONIC_DISEASE.disease_history)
+                assert.propertyVal(result, 'type', DefaultEntityMock.CHRONIC_DISEASE.type)
+                assert.propertyVal(result, 'disease_history', DefaultEntityMock.CHRONIC_DISEASE.disease_history)
             })
         })
 
         context('when the json is undefined', () => {
             it('should return the class without parameters', () => {
                 const result = new ChronicDisease().fromJSON(undefined)
-                assert.equal(result.type, undefined)
-                assert.equal(result.disease_history, undefined)
+                assert.isUndefined(result.type)
+                assert.isUndefined(result.disease_history)
 
             })
         })
@@ -24,22 +24,22 @@ describe('Models: ChronicDisease', () => {
         context('when the json is empty', () => {
             it('should return the class without parameters', () => {
                 const result = new ChronicDisease().fromJSON({})
-                assert.equal(result.type, undefined)
-                assert.equal(result.disease_history, undefined)
+                assert.isUndefined(result.type)
+                assert.isUndefined(result.disease_history)
             })
         })
 
         context('when pass json as string', () => {
             it('should return the object with json parameters set', () => {
                 const result = new ChronicDisease().fromJSON(JSON.stringify(DefaultEntityMock.CHRONIC_DISEASE))
-                assert.equal(result.type, DefaultEntityMock.CHRONIC_DISEASE.type)
-                assert.equal(result.disease_history, DefaultEntityMock.CHRONIC_DISEASE.disease_history)
+                assert.propertyVal(result, 'type', DefaultEntityMock.CHRONIC_DISEASE.type)
+                assert.propertyVal(result, 'disease_history', DefaultEntityMock.CHRONIC_DISEASE.disease_history)
             })
 
             it('should return the class without parameters for empty string', () => {
                 const result = new ChronicDisease().fromJSON('')
-                assert.equal(result.type, undefined)
-                assert.equal(result.disease_history, undefined)
+                assert.isUndefined(result.type)
+                assert.isUndefined(result.disease_history)
             })
         })
 
@@ -48,14 +48,14 @@ describe('Models: ChronicDisease', () => {
                 const result = new ChronicDisease().fromJSON({
                     type: DefaultEntityMock.CHRONIC_DISEASE.type
                 })
-                assert.equal(result.type, DefaultEntityMock.CHRONIC_DISEASE.type)
-                assert.equal(result.disease_history, undefined)
+                assert.propertyVal(result, 'type', DefaultEntityMock.CHRONIC_DISEASE.type)
+                assert.isUndefined(result.disease_history)
             })
 
             it('should return the object with set disease_history', () => {
                 const result = new ChronicDisease().fromJSON(DefaultEntityMock.CHRONIC_DISEASE)
-                assert.equal(result.type, DefaultEntityMock.CHRONIC_DISEASE.type)
-                assert.equal(result.disease_history, DefaultEntityMock.CHRONIC_DISEASE.disease_history)
+                assert.propertyVal(result, 'type', DefaultEntityMock.CHRONIC_DISEASE.type)
+                assert.propertyVal(result, 'disease_history', DefaultEntityMock.CHRONIC_DISEASE.disease_history)
             })
         })
     })

@@ -1,5 +1,4 @@
 import { ValidationException } from '../exception/validation.exception'
-import { CreateQuestionnaireRecordValidator } from './create.questionnaire.record.validator'
 import { FamilyCohesionRecord } from '../model/family.cohesion.record'
 import { FamilyCohesionFrequencyTypesValidator } from './family.cohesion.frequency.types.validator'
 
@@ -7,7 +6,6 @@ export class CreateFamilyCohesionRecordValidator {
     public static validate(item: FamilyCohesionRecord): void | ValidationException {
         let fields: Array<string> = []
 
-        CreateQuestionnaireRecordValidator.validate(item)
         if (!item.family_mutual_aid_freq) fields.push('family_mutual_aid_freq')
         else FamilyCohesionFrequencyTypesValidator.validate(item.family_mutual_aid_freq, 'family_mutual_aid_freq')
         if (!item.friendship_approval_freq) fields.push('friendship_approval_freq')

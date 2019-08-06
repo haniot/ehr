@@ -18,9 +18,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly FEEDING_HABITS_RECORD: any = {
-        id: '5ca23b9a4c0ed58781c8ee3f',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
         weekly_feeding_habits: [{
             food: FoodTypes.BURGER_SAUSAGE,
@@ -34,9 +31,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly MEDICAL_RECORD: any = {
-        id: '5ca23b9ac442321a589285b0',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.MEDICAL_RECORD,
         chronic_diseases: [{
             type: ChronicDiseaseTypes.BLOOD_FAT,
@@ -45,18 +39,12 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
-        id: '5ca23b9adcd6cc4649189c4a',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS,
         school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
         weekly_activities: ['run', 'swin']
     }
 
     public static readonly SLEEP_HABIT: any = {
-        id: '5ca23b9ac6c20c399e333f46',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.SLEEP_HABIT,
         week_day_sleep: 22,
         week_day_wake_up: 6
@@ -73,9 +61,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly SOCIODEMOGRAPHIC_RECORD: any = {
-        id: '5ca23b9adcd6cc4649189c4c',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
         color_race: 'white',
         mother_scholarity: ScholarityLevelTypes.UNLETTERED_ELEMENTARY_ONE_INCOMPLETE,
@@ -83,9 +68,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly FAMILY_COHESION_RECORD: any = {
-        id: '5ca23b9adcd6cc4649189c3b',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         type: QuestionnaireTypes.FAMILY_COHESION_RECORD,
         family_mutual_aid_freq: 'almost_never',
         friendship_approval_freq: 'almost_never',
@@ -101,9 +83,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly ORAL_HEALTH_RECORD: any = {
-        id: '5ca23b9adcd6cc4649189c3b',
-        patient_id: '5ca23b9af04e7c28223cb590',
-        created_at: '2018-01-03T00:01:04.000Z',
         teeth_brushing_freq: 'none',
         type: QuestionnaireTypes.ORAL_HEALTH_RECORD,
         teeth_lesions: [
@@ -116,5 +95,100 @@ export abstract class DefaultEntityMock {
                 lesion_type: 'cavitated_lesion'
             }
         ]
+    }
+    public static readonly TOOTH_LESSION: any = {
+        tooth_type: 'deciduous_tooth',
+        lesion_type: 'white_spot_lesion'
+    }
+
+    public static readonly ODONTOLOGICAL_QUESTIONNAIRE: any = {
+        id: '5d078f2c6fb1b4cde4578892',
+        patient_id: '5ca23b9af04e7c28223cb590',
+        created_at: '2018-11-19T14:40:00',
+        type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE,
+        sociodemographic_record: {
+            type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
+            color_race: 'white',
+            mother_scholarity: 'unlettered_elementary_one_incomplete',
+            people_in_home: 4
+        },
+        family_cohesion_record: {
+            type: QuestionnaireTypes.FAMILY_COHESION_RECORD,
+            family_mutual_aid_freq: 'almost_never',
+            friendship_approval_freq: 'almost_never',
+            family_only_task_freq: 'almost_never',
+            family_only_preference_freq: 'almost_never',
+            free_time_together_freq: 'almost_never',
+            family_proximity_perception_freq: 'almost_never',
+            all_family_tasks_freq: 'almost_never',
+            family_tasks_opportunity_freq: 'almost_never',
+            family_decision_support_freq: 'almost_never',
+            family_union_relevance_freq: 'almost_never',
+            family_cohesion_result: 45
+        },
+        oral_health_record: {
+            type: QuestionnaireTypes.ORAL_HEALTH_RECORD,
+            teeth_brushing_freq: 'none',
+            teeth_lesions: [
+                {
+                    tooth_type: 'deciduous_tooth',
+                    lesion_type: 'white_spot_lesion'
+                },
+                {
+                    tooth_type: 'deciduous_tooth',
+                    lesion_type: 'cavitated_lesion'
+                }
+            ]
+        }
+    }
+
+    public static readonly NUTRITIONAL_QUESTIONNAIRE: any = {
+        id: '5c9137f2f6d3dba533e4cb36',
+        patient_id: '5ca23b9af04e7c28223cb590',
+        created_at: '2018-11-19T14:40:00',
+        type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE,
+        sleep_habit: {
+            type: QuestionnaireTypes.SLEEP_HABIT,
+            week_day_sleep: 22,
+            week_day_wake_up: 6
+        },
+        physical_activity_habits: {
+            type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS,
+            school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
+            weekly_activities: ['run', 'swin']
+        },
+        feeding_habits_record: {
+            type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
+            weekly_feeding_habits: [{
+                food: FoodTypes.BURGER_SAUSAGE,
+                seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
+            }],
+            daily_water_glasses: OneDayFeedingAmountTypes.FIVE_MORE,
+            six_month_breast_feeding: BreastFeedingTypes.COMPLEMENTARY,
+            food_allergy_intolerance: [FoodAllergyIntoleranceTypes.EGG, FoodAllergyIntoleranceTypes.OTHER],
+            breakfast_daily_frequency: DailyFeedingFrequencyTypes.ALMOST_EVERYDAY
+        },
+        medical_record: {
+            type: QuestionnaireTypes.MEDICAL_RECORD,
+            chronic_diseases: [{
+                type: ChronicDiseaseTypes.BLOOD_FAT,
+                disease_history: DiseaseHistoryTypes.YES
+            }]
+        }
+    }
+    public static readonly QUESTIONNAIRES_TYPES: any = {
+        odontological:
+            [ { id: 'sociodemographic_recod',
+                display_name: 'Sociodemographic Record' },
+                { id: 'family_cohesion_record',
+                    display_name: 'Family Cohesion Record' },
+                { id: 'oral_health_record', display_name: 'Oral Health Record' } ],
+        nutritional:
+            [ { id: 'sleep_habit', display_name: 'Sleep Habit' },
+                { id: 'physical_activity_habits',
+                    display_name: 'Physical Activity Habits' },
+                { id: 'feeding_habits_record',
+                    display_name: 'Feeding Habits Record' },
+                { id: 'medical_record', display_name: 'Medical Record' } ]
     }
 }

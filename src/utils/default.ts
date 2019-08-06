@@ -14,9 +14,9 @@ export abstract class Default {
     public static readonly PORT_HTTP: number = 5000
     public static readonly PORT_HTTPS: number = 5001
     public static readonly SWAGGER_PATH: string = './src/ui/swagger/api.yaml'
-    public static readonly SWAGGER_URI: string = 'https://api.swaggerhub.com/apis/haniot/haniot-ehr-service' +
-        '/1.0.0/swagger.json'
-    public static readonly LOGO_URI: string = 'http://nutes.uepb.edu.br/wp-content/uploads/2014/01/icon.fw_.png'
+    public static readonly SWAGGER_URI: string = 'https://api.swaggerhub.com/apis/haniot/ehr-service/v1/swagger.json'
+    public static readonly LOGO_URI: string = 'https://i.imgur.com/O7PxGWQ.png'
+    public static readonly HOST_WHITELIST = ['*']
 
     // MongoDB
     public static readonly MONGODB_URI: string = 'mongodb://127.0.0.1:27017/ehr-service'

@@ -1,12 +1,10 @@
-import { Container } from 'inversify'
-import { DI } from '../../../src/di/di'
 import { App } from '../../../src/app'
 import { Identifier } from '../../../src/di/identifiers'
 import { expect } from 'chai'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { DIContainer } from '../../../src/di/di'
 
-const container: Container = DI.getInstance().getContainer()
-const app: App = container.get(Identifier.APP)
+const app: App = DIContainer.get(Identifier.APP)
 const request = require('supertest')(app.getExpress())
 
 describe('Routes: QuestionnairesTypes', () => {

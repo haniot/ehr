@@ -51,10 +51,10 @@ export class NutritionalQuestionnaireController {
     public async getLastNutritionalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(
+            const questionnaires: Array<NutritionalQuestionnaire> = await this._service.getAll(
                 new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
-            const result: any = this.toJSONView(nutritionalQuestionnaire[0])
-            return res.status(HttpStatus.OK).send(result)
+            return res.status(HttpStatus.OK).send(
+                questionnaires && questionnaires.length ? this.toJSONView(questionnaires[0]) : {})
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())

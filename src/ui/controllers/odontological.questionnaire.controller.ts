@@ -53,10 +53,10 @@ export class OdontologicalQuestionnaireController {
     @httpGet('/last')
     public async getLastPatientOdontologicalQuestionnaire(@request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const odontologicalQuestionnaires: Array<OdontologicalQuestionnaire> =
+            const questionnaires: Array<OdontologicalQuestionnaire> =
                 await this._service.getAll(new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
-            const result: any = this.toJSONView(odontologicalQuestionnaires[0])
-            return res.status(HttpStatus.OK).send(result)
+            return res.status(HttpStatus.OK).send(
+                questionnaires && questionnaires.length ? this.toJSONView(questionnaires[0]) : {})
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())

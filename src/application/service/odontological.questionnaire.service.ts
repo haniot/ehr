@@ -30,8 +30,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
     public async getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
         try {
             const patientId = query.toJSON().filters.patient_id
-            if (patientId)
-                ObjectIdValidator.validate(patientId)
+            if (patientId) ObjectIdValidator.validate(patientId)
         } catch (err) {
             return Promise.reject(err)
         }
@@ -43,8 +42,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         try {
             ObjectIdValidator.validate(id)
             const patientId = query.toJSON().filters.patient_id
-            if (patientId)
-                ObjectIdValidator.validate(patientId)
+            if (patientId) ObjectIdValidator.validate(patientId)
             query.addFilter({ _id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
         } catch (err) {
             return Promise.reject(err)
@@ -78,7 +76,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
     }
 
     public count(query: IQuery): Promise<number> {
-        query.addFilter( { type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
+        query.addFilter({ type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
         return this._repo.count(query)
     }
 }

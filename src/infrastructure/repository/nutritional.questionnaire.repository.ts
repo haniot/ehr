@@ -17,4 +17,12 @@ export class NutritionalQuestionnaireRepository extends BaseRepository<Nutrition
     ) {
         super(_repoModel, _entityMapper, _logger)
     }
+
+    public removeNutritionalQuestionnaireFromUser(id: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            this.Model.deleteMany({ patient_id: id })
+                .then((result) => resolve(!!result))
+                .catch(err => reject(this.mongoDBErrorListener(err)))
+        })
+    }
 }

@@ -31,7 +31,6 @@ import { NutritionalQuestionnaireRepoModel } from '../infrastructure/database/sc
 import { HomeController } from '../ui/controllers/home.controller'
 import { QuestionnairesTypesController } from '../ui/controllers/questionnaires.types.controller'
 import { ConnectionFactoryRabbitMQ } from '../infrastructure/eventbus/rabbitmq/connection.factory.rabbitmq'
-import { PublishEventBusTask } from '../background/task/publish.event.bus.task'
 import { IBackgroundTask } from '../application/port/background.task.interface'
 import { SubscribeEventBusTask } from '../background/task/subscribe.event.bus.task'
 import { EventBusRabbitMQ } from '../infrastructure/eventbus/rabbitmq/eventbus.rabbitmq'
@@ -41,6 +40,7 @@ import { IEventBus } from '../infrastructure/port/event.bus.interface'
 import { IIntegrationEventRepository } from '../application/port/integration.event.repository.interface'
 import { IntegrationEventRepoModel } from '../infrastructure/database/schema/integration.event.schema'
 import { IntegrationEventRepository } from '../infrastructure/repository/integration.event.repository'
+import { RpcServerEventBusTask } from '../background/task/rpc.server.event.bus.task'
 
 export class IoC {
     private readonly _container: Container
@@ -134,9 +134,10 @@ export class IoC {
         this._container
             .bind(Identifier.BACKGROUND_SERVICE)
             .to(BackgroundService).inSingletonScope()
+        // Task
         this._container
-            .bind<IBackgroundTask>(Identifier.PUBLISH_EVENT_BUS_TASK)
-            .to(PublishEventBusTask).inSingletonScope()
+            .bind<IBackgroundTask>(Identifier.RPC_SERVER_EVENT_BUST_TASK)
+            .to(RpcServerEventBusTask).inSingletonScope()
         this._container
             .bind<IBackgroundTask>(Identifier.SUBSCRIBE_EVENT_BUS_TASK)
             .to(SubscribeEventBusTask).inSingletonScope()

@@ -1,7 +1,7 @@
-import {IOdontologicalQuestionnaireRepository} from '../../../src/application/port/odontological.questionnaire.repository.interface'
-import {OdontologicalQuestionnaire} from '../../../src/application/domain/model/odontological.questionnaire'
-import {DefaultEntityMock} from '../models/default.entity.mock'
-import {IQuery} from '../../../src/application/port/query.interface'
+import { IOdontologicalQuestionnaireRepository } from '../../../src/application/port/odontological.questionnaire.repository.interface'
+import { OdontologicalQuestionnaire } from '../../../src/application/domain/model/odontological.questionnaire'
+import { DefaultEntityMock } from '../models/default.entity.mock'
+import { IQuery } from '../../../src/application/port/query.interface'
 
 const activity: OdontologicalQuestionnaire =
     new OdontologicalQuestionnaire().fromJSON(DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE)
@@ -31,6 +31,10 @@ export class OdontologicalQuestionnaireRepositoryMock implements IOdontologicalQ
 
     public update(item: OdontologicalQuestionnaire): Promise<OdontologicalQuestionnaire> {
         return Promise.resolve(activity)
+    }
+
+    public removeOdontologicalQuestionnaireFromUser(id: string): Promise<boolean> {
+        return Promise.resolve(true)
     }
 
 }

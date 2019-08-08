@@ -19,4 +19,12 @@ export class OdontologicalQuestionnaireRepository
     ) {
         super(_repoModel, _entityMapper, _logger)
     }
+
+    public removeOdontologicalQuestionnaireFromUser(id: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            this.Model.deleteMany({ patient_id: id })
+                .then((result) => resolve(!!result))
+                .catch(err => reject(this.mongoDBErrorListener(err)))
+        })
+    }
 }

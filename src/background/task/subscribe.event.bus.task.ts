@@ -3,6 +3,9 @@ import { Identifier } from '../../di/identifiers'
 import { IEventBus } from '../../infrastructure/port/event.bus.interface'
 import { ILogger } from '../../utils/custom.logger'
 import { IBackgroundTask } from '../../application/port/background.task.interface'
+import { UserDeleteEvent } from '../../application/integration-event/event/user.delete.event'
+import { UserDeleteEventHandler } from '../../application/integration-event/handler/user.delete.event.handler'
+import { DIContainer } from '../../di/di'
 
 @injectable()
 export class SubscribeEventBusTask implements IBackgroundTask {
@@ -39,7 +42,15 @@ export class SubscribeEventBusTask implements IBackgroundTask {
      */
     private async initializeSubscribe(): Promise<void> {
         try {
-            this._logger.info('Subscribe in Event successful!')
+            await this._eventBus.subscribe(
+                new UserDeleteEvent(new Date()),
+                new UserDeleteEventHandler(
+                    DIContainer.get(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPOSITORY),
+                    DIContainer.get(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPOSITORY),
+                    this._logger),
+                'users.delete'
+            )
+            this._logger.info('Subscribe in UserDeleteEvent successful!')
         } catch (err) {
             this._logger.error(`An error occurred while subscribing to events. ${err.message}`)
         }

@@ -7,6 +7,8 @@ import { Query } from '../../infrastructure/repository/query/query'
 import { INutritionalQuestionnaireRepository } from '../../application/port/nutritional.questionnaire.repository'
 import { IOdontologicalQuestionnaireRepository } from '../../application/port/odontological.questionnaire.repository.interface'
 import qs from 'query-strings-parser'
+import { NutritionalQuestionnaire } from '../../application/domain/model/nutritional.questionnaire'
+import { OdontologicalQuestionnaire } from '../../application/domain/model/odontological.questionnaire'
 
 @injectable()
 export class RpcServerEventBusTask implements IBackgroundTask {
@@ -45,18 +47,18 @@ export class RpcServerEventBusTask implements IBackgroundTask {
 
     private initializeServer(): void {
         this._eventBus
-            .provideResource('nutritional.questionnaires.find', (_query?: string, patientId?: string) => {
+            .provideResource('nutritional.questionnaires.find', async (_query?: string) => {
                 const query: Query = new Query().fromJSON({ ...qs.parser(_query) })
-                query.addFilter({ patient_id: patientId })
-                return this._nutritionalRepo.find(query)
+                const result: Array<NutritionalQuestionnaire> = await this._nutritionalRepo.find(query)
+                return result.map(item => item.toJSON())
             })
             .then(() => this._logger.info('Resource nutritional.questionnaires.find successful registered'))
             .catch((err) => this._logger.error(`Error at register resource nutritional.questionnaires.find: ${err.message}`))
         this._eventBus
-            .provideResource('odontological.questionnaires.find', (_query?: string, patientId?: string) => {
+            .provideResource('odontological.questionnaires.find', async (_query?: string) => {
                 const query: Query = new Query().fromJSON({ ...qs.parser(_query) })
-                query.addFilter({ patient_id: patientId })
-                return this._odontologicRepo.find(query)
+                const result: Array<OdontologicalQuestionnaire> = await this._odontologicRepo.find(query)
+                return result.map(item => item.toJSON())
             })
             .then(() => this._logger.info('Resource odontological.questionnaires.find successful registered'))
             .catch((err) => this._logger.error(`Error at register resource odontological.questionnaires.find: ${err.message}`))

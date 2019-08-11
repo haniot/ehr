@@ -22,6 +22,7 @@ export class UserDeleteEventHandler implements IIntegrationEventHandler<UserDele
         try {
             const user: User = new User().fromJSON(event.user)
             UserValidator.validate(user)
+            this._logger.info(`Prepare to delete questionnaires from user: ${user.id}...`)
             await this._odontologicRepo.removeOdontologicalQuestionnaireFromUser(user.id!)
             await this._nutritionalRepo.removeNutritionalQuestionnaireFromUser(user.id!)
             this._logger.info(`Action for event ${event.event_name} successfully performed!`)

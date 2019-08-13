@@ -32,8 +32,13 @@ export class NutritionalQuestionnaireRepositoryMock implements INutritionalQuest
         return Promise.resolve(activity)
     }
 
-    public removeNutritionalQuestionnaireFromUser(id: string): Promise<boolean> {
+    public removeQuestionnairesFromPatient(id: string): Promise<boolean> {
         return Promise.resolve(true)
+    }
+
+    public updateQuestionnaireResource(patientId: string, questionnaireId: string, name: string, resource: any):
+        Promise<any> {
+        return Promise.resolve(activity)
     }
 
 }

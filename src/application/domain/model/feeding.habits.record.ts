@@ -2,7 +2,6 @@ import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { WeeklyFoodRecord } from './weekly.food.record'
 import { JsonUtils } from '../utils/json.utils'
-import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
 export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
 
@@ -11,10 +10,6 @@ export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializab
     private _six_month_breast_feeding?: string
     private _food_allergy_intolerance?: Array<string>
     private _breakfast_daily_frequency?: string
-    private _type?: string
-    constructor() {
-        this.type = QuestionnaireTypes.FEEDING_HABITS_RECORD
-    }
 
     get weekly_feeding_habits(): Array<WeeklyFoodRecord> | undefined {
         return this._weekly_feeding_habits
@@ -55,13 +50,6 @@ export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializab
     set breakfast_daily_frequency(value: string | undefined) {
         this._breakfast_daily_frequency = value
     }
-    get type(): string | undefined{
-        return this._type
-    }
-
-    set type(value: string | undefined) {
-        this._type = value
-    }
 
     public fromJSON(json: any): FeedingHabitsRecord {
         if (!json) return this
@@ -78,19 +66,17 @@ export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializab
             this.food_allergy_intolerance =
                 json.food_allergy_intolerance.filter(item => typeof item === 'string')
         if (json.breakfast_daily_frequency !== undefined) this.breakfast_daily_frequency = json.breakfast_daily_frequency
-        if (json.type !== undefined) this.type = json.type
 
         return this
     }
 
     public toJSON(): any {
-        return{
-                weekly_feeding_habits: this.weekly_feeding_habits,
-                daily_water_glasses: this.daily_water_glasses,
-                six_month_breast_feeding: this.six_month_breast_feeding,
-                food_allergy_intolerance: this.food_allergy_intolerance,
-                breakfast_daily_frequency: this.breakfast_daily_frequency,
-                type: this.type
-            }
+        return {
+            weekly_feeding_habits: this.weekly_feeding_habits,
+            daily_water_glasses: this.daily_water_glasses,
+            six_month_breast_feeding: this.six_month_breast_feeding,
+            food_allergy_intolerance: this.food_allergy_intolerance,
+            breakfast_daily_frequency: this.breakfast_daily_frequency
+        }
     }
 }

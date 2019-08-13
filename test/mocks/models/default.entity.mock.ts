@@ -18,7 +18,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly FEEDING_HABITS_RECORD: any = {
-        type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
         weekly_feeding_habits: [{
             food: FoodTypes.BURGER_SAUSAGE,
             seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
@@ -31,7 +30,6 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly MEDICAL_RECORD: any = {
-        type: QuestionnaireTypes.MEDICAL_RECORD,
         chronic_diseases: [{
             type: ChronicDiseaseTypes.BLOOD_FAT,
             disease_history: DiseaseHistoryTypes.YES
@@ -39,13 +37,11 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly PHYSICAL_ACTIVITY_HABITS: any = {
-        type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS,
         school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
         weekly_activities: ['run', 'swin']
     }
 
     public static readonly SLEEP_HABIT: any = {
-        type: QuestionnaireTypes.SLEEP_HABIT,
         week_day_sleep: 22,
         week_day_wake_up: 6
     }
@@ -61,14 +57,12 @@ export abstract class DefaultEntityMock {
     }
 
     public static readonly SOCIODEMOGRAPHIC_RECORD: any = {
-        type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
         color_race: 'white',
         mother_scholarity: ScholarityLevelTypes.UNLETTERED_ELEMENTARY_ONE_INCOMPLETE,
         people_in_home: 4
     }
 
     public static readonly FAMILY_COHESION_RECORD: any = {
-        type: QuestionnaireTypes.FAMILY_COHESION_RECORD,
         family_mutual_aid_freq: 'almost_never',
         friendship_approval_freq: 'almost_never',
         family_only_task_freq: 'almost_never',
@@ -84,7 +78,6 @@ export abstract class DefaultEntityMock {
 
     public static readonly ORAL_HEALTH_RECORD: any = {
         teeth_brushing_freq: 'none',
-        type: QuestionnaireTypes.ORAL_HEALTH_RECORD,
         teeth_lesions: [
             {
                 tooth_type: 'deciduous_tooth',
@@ -107,13 +100,11 @@ export abstract class DefaultEntityMock {
         created_at: '2018-11-19T14:40:00',
         type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE,
         sociodemographic_record: {
-            type: QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD,
             color_race: 'white',
             mother_scholarity: 'unlettered_elementary_one_incomplete',
             people_in_home: 4
         },
         family_cohesion_record: {
-            type: QuestionnaireTypes.FAMILY_COHESION_RECORD,
             family_mutual_aid_freq: 'almost_never',
             friendship_approval_freq: 'almost_never',
             family_only_task_freq: 'almost_never',
@@ -127,7 +118,6 @@ export abstract class DefaultEntityMock {
             family_cohesion_result: 45
         },
         oral_health_record: {
-            type: QuestionnaireTypes.ORAL_HEALTH_RECORD,
             teeth_brushing_freq: 'none',
             teeth_lesions: [
                 {
@@ -148,17 +138,14 @@ export abstract class DefaultEntityMock {
         created_at: '2018-11-19T14:40:00',
         type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE,
         sleep_habit: {
-            type: QuestionnaireTypes.SLEEP_HABIT,
             week_day_sleep: 22,
             week_day_wake_up: 6
         },
         physical_activity_habits: {
-            type: QuestionnaireTypes.PHYSICAL_ACTIVITY_HABITS,
             school_activity_freq: SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK,
             weekly_activities: ['run', 'swin']
         },
         feeding_habits_record: {
-            type: QuestionnaireTypes.FEEDING_HABITS_RECORD,
             weekly_feeding_habits: [{
                 food: FoodTypes.BURGER_SAUSAGE,
                 seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
@@ -169,7 +156,6 @@ export abstract class DefaultEntityMock {
             breakfast_daily_frequency: DailyFeedingFrequencyTypes.ALMOST_EVERYDAY
         },
         medical_record: {
-            type: QuestionnaireTypes.MEDICAL_RECORD,
             chronic_diseases: [{
                 type: ChronicDiseaseTypes.BLOOD_FAT,
                 disease_history: DiseaseHistoryTypes.YES

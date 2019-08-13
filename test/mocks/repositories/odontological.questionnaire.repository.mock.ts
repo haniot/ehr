@@ -33,8 +33,12 @@ export class OdontologicalQuestionnaireRepositoryMock implements IOdontologicalQ
         return Promise.resolve(activity)
     }
 
-    public removeOdontologicalQuestionnaireFromUser(id: string): Promise<boolean> {
+    public removeQuestionnaireFromPatient(id: string): Promise<boolean> {
         return Promise.resolve(true)
+    }
+
+    public updateQuestionnaireResource(patientId: string, questionnaireId: string, name: string, resource: any): Promise<any> {
+        return Promise.resolve(activity)
     }
 
 }

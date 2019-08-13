@@ -1,7 +1,7 @@
 import { NutritionalQuestionnaire } from '../../../src/application/domain/model/nutritional.questionnaire'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { assert } from 'chai'
-import { UpdateNutritionalQuestionnaireValidator } from '../../../src/application/domain/validator/update.nutritional.questionnaire.validator'
+import { UpdateNutritionalQuestionnaireResourceValidator } from '../../../src/application/domain/validator/update.nutritional.questionnaire.resource.validator'
 import { Strings } from '../../../src/utils/strings'
 import { PhysicalActivityHabits } from '../../../src/application/domain/model/physical.activity.habits'
 import { FeedingHabitsRecord } from '../../../src/application/domain/model/feeding.habits.record'
@@ -14,7 +14,7 @@ describe('Validators: UpdateNutritionalQuestionnaire', () => {
     activity.created_at = undefined
 
     it('should return undefined when the validation is successful', () => {
-        const result = UpdateNutritionalQuestionnaireValidator.validate(activity)
+        const result = UpdateNutritionalQuestionnaireResourceValidator.validate(activity)
         assert.isUndefined(result)
     })
 
@@ -22,7 +22,7 @@ describe('Validators: UpdateNutritionalQuestionnaire', () => {
         it('should throw an error for does pass patient_id', () => {
             activity.patient_id = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id
             try {
-                UpdateNutritionalQuestionnaireValidator.validate(activity)
+                UpdateNutritionalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'patient_id: '.concat(Strings.PARAMETERS.COULD_NOT_BE_UPDATED))
             } finally {
@@ -33,7 +33,7 @@ describe('Validators: UpdateNutritionalQuestionnaire', () => {
         it('should throw an error for does pass created_at', () => {
             activity.created_at = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.created_at
             try {
-                UpdateNutritionalQuestionnaireValidator.validate(activity)
+                UpdateNutritionalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'created_at: '.concat(Strings.PARAMETERS.COULD_NOT_BE_UPDATED))
             } finally {
@@ -47,7 +47,7 @@ describe('Validators: UpdateNutritionalQuestionnaire', () => {
             physicalActivityHabits.school_activity_freq = 'invalid'
             activity.physical_activity_habits = physicalActivityHabits
             try {
-                UpdateNutritionalQuestionnaireValidator.validate(activity)
+                UpdateNutritionalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for school_activity_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: one_per_week, two_per_week,' +
@@ -62,7 +62,7 @@ describe('Validators: UpdateNutritionalQuestionnaire', () => {
             feedingHabitsRecord.daily_water_glasses = 'invalid'
             activity.feeding_habits_record = feedingHabitsRecord
             try {
-                UpdateNutritionalQuestionnaireValidator.validate(activity)
+                UpdateNutritionalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for daily_water_glasses: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: none, one_two, three_four, five_more, ' +
@@ -77,7 +77,7 @@ describe('Validators: UpdateNutritionalQuestionnaire', () => {
             medicalRecord.chronic_diseases![0].type = 'invalid'
             activity.medical_record = medicalRecord
             try {
-                UpdateNutritionalQuestionnaireValidator.validate(activity)
+                UpdateNutritionalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for type: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: hypertension, blood_fat, diabetes.')

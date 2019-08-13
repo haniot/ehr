@@ -1,6 +1,8 @@
-import {IService} from './service.interface'
-import {NutritionalQuestionnaire} from '../domain/model/nutritional.questionnaire'
+import { IService } from './service.interface'
+import { NutritionalQuestionnaire } from '../domain/model/nutritional.questionnaire'
 
 export interface INutritionalQuestionnaireService extends IService<NutritionalQuestionnaire> {
-    removeNutritionalQuestionnaire(patientId: string, nutritionalQuestionnaireId: string): Promise<boolean>
+    removeQuestionnaire(patientId: string, questionnaireId: string): Promise<boolean>
+
+    updateQuestionnaireResource(patientId: string, questionnaireId: string, name: string, resource: string)
 }

@@ -1,4 +1,4 @@
-import Mongoose, {Schema} from 'mongoose'
+import Mongoose, { Schema } from 'mongoose'
 
 interface INutritionalQuestionnaireModel extends Mongoose.Document {
 
@@ -8,19 +8,11 @@ const nutritionalQuestionnaireSchema = new Mongoose.Schema({
 
         patient_id: {
             type: Schema.Types.ObjectId,
-            ref: 'Patient',
             required: 'Id of patient associated with the nutritional questionnaire is required!'
         },
-        created_at: {
-            type: Date
-        },
-        type: {
-            type: String
-        },
+        created_at: { type: Date },
+        type: { type: String },
         sleep_habit: {
-            type: {
-                type: String
-            },
             week_day_sleep: {
                 type: String,
                 required: 'Approximate time the patient sleeps every day of the week is required!'
@@ -31,9 +23,6 @@ const nutritionalQuestionnaireSchema = new Mongoose.Schema({
             }
         },
         physical_activity_habits: {
-            type: {
-                type: String
-            },
             school_activity_freq: {
                 type: String,
                 required: 'School activity frequency from patient is required!'
@@ -44,9 +33,6 @@ const nutritionalQuestionnaireSchema = new Mongoose.Schema({
             }]
         },
         feeding_habits_record: {
-            type: {
-                type: String
-            },
             weekly_feeding_habits: [{
                 food: {
                     type: String,
@@ -75,9 +61,6 @@ const nutritionalQuestionnaireSchema = new Mongoose.Schema({
             }
         },
         medical_record: {
-            type: {
-                type: String
-            },
             chronic_diseases: [{
                 type: {
                     type: String,

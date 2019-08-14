@@ -51,10 +51,10 @@ export class NutritionalQuestionnaireController {
     public async getLastNutritionalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const nutritionalQuestionnaire: Array<NutritionalQuestionnaire> = await this._service.getAll(
+            const questionnaires: Array<NutritionalQuestionnaire> = await this._service.getAll(
                 new Query().fromJSON({ filters: { patient_id: req.params.patient_id } }))
-            const result: any = this.toJSONView(nutritionalQuestionnaire[0])
-            return res.status(HttpStatus.OK).send(result)
+            return res.status(HttpStatus.OK).send(
+                questionnaires && questionnaires.length ? this.toJSONView(questionnaires[0]) : {})
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())
@@ -78,7 +78,7 @@ export class NutritionalQuestionnaireController {
     public async deleteNutritionalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            await this._service.removeNutritionalQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
+            await this._service.removeQuestionnaire(req.params.patient_id, req.params.questionnaire_id)
             return res.status(HttpStatus.NO_CONTENT).send()
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
@@ -90,12 +90,10 @@ export class NutritionalQuestionnaireController {
     public async updateNutritionalQuestionnaireFromPatient(
         @request() req: Request, @response() res: Response): Promise<Response> {
         try {
-            const nutritionalQuestionnaire: NutritionalQuestionnaire = new NutritionalQuestionnaire().fromJSON(req.body)
-            nutritionalQuestionnaire.id = req.params.questionnaire_id
-            nutritionalQuestionnaire.patient_id = req.params.patient_id
-            const result: NutritionalQuestionnaire = await this._service.update(nutritionalQuestionnaire)
+            const result: any = await this._service.updateQuestionnaireResource(
+                req.params.patient_id, req.params.questionnaire_id, req.params.resource_name, req.body)
             if (!result) return res.status(HttpStatus.NOT_FOUND).send(this.getMessageNotFound())
-            return res.status(HttpStatus.OK).send(this.toJSONView(result))
+            return res.status(HttpStatus.OK).send(req.body)
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
             return res.status(handleError.code).send(handleError.toJson())

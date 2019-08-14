@@ -7,7 +7,11 @@ import { OdontologicalQuestionnaire } from '../domain/model/odontological.questi
 import { IQuery } from '../port/query.interface'
 import { ObjectIdValidator } from '../domain/validator/object.id.validator'
 import { QuestionnaireTypes } from '../domain/utils/questionnaire.types'
-import { UpdateOdontologicalQuestionnaireValidator } from '../domain/validator/update.odontological.questionnaire.validator'
+import { UpdateOdontologicalQuestionnaireResourceValidator } from '../domain/validator/update.odontological.questionnaire.resource.validator'
+import { ValidationException } from '../domain/exception/validation.exception'
+import { SociodemographicRecord } from '../domain/model/sociodemographic.record'
+import { FamilyCohesionRecord } from '../domain/model/family.cohesion.record'
+import { OralHealthRecord } from '../domain/model/oral.health.record'
 
 @injectable()
 export class OdontologicalQuestionnaireService implements IOdontologicalQuestionnaireService {
@@ -30,8 +34,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
     public async getAll(query: IQuery): Promise<Array<OdontologicalQuestionnaire>> {
         try {
             const patientId = query.toJSON().filters.patient_id
-            if (patientId)
-                ObjectIdValidator.validate(patientId)
+            if (patientId) ObjectIdValidator.validate(patientId)
         } catch (err) {
             return Promise.reject(err)
         }
@@ -43,8 +46,7 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
         try {
             ObjectIdValidator.validate(id)
             const patientId = query.toJSON().filters.patient_id
-            if (patientId)
-                ObjectIdValidator.validate(patientId)
+            if (patientId) ObjectIdValidator.validate(patientId)
             query.addFilter({ _id: id, type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
         } catch (err) {
             return Promise.reject(err)
@@ -53,32 +55,55 @@ export class OdontologicalQuestionnaireService implements IOdontologicalQuestion
     }
 
     public async update(item: OdontologicalQuestionnaire): Promise<OdontologicalQuestionnaire> {
-        try {
-            ObjectIdValidator.validate(item.patient_id!)
-            item.patient_id = undefined
-            UpdateOdontologicalQuestionnaireValidator.validate(item)
-        } catch (err) {
-            return Promise.reject(err)
-        }
-        return this._repo.update(item)
+        throw Error('Not implemented yet!')
     }
 
     public async remove(id: string): Promise<boolean> {
         throw Error('Not implemented yet!')
     }
 
-    public async removeOdontologicalQuestionnaire(patientId: string, odontologicalQuestionnaireId: string): Promise<boolean> {
+    public count(query: IQuery): Promise<number> {
+        query.addFilter({ type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
+        return this._repo.count(query)
+    }
+
+    public removeQuestionnaire(patientId: string, questionnaireId: string): Promise<boolean> {
         try {
             ObjectIdValidator.validate(patientId)
-            ObjectIdValidator.validate(odontologicalQuestionnaireId)
+            ObjectIdValidator.validate(questionnaireId)
         } catch (err) {
             return Promise.reject(err)
         }
-        return this._repo.delete(odontologicalQuestionnaireId)
+        return this._repo.delete(questionnaireId)
     }
 
-    public count(query: IQuery): Promise<number> {
-        query.addFilter( { type: QuestionnaireTypes.ODONTOLOGICAL_QUESTIONNAIRE })
-        return this._repo.count(query)
+    public async updateQuestionnaireResource(patientId: string, questionnaireId: string, name: string, resource: any):
+        Promise<any> {
+        try {
+            const item: any = await this.transform(name, resource)
+            UpdateOdontologicalQuestionnaireResourceValidator.validate(name, item)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+        return this._repo.updateQuestionnaireResource(patientId, questionnaireId, name, resource)
+    }
+
+    private transform(name: string, resource: any): Promise<any> {
+        try {
+            switch (name) {
+                case 'sociodemographic_record':
+                    return Promise.resolve(new SociodemographicRecord().fromJSON(resource))
+                case 'family_cohesion_record':
+                    return Promise.resolve(new FamilyCohesionRecord().fromJSON(resource))
+                case 'oral_health_record':
+                    return Promise.resolve(new OralHealthRecord().fromJSON(resource))
+                default:
+                    throw new ValidationException(`Resource not mapped to odontological evaluation: ${name}`,
+                        'The mapped resources are: sociodemographic_record, family_cohesion_record, ' +
+                        'oral_health_record.')
+            }
+        } catch (err) {
+            return Promise.reject(err)
+        }
     }
 }

@@ -2,7 +2,7 @@ import { OdontologicalQuestionnaire } from '../../../src/application/domain/mode
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { assert } from 'chai'
 import { Strings } from '../../../src/utils/strings'
-import { UpdateOdontologicalQuestionnaireValidator } from '../../../src/application/domain/validator/update.odontological.questionnaire.validator'
+import { UpdateOdontologicalQuestionnaireResourceValidator } from '../../../src/application/domain/validator/update.odontological.questionnaire.resource.validator'
 import { SociodemographicRecord } from '../../../src/application/domain/model/sociodemographic.record'
 import { OralHealthRecord } from '../../../src/application/domain/model/oral.health.record'
 import { FamilyCohesionRecord } from '../../../src/application/domain/model/family.cohesion.record'
@@ -14,7 +14,7 @@ describe('Validators: UpdateOdontologicalQuestionnaire', () => {
     activity.created_at = undefined
 
     it('should return undefined when the validation is successful', () => {
-        const result = UpdateOdontologicalQuestionnaireValidator.validate(activity)
+        const result = UpdateOdontologicalQuestionnaireResourceValidator.validate(activity)
         assert.isUndefined(result)
     })
 
@@ -22,7 +22,7 @@ describe('Validators: UpdateOdontologicalQuestionnaire', () => {
         it('should throw an error for does pass patient_id', () => {
             activity.patient_id = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.patient_id
             try {
-                UpdateOdontologicalQuestionnaireValidator.validate(activity)
+                UpdateOdontologicalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'patient_id: '.concat(Strings.PARAMETERS.COULD_NOT_BE_UPDATED))
             } finally {
@@ -33,7 +33,7 @@ describe('Validators: UpdateOdontologicalQuestionnaire', () => {
         it('should throw an error for does pass created_at', () => {
             activity.created_at = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.created_at
             try {
-                UpdateOdontologicalQuestionnaireValidator.validate(activity)
+                UpdateOdontologicalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'created_at: '.concat(Strings.PARAMETERS.COULD_NOT_BE_UPDATED))
             } finally {
@@ -45,7 +45,7 @@ describe('Validators: UpdateOdontologicalQuestionnaire', () => {
         it('should throw an error for does pass created_at', () => {
             activity.created_at = DefaultEntityMock.NUTRITIONAL_QUESTIONNAIRE.created_at
             try {
-                UpdateOdontologicalQuestionnaireValidator.validate(activity)
+                UpdateOdontologicalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'created_at: '.concat(Strings.PARAMETERS.COULD_NOT_BE_UPDATED))
             } finally {
@@ -59,7 +59,7 @@ describe('Validators: UpdateOdontologicalQuestionnaire', () => {
             sociodemographic.color_race = 'red'
             activity.sociodemographic_record = sociodemographic
             try {
-                UpdateOdontologicalQuestionnaireValidator.validate(activity)
+                UpdateOdontologicalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for color_race: red')
                 assert.propertyVal(err, 'description', 'The mapped values are: white, black, parda, yellow.')
@@ -72,7 +72,7 @@ describe('Validators: UpdateOdontologicalQuestionnaire', () => {
             oralHealth.teeth_brushing_freq = 'invalid'
             activity.oral_health_record = oralHealth
             try {
-                UpdateOdontologicalQuestionnaireValidator.validate(activity)
+                UpdateOdontologicalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for teeth_brushing_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: none, once, twice, three_more.')
@@ -86,7 +86,7 @@ describe('Validators: UpdateOdontologicalQuestionnaire', () => {
             familyCohesionRecord.family_mutual_aid_freq = 'invalid'
             activity.family_cohesion_record = familyCohesionRecord
             try {
-                UpdateOdontologicalQuestionnaireValidator.validate(activity)
+                UpdateOdontologicalQuestionnaireResourceValidator.validate(activity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_mutual_aid_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: almost_never,' +

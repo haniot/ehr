@@ -1,17 +1,15 @@
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {expect} from 'chai'
-import {NutritionalQuestionnaire} from '../../../src/application/domain/model/nutritional.questionnaire'
-import {NutritionalQuestionnaireRepoModel} from '../../../src/infrastructure/database/schema/nutritional.questionnaire.schema'
-import {Container} from 'inversify'
-import {DI} from '../../../src/di/di'
-import {IConnectionDB} from '../../../src/infrastructure/port/connection.db.interface'
-import {Identifier} from '../../../src/di/identifiers'
-import {App} from '../../../src/app'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { expect } from 'chai'
+import { NutritionalQuestionnaire } from '../../../src/application/domain/model/nutritional.questionnaire'
+import { NutritionalQuestionnaireRepoModel } from '../../../src/infrastructure/database/schema/nutritional.questionnaire.schema'
+import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
+import { Identifier } from '../../../src/di/identifiers'
+import { App } from '../../../src/app'
 import { ObjectID } from 'bson'
+import { DIContainer } from '../../../src/di/di'
 
-const container: Container = DI.getInstance().getContainer()
-const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
-const app: App = container.get(Identifier.APP)
+const dbConnection: IConnectionDB = DIContainer.get(Identifier.MONGODB_CONNECTION)
+const app: App = DIContainer.get(Identifier.APP)
 const request = require('supertest')(app.getExpress())
 
 describe('Routes: NutritionalQuestionnaire', () => {
@@ -73,6 +71,7 @@ describe('Routes: NutritionalQuestionnaire', () => {
             })
         })
     })
+
     describe('GET /v1/patients/:patient_id/nutritional/questionnaires', () => {
         context('when get all nutritional questionnaire', () => {
             it('should return status code 200', () => {
@@ -205,6 +204,7 @@ describe('Routes: NutritionalQuestionnaire', () => {
 
         })
     })
+
     describe('PUT /v1/patients/:patient_id/nutritional/questionnaires/:questionnaire_id/:resource_name', () => {
         context('when update a nutritional questionnaire', () => {
             it('should return status code 200 and a updated nutritional questionnaire', () => {
@@ -276,6 +276,7 @@ describe('Routes: NutritionalQuestionnaire', () => {
             })
         })
     })
+
     describe('DELETE /v1/patients/:patient_id/nutritional/questionnaires/:questionnaire_id', () => {
         context('when delete a nutritional questionnaire', () => {
             it('should return status code 204 and no content', async () => {
@@ -333,6 +334,7 @@ describe('Routes: NutritionalQuestionnaire', () => {
 async function deleteAllActivities(doc) {
     return NutritionalQuestionnaireRepoModel.deleteMany({})
 }
+
 async function createActivity(doc) {
     return NutritionalQuestionnaireRepoModel.create(doc)
 }

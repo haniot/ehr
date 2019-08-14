@@ -1,4 +1,4 @@
-import Mongoose, {Schema} from 'mongoose'
+import Mongoose, { Schema } from 'mongoose'
 
 interface IOdontologicalQuestionnaireModel extends Mongoose.Document {
 
@@ -8,19 +8,11 @@ const odontologicalQuestionnaireSchema = new Mongoose.Schema({
 
         patient_id: {
             type: Schema.Types.ObjectId,
-            ref: 'Patient',
             required: 'Id of patient associated with the odontological questionnaire is required!'
         },
-        created_at: {
-            type: Date
-        },
-        type: {
-            type: String
-        },
+        created_at: { type: Date },
+        type: { type: String },
         sociodemographic_record: {
-            type: {
-                type: String
-            },
             color_race: {
                 type: String,
                 required: 'Color race from patient is required!'
@@ -35,9 +27,6 @@ const odontologicalQuestionnaireSchema = new Mongoose.Schema({
             }
         },
         family_cohesion_record: {
-            type: {
-                type: String
-            },
             family_mutual_aid_freq: {
                 type: String,
                 required: 'Frequency of family mutual aid from patient is required!'
@@ -84,20 +73,13 @@ const odontologicalQuestionnaireSchema = new Mongoose.Schema({
             }
         },
         oral_health_record: {
-            type: {
-                type: String
-            },
             teeth_brushing_freq: {
                 type: String,
                 required: 'Frequency from patient teeth brushing per day is required!'
             },
             teeth_lesions: [{
-                tooth_type: {
-                    type: String
-                },
-                lesion_type: {
-                    type: String
-                }
+                tooth_type: { type: String },
+                lesion_type: { type: String }
             }]
         }
     },

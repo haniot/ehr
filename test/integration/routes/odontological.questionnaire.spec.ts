@@ -1,17 +1,15 @@
-import {Container} from 'inversify'
-import {DI} from '../../../src/di/di'
-import {IConnectionDB} from '../../../src/infrastructure/port/connection.db.interface'
-import {Identifier} from '../../../src/di/identifiers'
-import {App} from '../../../src/app'
-import {OdontologicalQuestionnaire} from '../../../src/application/domain/model/odontological.questionnaire'
-import {DefaultEntityMock} from '../../mocks/models/default.entity.mock'
-import {OdontologicalQuestionnaireRepoModel} from '../../../src/infrastructure/database/schema/odontological.questionnaire.schema'
-import {expect} from 'chai'
-import {ObjectID} from 'bson'
+import { IConnectionDB } from '../../../src/infrastructure/port/connection.db.interface'
+import { Identifier } from '../../../src/di/identifiers'
+import { App } from '../../../src/app'
+import { OdontologicalQuestionnaire } from '../../../src/application/domain/model/odontological.questionnaire'
+import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
+import { OdontologicalQuestionnaireRepoModel } from '../../../src/infrastructure/database/schema/odontological.questionnaire.schema'
+import { expect } from 'chai'
+import { ObjectID } from 'bson'
+import { DIContainer } from '../../../src/di/di'
 
-const container: Container = DI.getInstance().getContainer()
-const dbConnection: IConnectionDB = container.get(Identifier.MONGODB_CONNECTION)
-const app: App = container.get(Identifier.APP)
+const dbConnection: IConnectionDB = DIContainer.get(Identifier.MONGODB_CONNECTION)
+const app: App = DIContainer.get(Identifier.APP)
 const request = require('supertest')(app.getExpress())
 
 describe('Routes: OdontologicalQuestionnaire', () => {
@@ -112,6 +110,7 @@ describe('Routes: OdontologicalQuestionnaire', () => {
 
         })
     })
+
     describe('GET  /v1/patients/:patient_id/odontological/questionnaires/:questionnaire_id', () => {
         context('when get a unique odontological questionnaire', () => {
             it('should return status code 200 and a odontological questionnaire', () => {
@@ -204,6 +203,7 @@ describe('Routes: OdontologicalQuestionnaire', () => {
 
         })
     })
+
     describe('PUT /v1/patients/:patient_id/odontological/questionnaires/:questionnaire_id/:resource_name', () => {
         context('when update a odontological questionnaire', () => {
             it('should return status code 200 and a updated odontological questionnaire', () => {
@@ -212,7 +212,7 @@ describe('Routes: OdontologicalQuestionnaire', () => {
                 return request
                     .put(
                         `/v1/patients/${DefaultEntityMock.ODONTOLOGICAL_QUESTIONNAIRE.patient_id
-                        }/odontological/questionnaires/${activity.id}/sociodemographic_recod`)
+                            }/odontological/questionnaires/${activity.id}/sociodemographic_recod`)
                     .send(activity.toJSON())
                     .set('Content-Type', 'application/json')
                     .expect(200)
@@ -331,6 +331,7 @@ describe('Routes: OdontologicalQuestionnaire', () => {
 async function deleteAllActivities(doc) {
     return OdontologicalQuestionnaireRepoModel.deleteMany({})
 }
+
 async function createActivity(doc) {
     return OdontologicalQuestionnaireRepoModel.create(doc)
 }

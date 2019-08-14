@@ -1,17 +1,11 @@
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { JsonUtils } from '../utils/json.utils'
-import { QuestionnaireTypes } from '../utils/questionnaire.types'
 
 export class SleepHabit implements IJSONSerializable, IJSONDeserializable<SleepHabit> {
 
     private _week_day_sleep?: number
     private _week_day_wake_up?: number
-    private _type?: string
-
-    constructor() {
-        this.type = QuestionnaireTypes.SLEEP_HABIT
-    }
 
     get week_day_sleep(): number | undefined {
         return this._week_day_sleep
@@ -28,13 +22,6 @@ export class SleepHabit implements IJSONSerializable, IJSONDeserializable<SleepH
     set week_day_wake_up(value: number | undefined) {
         this._week_day_wake_up = value
     }
-    get type(): string | undefined{
-        return this._type
-    }
-
-    set type(value: string | undefined) {
-        this._type = value
-    }
 
     public fromJSON(json: any): SleepHabit {
         if (!json) return this
@@ -43,15 +30,14 @@ export class SleepHabit implements IJSONSerializable, IJSONDeserializable<SleepH
         }
 
         if (json.week_day_sleep !== undefined) this.week_day_sleep = json.week_day_sleep
-        if (json.week_day_wake_up  !== undefined) this.week_day_wake_up = json.week_day_wake_up
-        if (json.type !== undefined) this.type = json.type
+        if (json.week_day_wake_up !== undefined) this.week_day_wake_up = json.week_day_wake_up
         return this
     }
 
     public toJSON(): any {
         return {
-            week_day_sleep: this.week_day_sleep, week_day_wake_up: this.week_day_wake_up,
-            type: this.type
+            week_day_sleep: this.week_day_sleep,
+            week_day_wake_up: this.week_day_wake_up
         }
     }
 

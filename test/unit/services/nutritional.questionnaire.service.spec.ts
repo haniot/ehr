@@ -111,10 +111,10 @@ describe('Services: NutritionalQuestionnaire', () => {
             })
         })
     })
-    describe('removeNutritionalQuestionnaire()', () => {
+    describe('removeQuestionnaire()', () => {
         context('when delete a nutritional questionnaire', () => {
             it('should return true', () => {
-                return service.removeNutritionalQuestionnaire(activity.patient_id!, activity.id!)
+                return service.removeQuestionnaire(activity.patient_id!, activity.id!)
                     .then(result => {
                         assert.isBoolean(result)
                         assert.isTrue(result)
@@ -124,7 +124,7 @@ describe('Services: NutritionalQuestionnaire', () => {
 
         context('when there are validation errors', () => {
             it('should reject a validation error', () => {
-                return service.removeNutritionalQuestionnaire('123', '321')
+                return service.removeQuestionnaire('123', '321')
                     .catch(err => {
                         assert.propertyVal(err, 'message', 'Some ID provided does not have a valid format!')
                         assert.propertyVal(err, 'description', 'A 24-byte hex ID similar to this: 507f191e810c19729de860ea' +

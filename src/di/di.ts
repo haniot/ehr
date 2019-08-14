@@ -30,30 +30,29 @@ import { NutritionalQuestionnaireEntityMapper } from '../infrastructure/entity/m
 import { NutritionalQuestionnaireRepoModel } from '../infrastructure/database/schema/nutritional.questionnaire.schema'
 import { HomeController } from '../ui/controllers/home.controller'
 import { QuestionnairesTypesController } from '../ui/controllers/questionnaires.types.controller'
+import { ConnectionFactoryRabbitMQ } from '../infrastructure/eventbus/rabbitmq/connection.factory.rabbitmq'
+import { IBackgroundTask } from '../application/port/background.task.interface'
+import { SubscribeEventBusTask } from '../background/task/subscribe.event.bus.task'
+import { EventBusRabbitMQ } from '../infrastructure/eventbus/rabbitmq/eventbus.rabbitmq'
+import { IConnectionEventBus } from '../infrastructure/port/connection.event.bus.interface'
+import { ConnectionRabbitMQ } from '../infrastructure/eventbus/rabbitmq/connection.rabbitmq'
+import { IEventBus } from '../infrastructure/port/event.bus.interface'
+import { IIntegrationEventRepository } from '../application/port/integration.event.repository.interface'
+import { IntegrationEventRepoModel } from '../infrastructure/database/schema/integration.event.schema'
+import { IntegrationEventRepository } from '../infrastructure/repository/integration.event.repository'
+import { RpcServerEventBusTask } from '../background/task/rpc.server.event.bus.task'
 
-export class DI {
-    private static instance: DI
-    private readonly container: Container
+export class IoC {
+    private readonly _container: Container
 
     /**
      * Creates an instance of DI.
      *
      * @private
      */
-    private constructor() {
-        this.container = new Container()
+    constructor() {
+        this._container = new Container()
         this.initDependencies()
-    }
-
-    /**
-     * Recover single instance of class.
-     *
-     * @static
-     * @return {App}
-     */
-    public static getInstance(): DI {
-        if (!this.instance) this.instance = new DI()
-        return this.instance
     }
 
     /**
@@ -61,8 +60,8 @@ export class DI {
      *
      * @returns {Container}
      */
-    public getContainer(): Container {
-        return this.container
+    get container(): Container {
+        return this._container
     }
 
     /**
@@ -72,58 +71,80 @@ export class DI {
      * @return void
      */
     private initDependencies(): void {
-        this.container.bind(Identifier.APP).to(App).inSingletonScope()
+        this._container.bind(Identifier.APP).to(App).inSingletonScope()
 
         // Controllers
-        this.container.bind<HomeController>(Identifier.HOME_CONTROLLER)
+        this._container.bind<HomeController>(Identifier.HOME_CONTROLLER)
             .to(HomeController).inSingletonScope()
-        this.container.bind<QuestionnairesTypesController>(Identifier.QUESTIONNAIRES_TYPES_CONTROLLER)
+        this._container.bind<QuestionnairesTypesController>(Identifier.QUESTIONNAIRES_TYPES_CONTROLLER)
             .to(QuestionnairesTypesController).inSingletonScope()
-        this.container.bind<NutritionalQuestionnaireController>(Identifier.NUTRITIONAL_QUESTIONNAIRE_CONTROLLER)
+        this._container.bind<NutritionalQuestionnaireController>(Identifier.NUTRITIONAL_QUESTIONNAIRE_CONTROLLER)
             .to(NutritionalQuestionnaireController).inSingletonScope()
-        this.container.bind<OdontologicalQuestionnaireController>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_CONTROLLER)
+        this._container.bind<OdontologicalQuestionnaireController>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_CONTROLLER)
             .to(OdontologicalQuestionnaireController).inSingletonScope()
 
         // Services
-        this.container.bind<INutritionalQuestionnaireService>(Identifier.NUTRITIONAL_QUESTIONNAIRE_SERVICE)
+        this._container.bind<INutritionalQuestionnaireService>(Identifier.NUTRITIONAL_QUESTIONNAIRE_SERVICE)
             .to(NutritionalQuestionnaireService).inSingletonScope()
-        this.container.bind<IOdontologicalQuestionnaireService>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_SERVICE)
+        this._container.bind<IOdontologicalQuestionnaireService>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_SERVICE)
             .to(OdontologicalQuestionnaireService).inSingletonScope()
 
         // Repositories
-        this.container.bind<INutritionalQuestionnaireRepository>(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPOSITORY)
+        this._container.bind<INutritionalQuestionnaireRepository>(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPOSITORY)
             .to(NutritionalQuestionnaireRepository).inSingletonScope()
-        this.container.bind<IOdontologicalQuestionnaireRepository>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPOSITORY)
+        this._container.bind<IOdontologicalQuestionnaireRepository>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPOSITORY)
             .to(OdontologicalQuestionnaireRepository).inSingletonScope()
+        this._container
+            .bind<IIntegrationEventRepository>(Identifier.INTEGRATION_EVENT_REPOSITORY)
+            .to(IntegrationEventRepository).inSingletonScope()
 
         // Models
-        this.container.bind(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPO_MODEL)
+        this._container.bind(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPO_MODEL)
             .toConstantValue(NutritionalQuestionnaireRepoModel)
-        this.container.bind(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPO_MODEL)
+        this._container.bind(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPO_MODEL)
             .toConstantValue(OdontologicalQuestionnaireRepoModel)
+        this._container.bind(Identifier.INTEGRATION_EVENT_REPO_MODEL).toConstantValue(IntegrationEventRepoModel)
 
         // Mappers
-        this.container
+        this._container
             .bind<IEntityMapper<NutritionalQuestionnaire, NutritionalQuestionnaireEntity>>
             (Identifier.NUTRITIONAL_QUESTIONNAIRE_ENTITY_MAPPER)
             .to(NutritionalQuestionnaireEntityMapper).inSingletonScope()
-        this.container
+        this._container
             .bind<IEntityMapper<OdontologicalQuestionnaire, OdontologicalQuestionnaireEntity>>
             (Identifier.ODONTOLOGICAL_QUESTIONNAIRE_ENTITY_MAPPER)
             .to(OdontologicalQuestionnaireEntityMapper).inSingletonScope()
 
         // Background Services
-        this.container
+        this._container
             .bind<IConnectionFactory>(Identifier.MONGODB_CONNECTION_FACTORY)
             .to(ConnectionFactoryMongodb).inSingletonScope()
-        this.container
+        this._container
             .bind<IConnectionDB>(Identifier.MONGODB_CONNECTION)
             .to(ConnectionMongodb).inSingletonScope()
-        this.container
+        this._container
+            .bind<IConnectionFactory>(Identifier.RABBITMQ_CONNECTION_FACTORY)
+            .to(ConnectionFactoryRabbitMQ).inSingletonScope()
+        this._container
+            .bind<IConnectionEventBus>(Identifier.RABBITMQ_CONNECTION)
+            .to(ConnectionRabbitMQ)
+        this._container
+            .bind<IEventBus>(Identifier.RABBITMQ_EVENT_BUS)
+            .to(EventBusRabbitMQ).inSingletonScope()
+        this._container
             .bind(Identifier.BACKGROUND_SERVICE)
             .to(BackgroundService).inSingletonScope()
+        // Task
+        this._container
+            .bind<IBackgroundTask>(Identifier.RPC_SERVER_EVENT_BUST_TASK)
+            .to(RpcServerEventBusTask).inSingletonScope()
+        this._container
+            .bind<IBackgroundTask>(Identifier.SUBSCRIBE_EVENT_BUS_TASK)
+            .to(SubscribeEventBusTask).inSingletonScope()
 
         // Log
-        this.container.bind<ILogger>(Identifier.LOGGER).to(CustomLogger).inSingletonScope()
+        this._container.bind<ILogger>(Identifier.LOGGER).to(CustomLogger).inSingletonScope()
     }
 }
+
+export const DIContainer = new IoC().container

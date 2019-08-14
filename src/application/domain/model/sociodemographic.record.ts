@@ -1,17 +1,11 @@
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
-import { QuestionnaireTypes } from '../utils/questionnaire.types'
 import { JsonUtils } from '../utils/json.utils'
 
 export class SociodemographicRecord implements IJSONSerializable, IJSONDeserializable<SociodemographicRecord> {
     private _color_race?: string
     private _mother_scholarity?: string
     private _people_in_home?: number
-    private _type?: string
-
-    constructor() {
-        this.type = QuestionnaireTypes.SOCIODEMOGRAPHIC_RECORD
-    }
 
     get color_race(): string | undefined {
         return this._color_race
@@ -36,13 +30,6 @@ export class SociodemographicRecord implements IJSONSerializable, IJSONDeseriali
     set people_in_home(value: number | undefined) {
         this._people_in_home = value
     }
-    get type(): string | undefined{
-        return this._type
-    }
-
-    set type(value: string | undefined) {
-        this._type = value
-    }
 
     public fromJSON(json: any): SociodemographicRecord {
         if (!json) return this
@@ -53,7 +40,6 @@ export class SociodemographicRecord implements IJSONSerializable, IJSONDeseriali
         if (json.color_race !== undefined) this.color_race = json.color_race
         if (json.mother_scholarity !== undefined) this.mother_scholarity = json.mother_scholarity
         if (json.people_in_home !== undefined) this.people_in_home = json.people_in_home
-        if (json.type !== undefined) this.type = json.type
         return this
     }
 
@@ -61,8 +47,7 @@ export class SociodemographicRecord implements IJSONSerializable, IJSONDeseriali
         return {
             color_race: this.color_race,
             mother_scholarity: this.mother_scholarity,
-            people_in_home: this.people_in_home,
-            type: this.type
+            people_in_home: this.people_in_home
         }
     }
 }

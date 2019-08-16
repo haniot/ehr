@@ -28,7 +28,7 @@ export class MedicalRecord implements IJSONSerializable, IJSONDeserializable<Med
 
     public toJSON(): any {
         return {
-            chronic_diseases: this.chronic_diseases
+            chronic_diseases: this.chronic_diseases && this.chronic_diseases.length ? this.chronic_diseases : undefined
         }
     }
 }

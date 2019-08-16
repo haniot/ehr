@@ -39,7 +39,8 @@ export class OralHealthRecord implements IJSONSerializable, IJSONDeserializable<
     public toJSON(): any {
         return {
             teeth_brushing_freq: this.teeth_brushing_freq,
-            teeth_lesions: this.teeth_lesions ? this.teeth_lesions.map(value => value.toJSON()) : []
+            teeth_lesions: this.teeth_lesions && this.teeth_lesions.length ?
+                this.teeth_lesions.map(value => value.toJSON()) : undefined
         }
     }
 }

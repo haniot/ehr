@@ -41,7 +41,7 @@ export class PhysicalActivityHabits implements IJSONSerializable, IJSONDeseriali
     public toJSON(): any {
         return {
             school_activity_freq: this.school_activity_freq,
-            weekly_activities: this.weekly_activities
+            weekly_activities: this.weekly_activities && this.weekly_activities.length ? this.weekly_activities : undefined
         }
     }
 }

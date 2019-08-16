@@ -72,10 +72,12 @@ export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializab
 
     public toJSON(): any {
         return {
-            weekly_feeding_habits: this.weekly_feeding_habits,
+            weekly_feeding_habits: this.weekly_feeding_habits && this.weekly_feeding_habits.length ?
+                this.weekly_feeding_habits.map(item => item.toJSON()) : undefined,
             daily_water_glasses: this.daily_water_glasses,
             six_month_breast_feeding: this.six_month_breast_feeding,
-            food_allergy_intolerance: this.food_allergy_intolerance,
+            food_allergy_intolerance: this.food_allergy_intolerance && this.food_allergy_intolerance ?
+                this.food_allergy_intolerance : undefined,
             breakfast_daily_frequency: this.breakfast_daily_frequency
         }
     }

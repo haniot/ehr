@@ -13,63 +13,27 @@ const nutritionalQuestionnaireSchema = new Mongoose.Schema({
         created_at: { type: Date },
         type: { type: String },
         sleep_habit: {
-            week_day_sleep: {
-                type: String,
-                required: 'Approximate time the patient sleeps every day of the week is required!'
-            },
-            week_day_wake_up: {
-                type: String,
-                required: 'Approximate time the patient wake up every day of the week is required!'
-            }
+            week_day_sleep: { type: String },
+            week_day_wake_up: { type: String }
         },
         physical_activity_habits: {
-            school_activity_freq: {
-                type: String,
-                required: 'School activity frequency from patient is required!'
-            },
-            weekly_activities: [{
-                type: String,
-                required: 'List of physical activities practiced by the patient is required!'
-            }]
+            school_activity_freq: { type: String },
+            weekly_activities: [{ type: String }]
         },
         feeding_habits_record: {
             weekly_feeding_habits: [{
-                food: {
-                    type: String,
-                    required: 'Name of food is required!'
-                },
-                seven_days_freq: {
-                    type: String,
-                    required: 'Weekly frequency of food consumption is required!'
-                }
+                food: { type: String },
+                seven_days_freq: { type: String }
             }],
-            daily_water_glasses: {
-                type: String,
-                required: 'Quantity of daily water glass consumption from patient is required!'
-            },
-            six_month_breast_feeding: {
-                type: String,
-                required: 'Breastfeeding level from patient in your first six months of life is required!'
-            },
-            food_allergy_intolerance: [{
-                type: String,
-                required: 'Food allergy intolerance from patient is required!'
-            }],
-            breakfast_daily_frequency: {
-                type: String,
-                required: 'Breakfast daily frequency from patient is required!'
-            }
+            daily_water_glasses: { type: String },
+            six_month_breast_feeding: { type: String },
+            food_allergy_intolerance: [{ type: String }],
+            breakfast_daily_frequency: { type: String }
         },
         medical_record: {
             chronic_diseases: [{
-                type: {
-                    type: String,
-                    required: 'Type of chronic disease from pacient is required!'
-                },
-                disease_history: {
-                    type: String,
-                    required: 'Disease history from pacient is required!'
-                }
+                type: { type: String },
+                disease_history: { type: String }
             }]
         }
     },

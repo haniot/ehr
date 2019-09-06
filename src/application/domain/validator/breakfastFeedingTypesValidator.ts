@@ -1,8 +1,8 @@
 import { ValidationException } from '../exception/validation.exception'
-import { BreakfastFeedingTypes } from '../utils/breakfastFeedingTypes'
+import { BreakfastFeedingTypes } from '../utils/breakfast.feeding.types'
 import { Strings } from '../../../utils/strings'
 
-export class BreakFastFeedingTypesValidator {
+export class BreakfastFeedingTypesValidator {
     public static validate(value: BreakfastFeedingTypes): void | ValidationException {
         if (!Object.values(BreakfastFeedingTypes).includes(value)) {
             throw new ValidationException(

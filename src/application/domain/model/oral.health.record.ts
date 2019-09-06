@@ -2,16 +2,17 @@ import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { ToothLesion } from './tooth.lesion'
 import { JsonUtils } from '../utils/json.utils'
+import { ToothBrushingFrequencyTypes } from '../utils/tooth.brushing.frequency.types'
 
 export class OralHealthRecord implements IJSONSerializable, IJSONDeserializable<OralHealthRecord> {
-    private _teeth_brushing_freq?: string
+    private _teeth_brushing_freq?: ToothBrushingFrequencyTypes
     private _teeth_lesions ?: Array<ToothLesion>
 
-    get teeth_brushing_freq(): string | undefined {
+    get teeth_brushing_freq(): ToothBrushingFrequencyTypes | undefined {
         return this._teeth_brushing_freq
     }
 
-    set teeth_brushing_freq(value: string | undefined) {
+    set teeth_brushing_freq(value: ToothBrushingFrequencyTypes | undefined) {
         this._teeth_brushing_freq = value
     }
 

@@ -1,25 +1,27 @@
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { JsonUtils } from '../utils/json.utils'
+import { ColorRaceTypes } from '../utils/color.race.types'
+import { ScholarityLevelTypes } from '../utils/scholarity.level.types'
 
 export class SociodemographicRecord implements IJSONSerializable, IJSONDeserializable<SociodemographicRecord> {
-    private _color_race?: string
-    private _mother_scholarity?: string
+    private _color_race?: ColorRaceTypes
+    private _mother_scholarity?: ScholarityLevelTypes
     private _people_in_home?: number
 
-    get color_race(): string | undefined {
+    get color_race(): ColorRaceTypes | undefined {
         return this._color_race
     }
 
-    set color_race(value: string | undefined) {
+    set color_race(value: ColorRaceTypes | undefined) {
         this._color_race = value
     }
 
-    get mother_scholarity(): string | undefined {
+    get mother_scholarity(): ScholarityLevelTypes | undefined {
         return this._mother_scholarity
     }
 
-    set mother_scholarity(value: string | undefined) {
+    set mother_scholarity(value: ScholarityLevelTypes | undefined) {
         this._mother_scholarity = value
     }
 

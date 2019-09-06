@@ -4,11 +4,11 @@ import { QuestionnaireTypes } from '../../../src/application/domain/utils/questi
 import { SevenDaysFeedingFrequencyTypes } from '../../../src/application/domain/utils/seven.days.feeding.frequency.types'
 import { DailyFeedingFrequencyTypes } from '../../../src/application/domain/utils/daily.feeding.frequency.types'
 import { OneDayFeedingAmountTypes } from '../../../src/application/domain/utils/one.day.feeding.amount.types'
-import { BreastFeedingTypes } from '../../../src/application/domain/utils/breast.feeding.types'
 import { FoodAllergyIntoleranceTypes } from '../../../src/application/domain/utils/food.allergy.intolerance.types'
 import { SchoolActivityFrequencyTypes } from '../../../src/application/domain/utils/school.activity.frequency.types'
 import { ScholarityLevelTypes } from '../../../src/application/domain/utils/scholarity.level.types'
 import { FoodTypes } from '../../../src/application/domain/utils/food.types'
+import { BreakfastFeedingTypes } from '../../../src/application/domain/utils/breakfast.feeding.types'
 
 export abstract class DefaultEntityMock {
     public static readonly ACTIVITY_HABITS_RECORD: any = {
@@ -23,7 +23,7 @@ export abstract class DefaultEntityMock {
             seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
         }],
         daily_water_glasses: OneDayFeedingAmountTypes.FIVE_MORE,
-        six_month_breast_feeding: BreastFeedingTypes.COMPLEMENTARY,
+        six_month_breast_feeding: BreakfastFeedingTypes.COMPLEMENTARY,
         food_allergy_intolerance: [FoodAllergyIntoleranceTypes.EGG, FoodAllergyIntoleranceTypes.OTHER],
         breakfast_daily_frequency: DailyFeedingFrequencyTypes.ALMOST_EVERYDAY
 
@@ -151,7 +151,7 @@ export abstract class DefaultEntityMock {
                 seven_days_freq: SevenDaysFeedingFrequencyTypes.ALL_DAYS
             }],
             daily_water_glasses: OneDayFeedingAmountTypes.FIVE_MORE,
-            six_month_breast_feeding: BreastFeedingTypes.COMPLEMENTARY,
+            six_month_breast_feeding: BreakfastFeedingTypes.COMPLEMENTARY,
             food_allergy_intolerance: [FoodAllergyIntoleranceTypes.EGG, FoodAllergyIntoleranceTypes.OTHER],
             breakfast_daily_frequency: DailyFeedingFrequencyTypes.ALMOST_EVERYDAY
         },

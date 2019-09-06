@@ -2,7 +2,7 @@ import { ValidationException } from '../exception/validation.exception'
 import { BreastFeedingTypes } from '../utils/breast.feeding.types'
 import { Strings } from '../../../utils/strings'
 
-export class BreastFeedingTypesValidator {
+export class BreakFastFeedingTypesValidator {
     public static validate(value: string): void | ValidationException {
         if (!Object.values(BreastFeedingTypes).includes(value)) {
             throw new ValidationException(

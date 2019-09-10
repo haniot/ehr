@@ -1,17 +1,18 @@
 import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { JsonUtils } from '../utils/json.utils'
+import { SchoolActivityFrequencyTypes } from '../utils/school.activity.frequency.types'
 
 export class PhysicalActivityHabits implements IJSONSerializable, IJSONDeserializable<PhysicalActivityHabits> {
 
-    private _school_activity_freq?: string
+    private _school_activity_freq?: SchoolActivityFrequencyTypes
     private _weekly_activities?: Array<string>
 
-    get school_activity_freq(): string | undefined {
+    get school_activity_freq(): SchoolActivityFrequencyTypes | undefined {
         return this._school_activity_freq
     }
 
-    set school_activity_freq(value: string | undefined) {
+    set school_activity_freq(value: SchoolActivityFrequencyTypes | undefined) {
         this._school_activity_freq = value
     }
 

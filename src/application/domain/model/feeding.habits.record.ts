@@ -2,14 +2,18 @@ import { IJSONSerializable } from '../utils/json.serializable.interface'
 import { IJSONDeserializable } from '../utils/json.deserializable.interface'
 import { WeeklyFoodRecord } from './weekly.food.record'
 import { JsonUtils } from '../utils/json.utils'
+import { OneDayFeedingAmountTypes } from '../utils/one.day.feeding.amount.types'
+import { BreakfastFeedingTypes } from '../utils/breakfast.feeding.types'
+import { FoodAllergyIntoleranceTypes } from '../utils/food.allergy.intolerance.types'
+import { DailyFeedingFrequencyTypes } from '../utils/daily.feeding.frequency.types'
 
 export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializable<FeedingHabitsRecord> {
 
     private _weekly_feeding_habits?: Array<WeeklyFoodRecord>
-    private _daily_water_glasses?: string
-    private _six_month_breast_feeding?: string
-    private _food_allergy_intolerance?: Array<string>
-    private _breakfast_daily_frequency?: string
+    private _daily_water_glasses?: OneDayFeedingAmountTypes
+    private _six_month_breast_feeding?: BreakfastFeedingTypes
+    private _food_allergy_intolerance?: Array<FoodAllergyIntoleranceTypes>
+    private _breakfast_daily_frequency?: DailyFeedingFrequencyTypes
 
     get weekly_feeding_habits(): Array<WeeklyFoodRecord> | undefined {
         return this._weekly_feeding_habits
@@ -19,35 +23,35 @@ export class FeedingHabitsRecord implements IJSONSerializable, IJSONDeserializab
         this._weekly_feeding_habits = value
     }
 
-    get daily_water_glasses(): string | undefined {
+    get daily_water_glasses(): OneDayFeedingAmountTypes | undefined {
         return this._daily_water_glasses
     }
 
-    set daily_water_glasses(value: string | undefined) {
+    set daily_water_glasses(value: OneDayFeedingAmountTypes | undefined) {
         this._daily_water_glasses = value
     }
 
-    get six_month_breast_feeding(): string | undefined {
+    get six_month_breast_feeding(): BreakfastFeedingTypes | undefined {
         return this._six_month_breast_feeding
     }
 
-    set six_month_breast_feeding(value: string | undefined) {
+    set six_month_breast_feeding(value: BreakfastFeedingTypes | undefined) {
         this._six_month_breast_feeding = value
     }
 
-    get food_allergy_intolerance(): Array<string> | undefined {
+    get food_allergy_intolerance(): Array<FoodAllergyIntoleranceTypes> | undefined {
         return this._food_allergy_intolerance
     }
 
-    set food_allergy_intolerance(value: Array<string> | undefined) {
+    set food_allergy_intolerance(value: Array<FoodAllergyIntoleranceTypes> | undefined) {
         this._food_allergy_intolerance = value
     }
 
-    get breakfast_daily_frequency(): string | undefined {
+    get breakfast_daily_frequency(): DailyFeedingFrequencyTypes | undefined {
         return this._breakfast_daily_frequency
     }
 
-    set breakfast_daily_frequency(value: string | undefined) {
+    set breakfast_daily_frequency(value: DailyFeedingFrequencyTypes | undefined) {
         this._breakfast_daily_frequency = value
     }
 

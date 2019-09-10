@@ -1,6 +1,6 @@
 {
   "name": "ehr-service",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Microservice responsible for managing health records through forms. It tracks patient habits related to physical activity, sleep and eating, sociodemographic information, among others.",
   "main": "dist/server.js",
   "scripts": {

@@ -26,14 +26,24 @@ describe('Validators: CreateOralHealthValidator', () => {
         })
 
         it('should throw an error for does not pass correct teeth_brushing_freq', () => {
-            activity.teeth_brushing_freq = 'invalid'
+            const wrongActivity: OralHealthRecord = new OralHealthRecord().fromJSON({
+                teeth_brushing_freq: 'invalid',
+                teeth_lesions: [
+                    {
+                        tooth_type: 'deciduous_tooth',
+                        lesion_type: 'white_spot_lesion'
+                    },
+                    {
+                        tooth_type: 'deciduous_tooth',
+                        lesion_type: 'cavitated_lesion'
+                    }
+                ]
+            })
             try {
-                CreateOralHealthRecordValidator.validate(activity)
+                CreateOralHealthRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for teeth_brushing_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: none, once, twice, three_more.')
-            }finally {
-                activity.teeth_brushing_freq = DefaultEntityMock.ORAL_HEALTH_RECORD.teeth_brushing_freq
             }
         })
 

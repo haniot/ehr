@@ -2,6 +2,7 @@ import { PhysicalActivityHabits } from '../../../src/application/domain/model/ph
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
 import { CreatePhysicalActivityHabitsValidator } from '../../../src/application/domain/validator/create.physical.activity.habits.validator'
 import { assert } from 'chai'
+import { SchoolActivityFrequencyTypes } from '../../../src/application/domain/utils/school.activity.frequency.types'
 
 describe('Validators: CreatePhysicalActivityHabitsValidator', () => {
     const activity: PhysicalActivityHabits =
@@ -26,20 +27,23 @@ describe('Validators: CreatePhysicalActivityHabitsValidator', () => {
         })
 
         it('should throw an error for does pass invalid school_activity_freq ', () => {
+            const wrongActivity: PhysicalActivityHabits =
+                new PhysicalActivityHabits().fromJSON({
+                    school_activity_freq: 'invalid',
+                    weekly_activities: ['run', 'swin']
+                })
             try {
-                activity.school_activity_freq = 'invalid'
-                CreatePhysicalActivityHabitsValidator.validate(activity)
+                CreatePhysicalActivityHabitsValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for school_activity_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: one_per_week, two_per_week,' +
                     ' three_per_week, four_more_per_week, none.')
-            } finally {
-                activity.school_activity_freq = DefaultEntityMock.PHYSICAL_ACTIVITY_HABITS.school_activity_freq
             }
         })
 
         it('should throw an error for does not pass weekly_activities ', () => {
             try {
+                activity.school_activity_freq = SchoolActivityFrequencyTypes.FOUR_MORE_PER_WEEK
                 activity.weekly_activities = undefined
                 CreatePhysicalActivityHabitsValidator.validate(activity)
             } catch (err) {

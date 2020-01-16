@@ -16,7 +16,6 @@ export abstract class Default {
     public static readonly SWAGGER_PATH: string = './src/ui/swagger/api.yaml'
     public static readonly SWAGGER_URI: string = 'https://api.swaggerhub.com/apis/haniot/ehr-service/v1/swagger.json'
     public static readonly LOGO_URI: string = 'https://i.imgur.com/O7PxGWQ.png'
-    public static readonly HOST_WHITELIST = ['*']
 
     // RabbitMQ
     public static readonly RABBITMQ_URI: string = 'amqp://guest:guest@127.0.0.1:5672'

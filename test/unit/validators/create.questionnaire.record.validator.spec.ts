@@ -1,7 +1,6 @@
 import { assert } from 'chai'
 import { DefaultEntityMock } from '../../mocks/models/default.entity.mock'
-import { CreateQuestionnaireRecordValidator }
-    from '../../../src/application/domain/validator/create.questionnaire.record.validator'
+import { CreateQuestionnaireRecordValidator } from '../../../src/application/domain/validator/create.questionnaire.record.validator'
 import { Strings } from '../../../src/utils/strings'
 
 describe('Validators: CreateQuestionnaireRecordValidator', () => {

@@ -15,9 +15,13 @@ describe('Validators: UpdatePhysicalActivityHabitsValidator', () => {
     })
     context('when there are validation errors', () => {
         it('should throw an error for does pass invalid school_activity_freq ', () => {
+            const wrongActivity: PhysicalActivityHabits =
+                new PhysicalActivityHabits().fromJSON({
+                    school_activity_freq: 'invalid',
+                    weekly_activities: ['run', 'swin']
+                })
             try {
-                activity.school_activity_freq = 'invalid'
-                UpdatePhysicalActivityHabitsValidator.validate(activity)
+                UpdatePhysicalActivityHabitsValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for school_activity_freq: invalid')
                 assert.propertyVal(err, 'description', 'The mapped values are: one_per_week, two_per_week,' +

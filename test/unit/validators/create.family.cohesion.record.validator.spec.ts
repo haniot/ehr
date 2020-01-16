@@ -26,7 +26,6 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
             }
         })
 
-
         it('should throw an error for does not pass friendship_approval_freq', () => {
             activity.friendship_approval_freq = undefined
             try {
@@ -150,137 +149,232 @@ describe('Validators: CreateFamilyCohesionRecord', () => {
         })
 
         it('should throw an error for does not pass correct family_mutual_aid_freq', () => {
-            activity.family_mutual_aid_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'invalid',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_mutual_aid_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.family_mutual_aid_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_mutual_aid_freq
             }
         })
 
         it('should throw an error for does not pass correct friendship_approval_freq', () => {
-            activity.friendship_approval_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'invalid',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for friendship_approval_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.friendship_approval_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.friendship_approval_freq
             }
         })
 
         it('should throw an error for does not pass correct family_only_task_freq', () => {
-            activity.family_only_task_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'invalid',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_only_task_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.family_only_task_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_task_freq
             }
         })
 
         it('should throw an error for does not pass correct family_only_preference_freq', () => {
-            activity.family_only_preference_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'invalid',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_only_preference_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.family_only_preference_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.family_only_preference_freq
             }
         })
 
         it('should throw an error for does not pass correct free_time_together_freq', () => {
-            activity.free_time_together_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'invalid',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for free_time_together_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.free_time_together_freq = DefaultEntityMock.FAMILY_COHESION_RECORD.free_time_together_freq
             }
         })
 
         it('should throw an error for does not pass correct family_proximity_perception_freq', () => {
-            activity.family_proximity_perception_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'invalid',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_proximity_perception_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.family_proximity_perception_freq =
-                    DefaultEntityMock.FAMILY_COHESION_RECORD.family_proximity_perception_freq
             }
         })
 
         it('should throw an error for does not pass correct all_family_tasks_freq', () => {
-            activity.all_family_tasks_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'invalid',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for all_family_tasks_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.all_family_tasks_freq =
-                    DefaultEntityMock.FAMILY_COHESION_RECORD.all_family_tasks_freq
             }
         })
 
         it('should throw an error for does not pass correct family_tasks_opportunity_freq', () => {
-            activity.family_tasks_opportunity_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'invalid',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_tasks_opportunity_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.family_tasks_opportunity_freq =
-                    DefaultEntityMock.FAMILY_COHESION_RECORD.family_tasks_opportunity_freq
             }
         })
 
         it('should throw an error for does not pass correct family_decision_support_freq', () => {
-            activity.family_decision_support_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'invalid',
+                family_union_relevance_freq: 'almost_never',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_decision_support_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.family_decision_support_freq =
-                    DefaultEntityMock.FAMILY_COHESION_RECORD.family_decision_support_freq
             }
         })
 
         it('should throw an error for does not pass correct family_union_relevance_freq', () => {
-            activity.family_union_relevance_freq = 'invalid'
+            const wrongActivity: FamilyCohesionRecord = new FamilyCohesionRecord().fromJSON({
+                family_mutual_aid_freq: 'almost_never',
+                friendship_approval_freq: 'almost_never',
+                family_only_task_freq: 'almost_never',
+                family_only_preference_freq: 'almost_never',
+                free_time_together_freq: 'almost_never',
+                family_proximity_perception_freq: 'almost_never',
+                all_family_tasks_freq: 'almost_never',
+                family_tasks_opportunity_freq: 'almost_never',
+                family_decision_support_freq: 'almost_never',
+                family_union_relevance_freq: 'invalid',
+                family_cohesion_result: 45
+            })
             try {
-                CreateFamilyCohesionRecordValidator.validate(activity)
+                CreateFamilyCohesionRecordValidator.validate(wrongActivity)
             } catch (err) {
                 assert.propertyVal(err, 'message', 'Value not mapped for family_union_relevance_freq: invalid')
                 assert.propertyVal(err, 'description',
                     'The mapped values are: almost_never, rarely, sometimes, often, almost_always.')
-            } finally {
-                activity.family_union_relevance_freq =
-                    DefaultEntityMock.FAMILY_COHESION_RECORD.family_union_relevance_freq
             }
         })
     })

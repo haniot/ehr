@@ -35,11 +35,11 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
         try {
             const patientId = query.toJSON().filters.patient_id
             if (patientId) ObjectIdValidator.validate(patientId)
+
+            return this._repo.find(query)
         } catch (err) {
             return Promise.reject(err)
         }
-        query.addFilter({ type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE })
-        return this._repo.find(query)
     }
 
     public async getById(id: string, query: IQuery): Promise<NutritionalQuestionnaire> {
@@ -64,8 +64,11 @@ export class NutritionalQuestionnaireService implements INutritionalQuestionnair
     }
 
     public count(query: IQuery): Promise<number> {
-        query.addFilter({ type: QuestionnaireTypes.NUTRITIONAL_QUESTIONNAIRE })
-        return this._repo.count(query)
+        try {
+            return this._repo.count(query)
+        } catch (err) {
+            return Promise.reject(err)
+        }
     }
 
     public removeQuestionnaire(patientId: string, questionnaireId: string): Promise<boolean> {

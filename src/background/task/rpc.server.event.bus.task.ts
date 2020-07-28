@@ -1,3 +1,4 @@
+import qs from 'query-strings-parser'
 import { inject, injectable } from 'inversify'
 import { Identifier } from '../../di/identifiers'
 import { IEventBus } from '../../infrastructure/port/event.bus.interface'
@@ -6,11 +7,8 @@ import { IBackgroundTask } from '../../application/port/background.task.interfac
 import { Query } from '../../infrastructure/repository/query/query'
 import { INutritionalQuestionnaireRepository } from '../../application/port/nutritional.questionnaire.repository'
 import { IOdontologicalQuestionnaireRepository } from '../../application/port/odontological.questionnaire.repository.interface'
-import qs from 'query-strings-parser'
 import { NutritionalQuestionnaire } from '../../application/domain/model/nutritional.questionnaire'
 import { OdontologicalQuestionnaire } from '../../application/domain/model/odontological.questionnaire'
-import fs from 'fs'
-import { Default } from '../../utils/default'
 import { IQuery } from '../../application/port/query.interface'
 
 @injectable()
@@ -26,24 +24,7 @@ export class RpcServerEventBusTask implements IBackgroundTask {
     }
 
     public run(): void {
-        // To use SSL/TLS, simply mount the uri with the amqps protocol and pass the CA.
-        const rabbitUri = process.env.RABBITMQ_URI || Default.RABBITMQ_URI
-        const rabbitOptions: any = { sslOptions: { ca: [] } }
-        if (rabbitUri.indexOf('amqps') === 0) {
-            rabbitOptions.sslOptions.ca = [fs.readFileSync(process.env.RABBITMQ_CA_PATH || Default.RABBITMQ_CA_PATH)]
-        }
-        // It RPC Server events, that for some reason could not
-        // e sent and were saved for later submission.
-        this._eventBus
-            .connectionRpcServer
-            .open(rabbitUri, rabbitOptions)
-            .then(() => {
-                this._logger.info('Connection with RPC Server opened successful!')
-                this.initializeServer()
-            })
-            .catch(err => {
-                this._logger.error(`Error trying to get connection to Event Bus for RPC Server. ${err.message}`)
-            })
+        this.initializeServer()
     }
 
     public async stop(): Promise<void> {
@@ -63,6 +44,7 @@ export class RpcServerEventBusTask implements IBackgroundTask {
             })
             .then(() => this._logger.info('Resource nutritional.questionnaires.find successful registered'))
             .catch((err) => this._logger.error(`Error at register resource nutritional.questionnaires.find: ${err.message}`))
+
         this._eventBus
             .provideResource('odontological.questionnaires.find', async (_query?: string) => {
                 const query: IQuery = this.buildQS(_query)

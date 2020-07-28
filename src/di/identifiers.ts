@@ -24,7 +24,6 @@ export abstract class Identifier {
     // Models
     public static readonly NUTRITIONAL_QUESTIONNAIRE_REPO_MODEL: any = Symbol.for('NutritionalQuestionnaireRepoModel')
     public static readonly ODONTOLOGICAL_QUESTIONNAIRE_REPO_MODEL: any = Symbol.for('OdontologicalQuestionnaireRepoModel')
-    public static readonly INTEGRATION_EVENT_REPO_MODEL: any = Symbol.for('IntegrationEventRepoModel')
 
     // Mappers
     public static readonly NUTRITIONAL_QUESTIONNAIRE_ENTITY_MAPPER: any = Symbol.for('NutritionalQuestionnaireEntityMapper')

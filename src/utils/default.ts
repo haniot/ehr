@@ -8,6 +8,7 @@
  * @abstract
  */
 export abstract class Default {
+    public static readonly APP_ID: string = 'ehr.app'
     public static readonly APP_TITLE: string = 'HANIoT EHR Service'
     public static readonly APP_DESCRIPTION: string = 'Microservice responsible for manage EHR data.'
     public static readonly NODE_ENV: string = 'development' // development, test, production

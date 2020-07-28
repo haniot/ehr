@@ -27,7 +27,7 @@ export class NutritionalQuestionnaireController {
             return res.status(HttpStatus.CREATED).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
+            return res.status(handleError.code).send(handleError.toJSON())
         }
     }
 
@@ -44,7 +44,7 @@ export class NutritionalQuestionnaireController {
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
+            return res.status(handleError.code).send(handleError.toJSON())
         }
     }
 
@@ -58,7 +58,7 @@ export class NutritionalQuestionnaireController {
                 questionnaires && questionnaires.length ? this.toJSONView(questionnaires[0]) : {})
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
+            return res.status(handleError.code).send(handleError.toJSON())
         }
     }
 
@@ -71,7 +71,7 @@ export class NutritionalQuestionnaireController {
             return res.status(HttpStatus.OK).send(this.toJSONView(result))
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
+            return res.status(handleError.code).send(handleError.toJSON())
         }
     }
 
@@ -83,7 +83,7 @@ export class NutritionalQuestionnaireController {
             return res.status(HttpStatus.NO_CONTENT).send()
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
+            return res.status(handleError.code).send(handleError.toJSON())
         }
     }
 
@@ -97,7 +97,7 @@ export class NutritionalQuestionnaireController {
             return res.status(HttpStatus.OK).send(req.body)
         } catch (err) {
             const handleError = ApiExceptionManager.build(err)
-            return res.status(handleError.code).send(handleError.toJson())
+            return res.status(handleError.code).send(handleError.toJSON())
         }
     }
 
@@ -117,6 +117,6 @@ export class NutritionalQuestionnaireController {
             HttpStatus.NOT_FOUND,
             Strings.NUTRITIONAL_QUESTIONNAIRE.NOT_FOUND,
             Strings.NUTRITIONAL_QUESTIONNAIRE.NOT_FOUND_DESCRIPTION
-        ).toJson()
+        ).toJSON()
     }
 }

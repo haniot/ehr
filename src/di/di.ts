@@ -37,9 +37,6 @@ import { EventBusRabbitMQ } from '../infrastructure/eventbus/rabbitmq/eventbus.r
 import { IConnectionEventBus } from '../infrastructure/port/connection.event.bus.interface'
 import { ConnectionRabbitMQ } from '../infrastructure/eventbus/rabbitmq/connection.rabbitmq'
 import { IEventBus } from '../infrastructure/port/event.bus.interface'
-import { IIntegrationEventRepository } from '../application/port/integration.event.repository.interface'
-import { IntegrationEventRepoModel } from '../infrastructure/database/schema/integration.event.schema'
-import { IntegrationEventRepository } from '../infrastructure/repository/integration.event.repository'
 import { RpcServerEventBusTask } from '../background/task/rpc.server.event.bus.task'
 
 export class IoC {
@@ -94,16 +91,12 @@ export class IoC {
             .to(NutritionalQuestionnaireRepository).inSingletonScope()
         this._container.bind<IOdontologicalQuestionnaireRepository>(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPOSITORY)
             .to(OdontologicalQuestionnaireRepository).inSingletonScope()
-        this._container
-            .bind<IIntegrationEventRepository>(Identifier.INTEGRATION_EVENT_REPOSITORY)
-            .to(IntegrationEventRepository).inSingletonScope()
 
         // Models
         this._container.bind(Identifier.NUTRITIONAL_QUESTIONNAIRE_REPO_MODEL)
             .toConstantValue(NutritionalQuestionnaireRepoModel)
         this._container.bind(Identifier.ODONTOLOGICAL_QUESTIONNAIRE_REPO_MODEL)
             .toConstantValue(OdontologicalQuestionnaireRepoModel)
-        this._container.bind(Identifier.INTEGRATION_EVENT_REPO_MODEL).toConstantValue(IntegrationEventRepoModel)
 
         // Mappers
         this._container
@@ -134,7 +127,8 @@ export class IoC {
         this._container
             .bind(Identifier.BACKGROUND_SERVICE)
             .to(BackgroundService).inSingletonScope()
-        // Task
+
+        // Tasks
         this._container
             .bind<IBackgroundTask>(Identifier.RPC_SERVER_EVENT_BUST_TASK)
             .to(RpcServerEventBusTask).inSingletonScope()

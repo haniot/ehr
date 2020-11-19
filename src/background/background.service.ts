@@ -51,9 +51,14 @@ export class BackgroundService {
         this._eventBus
             .connectionSub
             .open(rabbitConfigs.uri, rabbitConfigs.options)
-            .then(() => {
+            .then((conn) => {
                 this._logger.info('Connection with subscribe event opened successful!')
                 this._subscribeTask.run()
+
+                // When the connection has been lost
+                conn.on('reestablished', () => {
+                    this._logger.info('Connection with subscribe event reopened successful!')
+                })
             })
             .catch(err => {
                 this._logger.error(`Error trying to get connection to Event Bus for event subscribing. ${err.message}`)
@@ -62,9 +67,13 @@ export class BackgroundService {
         this._eventBus
             .connectionRpcServer
             .open(rabbitConfigs.uri, rabbitConfigs.options)
-            .then(() => {
+            .then((conn) => {
                 this._logger.info('Connection with RPC Server opened successful!')
                 this._rpcServerTask.run()
+
+                conn.on('reestablished', () => {
+                    this._logger.info('Connection with RPC Server reopened successful!')
+                })
             })
             .catch(err => {
                 this._logger.error(`Error trying to get connection to Event Bus for RPC Server. ${err.message}`)
